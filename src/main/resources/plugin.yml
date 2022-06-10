@@ -1,0 +1,35 @@
+name: EssentialsP
+version: '${project.version}'
+main: tk.pandadev.essentialsp.Main
+api-version: 1.18
+authors: [ PandaDEV ]
+description: Similar to EssentialsX but in German
+website: https://pandadev.tk
+commands:
+  gamemode:
+    aliases:
+      - gm
+  enderchest:
+    aliases:
+      - ec
+  warp:
+    aliases:
+      - setwarp
+      - delwarp
+  heal:
+  vanish:
+    aliases:
+      - v
+  tpa:
+  tpaccept:
+  home:
+    aliases:
+      - sethome
+      - delhome
+  invsee:
+  tphere:
+  speed:
+  fly:
+  sudo:
+  head:
+  rank:

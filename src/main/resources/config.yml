@@ -1,0 +1,10 @@
+ranks:
+  owner:
+    prefix: "§4Owner §7• §f"
+    players: []
+  admin:
+    prefix: "§cAdmin §7• §f"
+    players: []
+  spieler:
+    prefix: "§6Spieler §7• §7"
+    players: []
