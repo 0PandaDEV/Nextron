@@ -1,5 +1,4 @@
-# EssentialsP
-Commands:
+# Commands
 
 - `enderchest | ec [player]`
 - `fly [player]`
@@ -16,4 +15,30 @@ Commands:
 - `vanish | v [player]`
 - `warp | setwarp | delwarp <warp|name>`
 
-All commands have their own permission, but some commands are available to all players.
+Alle Befehle haben ihre eigene Berechtigung, allerdings sind einige Befehle für alle Spieler verfügbar.
+
+# Permissions
+
+- `essentialsp.enderchest.other`
+- `essentialsp.fly`
+- `essentialsp.fly.other`
+- `essentialsp.gamemode`
+- `essentialsp.gamemode.other`
+- `essentialsp.head`
+- `essentialsp.heal`
+- `essentialsp.heal.other`
+- `essentialsp.invsee`
+- `essentialsp.rank.set`
+- `essentialsp.rank.remove`
+- `essentialsp.rank.create`
+- `essentialsp.rank.delete`
+- `essentialsp.rank.modify.prefix`
+- `essentialsp.speed`
+- `essentialsp.sudo`
+- `essentialsp.tphere`
+- `essentialsp.vanish`
+- `essentialsp.vanish.other`
+- `essentialsp.setwarp`
+- `essentialsp.delwarp`
+
+Nicht alle Commands haben Permissions da sie Öfentlich sind
