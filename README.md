@@ -41,4 +41,4 @@ Alle Befehle haben ihre eigene Berechtigung, allerdings sind einige Befehle für
 - `essentialsp.setwarp`
 - `essentialsp.delwarp`
 
-Nicht alle Commands haben Permissions da sie Öfentlich sind
+Nicht alle Commands haben Permissions da sie Öfentlich sind z.b. Tpa sowie Tpaccept.
