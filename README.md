@@ -1,3 +1,5 @@
+### Supported Versions: 1.18, 1.19
+
 # Commands
 
 - `enderchest | ec [player]`
