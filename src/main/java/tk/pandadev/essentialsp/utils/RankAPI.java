@@ -32,7 +32,6 @@ public class RankAPI {
             Main.getInstance().getConfig().set("ranks." + rank.toLowerCase() + ".players", list);
             Main.getInstance().saveConfig();
         }
-        System.out.println("removed" + player.getName());
     }
 
     public static void createRank(Player player, String name, String prefix){
@@ -78,6 +77,21 @@ public class RankAPI {
         }
     }
 
+    public static void setName(Player player, String rankname, String name){
+
+        for (String rank : Main.getInstance().getConfig().getConfigurationSection("ranks").getKeys(false)){
+            Main.getInstance().getConfig().set(rank, rankname);
+        }
+
+        //if (Main.getInstance().getConfig().get("ranks." + rankname) != null){
+        //    Main.getInstance().getConfig().set("ranks." + rankname, name.substring(1));
+        //    Main.getInstance().saveConfig();
+        //    player.sendMessage(Main.getPrefix() + "§7Der Name des Ranks §a" + rankname + "§7 wurde auf §a" + name.substring(1) + "§7 geändert");
+        //} else {
+        //    player.sendMessage(Main.getPrefix() + "§cDieser Rank existiert nicht");
+        //}
+    }
+
     public static String getRank(Player player){
         for (String rank : Main.getInstance().getConfig().getConfigurationSection("ranks").getKeys(false)){
             if (Main.getInstance().getConfig().getStringList("ranks." + rank + ".players").contains(String.valueOf(player.getUniqueId()))){
@@ -93,8 +107,18 @@ public class RankAPI {
             list.add(String.valueOf(player.getUniqueId()));
             Main.getInstance().getConfig().set("ranks.spieler.players", list);
             Main.getInstance().saveConfig();
-            System.out.println("checked" + player.getName());
         }
     }
+
+    public static String getFormatedRank(Player player){
+        for (String rank : Main.getInstance().getConfig().getConfigurationSection("ranks").getKeys(false)){
+            if (Main.getInstance().getConfig().getStringList("ranks." + rank + ".players").contains(String.valueOf(player.getUniqueId()))){
+                return Main.getInstance().getConfig().getString("ranks." + rank + ".prefix").substring(0, 7);
+            }
+        }
+        return null;
+    }
+
+
 
 }

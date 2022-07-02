@@ -26,7 +26,7 @@ public final class Main extends JavaPlugin {
 
     private static Main instance;
     private Config config;
-    private static String Prefix = "§x§5§5§f§f§5§5§lE§x§5§5§f§f§6§1§lS§x§5§5§f§f§6§d§lS§x§5§5§f§f§7§9§lE§x§5§5§f§f§8§5§lN§x§5§5§f§f§9§2§lT§x§5§5§f§f§9§e§lI§x§5§5§f§f§a§a§lA§x§5§5§f§f§b§6§lL§x§5§5§f§f§c§2§lS §8» ";
+    private static String Prefix = "§a§lEssentialsP §8» ";
     private static String NoPerm = Prefix + "§cDazu hast du keine Berechtigung";
     private static String InvalidPlayer = Prefix + "§cDieser Spieler ist nicht Online";
     private VanishManager vanishManager;

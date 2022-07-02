@@ -8,3 +8,4 @@ ranks:
   spieler:
     prefix: "§6Spieler §7• §7"
     players: []
+#Der Rank spieler sollte immer vorhanden sein ansonsten funktioniert das system nicht mehr!

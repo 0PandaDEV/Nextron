@@ -26,8 +26,8 @@ public class TpacceptCommand implements CommandExecutor {
 
                 target.teleport(player.getLocation());
 
-                target.sendMessage(Main.getPrefix() + "§7Du wurdest zu §a" + target.getName() + "§7 Teleportiert");
-                player.sendMessage(Main.getPrefix() + "§a" + player.getName() + "§7 wurde zu dir Teleportiert");
+                target.sendMessage(Main.getPrefix() + "§7Du wurdest zu §a" + player.getName() + "§7 Teleportiert");
+                player.sendMessage(Main.getPrefix() + "§a" + target.getName() + "§7 wurde zu dir Teleportiert");
 
                 target.playSound(player.getLocation(), Sound.ENTITY_ENDERMAN_TELEPORT, 1.0f, 1.0f);
 

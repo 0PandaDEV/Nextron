@@ -21,20 +21,20 @@ public class RankCommand implements CommandExecutor, TabCompleter {
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (!(sender instanceof Player)) {
             sender.sendMessage(Main.getPrefix() + "§6Du musst diesen Command als Spieler ausführen!");
-
+            return false;
         }
 
         Player player = (Player)(sender);
 
         if (args[0].equalsIgnoreCase("set") && args.length == 3){
 
-            if (player.hasPermission("essentialsp.set")) {
+            if (player.hasPermission("essentialsp.rank.set")) {
 
                 Player target = Bukkit.getPlayer(args[1]);
 
                 if (target != null){
 
-                    RankAPI.setRank(player, args[2]);
+                    RankAPI.setRank(target, args[2]);
                     RankAPI.checkRank(target);
 
                 } else {
@@ -48,7 +48,7 @@ public class RankCommand implements CommandExecutor, TabCompleter {
 
         } else if (args[0].equalsIgnoreCase("remove") && args.length == 2){
 
-            if (player.hasPermission("essentialsp.remove")) {
+            if (player.hasPermission("essentialsp.rank.remove")) {
 
                 Player target = Bukkit.getPlayer(args[1]);
 
@@ -66,7 +66,7 @@ public class RankCommand implements CommandExecutor, TabCompleter {
                 player.sendMessage(Main.getNoPerm());
             }
         } else if (args[0].equalsIgnoreCase("create") && args.length >= 3){
-            if (player.hasPermission("essentialsp.create")) {
+            if (player.hasPermission("essentialsp.rank.create")) {
 
                 StringBuilder sb = new StringBuilder();
                 for(int i = 2; i < args.length; i++) {
@@ -81,7 +81,7 @@ public class RankCommand implements CommandExecutor, TabCompleter {
             }
         } else if (args[0].equalsIgnoreCase("delete") && args.length == 2){
 
-            if (player.hasPermission("essentialsp.delete")) {
+            if (player.hasPermission("essentialsp.rank.delete")) {
 
                 RankAPI.deleteRank(player, args[1].toLowerCase());
 
@@ -91,7 +91,7 @@ public class RankCommand implements CommandExecutor, TabCompleter {
 
         } else if (args[0].equalsIgnoreCase("modify") && args[1].equalsIgnoreCase("prefix") && args.length >= 4){
 
-            if (player.hasPermission("essentialsp.modify.prefix")) {
+            if (player.hasPermission("essentialsp.rank.modify.prefix")) {
 
                 StringBuilder sb = new StringBuilder();
                 for(int i = 3; i < args.length; i++) {
@@ -102,6 +102,22 @@ public class RankCommand implements CommandExecutor, TabCompleter {
                 RankAPI.setPrefix(player, args[2].toLowerCase(), ChatColor.translateAlternateColorCodes('&', String.valueOf(sb)));
 
             }else {
+                player.sendMessage(Main.getNoPerm());
+            }
+
+        } else if (args[0].equalsIgnoreCase("modify") && args[1].equalsIgnoreCase("name") && args.length >= 4){
+
+            if (player.hasPermission("essentialsp.rank.modify.name")) {
+
+                StringBuilder sb = new StringBuilder();
+                for(int i = 3; i < args.length; i++) {
+                    if (i > 1) sb.append(" ");
+                    sb.append(args[i]);
+                }
+
+                RankAPI.setName(player, args[2].toLowerCase(), String.valueOf(sb));
+
+            } else {
                 player.sendMessage(Main.getNoPerm());
             }
 
@@ -141,10 +157,15 @@ public class RankCommand implements CommandExecutor, TabCompleter {
             list.addAll(Objects.requireNonNull(Main.getInstance().getConfig().getConfigurationSection("ranks")).getKeys(false));
         } else if (args[0].equalsIgnoreCase("modify") && args.length == 2){
             list.add("prefix");
+            list.add("name");
         } else if (args[0].equalsIgnoreCase("modify") && args.length == 3){
             for (Player player : Bukkit.getOnlinePlayers()) {
                 list.add(player.getName());
             }
+        } else if (args[0].equalsIgnoreCase("modify") && args[1].equalsIgnoreCase("name") && args.length == 3) {
+            list.addAll(Objects.requireNonNull(Main.getInstance().getConfig().getConfigurationSection("ranks")).getKeys(false));
+        } else if (args[0].equalsIgnoreCase("modify") && args[1].equalsIgnoreCase("name") && args.length == 4){
+            list.add("<rankname>");
         }
 
         ArrayList<String> completerList = new ArrayList<String>();

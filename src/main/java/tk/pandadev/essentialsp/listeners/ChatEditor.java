@@ -22,9 +22,13 @@ public class ChatEditor implements Listener {
 
         for (String rank : ranks.getKeys(false)){
             for (Player target : Bukkit.getOnlinePlayers()){
-                if (ranks.getStringList(rank + ".players").contains(String.valueOf(target.getUniqueId()))) {
-                    player.setDisplayName(ranks.getString(rank + ".prefix") + ChatColor.WHITE + target.getName());
-                    event.setFormat(player.getDisplayName() + " §8» §f" + ChatColor.translateAlternateColorCodes('&', message));
+                if (target == player){
+                    if (ranks.getStringList(rank + ".players").contains(String.valueOf(target.getUniqueId()))) {
+                        player.setDisplayName(ranks.getString(rank + ".prefix") + ChatColor.WHITE + target.getName());
+                        event.setFormat(player.getDisplayName() + " §8» §f" + ChatColor.translateAlternateColorCodes('&', message));
+                    }
+                } else {
+                    System.out.println("Invalid");
                 }
             }
         }

@@ -41,7 +41,9 @@ public class VanishManager {
     }
 
     public void hideAll(Player player) {
-        this.vanished.forEach(player1 -> player.hidePlayer(this.plugin, (Player)player1));
+        if (!player.isOp()){
+            this.vanished.forEach(player1 -> player.hidePlayer(this.plugin, (Player)player1));
+        }
     }
 
 }
