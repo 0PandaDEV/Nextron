@@ -27,9 +27,9 @@ public class HomeCommands implements CommandExecutor, TabCompleter {
 
         if (label.equalsIgnoreCase("sethome") && args.length == 1){
 
-            if (Main.getInstance().getConfig().get("Homes." + player.getName() + "." + args[0].toLowerCase()) == null){
+            if (Main.getInstance().getConfig().get("Homes." + player.getUniqueId() + "." + args[0].toLowerCase()) == null){
 
-                Main.getInstance().getConfig().set("Homes." + player.getName() + "." + args[0].toLowerCase(), player.getLocation());
+                Main.getInstance().getConfig().set("Homes." + player.getUniqueId() + "." + args[0].toLowerCase(), player.getLocation());
                 Main.getInstance().saveConfig();
                 player.sendMessage(Main.getPrefix() + "§7Du hast den Home §a" + args[0].toLowerCase() + "§7 erstellt");
                 return true;
@@ -40,16 +40,16 @@ public class HomeCommands implements CommandExecutor, TabCompleter {
 
         } else if (label.equalsIgnoreCase("sethome") && args.length == 0){
 
-            Main.getInstance().getConfig().set("Homes." + player.getName() + ".default", player.getLocation());
+            Main.getInstance().getConfig().set("Homes." + player.getUniqueId() + ".default", player.getLocation());
             Main.getInstance().saveConfig();
             player.sendMessage(Main.getPrefix() + "§7Du hast deinen §aDefault §7Home gesetzt");
             return true;
 
         } else if (label.equalsIgnoreCase("delhome") && args.length == 1){
 
-            if (Main.getInstance().getConfig().get("Homes." + player.getName() + "." + args[0].toLowerCase()) != null){
+            if (Main.getInstance().getConfig().get("Homes." + player.getUniqueId() + "." + args[0].toLowerCase()) != null){
 
-                Main.getInstance().getConfig().set("Homes." + player.getName() + "." + args[0].toLowerCase(), null);
+                Main.getInstance().getConfig().set("Homes." + player.getUniqueId() + "." + args[0].toLowerCase(), null);
                 Main.getInstance().saveConfig();
                 player.sendMessage(Main.getPrefix() + "§7Du hast den Home §a" + args[0].toLowerCase() + "§7 gelöscht");
                 return true;
@@ -60,9 +60,9 @@ public class HomeCommands implements CommandExecutor, TabCompleter {
 
         } else if (label.equalsIgnoreCase("home") && args.length == 1){
 
-            if (Main.getInstance().getConfig().get("Homes." + player.getName() + "." + args[0].toLowerCase()) != null){
+            if (Main.getInstance().getConfig().get("Homes." + player.getUniqueId() + "." + args[0].toLowerCase()) != null){
 
-                player.teleport((Location) Objects.requireNonNull(Main.getInstance().getConfig().get("Homes." + player.getName() + "." + args[0].toLowerCase())));
+                player.teleport((Location) Objects.requireNonNull(Main.getInstance().getConfig().get("Homes." + player.getUniqueId() + "." + args[0].toLowerCase())));
                 player.playSound(player.getLocation(), Sound.ENTITY_ENDERMAN_TELEPORT, 1.0f, 1.0f);
                 if (Main.getInstance().getSettingsConfig().getBoolean(player.getUniqueId() + ".message")){
                     player.sendMessage(Main.getPrefix() + "§7Du hast dich zum Home §a" + args[0].toLowerCase() + "§7 teleportiert");
@@ -75,9 +75,9 @@ public class HomeCommands implements CommandExecutor, TabCompleter {
 
         } else if (label.equalsIgnoreCase("home") && args.length == 0){
 
-            if (Main.getInstance().getConfig().get("Homes." + player.getName() + ".default") != null){
+            if (Main.getInstance().getConfig().get("Homes." + player.getUniqueId() + ".default") != null){
 
-                player.teleport((Location) Objects.requireNonNull(Main.getInstance().getConfig().get("Homes." + player.getName() + ".default")));
+                player.teleport((Location) Objects.requireNonNull(Main.getInstance().getConfig().get("Homes." + player.getUniqueId() + ".default")));
                 player.playSound(player.getLocation(), Sound.ENTITY_ENDERMAN_TELEPORT, 1.0f, 1.0f);
                 if (Main.getInstance().getSettingsConfig().getBoolean(player.getUniqueId() + ".message")){
                     player.sendMessage(Main.getPrefix() + "§7Du hast dich zu deinem §aDefault §7Home teleportiert");
@@ -102,7 +102,9 @@ public class HomeCommands implements CommandExecutor, TabCompleter {
         Player playert = (Player)(sender);
 
         if (args.length == 1) {
-            if (args[0].equals("delhome") && args[0].equals("home")){
+            if (label.equalsIgnoreCase("delhome")){
+                list.addAll(Objects.requireNonNull(Main.getInstance().getConfig().getConfigurationSection("Homes." + playert.getName() + ".")).getKeys(false));
+            } else if (label.equalsIgnoreCase("home")){
                 list.addAll(Objects.requireNonNull(Main.getInstance().getConfig().getConfigurationSection("Homes." + playert.getName() + ".")).getKeys(false));
             }
         }

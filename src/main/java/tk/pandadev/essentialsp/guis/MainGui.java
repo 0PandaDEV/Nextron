@@ -18,26 +18,15 @@ import java.util.Map;
 public class MainGui {
     public static Inventory getInventory(Player player) throws IllegalAccessException, NoSuchFieldException {
         HashMap<Integer, ItemStack> integerItemStackHashMap = new HashMap<>();
-
-        //integerItemStackHashMap.put(22, new ItemBuilder(Material.PLAYER_HEAD).setDisplayname("§c§l" + player.getDisplayName()).setLocalizedName("player").build());
-
         Inventory inventory = Bukkit.createInventory(null, 5*9, "Settings");
 
-        //ItemStack item = new ItemStack(Material.PLAYER_HEAD, 1, (short) 3);
-        //SkullMeta skull = (SkullMeta) item.getItemMeta();
-        //skull.setDisplayName(player.getName());
-        //ArrayList<String> lore = new ArrayList<String>();
-        //lore.add("Player Settings");
-        //skull.setLore(lore);
-        //skull.setLocalizedName("player");
-        //skull.setOwner(player.getName());
-        //item.setItemMeta(skull);
-        //inventory.setItem(16, item);
-
-        //inventory.setItem(14, new ItemBuilder(Material.RED_DYE).setDisplayname("§c§lVanish Settings").setLocalizedName("vanish settings").build());
-        //inventory.setItem(13, new ItemBuilder(Material.NETHER_STAR).setDisplayname("§f§lCommand Feedback").setLocalizedName("command feedback").build());
-
-        //inventory.setItem(22, Utils.getSkull("https://textures.minecraft.net/texture/86971dd881dbaf4fd6bcaa93614493c612f869641ed59d1c9363a3666a5fa6", player.getName(), "player"));
+        ItemStack item = new ItemStack(Material.PLAYER_HEAD);
+        SkullMeta skull = (SkullMeta) item.getItemMeta();
+        skull.setDisplayName("§f" + player.getName());
+        skull.setLocalizedName("player");
+        skull.setOwner(player.getName());
+        item.setItemMeta(skull);
+        inventory.setItem(22, item);
 
         //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -114,6 +103,10 @@ public class MainGui {
         }
 
         inventory.setItem(12, new ItemBuilder(Material.HEART_OF_THE_SEA).setDisplayname("§3Vanish Settings").setLocalizedName("vanish settings").build());
+
+        //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+        inventory.setItem(13, new ItemBuilder(Material.COMPASS).setDisplayname("§7Home Settings").setLocalizedName("home settings").build());
 
         //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
