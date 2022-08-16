@@ -12,7 +12,7 @@ import tk.pandadev.essentialsp.guis.MainGui;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SettingsCommand implements CommandExecutor, TabCompleter {
+public class MenuCommand implements CommandExecutor, TabCompleter {
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
@@ -25,7 +25,7 @@ public class SettingsCommand implements CommandExecutor, TabCompleter {
         Player player = (Player) (sender);
 
         if (args.length == 0){
-            if (player.hasPermission("essentialsp.settings")){
+            if (player.hasPermission("essentialsp.menu")){
                 try {
                     player.openInventory(MainGui.getInventory(player));
                 } catch (IllegalAccessException | NoSuchFieldException e) {
@@ -36,7 +36,7 @@ public class SettingsCommand implements CommandExecutor, TabCompleter {
                 player.sendMessage(Main.getNoPerm());
             }
         } else {
-            player.sendMessage(Main.getPrefix() + "§c/settings");
+            player.sendMessage(Main.getPrefix() + "§c/menu");
         }
 
         return false;

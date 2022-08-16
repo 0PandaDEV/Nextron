@@ -81,7 +81,7 @@ public final class Main extends JavaPlugin {
         getCommand("sudo").setExecutor(new SudoCommand());
         getCommand("head").setExecutor(new HeadCommand());
         getCommand("rank").setExecutor(new RankCommand());
-        getCommand("settings").setExecutor(new SettingsCommand());
+        getCommand("menu").setExecutor(new MenuCommand());
     }
 
     private void registerListeners(){
