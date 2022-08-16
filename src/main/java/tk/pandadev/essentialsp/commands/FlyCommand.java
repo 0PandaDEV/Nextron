@@ -49,9 +49,13 @@ public class FlyCommand implements CommandExecutor, TabCompleter {
             if (player.hasPermission("essentialsp.fly")) {
 
                 if (player.getAllowFlight()){
-                    player.sendMessage(Main.getPrefix() + "§7Du kannst jetzt nicht mehr fliegen");
+                    if (Main.getInstance().getSettingsConfig().getBoolean(player.getUniqueId() + ".message")){
+                        player.sendMessage(Main.getPrefix() + "§7Du kannst jetzt nicht mehr fliegen");
+                    }
                 } else {
-                    player.sendMessage(Main.getPrefix() + "§7Du kannst jetzt fliegen");
+                    if (Main.getInstance().getSettingsConfig().getBoolean(player.getUniqueId() + ".message")){
+                        player.sendMessage(Main.getPrefix() + "§7Du kannst jetzt fliegen");
+                    }
                 }
 
                 player.setAllowFlight(!player.getAllowFlight());

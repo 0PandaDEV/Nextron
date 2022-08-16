@@ -1,9 +1,9 @@
-name: EssentialsP
+name: '${project.artifactId}'
 version: '${project.version}'
 main: tk.pandadev.essentialsp.Main
 api-version: 1.18
 authors: [ PandaDEV ]
-description: Similar to EssentialsX but in German
+description: '${project.description}'
 website: https://pandadev.tk
 commands:
   gamemode:
@@ -33,3 +33,4 @@ commands:
   sudo:
   head:
   rank:
+  settings:

@@ -27,7 +27,9 @@ public class SpeedCommand implements CommandExecutor {
                         player.setAllowFlight(true);
                         player.setFlying(true);
                         player.setFlySpeed(speed);
-                        player.sendMessage(Main.getPrefix() + "§7Die FlySpeed wurde auf §a" + args[0] + "§7 gesetzt");
+                        if (Main.getInstance().getSettingsConfig().getBoolean(player.getUniqueId() + ".feedback")){
+                            player.sendMessage(Main.getPrefix() + "§7Die FlySpeed wurde auf §a" + args[0] + "§7 gesetzt");
+                        }
                     }
                 } else if (player.isOnGround()){
                     float speed = Float.parseFloat(args[0]) / 10f;
@@ -35,7 +37,9 @@ public class SpeedCommand implements CommandExecutor {
                         player.sendMessage(Main.getPrefix() + "§cDer wert darf nicht höher als §610§c sein");
                     } else {
                         player.setWalkSpeed(speed);
-                        player.sendMessage(Main.getPrefix() + "§7Die WalkSpeed wurde auf §a" + args[0] + "§7 gesetzt");
+                        if (Main.getInstance().getSettingsConfig().getBoolean(player.getUniqueId() + ".feedback")){
+                            player.sendMessage(Main.getPrefix() + "§7Die WalkSpeed wurde auf §a" + args[0] + "§7 gesetzt");
+                        }
                     }
                 }
             } else{

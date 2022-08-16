@@ -32,7 +32,9 @@ public class GamemodeCommand implements CommandExecutor, TabCompleter {
                 if (args[0].equalsIgnoreCase("1") || args[0].equalsIgnoreCase("creative")) {
                     if (player.getGameMode() != GameMode.CREATIVE){
                         player.setGameMode(GameMode.CREATIVE);
-                        player.sendMessage(Main.getPrefix() + "§7Du hast dich in den Spielmodus §aCreative §7gesetzt");
+                        if (Main.getInstance().getSettingsConfig().getBoolean(player.getUniqueId() + ".feedback")){
+                            player.sendMessage(Main.getPrefix() + "§7Du hast dich in den Spielmodus §aCreative §7gesetzt");
+                        }
                     }else {
                         player.sendMessage(Main.getPrefix() + "§cDu bist bereits im Gamemode §6Creative");
                     }
@@ -40,7 +42,9 @@ public class GamemodeCommand implements CommandExecutor, TabCompleter {
                 if (args[0].equalsIgnoreCase("0") || args[0].equalsIgnoreCase("survival")) {
                     if (player.getGameMode() != GameMode.SURVIVAL){
                         player.setGameMode(GameMode.SURVIVAL);
-                        player.sendMessage(Main.getPrefix() + "§7Du hast dich in den Spielmodus §aSurvival §7gesetzt");
+                        if (Main.getInstance().getSettingsConfig().getBoolean(player.getUniqueId() + ".feedback")){
+                            player.sendMessage(Main.getPrefix() + "§7Du hast dich in den Spielmodus §aSurvival §7gesetzt");
+                        }
                     }else {
                         player.sendMessage(Main.getPrefix() + "§cDu bist bereits im Gamemode §6Survival");
                     }
@@ -48,7 +52,9 @@ public class GamemodeCommand implements CommandExecutor, TabCompleter {
                 if (args[0].equalsIgnoreCase("2") || args[0].equalsIgnoreCase("adventure")) {
                     if (player.getGameMode() != GameMode.ADVENTURE){
                         player.setGameMode(GameMode.ADVENTURE);
-                        player.sendMessage(Main.getPrefix() + "§7Du hast dich in den Spielmodus §aAdventure §7gesetzt");
+                        if (Main.getInstance().getSettingsConfig().getBoolean(player.getUniqueId() + ".feedback")){
+                            player.sendMessage(Main.getPrefix() + "§7Du hast dich in den Spielmodus §aAdventure §7gesetzt");
+                        }
                     }else {
                         player.sendMessage(Main.getPrefix() + "§cDu bist bereits im Gamemode §6Adventure");
                     }
@@ -56,7 +62,9 @@ public class GamemodeCommand implements CommandExecutor, TabCompleter {
                 if (args[0].equalsIgnoreCase("3") || args[0].equalsIgnoreCase("spectator")) {
                     if (player.getGameMode() != GameMode.SPECTATOR){
                         player.setGameMode(GameMode.SPECTATOR);
-                        player.sendMessage(Main.getPrefix() + "§7Du hast dich in den Spielmodus §aSpectator §7gesetzt");
+                        if (Main.getInstance().getSettingsConfig().getBoolean(player.getUniqueId() + ".feedback")){
+                            player.sendMessage(Main.getPrefix() + "§7Du hast dich in den Spielmodus §aSpectator §7gesetzt");
+                        }
                     }else {
                         player.sendMessage(Main.getPrefix() + "§cDu bist bereits im Gamemode §6Spectator");
                     }

@@ -1,18 +1,19 @@
 package tk.pandadev.essentialsp.commands;
 
-import org.bukkit.Bukkit;
+import org.bukkit.Sound;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabCompleter;
 import org.bukkit.entity.Player;
 import tk.pandadev.essentialsp.Main;
+import tk.pandadev.essentialsp.guis.MainGui;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
-public class TphereCommand implements CommandExecutor, TabCompleter {
+public class SettingsCommand implements CommandExecutor, TabCompleter {
+
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
 
@@ -23,28 +24,19 @@ public class TphereCommand implements CommandExecutor, TabCompleter {
 
         Player player = (Player) (sender);
 
-        if (args.length == 1){
-            if (player.hasPermission("essentialsp.tphere")){
-                Player target = Bukkit.getPlayer(args[0]);
-
-                if (target != null){
-
-                    if (!Objects.equals(target.getName(), player.getName())) {
-                        target.teleport(player.getLocation());
-
-                        if (Main.getInstance().getSettingsConfig().getBoolean(player.getUniqueId() + ".feedback")){
-                            player.sendMessage(Main.getPrefix() + "§7Der Spieler §a" + target.getName() + "§7 wurde zu dir Teleportiert");
-                        }
-
-                    } else {
-                        player.sendMessage(Main.getPrefix() + "§cDu kannst dich nicht selbst zu dir Teleportieren");
-                    }
-                } else {
-                    player.sendMessage(Main.getInvalidPlayer());
+        if (args.length == 0){
+            if (player.hasPermission("essentialsp.settings")){
+                try {
+                    player.openInventory(MainGui.getInventory(player));
+                } catch (IllegalAccessException | NoSuchFieldException e) {
+                    e.printStackTrace();
                 }
+                player.playSound(player.getLocation(), Sound.BLOCK_BARREL_OPEN, 100, 1);
+            } else {
+                player.sendMessage(Main.getNoPerm());
             }
         } else {
-            player.sendMessage(Main.getPrefix() + "§c/tphere <player>");
+            player.sendMessage(Main.getPrefix() + "§c/settings");
         }
 
         return false;
@@ -52,14 +44,10 @@ public class TphereCommand implements CommandExecutor, TabCompleter {
 
     @Override
     public List<String> onTabComplete(CommandSender sender, Command command, String label, String[] args) {
-
+        Player playert = (Player) (sender);
         ArrayList<String> list = new ArrayList<String>();
 
-        if (args.length == 1){
-            for (Player player : Bukkit.getOnlinePlayers()) {
-                list.add(player.getName());
-            }
-        }
+
 
         ArrayList<String> completerList = new ArrayList<String>();
         String currentarg = args[args.length - 1].toLowerCase();
@@ -71,4 +59,5 @@ public class TphereCommand implements CommandExecutor, TabCompleter {
 
         return completerList;
     }
+
 }

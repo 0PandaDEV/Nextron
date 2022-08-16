@@ -8,13 +8,20 @@ import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.scheduler.BukkitRunnable;
 import tk.pandadev.essentialsp.Main;
 import tk.pandadev.essentialsp.utils.RankAPI;
+import tk.pandadev.essentialsp.utils.SettingsConfig;
+import tk.pandadev.essentialsp.utils.VanishAPI;
 
 public class JoinListener implements Listener {
 
     @EventHandler
     public void onJoin(PlayerJoinEvent event){
         Player player = event.getPlayer();
-        event.setJoinMessage("§2[§a+§2] " + ChatColor.GRAY + player.getDisplayName());
+        SettingsConfig.checkSettings(player);
+        if (VanishAPI.isVanish(player)){
+            event.setJoinMessage("");
+        }else {
+            event.setJoinMessage("§2[§a+§2] " + ChatColor.GRAY + player.getName());
+        }
         RankAPI.checkRank(player);
         run();
     }

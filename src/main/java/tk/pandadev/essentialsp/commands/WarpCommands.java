@@ -57,7 +57,9 @@ public class WarpCommands implements CommandExecutor, TabCompleter {
             if (Main.getInstance().getConfig().get("Warps." + args[0].toLowerCase()) != null) {
                 Location location = (Location) Main.getInstance().getConfig().get("Warps." + args[0].toLowerCase());
                 player.teleport(location);
-                player.sendMessage(Main.getPrefix() + "§7Du wurdest zum Warp §a" + args[0] + "§7 teleportiert!");
+                if (Main.getInstance().getSettingsConfig().getBoolean(player.getUniqueId() + ".feedback")){
+                    player.sendMessage(Main.getPrefix() + "§7Du wurdest zum Warp §a" + args[0] + "§7 teleportiert!");
+                }
                 player.playSound(player.getLocation(), Sound.ENTITY_ENDERMAN_TELEPORT, 1.0f, 1.0f);
                 return true;
             } else {

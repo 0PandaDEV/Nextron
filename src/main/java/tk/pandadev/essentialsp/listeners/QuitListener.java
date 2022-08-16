@@ -5,13 +5,21 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerQuitEvent;
+import tk.pandadev.essentialsp.Main;
+import tk.pandadev.essentialsp.utils.SettingsConfig;
+import tk.pandadev.essentialsp.utils.VanishAPI;
 
 public class QuitListener implements Listener {
 
     @EventHandler
     public void onQuit(PlayerQuitEvent event) {
         Player player = event.getPlayer();
-        event.setQuitMessage("§4[§c-§4] " + ChatColor.GRAY + player.getDisplayName());
+        SettingsConfig.checkSettings(player);
+        if (VanishAPI.isVanish(player)){
+            event.setQuitMessage("");
+        }else {
+            event.setQuitMessage("§4[§c-§4] " + ChatColor.RED + player.getName());
+        }
     }
 
 }

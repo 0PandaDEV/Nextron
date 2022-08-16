@@ -64,7 +64,9 @@ public class HomeCommands implements CommandExecutor, TabCompleter {
 
                 player.teleport((Location) Objects.requireNonNull(Main.getInstance().getConfig().get("Homes." + player.getName() + "." + args[0].toLowerCase())));
                 player.playSound(player.getLocation(), Sound.ENTITY_ENDERMAN_TELEPORT, 1.0f, 1.0f);
-                player.sendMessage(Main.getPrefix() + "§7Du hast dich zum Home §a" + args[0].toLowerCase() + "§7 teleportiert");
+                if (Main.getInstance().getSettingsConfig().getBoolean(player.getUniqueId() + ".message")){
+                    player.sendMessage(Main.getPrefix() + "§7Du hast dich zum Home §a" + args[0].toLowerCase() + "§7 teleportiert");
+                }
                 return true;
 
             } else {
@@ -77,7 +79,9 @@ public class HomeCommands implements CommandExecutor, TabCompleter {
 
                 player.teleport((Location) Objects.requireNonNull(Main.getInstance().getConfig().get("Homes." + player.getName() + ".default")));
                 player.playSound(player.getLocation(), Sound.ENTITY_ENDERMAN_TELEPORT, 1.0f, 1.0f);
-                player.sendMessage(Main.getPrefix() + "§7Du hast dich zu deinem §aDefault §7Home teleportiert");
+                if (Main.getInstance().getSettingsConfig().getBoolean(player.getUniqueId() + ".message")){
+                    player.sendMessage(Main.getPrefix() + "§7Du hast dich zu deinem §aDefault §7Home teleportiert");
+                }
                 return true;
 
             } else {
@@ -98,7 +102,9 @@ public class HomeCommands implements CommandExecutor, TabCompleter {
         Player playert = (Player)(sender);
 
         if (args.length == 1) {
-            list.addAll(Objects.requireNonNull(Main.getInstance().getConfig().getConfigurationSection("Homes." + playert.getName() + ".")).getKeys(false));
+            if (args[0].equals("delhome") && args[0].equals("home")){
+                list.addAll(Objects.requireNonNull(Main.getInstance().getConfig().getConfigurationSection("Homes." + playert.getName() + ".")).getKeys(false));
+            }
         }
 
         ArrayList<String> completerList = new ArrayList<String>();

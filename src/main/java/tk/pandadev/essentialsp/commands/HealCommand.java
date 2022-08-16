@@ -28,7 +28,9 @@ public class HealCommand implements CommandExecutor, TabCompleter {
                 if (player.getHealth() != player.getMaxHealth()) {
                     player.setHealth(player.getMaxHealth());
                     player.setFoodLevel(20);
-                    player.sendMessage(Main.getPrefix() + "§7Du hast dich geheilt");
+                    if (Main.getInstance().getSettingsConfig().getBoolean(player.getUniqueId() + ".feedback")){
+                        player.sendMessage(Main.getPrefix() + "§7Du hast dich geheilt");
+                    }
                     player.playSound(player.getLocation(), Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 1.0f, 1.0f);
                     return true;
                 }
