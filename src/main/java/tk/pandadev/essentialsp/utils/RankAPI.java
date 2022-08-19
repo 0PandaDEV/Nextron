@@ -41,7 +41,11 @@ public class RankAPI {
                 Main.getInstance().getConfig().set("ranks." + name + ".prefix", prefix.substring(1));
                 Main.getInstance().getConfig().set("ranks." + name + ".players", list);
                 Main.getInstance().saveConfig();
-                player.sendMessage(Main.getPrefix() + "§7Der Rank §a" + name + "§7 wurde erstellt");
+                try {
+                    player.sendMessage(Main.getPrefix() + "§7Der Rank §a" + name + "§7 wurde erstellt");
+                } catch (Exception e) {
+                    throw new RuntimeException(e);
+                }
             }else {
                 player.sendMessage(Main.getPrefix() + "§cDieser Rank existiert bereits");
             }
