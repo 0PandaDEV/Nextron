@@ -1,4 +1,4 @@
-### Supported Versions: 1.18, 1.19
+### Supported Versions: 1.19.x
 
 # Commands
 
@@ -43,4 +43,4 @@ Alle Befehle haben ihre eigene Berechtigung, allerdings sind einige Befehle für
 - `essentialsp.setwarp`
 - `essentialsp.delwarp`
 
-Nicht alle Commands haben Permissions da sie Öfentlich sind z.b. Tpa sowie Tpaccept.
+Nicht alle Commands haben Permissions da sie Öffentlich sind z.b. Tpa sowie Tpaccept.
