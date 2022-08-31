@@ -1,46 +1,19 @@
-### Supported Versions: 1.19.x
+<span style="color: red">**Attention: The plugin is only available in German at the moment, English coming soon!**</span>
 
-# Commands
+<img src="https://cdn.discordapp.com/attachments/903181864116826112/1014101954739322900/About.png" width="250"/>
 
-- `enderchest | ec [player]`
-- `fly [player]`
-- `gamemode | gm <mode> [player]`
-- `head <player>`
-- `heal [player]`
-- `home | sethome | delhome <home|name>`
-- `invsee <player>`
-- `rank <add|remove|create|delete|modify>`
-- `speed <1-10>`
-- `sudo <player> <command>`
-- `tpa | tpaccept <player>`
-- `tphere <player>`
-- `vanish | v [player]`
-- `warp | setwarp | delwarp <warp|name>`
+EssentialsP is a Plugin that Provides the Basic Structure of a Server with many Features. Such as Basic Commands for Creating Homes, Warps, and other server structure related things. It also includes a menu where each user can make and manage settings.
 
-Alle Befehle haben ihre eigene Berechtigung, allerdings sind einige Befehle für alle Spieler verfügbar.
+<img src="https://cdn.discordapp.com/attachments/903181864116826112/1014101956060528660/Requirements.png" width="400"/>
 
-# Permissions
+- A permission plugin is highly recommended, for example [LuckPerms](https://luckperms.net/), as it can manage all permissions.
+- EssentialsP runs on Bukkit, Spigot, Paper and [Purpur (recommended)](https://purpurmc.org/).
+- EssentialsP supports 1.19 and higher.
 
-- `essentialsp.enderchest.other`
-- `essentialsp.fly`
-- `essentialsp.fly.other`
-- `essentialsp.gamemode`
-- `essentialsp.gamemode.other`
-- `essentialsp.head`
-- `essentialsp.heal`
-- `essentialsp.heal.other`
-- `essentialsp.invsee`
-- `essentialsp.rank.set`
-- `essentialsp.rank.remove`
-- `essentialsp.rank.create`
-- `essentialsp.rank.delete`
-- `essentialsp.rank.modify.prefix`
-- `essentialsp.speed`
-- `essentialsp.sudo`
-- `essentialsp.tphere`
-- `essentialsp.vanish`
-- `essentialsp.vanish.other`
-- `essentialsp.setwarp`
-- `essentialsp.delwarp`
+<img src="https://cdn.discordapp.com/attachments/903181864116826112/1014101955733360670/Issue.png" width="220"/>
 
-Nicht alle Commands haben Permissions da sie Öffentlich sind z.b. Tpa sowie Tpaccept.
+If you find any issues, please remember to report them here [GitHub](https://github.com/0PandaDEV/EssentialsP/issues)
+
+<img src="https://cdn.discordapp.com/attachments/903181864116826112/1014101955074863144/Credits.png" width="220"/>
+
+[NegativeGames Framework](https://github.com/Negative-Games/Framework) Dependency by NegativeDev, seailz and joeecodes
