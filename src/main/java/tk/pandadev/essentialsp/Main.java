@@ -1,5 +1,7 @@
 package tk.pandadev.essentialsp;
 
+import games.negative.framework.BasePlugin;
+import games.negative.framework.scoreboard.Scoreboard;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -9,10 +11,7 @@ import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitRunnable;
 import tk.pandadev.essentialsp.commands.*;
-import tk.pandadev.essentialsp.listeners.ChatEditor;
-import tk.pandadev.essentialsp.listeners.InventoryClickListener;
-import tk.pandadev.essentialsp.listeners.JoinListener;
-import tk.pandadev.essentialsp.listeners.QuitListener;
+import tk.pandadev.essentialsp.listeners.*;
 import tk.pandadev.essentialsp.tablist.TablistManager;
 import tk.pandadev.essentialsp.utils.Config;
 import tk.pandadev.essentialsp.utils.SettingsConfig;
@@ -20,9 +19,9 @@ import tk.pandadev.essentialsp.utils.VanishAPI;
 import tk.pandadev.essentialsp.utils.VanishManager;
 import java.io.File;
 import java.io.IOException;
-import java.util.HashMap;
+import java.util.*;
 
-public final class Main extends JavaPlugin {
+public final class Main extends BasePlugin {
 
     private static Main instance;
     private Config config;
@@ -35,11 +34,13 @@ public final class Main extends JavaPlugin {
     private VanishManager vanishManager;
     private VanishAPI vanishAPI;
     private TablistManager tablistManager;
+    private Scoreboard scoreboard;
 
     public static HashMap<Player, Player> tpa = new HashMap<>();
 
     @Override
     public void onEnable() {
+        super.onEnable();
         createCustomConfig();
         saveDefaultConfig();
         vanishManager = new VanishManager(this);
@@ -82,6 +83,7 @@ public final class Main extends JavaPlugin {
         getCommand("head").setExecutor(new HeadCommand());
         getCommand("rank").setExecutor(new RankCommand());
         getCommand("menu").setExecutor(new MenuCommand());
+        getCommand("rl").setExecutor(new ReloadCommand());
     }
 
     private void registerListeners(){
@@ -89,7 +91,7 @@ public final class Main extends JavaPlugin {
         pluginManager.registerEvents(new JoinListener(), this);
         pluginManager.registerEvents(new QuitListener(), this);
         pluginManager.registerEvents(new ChatEditor(), this);
-        pluginManager.registerEvents(new InventoryClickListener(), this);
+        pluginManager.registerEvents(new InputListener(), this);
     }
 
     private void createCustomConfig() {
