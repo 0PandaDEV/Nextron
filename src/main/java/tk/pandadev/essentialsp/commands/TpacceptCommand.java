@@ -38,8 +38,6 @@ public class TpacceptCommand implements CommandExecutor {
                 Main.tpa.remove(player);
                 Main.tpa.remove(target);
 
-                System.out.println(Main.tpa.toString());
-
             } else {
                 player.sendMessage(Main.getPrefix() + "§cDu hast keine ausstehende Tpas");
             }
