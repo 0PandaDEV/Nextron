@@ -1,121 +1,132 @@
 package tk.pandadev.essentialsp.guis;
 
+import games.negative.framework.gui.GUI;
+import games.negative.framework.util.ItemBuilder;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
+import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
-import org.bukkit.inventory.meta.SkullMeta;
 import tk.pandadev.essentialsp.Main;
-import tk.pandadev.essentialsp.utils.ItemBuilder;
-import tk.pandadev.essentialsp.utils.Utils;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-public class MainGui {
-    public static Inventory getInventory(Player player) throws IllegalAccessException, NoSuchFieldException {
-        HashMap<Integer, ItemStack> integerItemStackHashMap = new HashMap<>();
-        Inventory inventory = Bukkit.createInventory(null, 5*9, "Settings");
+public class MainGui extends GUI {
 
-        ItemStack item = new ItemStack(Material.PLAYER_HEAD);
-        SkullMeta skull = (SkullMeta) item.getItemMeta();
-        skull.setDisplayName("§f" + player.getName());
-        skull.setLocalizedName("player");
-        skull.setOwner(player.getName());
-        item.setItemMeta(skull);
-        inventory.setItem(22, item);
+    public MainGui(Player player) {
+        super("Menu", 5);
 
-        //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        ////////////////////////////////////////////////////////////////////////////////////////////////
+
+        ItemStack feedback_active = new ItemBuilder(Material.LIME_DYE)
+                .setName("§a✔ §8| §aCommand Feedback ist aktiviert")
+                .addLoreLine("")
+                .addLoreLine("§8Steuert ob eine Nachricht als ergebnis").
+                addLoreLine("§8nach einem Command angezeigt werden soll")
+                .addLoreLine("§8z.b. 'Du wurdest in den Gamemode Creative gesetzt'")
+                .addLoreLine("§8Fehlermeldungen werden dennoch angezeigt")
+                .addLoreLine("§8sowie wichtige nachrichten")
+                .addLoreLine("")
+                .addLoreLine("§aLinksklick §c>> §7Toggle")
+                .build();
+
+        ItemStack feedback_inactive = new ItemBuilder(Material.GRAY_DYE)
+                .setName("§c❌ §8| §7Command Feedback ist deaktiviert")
+                .addLoreLine("")
+                .addLoreLine("§8Steuert ob eine Nachricht als ergebnis").
+                addLoreLine("§8nach einem Command angezeigt werden soll")
+                .addLoreLine("§8z.b. 'Du wurdest in den Gamemode Creative gesetzt'")
+                .addLoreLine("§8Fehlermeldungen werden dennoch angezeigt")
+                .addLoreLine("§8sowie wichtige nachrichten")
+                .addLoreLine("")
+                .addLoreLine("§aLinksklick §c>> §7Toggle")
+                .build();
 
         if (Main.getInstance().getSettingsConfig().getBoolean(player.getUniqueId() + ".feedback")){
-            ItemStack feedback = new ItemStack(Material.LIME_DYE);
-            ItemMeta feedback_meta = feedback.getItemMeta();
-            feedback_meta.setDisplayName("§a✔ §8| §aCommand Feedback ist aktiviert");
-            feedback_meta.setLocalizedName("feedback toggler");
-            ArrayList<String> feedback_lore = new ArrayList<String>();
-            feedback_lore.add("");
-            feedback_lore.add("§8Steuert ob eine Nachricht als ergebnis");
-            feedback_lore.add("§8nach einem Command angezeigt werden soll");
-            feedback_lore.add("§8z.b. 'Du wurdest in den Gamemode Creative gesetzt'");
-            feedback_lore.add("§8Fehlermeldungen werden dennoch angezeigt");
-            feedback_lore.add("§8sowie wichtige nachrichten");
-            feedback_lore.add("");
-            feedback_lore.add("§aLinksklick §c>> §7Toggle");
-            feedback_meta.setLore(feedback_lore);
-            feedback.setItemMeta(feedback_meta);
-            inventory.setItem(32, feedback);
+            setItemClickEvent(33, player1 -> feedback_active, (player1, event) -> {
+                if (event.getClick().isLeftClick()) {
+                    Main.getInstance().getSettingsConfig().set(player.getUniqueId() + ".feedback", false);
+                    Main.getInstance().saveSettingsConfig();
+                    new MainGui(player1).open(player1);
+                    player.playSound(player.getLocation(), Sound.BLOCK_BEACON_DEACTIVATE, 100, 1);
+                }
+            });
         } else {
-            ItemStack feedback = new ItemStack(Material.GRAY_DYE);
-            ItemMeta feedback_meta = feedback.getItemMeta();
-            feedback_meta.setDisplayName("§c❌ §8| §7Command Feedback ist deaktiviert");
-            feedback_meta.setLocalizedName("feedback toggler");
-            ArrayList<String> feedback_lore = new ArrayList<String>();
-            feedback_lore.add("");
-            feedback_lore.add("§8Steuert ob eine Nachricht als ergebnis");
-            feedback_lore.add("§8nach einem Command angezeigt werden soll");
-            feedback_lore.add("§8z.b. 'Du wurdest in den Gamemode Creative gesetzt'");
-            feedback_lore.add("§8Fehlermeldungen werden dennoch angezeigt");
-            feedback_lore.add("§8sowie wichtige nachrichten");
-            feedback_lore.add("");
-            feedback_lore.add("§aLinksklick §c>> §7Toggle");
-            feedback_meta.setLore(feedback_lore);
-            feedback.setItemMeta(feedback_meta);
-            inventory.setItem(32, feedback);
+            setItemClickEvent(33, player1 -> feedback_inactive, (player1, event) -> {
+                if (event.getClick().isLeftClick()) {
+                    Main.getInstance().getSettingsConfig().set(player.getUniqueId() + ".feedback", true);
+                    Main.getInstance().saveSettingsConfig();
+                    new MainGui(player1).open(player1);
+                    player.playSound(player.getLocation(), Sound.BLOCK_BEACON_ACTIVATE, 100, 1);
+                }
+            });
         }
 
-        inventory.setItem(14, new ItemBuilder(Material.NETHERITE_INGOT).setDisplayname("§8Command Feedback Settings").setLocalizedName("feedback settings").build());
+        ////////////////////////////////////////////////////////////////////////////////////////////////
 
-        //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        setItem(15, player1 -> new ItemBuilder(Material.NETHERITE_INGOT).setName("§8Command Feedback Settings").build());
+
+        ////////////////////////////////////////////////////////////////////////////////////////////////
+
+        ItemStack vanish_active = new ItemBuilder(Material.LIME_DYE)
+                .setName("§a✔ §8| §aFake Join/Quit Message aktiviert")
+                .addLoreLine("")
+                .addLoreLine("§8Steuert ob eine Fake Join oder Quit").
+                addLoreLine("§8Nachricht angezeigt werden soll")
+                .addLoreLine("§8wen du in den Vanish gehst oder ihn verlässt")
+                .addLoreLine("")
+                .addLoreLine("§aLinksklick §c>> §7Toggle")
+                .build();
+
+        ItemStack vanish_inactive = new ItemBuilder(Material.GRAY_DYE)
+                .setName("§c❌ §8| §7Fake Join/Quit Message deaktiviert")
+                .addLoreLine("")
+                .addLoreLine("§8Steuert ob eine Fake Join oder Quit").
+                addLoreLine("§8Nachricht angezeigt werden soll")
+                .addLoreLine("§8wen du in den Vanish gehst oder ihn verlässt")
+                .addLoreLine("")
+                .addLoreLine("§aLinksklick §c>> §7Toggle")
+                .build();
 
         if (Main.getInstance().getSettingsConfig().getBoolean(player.getUniqueId() + ".vanish." + "message")){
-            ItemStack vanish = new ItemStack(Material.LIME_DYE);
-            ItemMeta vanish_meta = vanish.getItemMeta();
-            vanish_meta.setDisplayName("§a✔ §8| §aFake Join/Quit Message aktiviert");
-            vanish_meta.setLocalizedName("vanish message toggler");
-            ArrayList<String> vanish_lore = new ArrayList<String>();
-            vanish_lore.add("");
-            vanish_lore.add("§8Steuert ob eine Fake Join oder Quit");
-            vanish_lore.add("§8Nachricht angezeigt werden soll");
-            vanish_lore.add("§8wen du in den Vanish gehst oder ihn verlässt");
-            vanish_lore.add("");
-            vanish_lore.add("§aLinksklick §c>> §7Toggle");
-            vanish_meta.setLore(vanish_lore);
-            vanish.setItemMeta(vanish_meta);
-            inventory.setItem(30, vanish);
+            setItemClickEvent(29, player1 -> vanish_active, (player1, event) -> {
+                if (event.getClick().isLeftClick()) {
+                    Main.getInstance().getSettingsConfig().set(player.getUniqueId() + ".vanish" + ".message", false);
+                    Main.getInstance().saveSettingsConfig();
+                    new MainGui(player1).open(player1);
+                    player.playSound(player.getLocation(), Sound.BLOCK_BEACON_DEACTIVATE, 100, 1);
+                }
+            });
         } else {
-            ItemStack vanish = new ItemStack(Material.GRAY_DYE);
-            ItemMeta vanish_meta = vanish.getItemMeta();
-            vanish_meta.setDisplayName("§c❌ §8| §7Fake Join/Quit Message deaktiviert");
-            vanish_meta.setLocalizedName("vanish message toggler");
-            ArrayList<String> vanish_lore = new ArrayList<String>();
-            vanish_lore.add("");
-            vanish_lore.add("§8Steuert ob eine Fake Join oder Quit");
-            vanish_lore.add("§8Nachricht angezeigt werden soll");
-            vanish_lore.add("§8wen du in den Vanish gehst oder ihn verlässt");
-            vanish_lore.add("");
-            vanish_lore.add("§aLinksklick §c>> §7Toggle");
-            vanish_meta.setLore(vanish_lore);
-            vanish.setItemMeta(vanish_meta);
-            inventory.setItem(30, vanish);
+            setItemClickEvent(29, player1 -> vanish_inactive, (player1, event) -> {
+                if (event.getClick().isLeftClick()) {
+                    Main.getInstance().getSettingsConfig().set(player.getUniqueId() + ".vanish" + ".message", true);
+                    Main.getInstance().saveSettingsConfig();
+                    new MainGui(player1).open(player1);
+                    player.playSound(player.getLocation(), Sound.BLOCK_BEACON_ACTIVATE, 100, 1);
+                }
+            });
         }
 
-        inventory.setItem(12, new ItemBuilder(Material.HEART_OF_THE_SEA).setDisplayname("§3Vanish Settings").setLocalizedName("vanish settings").build());
+        ////////////////////////////////////////////////////////////////////////////////////////////////
 
-        //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        setItem(11, player1 -> new ItemBuilder(Material.HEART_OF_THE_SEA).setName("§3Vanish Schittings").build());
 
-        inventory.setItem(13, new ItemBuilder(Material.COMPASS).setDisplayname("§7Home Settings").setLocalizedName("home settings").build());
+        setItemClickEvent(13, player1 -> new ItemBuilder(Material.COMPASS).setName("§7Home Settings").build(), (player1, event) -> {
+            new HomeGui(player1).open(player1);
+        });
 
-        //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        setItemClickEvent(31, player1 -> new ItemBuilder(Material.RECOVERY_COMPASS).setName("§7Warp Settings").build(), (player1, event) -> {
+            new WarpGui().open(player1);
+        });
 
-        inventory.setItem(21, new ItemBuilder(Material.GRAY_STAINED_GLASS_PANE).setDisplayname(" ").build());
-        inventory.setItem(23, new ItemBuilder(Material.GRAY_STAINED_GLASS_PANE).setDisplayname(" ").build());
+        setItem(20, player1 -> new ItemBuilder(Material.GRAY_STAINED_GLASS_PANE).setName(" ").build());
+        setItem(24, player1 -> new ItemBuilder(Material.GRAY_STAINED_GLASS_PANE).setName(" ").build());
 
-        for (Map.Entry<Integer, ItemStack> integerItemStackEntry : integerItemStackHashMap.entrySet()) {
-            inventory.setItem(integerItemStackEntry.getKey(), integerItemStackEntry.getValue());
-        }
-        return inventory;
+        ////////////////////////////////////////////////////////////////////////////////////////////////
     }
 }
