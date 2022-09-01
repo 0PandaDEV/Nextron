@@ -101,12 +101,8 @@ public class HomeCommands implements CommandExecutor, TabCompleter {
         ArrayList<String> list = new ArrayList<String>();
         Player playert = (Player)(sender);
 
-        if (args.length == 1) {
-            if (label.equalsIgnoreCase("delhome")){
-                list.addAll(Objects.requireNonNull(Main.getInstance().getConfig().getConfigurationSection("Homes." + playert.getName() + ".")).getKeys(false));
-            } else if (label.equalsIgnoreCase("home")){
-                list.addAll(Objects.requireNonNull(Main.getInstance().getConfig().getConfigurationSection("Homes." + playert.getName() + ".")).getKeys(false));
-            }
+        if (args.length == 1 && args[0].equalsIgnoreCase("home") || args.length == 1 && args[0].equalsIgnoreCase("delhome")) {
+            list.addAll(Objects.requireNonNull(Main.getInstance().getConfig().getConfigurationSection("Homes." + playert.getUniqueId())).getKeys(false));
         }
 
         ArrayList<String> completerList = new ArrayList<String>();
