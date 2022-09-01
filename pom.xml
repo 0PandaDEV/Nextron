@@ -76,8 +76,8 @@
             <url>https://libraries.minecraft.net/</url>
         </repository>
         <repository>
-            <id>jitpack.io</id>
-            <url>https://www.jitpack.io</url>
+            <id>negative-games</id>
+            <url>https://repo.negative.games/repository/negative-games/</url>
         </repository>
     </repositories>
 
@@ -93,6 +93,12 @@
             <artifactId>authlib</artifactId>
             <version>1.5.21</version>
             <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>games.negative.framework</groupId>
+            <artifactId>Framework</artifactId>
+            <version>2.2.0</version>
+            <scope>compile</scope>
         </dependency>
     </dependencies>
 </project>
