@@ -8,6 +8,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabCompleter;
 import org.bukkit.entity.Player;
 import tk.pandadev.essentialsp.Main;
+import tk.pandadev.essentialsp.utils.LanguageLoader;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,40 +34,40 @@ public class GamemodeCommand implements CommandExecutor, TabCompleter {
                     if (player.getGameMode() != GameMode.CREATIVE){
                         player.setGameMode(GameMode.CREATIVE);
                         if (Main.getInstance().getSettingsConfig().getBoolean(player.getUniqueId() + ".feedback")){
-                            player.sendMessage(Main.getPrefix() + "§7Du hast dich in den Spielmodus §aCreative §7gesetzt");
+                            player.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("gamemode_success").replace("%g", "Creative"));
                         }
                     }else {
-                        player.sendMessage(Main.getPrefix() + "§cDu bist bereits im Gamemode §6Creative");
+                        player.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("gamemode_error").replace("%g", "Creative"));
                     }
                 }
                 if (args[0].equalsIgnoreCase("0") || args[0].equalsIgnoreCase("survival")) {
                     if (player.getGameMode() != GameMode.SURVIVAL){
                         player.setGameMode(GameMode.SURVIVAL);
                         if (Main.getInstance().getSettingsConfig().getBoolean(player.getUniqueId() + ".feedback")){
-                            player.sendMessage(Main.getPrefix() + "§7Du hast dich in den Spielmodus §aSurvival §7gesetzt");
+                            player.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("gamemode_success").replace("%g", "Survival"));
                         }
                     }else {
-                        player.sendMessage(Main.getPrefix() + "§cDu bist bereits im Gamemode §6Survival");
+                        player.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("gamemode_error").replace("%g", "Survival"));
                     }
                 }
                 if (args[0].equalsIgnoreCase("2") || args[0].equalsIgnoreCase("adventure")) {
                     if (player.getGameMode() != GameMode.ADVENTURE){
                         player.setGameMode(GameMode.ADVENTURE);
                         if (Main.getInstance().getSettingsConfig().getBoolean(player.getUniqueId() + ".feedback")){
-                            player.sendMessage(Main.getPrefix() + "§7Du hast dich in den Spielmodus §aAdventure §7gesetzt");
+                            player.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("gamemode_success").replace("%g", "Adventure"));
                         }
                     }else {
-                        player.sendMessage(Main.getPrefix() + "§cDu bist bereits im Gamemode §6Adventure");
+                        player.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("gamemode_error").replace("%g", "Adventure"));
                     }
                 }
                 if (args[0].equalsIgnoreCase("3") || args[0].equalsIgnoreCase("spectator")) {
                     if (player.getGameMode() != GameMode.SPECTATOR){
                         player.setGameMode(GameMode.SPECTATOR);
                         if (Main.getInstance().getSettingsConfig().getBoolean(player.getUniqueId() + ".feedback")){
-                            player.sendMessage(Main.getPrefix() + "§7Du hast dich in den Spielmodus §aSpectator §7gesetzt");
+                            player.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("gamemode_success").replace("%g", "Spectator"));
                         }
                     }else {
-                        player.sendMessage(Main.getPrefix() + "§cDu bist bereits im Gamemode §6Spectator");
+                        player.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("gamemode_error").replace("%g", "Spectator"));
                     }
                 }
 
@@ -84,33 +85,33 @@ public class GamemodeCommand implements CommandExecutor, TabCompleter {
                     if (args[0].equalsIgnoreCase("1") || args[0].equalsIgnoreCase("creative")) {
                         if (target.getGameMode() != GameMode.CREATIVE){
                             target.setGameMode(GameMode.CREATIVE);
-                            player.sendMessage(Main.getPrefix() + "§7Du hast den Spieler §a" + target.getName() + "§7 in den Spielmodus §aCreative §7gesetzt");
+                            player.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("gamemode_other_success").replace("%t", target.getName()).replace("%g", "Creative"));
                         }else {
-                            player.sendMessage(Main.getPrefix() + "§cDer Spieler §6" + target.getName() + "§c ist bereits im Gamemode §6Creative");
+                            player.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("gamemode_other_error").replace("%t", target.getName()).replace("%g", "Creative"));
                         }
                     }
                     if (args[0].equalsIgnoreCase("0") || args[0].equalsIgnoreCase("survival")) {
                         if (target.getGameMode() != GameMode.SURVIVAL){
                             target.setGameMode(GameMode.SURVIVAL);
-                            player.sendMessage(Main.getPrefix() + "§7Du hast den Spieler §a" + target.getName() + "§7 in den Spielmodus §aSurvival §7gesetzt");
+                            player.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("gamemode_other_success").replace("%t", target.getName()).replace("%g", "Survival"));
                         }else {
-                            player.sendMessage(Main.getPrefix() + "§cDer Spieler §6" + target.getName() + "§c ist bereits im Gamemode §6Survival");
+                            player.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("gamemode_other_error").replace("%t", target.getName()).replace("%g", "Survival"));
                         }
                     }
                     if (args[0].equalsIgnoreCase("2") || args[0].equalsIgnoreCase("adventure")) {
                         if (target.getGameMode() != GameMode.ADVENTURE){
                             target.setGameMode(GameMode.ADVENTURE);
-                            player.sendMessage(Main.getPrefix() + "§7Du hast den Spieler §a" + target.getName() + "§7 in den Spielmodus §aAdventure §7gesetzt");
+                            player.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("gamemode_other_success").replace("%t", target.getName()).replace("%g", "Adventure"));
                         }else {
-                            player.sendMessage(Main.getPrefix() + "§cDer Spieler §6" + target.getName() + "§c ist bereits im Gamemode §6Adventure");
+                            player.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("gamemode_other_error").replace("%t", target.getName()).replace("%g", "Adventure"));
                         }
                     }
                     if (args[0].equalsIgnoreCase("3") || args[0].equalsIgnoreCase("spectator")) {
                         if (target.getGameMode() != GameMode.SPECTATOR){
                             target.setGameMode(GameMode.SPECTATOR);
-                            player.sendMessage(Main.getPrefix() + "§7Du hast den Spieler §a" + target.getName() + "§7 in den Spielmodus §aSpectator §7gesetzt");
+                            player.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("gamemode_other_success").replace("%t", target.getName()).replace("%g", "Spectator"));
                         }else {
-                            player.sendMessage(Main.getPrefix() + "§cDer Spieler §6" + target.getName() + "§c ist bereits im Gamemode §6Spectator");
+                            player.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("gamemode_other_error").replace("%t", target.getName()).replace("%g", "Spectator"));
                         }
                     }
                 } else {
