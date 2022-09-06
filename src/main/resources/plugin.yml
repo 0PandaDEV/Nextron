@@ -1,7 +1,7 @@
 name: '${project.artifactId}'
 version: '${project.version}'
 main: tk.pandadev.essentialsp.Main
-api-version: 1.18
+api-version: 1.19
 authors: [ PandaDEV ]
 description: '${project.description}'
 website: https://pandadev.tk
@@ -9,29 +9,46 @@ commands:
   gamemode:
     aliases:
       - gm
+    permission: essentialsp.gamemode
   enderchest:
+    permission: essentialsp.enderchest
     aliases:
       - ec
   warp:
+    permission: essentialsp.warp
     aliases:
       - setwarp
       - delwarp
   heal:
+    permission: essentialsp.heal
   vanish:
+    permission: essentialsp.vanish
     aliases:
       - v
   tpa:
+    permission: essentialsp.tpa
   tpaccept:
+    permission: essentialsp.tpaccept
   home:
+    permission: essentialsp.home
     aliases:
       - sethome
       - delhome
   invsee:
+    permission: essentialsp.invsee
   tphere:
+    permission: essentialsp.tphere
   speed:
+    permission: essentialsp.speed
   fly:
+    permission: essentialsp.fly
   sudo:
+    permission: essentialsp.sudo
   head:
+    permission: essentialsp.head
   rank:
+    permission: essentialsp.rank
   menu:
+    permission: essentialsp.menu
   rl:
+    permission: essentialsp.rl
