@@ -3,6 +3,7 @@ package tk.pandadev.essentialsp;
 import games.negative.framework.BasePlugin;
 import games.negative.framework.scoreboard.Scoreboard;
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -13,10 +14,8 @@ import org.bukkit.scheduler.BukkitRunnable;
 import tk.pandadev.essentialsp.commands.*;
 import tk.pandadev.essentialsp.listeners.*;
 import tk.pandadev.essentialsp.tablist.TablistManager;
-import tk.pandadev.essentialsp.utils.Config;
-import tk.pandadev.essentialsp.utils.SettingsConfig;
-import tk.pandadev.essentialsp.utils.VanishAPI;
-import tk.pandadev.essentialsp.utils.VanishManager;
+import tk.pandadev.essentialsp.utils.*;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.*;
@@ -29,8 +28,9 @@ public final class Main extends BasePlugin {
     private File settingsConfig;
     private FileConfiguration settings;
     private static String Prefix = "§a§lEssentialsP §8» ";
-    private static String NoPerm = Prefix + "§cDazu hast du keine Berechtigung";
-    private static String InvalidPlayer = Prefix + "§cDieser Spieler ist nicht Online";
+    private static String NoPerm = Prefix + LanguageLoader.translationMap.get("no_perms");
+    private static String InvalidPlayer = Prefix + LanguageLoader.translationMap.get("invalid_player");
+    private static String CommandInstance = Prefix + LanguageLoader.translationMap.get("command_instance_error");
     private VanishManager vanishManager;
     private VanishAPI vanishAPI;
     private TablistManager tablistManager;
@@ -41,13 +41,15 @@ public final class Main extends BasePlugin {
     @Override
     public void onEnable() {
         super.onEnable();
+        instance = this;
         createCustomConfig();
         saveDefaultConfig();
         vanishManager = new VanishManager(this);
         vanishAPI = new VanishAPI(this);
         tablistManager = new TablistManager();
-        instance = this;
-        Bukkit.getConsoleSender().sendMessage(Prefix + "§aAktiviert");
+        new LanguageLoader(this);
+
+        Bukkit.getConsoleSender().sendMessage(Prefix + LanguageLoader.translationMap.get("activate_message"));
 
         registerListeners();
         registerCommands();
@@ -57,12 +59,13 @@ public final class Main extends BasePlugin {
             Main.getInstance().getTablistManager().setAllPlayerTeams();
             run();
         }
+
     }
 
     @Override
     public void onDisable() {
         instance = null;
-        Bukkit.getConsoleSender().sendMessage(Prefix + "§cDeaktiviert");
+        Bukkit.getConsoleSender().sendMessage(Prefix + LanguageLoader.translationMap.get("deactivate_message"));
     }
 
     private void registerCommands(){
@@ -162,4 +165,7 @@ public final class Main extends BasePlugin {
         return vanishAPI;
     }
 
+    public static String getCommandInstance() {
+        return CommandInstance;
+    }
 }
