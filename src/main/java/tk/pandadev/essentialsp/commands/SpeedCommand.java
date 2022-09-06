@@ -11,7 +11,7 @@ public class SpeedCommand implements CommandExecutor {
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
 
         if (!(sender instanceof Player)) {
-            sender.sendMessage(Main.getPrefix() + "§6Du musst diesen Command als Spieler ausführen!");
+            sender.sendMessage(Main.getCommandInstance());
             return false;
         }
 
