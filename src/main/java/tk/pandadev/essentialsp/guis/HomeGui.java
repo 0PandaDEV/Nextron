@@ -12,6 +12,7 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import tk.pandadev.essentialsp.Main;
+import tk.pandadev.essentialsp.utils.LanguageLoader;
 import tk.pandadev.essentialsp.utils.Utils;
 
 import java.util.ArrayList;
@@ -28,8 +29,8 @@ public class HomeGui extends GUI {
             addItemClickEvent(player1 -> new ItemBuilder(Utils.createSkull("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNjNkMDJjZGMwNzViYjFjYzVmNmZlM2M3NzExYWU0OTc3ZTM4YjkxMGQ1MGVkNjAyM2RmNzM5MTNlNWU3ZmNmZiJ9fX0="))
                     .setName(home)
                     .addLoreLine("")
-                    .addLoreLine("§aLinksklick §c>> §7Öffnet Home Einstellungen")
-                    .addLoreLine("§aRechtsklick §c>> §7Teleportiert zum Home")
+                    .addLoreLine(LanguageLoader.translationMap.get("homegui_leftclick"))
+                    .addLoreLine(LanguageLoader.translationMap.get("homegui_rightclick"))
                     .build(), ((player1, event) -> {
                 if (event.getClick().isRightClick()) {
                     player.teleport((Location) Objects.requireNonNull(Main.getInstance().getConfig().get("Homes." + player.getUniqueId() + "." + home)));

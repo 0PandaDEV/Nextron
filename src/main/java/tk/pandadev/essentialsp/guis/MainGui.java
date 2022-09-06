@@ -10,6 +10,7 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import tk.pandadev.essentialsp.Main;
+import tk.pandadev.essentialsp.utils.LanguageLoader;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -23,27 +24,27 @@ public class MainGui extends GUI {
         ////////////////////////////////////////////////////////////////////////////////////////////////
 
         ItemStack feedback_active = new ItemBuilder(Material.LIME_DYE)
-                .setName("§a✔ §8| §aCommand Feedback ist aktiviert")
+                .setName(LanguageLoader.translationMap.get("maingui_feedback_active_title"))
                 .addLoreLine("")
-                .addLoreLine("§8Steuert ob eine Nachricht als ergebnis").
-                addLoreLine("§8nach einem Command angezeigt werden soll")
-                .addLoreLine("§8z.b. 'Du wurdest in den Gamemode Creative gesetzt'")
-                .addLoreLine("§8Fehlermeldungen werden dennoch angezeigt")
-                .addLoreLine("§8sowie wichtige nachrichten")
+                .addLoreLine(LanguageLoader.translationMap.get("maingui_feedback_lore_1"))
+                .addLoreLine(LanguageLoader.translationMap.get("maingui_feedback_lore_2"))
+                .addLoreLine(LanguageLoader.translationMap.get("maingui_feedback_lore_3"))
+                .addLoreLine(LanguageLoader.translationMap.get("maingui_feedback_lore_4"))
+                .addLoreLine(LanguageLoader.translationMap.get("maingui_feedback_lore_5"))
                 .addLoreLine("")
-                .addLoreLine("§aLinksklick §c>> §7Toggle")
+                .addLoreLine(LanguageLoader.translationMap.get("maingui_feedback_lore_6"))
                 .build();
 
-        ItemStack feedback_inactive = new ItemBuilder(Material.GRAY_DYE)
-                .setName("§c❌ §8| §7Command Feedback ist deaktiviert")
+        ItemStack feedback_inactive = new ItemBuilder(Material.LIME_DYE)
+                .setName(LanguageLoader.translationMap.get("maingui_feedback_inactive_title"))
                 .addLoreLine("")
-                .addLoreLine("§8Steuert ob eine Nachricht als ergebnis").
-                addLoreLine("§8nach einem Command angezeigt werden soll")
-                .addLoreLine("§8z.b. 'Du wurdest in den Gamemode Creative gesetzt'")
-                .addLoreLine("§8Fehlermeldungen werden dennoch angezeigt")
-                .addLoreLine("§8sowie wichtige nachrichten")
+                .addLoreLine(LanguageLoader.translationMap.get("maingui_feedback_lore_1"))
+                .addLoreLine(LanguageLoader.translationMap.get("maingui_feedback_lore_2"))
+                .addLoreLine(LanguageLoader.translationMap.get("maingui_feedback_lore_3"))
+                .addLoreLine(LanguageLoader.translationMap.get("maingui_feedback_lore_4"))
+                .addLoreLine(LanguageLoader.translationMap.get("maingui_feedback_lore_5"))
                 .addLoreLine("")
-                .addLoreLine("§aLinksklick §c>> §7Toggle")
+                .addLoreLine(LanguageLoader.translationMap.get("maingui_feedback_lore_6"))
                 .build();
 
         if (Main.getInstance().getSettingsConfig().getBoolean(player.getUniqueId() + ".feedback")){
@@ -73,23 +74,23 @@ public class MainGui extends GUI {
         ////////////////////////////////////////////////////////////////////////////////////////////////
 
         ItemStack vanish_active = new ItemBuilder(Material.LIME_DYE)
-                .setName("§a✔ §8| §aFake Join/Quit Message aktiviert")
+                .setName(LanguageLoader.translationMap.get("maingui_vanish_active_title"))
                 .addLoreLine("")
-                .addLoreLine("§8Steuert ob eine Fake Join oder Quit").
-                addLoreLine("§8Nachricht angezeigt werden soll")
-                .addLoreLine("§8wen du in den Vanish gehst oder ihn verlässt")
+                .addLoreLine(LanguageLoader.translationMap.get("maingui_vanish_lore_1"))
+                .addLoreLine(LanguageLoader.translationMap.get("maingui_vanish_lore_2"))
+                .addLoreLine(LanguageLoader.translationMap.get("maingui_vanish_lore_3"))
                 .addLoreLine("")
-                .addLoreLine("§aLinksklick §c>> §7Toggle")
+                .addLoreLine(LanguageLoader.translationMap.get("maingui_vanish_lore_4"))
                 .build();
 
         ItemStack vanish_inactive = new ItemBuilder(Material.GRAY_DYE)
-                .setName("§c❌ §8| §7Fake Join/Quit Message deaktiviert")
+                .setName(LanguageLoader.translationMap.get("maingui_vanish_inactive_title"))
                 .addLoreLine("")
-                .addLoreLine("§8Steuert ob eine Fake Join oder Quit").
-                addLoreLine("§8Nachricht angezeigt werden soll")
-                .addLoreLine("§8wen du in den Vanish gehst oder ihn verlässt")
+                .addLoreLine(LanguageLoader.translationMap.get("maingui_vanish_lore_1"))
+                .addLoreLine(LanguageLoader.translationMap.get("maingui_vanish_lore_2"))
+                .addLoreLine(LanguageLoader.translationMap.get("maingui_vanish_lore_3"))
                 .addLoreLine("")
-                .addLoreLine("§aLinksklick §c>> §7Toggle")
+                .addLoreLine(LanguageLoader.translationMap.get("maingui_vanish_lore_4"))
                 .build();
 
         if (Main.getInstance().getSettingsConfig().getBoolean(player.getUniqueId() + ".vanish." + "message")){
@@ -114,7 +115,7 @@ public class MainGui extends GUI {
 
         ////////////////////////////////////////////////////////////////////////////////////////////////
 
-        setItem(11, player1 -> new ItemBuilder(Material.HEART_OF_THE_SEA).setName("§3Vanish Schittings").build());
+        setItem(11, player1 -> new ItemBuilder(Material.HEART_OF_THE_SEA).setName("§3Vanish Settings").build());
 
         setItemClickEvent(13, player1 -> new ItemBuilder(Material.COMPASS).setName("§7Home Settings").build(), (player1, event) -> {
             new HomeGui(player1).open(player1);

@@ -1,6 +1,7 @@
 package tk.pandadev.essentialsp.commands;
 
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.Sound;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -8,6 +9,8 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabCompleter;
 import org.bukkit.entity.Player;
 import tk.pandadev.essentialsp.Main;
+import tk.pandadev.essentialsp.utils.LanguageLoader;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,7 +18,7 @@ public class HealCommand implements CommandExecutor, TabCompleter {
 
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (!(sender instanceof Player)) {
-            sender.sendMessage(Main.getPrefix() + "§6Du musst diesen Command als Spieler ausführen!");
+            sender.sendMessage(Main.getCommandInstance());
             return false;
         }
 
@@ -29,12 +32,12 @@ public class HealCommand implements CommandExecutor, TabCompleter {
                     player.setHealth(player.getMaxHealth());
                     player.setFoodLevel(20);
                     if (Main.getInstance().getSettingsConfig().getBoolean(player.getUniqueId() + ".feedback")){
-                        player.sendMessage(Main.getPrefix() + "§7Du hast dich geheilt");
+                        player.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("heal_success"));
                     }
                     player.playSound(player.getLocation(), Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 1.0f, 1.0f);
                     return true;
                 }
-                player.sendMessage(Main.getPrefix() + "§cDu bist bereits geheilt");
+                player.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("heal_error"));
 
             } else {
                 player.sendMessage(Main.getNoPerm());
@@ -51,11 +54,11 @@ public class HealCommand implements CommandExecutor, TabCompleter {
                     if (target.getHealth() != 20.0) {
                         target.setHealth(20.0);
                         target.setFoodLevel(20);
-                        target.sendMessage(Main.getPrefix() + "§7Du wurdest von §a" + player.getName() + "§7 geheilt");
+                        target.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("heal_other_success").replace("%p", player.getName()));
                         target.playSound(target.getLocation(), Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 1.0f, 1.0f);
                         return true;
                     }
-                    player.sendMessage(Main.getPrefix() + "§cDer Spieler §6" + target.getName() + "§c ist bereits geheilt");
+                    player.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("heal_other_error").replace("%t", target.getName()));
                 } else {
                     player.sendMessage(Main.getInvalidPlayer());
                 }
