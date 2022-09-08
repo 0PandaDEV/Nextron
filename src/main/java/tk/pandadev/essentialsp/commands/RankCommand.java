@@ -9,6 +9,7 @@ import org.bukkit.command.TabCompleter;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.Player;
 import tk.pandadev.essentialsp.Main;
+import tk.pandadev.essentialsp.utils.LanguageLoader;
 import tk.pandadev.essentialsp.utils.RankAPI;
 
 import java.util.ArrayList;
@@ -55,7 +56,7 @@ public class RankCommand implements CommandExecutor, TabCompleter {
                 if (target != null){
 
                     RankAPI.removeRanks(target);
-                    player.sendMessage(Main.getPrefix() + "§7Dem Spieler §a" + target.getName() + "§7 wurden alle Ranks entzogen");
+                    player.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("rank_remove_success").replace("%t", target.getName()));
                     RankAPI.checkRank(target);
 
                 } else {

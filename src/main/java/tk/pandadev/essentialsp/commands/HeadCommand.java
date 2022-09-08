@@ -11,6 +11,7 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.SkullMeta;
 import tk.pandadev.essentialsp.Main;
+import tk.pandadev.essentialsp.utils.LanguageLoader;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,7 +38,7 @@ public class HeadCommand implements CommandExecutor, TabCompleter {
                 Inventory inventory = player.getInventory();
                 inventory.addItem(item);
                 if (Main.getInstance().getSettingsConfig().getBoolean(player.getUniqueId() + ".feedback")){
-                    player.sendMessage(Main.getPrefix() + "§7Du hast den kopf von §a" + args[0] + "§7 bekommen");
+                    player.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("head_success").replace("%t", args[0]));
                 }
 
             } else {

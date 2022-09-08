@@ -7,6 +7,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabCompleter;
 import org.bukkit.entity.Player;
 import tk.pandadev.essentialsp.Main;
+import tk.pandadev.essentialsp.utils.LanguageLoader;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,7 +34,7 @@ public class InvseeCommand implements CommandExecutor, TabCompleter {
                     if (target != player){
                         player.openInventory(target.getInventory());
                     } else {
-                        player.sendMessage(Main.getPrefix() + "§cDu kannst nicht dein eigenes Inventar anschauen");
+                        player.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("invsee_error"));
                     }
 
                 }else {

@@ -7,6 +7,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabCompleter;
 import org.bukkit.entity.Player;
 import tk.pandadev.essentialsp.Main;
+import tk.pandadev.essentialsp.utils.LanguageLoader;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,7 +37,7 @@ public class SudoCommand implements CommandExecutor, TabCompleter {
 
                     target.chat("/" + sb);
 
-                    player.sendMessage(Main.getPrefix() + "§7Der Spieler §a" + target.getName() + "§7 wurde gezwungen den Befehl §a/" + sb + "§7 auszuführen");
+                    player.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("sudo_success").replace("%t", target.getName()).replace("%b", sb));
                 } else {
                     player.sendMessage(Main.getInvalidPlayer());
                 }

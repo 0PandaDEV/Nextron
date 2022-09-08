@@ -8,6 +8,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabCompleter;
 import org.bukkit.entity.Player;
 import tk.pandadev.essentialsp.Main;
+import tk.pandadev.essentialsp.utils.LanguageLoader;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,14 +28,14 @@ public class TpaCommand implements CommandExecutor, TabCompleter {
             try {
                 Player target = Bukkit.getPlayer(args[0]);
                 Main.tpa.put(target, player);
-                target.sendMessage(Main.getPrefix() + "§a" + player.getName() + "§7 hat dir eine Tpa gesendet");
-                target.sendMessage(Main.getPrefix() + "§7Mache §a/tpaccept §7um die Anfrage anzunehmen");
+                target.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("tpa_target_success_1").replace("%p", player.getName()));
+                target.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("tpa_target_success_2"));
                 target.playSound(target.getLocation(), Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 1.0f, 1.0f);
 
-                player.sendMessage(Main.getPrefix() + "§7Die Tpa wurde §a" + target.getName() + "§7 gesendet");
+                player.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("tpa_sender_success").replace("%t", target.getName()));
             }
             catch (Exception e){
-                player.sendMessage(Main.getPrefix() + "§cDieser Spieler ist nicht Online");
+                player.sendMessage(Main.getInvalidPlayer());
             }
         } else {
             player.sendMessage(Main.getPrefix() + "§c/tpa <player>");

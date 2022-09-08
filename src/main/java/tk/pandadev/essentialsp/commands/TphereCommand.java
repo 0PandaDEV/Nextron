@@ -7,6 +7,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabCompleter;
 import org.bukkit.entity.Player;
 import tk.pandadev.essentialsp.Main;
+import tk.pandadev.essentialsp.utils.LanguageLoader;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,11 +34,11 @@ public class TphereCommand implements CommandExecutor, TabCompleter {
                         target.teleport(player.getLocation());
 
                         if (Main.getInstance().getSettingsConfig().getBoolean(player.getUniqueId() + ".feedback")){
-                            player.sendMessage(Main.getPrefix() + "§7Der Spieler §a" + target.getName() + "§7 wurde zu dir Teleportiert");
+                            player.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("tphere_success").replace("%t", target.getName()));
                         }
 
                     } else {
-                        player.sendMessage(Main.getPrefix() + "§cDu kannst dich nicht selbst zu dir Teleportieren");
+                        player.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("tphere_error"));
                     }
                 } else {
                     player.sendMessage(Main.getInvalidPlayer());

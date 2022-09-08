@@ -5,6 +5,7 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import tk.pandadev.essentialsp.Main;
+import tk.pandadev.essentialsp.utils.LanguageLoader;
 
 public class SpeedCommand implements CommandExecutor {
     @Override
@@ -19,26 +20,21 @@ public class SpeedCommand implements CommandExecutor {
 
         if (args.length == 1){
             if (player.hasPermission("essentialsp.speed")){
-                if (player.isFlying()){
-                    float speed = Float.parseFloat(args[0]) / 10f;
-                    if (speed > 1){
-                        player.sendMessage(Main.getPrefix() + "§cDer wert darf nicht höher als §610§c sein");
-                    } else {
+                float speed = Float.parseFloat(args[0]) / 10f;
+                if (speed > 1) {
+                    player.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("speed_error"));
+                } else {
+                    if (player.isFlying()){
                         player.setAllowFlight(true);
                         player.setFlying(true);
                         player.setFlySpeed(speed);
                         if (Main.getInstance().getSettingsConfig().getBoolean(player.getUniqueId() + ".feedback")){
-                            player.sendMessage(Main.getPrefix() + "§7Die FlySpeed wurde auf §a" + args[0] + "§7 gesetzt");
+                            player.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("speed_fly_success").replace("%s", args[0]));
                         }
-                    }
-                } else if (player.isOnGround()){
-                    float speed = Float.parseFloat(args[0]) / 10f;
-                    if (speed > 1){
-                        player.sendMessage(Main.getPrefix() + "§cDer wert darf nicht höher als §610§c sein");
-                    } else {
+                    }else if (player.isOnGround()){
                         player.setWalkSpeed(speed);
                         if (Main.getInstance().getSettingsConfig().getBoolean(player.getUniqueId() + ".feedback")){
-                            player.sendMessage(Main.getPrefix() + "§7Die WalkSpeed wurde auf §a" + args[0] + "§7 gesetzt");
+                            player.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("speed_walk_success").replace("%s", args[0]));
                         }
                     }
                 }

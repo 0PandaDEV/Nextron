@@ -8,6 +8,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabCompleter;
 import org.bukkit.entity.Player;
 import tk.pandadev.essentialsp.Main;
+import tk.pandadev.essentialsp.utils.LanguageLoader;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,11 +32,11 @@ public class HomeCommands implements CommandExecutor, TabCompleter {
 
                 Main.getInstance().getConfig().set("Homes." + player.getUniqueId() + "." + args[0].toLowerCase(), player.getLocation());
                 Main.getInstance().saveConfig();
-                player.sendMessage(Main.getPrefix() + "§7Du hast den Home §a" + args[0].toLowerCase() + "§7 erstellt");
+                player.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("sethome_success").replace("%h", args[0].toLowerCase()));
                 return true;
 
             } else {
-                player.sendMessage(Main.getPrefix() + "§cEin Home mit dem namen §6" + args[0].toLowerCase() + "§c existiert bereits");
+                player.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("sethome_error").replace("%h", args[0].toLowerCase()));
             }
 
         } else if (label.equalsIgnoreCase("sethome") && args.length == 0){
@@ -51,11 +52,11 @@ public class HomeCommands implements CommandExecutor, TabCompleter {
 
                 Main.getInstance().getConfig().set("Homes." + player.getUniqueId() + "." + args[0].toLowerCase(), null);
                 Main.getInstance().saveConfig();
-                player.sendMessage(Main.getPrefix() + "§7Du hast den Home §a" + args[0].toLowerCase() + "§7 gelöscht");
+                player.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("delhome_success").replace("%h", args[0].toLowerCase()));
                 return true;
 
             } else {
-                player.sendMessage(Main.getPrefix() + "§cEin Home mit dem namen §6" + args[0].toLowerCase() + "§c existiert nicht");
+                player.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("delhome_error").replace("%h", args[0].toLowerCase()));
             }
 
         } else if (label.equalsIgnoreCase("home") && args.length == 1){
@@ -65,12 +66,12 @@ public class HomeCommands implements CommandExecutor, TabCompleter {
                 player.teleport((Location) Objects.requireNonNull(Main.getInstance().getConfig().get("Homes." + player.getUniqueId() + "." + args[0].toLowerCase())));
                 player.playSound(player.getLocation(), Sound.ENTITY_ENDERMAN_TELEPORT, 1.0f, 1.0f);
                 if (Main.getInstance().getSettingsConfig().getBoolean(player.getUniqueId() + ".message")){
-                    player.sendMessage(Main.getPrefix() + "§7Du hast dich zum Home §a" + args[0].toLowerCase() + "§7 teleportiert");
+                    player.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("home_success").replace("%h", args[0].toLowerCase()));
                 }
                 return true;
 
             } else {
-                player.sendMessage(Main.getPrefix() + "§cEin Home mit dem namen §6" + args[0].toLowerCase() + "§c existiert nicht");
+                player.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("home_error").replace("%h", args[0].toLowerCase()));
             }
 
         } else if (label.equalsIgnoreCase("home") && args.length == 0){
@@ -101,7 +102,9 @@ public class HomeCommands implements CommandExecutor, TabCompleter {
         ArrayList<String> list = new ArrayList<String>();
         Player playert = (Player)(sender);
 
-        if (args.length == 1 && args[0].equalsIgnoreCase("home") || args.length == 1 && args[0].equalsIgnoreCase("delhome")) {
+        if (args.length == 1 && args[0].equalsIgnoreCase("home")) {
+            list.addAll(Objects.requireNonNull(Main.getInstance().getConfig().getConfigurationSection("Homes." + playert.getUniqueId())).getKeys(false));
+        } else if (args.length == 1 && args[0].equalsIgnoreCase("delhome")){
             list.addAll(Objects.requireNonNull(Main.getInstance().getConfig().getConfigurationSection("Homes." + playert.getUniqueId())).getKeys(false));
         }
 

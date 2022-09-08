@@ -8,6 +8,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabCompleter;
 import org.bukkit.entity.Player;
 import tk.pandadev.essentialsp.Main;
+import tk.pandadev.essentialsp.utils.LanguageLoader;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,10 +31,10 @@ public class WarpCommands implements CommandExecutor, TabCompleter {
                 if (Main.getInstance().getConfig().get("Warps." + args[0].toLowerCase()) == null) {
                     Main.getInstance().getConfig().set("Warps." + args[0].toLowerCase(), player.getLocation());
                     Main.getInstance().saveConfig();
-                    player.sendMessage(Main.getPrefix() + "§7Du hast den Warp §a" + args[0] + "§7 erstellt!");
+                    player.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("setwarp_success").replace("%w", args[0].toLowerCase()));
                     return true;
                 }
-                player.sendMessage(Main.getPrefix() + "§cDen Warp §6" + args[0] + "§c gibt es schon");
+                player.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("setwarp_error").replace("%w", args[0].toLowerCase()));
             } else {
                 player.sendMessage(Main.getNoPerm());
             }
@@ -44,10 +45,10 @@ public class WarpCommands implements CommandExecutor, TabCompleter {
                 if (Main.getInstance().getConfig().get("Warps." + args[0].toLowerCase()) != null) {
                     Main.getInstance().getConfig().set("Warps." + args[0].toLowerCase(), null);
                     Main.getInstance().saveConfig();
-                    player.sendMessage(Main.getPrefix() + "§7Du hast den Warp §a" + args[0] + "§7 gelöscht!");
+                    player.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("delwarp_success").replace("%w", args[0].toLowerCase()));
                     return true;
                 }
-                player.sendMessage(Main.getPrefix() + "§cDen Warp §6" + args[0] + "§c gibt es nicht");
+                player.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("delwarp_error").replace("%w", args[0].toLowerCase()));
             } else {
                 player.sendMessage(Main.getNoPerm());
             }
@@ -58,12 +59,12 @@ public class WarpCommands implements CommandExecutor, TabCompleter {
                 Location location = (Location) Main.getInstance().getConfig().get("Warps." + args[0].toLowerCase());
                 player.teleport(location);
                 if (Main.getInstance().getSettingsConfig().getBoolean(player.getUniqueId() + ".feedback")){
-                    player.sendMessage(Main.getPrefix() + "§7Du wurdest zum Warp §a" + args[0] + "§7 teleportiert!");
+                    player.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("warp_success").replace("%w", args[0].toLowerCase()));
                 }
                 player.playSound(player.getLocation(), Sound.ENTITY_ENDERMAN_TELEPORT, 1.0f, 1.0f);
                 return true;
             } else {
-                player.sendMessage(Main.getPrefix() + "§cDen Warp §6" + args[0].toLowerCase() + "§c gibt es nicht");
+                player.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("warp_error").replace("%w", args[0].toLowerCase()));
             }
 
         } else {

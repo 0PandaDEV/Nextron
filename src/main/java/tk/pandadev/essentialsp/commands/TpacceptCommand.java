@@ -6,6 +6,7 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import tk.pandadev.essentialsp.Main;
+import tk.pandadev.essentialsp.utils.LanguageLoader;
 
 public class TpacceptCommand implements CommandExecutor {
     @Override
@@ -27,10 +28,10 @@ public class TpacceptCommand implements CommandExecutor {
                 target.teleport(player.getLocation());
 
                 if (Main.getInstance().getSettingsConfig().getBoolean(target.getUniqueId() + ".feedback")){
-                    target.sendMessage(Main.getPrefix() + "§7Du wurdest zu §a" + player.getName() + "§7 Teleportiert");
+                    player.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("tpaccept_player_success").replace("%p", target.getName()));
                 }
                 if (Main.getInstance().getSettingsConfig().getBoolean(player.getUniqueId() + ".feedback")){
-                    player.sendMessage(Main.getPrefix() + "§a" + target.getName() + "§7 wurde zu dir Teleportiert");
+                    player.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("tpaccept_target_success").replace("%t", player.getName()));
                 }
 
                 target.playSound(player.getLocation(), Sound.ENTITY_ENDERMAN_TELEPORT, 1.0f, 1.0f);

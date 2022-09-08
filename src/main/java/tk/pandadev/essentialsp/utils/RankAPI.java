@@ -3,6 +3,7 @@ package tk.pandadev.essentialsp.utils;
 import org.bukkit.entity.Player;
 import tk.pandadev.essentialsp.Main;
 
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,12 +17,12 @@ public class RankAPI {
                 list.add(String.valueOf(player.getUniqueId()));
                 Main.getInstance().getConfig().set("ranks." + rank.toLowerCase() + ".players", list);
                 Main.getInstance().saveConfig();
-                player.sendMessage(Main.getPrefix() + "§7Dem Spieler §a" + player.getName() + "§7 wurde der Rank §a" + rank.toLowerCase() + "§7 gegeben");
+                player.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("rank_set_success").replace("%p", player.getName()).replace("%r", rank.toLowerCase()));
             }else {
-                player.sendMessage(Main.getPrefix() + "§cDer Spieler §6" + player.getName() + "§c besitzt bereits diesen Rank");
+                player.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("rank_set_error").replace("%p", player.getName()).replace("%r", rank.toLowerCase()));
             }
         } else {
-            player.sendMessage(Main.getPrefix() + "§cDieser Ranks existiert nicht");
+            player.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("rank_dontexists"));
         }
     }
 
@@ -41,29 +42,20 @@ public class RankAPI {
                 Main.getInstance().getConfig().set("ranks." + name + ".prefix", prefix.substring(1));
                 Main.getInstance().getConfig().set("ranks." + name + ".players", list);
                 Main.getInstance().saveConfig();
-                player.sendMessage(Main.getPrefix() + "§7Der Rank §a" + name + "§7 wurde erstellt");
+                player.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("rank_create_success").replace("%r", name));
             }else {
-                player.sendMessage(Main.getPrefix() + "§cDieser Rank existiert bereits");
+                player.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("rank_exists"));
             }
         }
-        //if (Main.getInstance().getConfig().get("ranks." + name) == null){
-        //    List<String> list = new ArrayList<>();
-        //    Main.getInstance().getConfig().set("ranks." + name + ".prefix", prefix.substring(1));
-        //    Main.getInstance().getConfig().set("ranks." + name + ".players", list);
-        //    Main.getInstance().saveConfig();
-        //    player.sendMessage(Main.getPrefix() + "§7Der Rank §a" + name + "§7 wurde erstellt");
-        //} else {
-        //    player.sendMessage(Main.getPrefix() + "§cDieser Rank existiert bereits");
-        //}
     }
 
     public static void deleteRank(Player player, String name){
         if (Main.getInstance().getConfig().get("ranks." + name) != null){
             Main.getInstance().getConfig().set("ranks." + name, null);
             Main.getInstance().saveConfig();
-            player.sendMessage(Main.getPrefix() + "§7Der Rank §a" + name + "§7 wurde gelöscht");
+            player.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("rank_delete_success").replace("%r", name));
         } else {
-            player.sendMessage(Main.getPrefix() + "§cDieser Rank existiert nicht");
+            player.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("rank_dontexists"));
         }
     }
 
@@ -71,9 +63,9 @@ public class RankAPI {
         if (Main.getInstance().getConfig().get("ranks." + name) != null){
             Main.getInstance().getConfig().set("ranks." + name + ".prefix", prefix.substring(1));
             Main.getInstance().saveConfig();
-            player.sendMessage(Main.getPrefix() + "§7Der Prefix des Ranks §a" + name + "§7 wurde auf §a" + prefix.substring(1) + "§7 geändert");
+            player.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("rank_setprefix_success").replace("%r", name).replace("%p", player.getName()));
         } else {
-            player.sendMessage(Main.getPrefix() + "§cDieser Rank existiert nicht");
+            player.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("rank_dontexists"));
         }
     }
 

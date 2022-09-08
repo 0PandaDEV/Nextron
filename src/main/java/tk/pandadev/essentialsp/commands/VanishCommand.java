@@ -10,6 +10,7 @@ import org.bukkit.command.TabCompleter;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 import tk.pandadev.essentialsp.Main;
+import tk.pandadev.essentialsp.utils.LanguageLoader;
 import tk.pandadev.essentialsp.utils.VanishAPI;
 import tk.pandadev.essentialsp.utils.VanishManager;
 
@@ -38,15 +39,15 @@ public class VanishCommand implements CommandExecutor, TabCompleter {
                 if (target != null){
                     if (VanishAPI.isVanish(target)){
                         Main.getInstance().getVanishAPI().setVanish(target, false);
-                        player.sendMessage(Main.getPrefix() + "§7Der Spieler §a" + target.getName() + "§7 ist nicht mehr im Vanish");
+                        player.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("unvanish_other").replace("%t", target.getName()));
                         if (Main.getInstance().getSettingsConfig().getBoolean(target.getUniqueId() + ".vanish." + "message")){
-                            Bukkit.broadcastMessage("§2[§a+§2] " + ChatColor.GRAY + target.getName());
+                            Bukkit.broadcastMessage(Main.getInstance().getConfig().getString("join_message").replace("%p", player.getName()));
                         }
                     } else{
                         Main.getInstance().getVanishAPI().setVanish(target, true);
-                        player.sendMessage(Main.getPrefix() + "§7Der Spieler §a" + target.getName() + "§7 ist jetzt im Vanish");
+                        player.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("vanish_other").replace("%t", target.getName()));
                         if (Main.getInstance().getSettingsConfig().getBoolean(target.getUniqueId() + ".vanish." + "message")){
-                            Bukkit.broadcastMessage("§4[§c-§4] " + ChatColor.RED + target.getName());
+                            Bukkit.broadcastMessage(Main.getInstance().getConfig().getString("leave_message").replace("%p", player.getName()));
                         }
                     }
                 } else {
@@ -64,15 +65,15 @@ public class VanishCommand implements CommandExecutor, TabCompleter {
 
                 if (VanishAPI.isVanish(player)){
                     Main.getInstance().getVanishAPI().setVanish(player, false);
-                    player.sendMessage(Main.getPrefix() + "§7Du bist nicht mehr Vanish");
+                    player.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("unvanish"));
                     if (Main.getInstance().getSettingsConfig().getBoolean(player.getUniqueId() + ".vanish." + "message")){
-                        Bukkit.broadcastMessage("§2[§a+§2] " + ChatColor.GRAY + player.getName());
+                        Bukkit.broadcastMessage(Main.getInstance().getConfig().getString("join_message").replace("%p", player.getName()));
                     }
                 } else{
                     Main.getInstance().getVanishAPI().setVanish(player, true);
-                    player.sendMessage(Main.getPrefix() + "§7Du bist nun im Vanish");
+                    player.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("vanish"));
                     if (Main.getInstance().getSettingsConfig().getBoolean(player.getUniqueId() + ".vanish." + "message")){
-                        Bukkit.broadcastMessage("§4[§c-§4] " + ChatColor.RED + player.getName());
+                        Bukkit.broadcastMessage(Main.getInstance().getConfig().getString("leave_message").replace("%p", player.getName()));
                     }
                 }
 
