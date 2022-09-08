@@ -1,0 +1,110 @@
+activate_message: "§aAktiviert"
+deactivate_message: "§aDeaktiviert"
+
+command_insntance_error: "§6Du musst diesen Command als Spieler ausführen!"
+no_perms: "§cDazu hast du keine Berechtigung"
+invalid_player: "§cDieser Spieler ist nicht Online"
+
+homegui_leftclick: "§aLinksklick §c>> §7Öffnet Home Einstellungen"
+
+homegui_rightclick: "§aRechtsklick §c>> §7Teleportiert zum Home"
+homesettingsgui_feauture: "§cDiese Feauture ist noch nicht verfügbar"
+
+#################################
+
+maingui_vanish_active_title: "§a✔ §8• §aFake Join/Quit Message aktiviert"
+
+maingui_vanish_inactive_title: "§c❌ §8• §7Fake Join/Quit Message deaktiviert"
+maingui_vanish_lore_1: "§8Steuert ob eine Fake Join oder Quit"
+
+maingui_vanish_lore_2: "§8Nachricht angezeigt werden soll"
+maingui_vanish_lore_3: "§8wen du in den Vanish gehst oder ihn verlässt"
+maingui_vanish_lore_4: "§aLinksklick §c>> §7Toggle"
+
+#####################
+
+maingui_feedback_active_title: "§a✔ §8• §aCommand Feedback ist aktiviert"
+
+maingui_feedback_inactive_title: "§c❌ §8• §7Command Feedback ist deaktiviert"
+maingui_feedback_lore_1: "§8Steuert ob eine Nachricht als ergebnis"
+
+maingui_feedback_lore_2: "§8nach einem Command angezeigt werden soll"
+maingui_feedback_lore_3: "§8z.b. 'Du wurdest in den Gamemode Creative gesetzt'"
+maingui_feedback_lore_4: "§8Fehlermeldungen werden dennoch angezeigt"
+maingui_feedback_lore_5: "§8sowie wichtige nachrichten"
+maingui_feedback_lore_6: "§aLinksklick §c>> §7Toggle"
+
+#################################
+
+# Commands
+
+fly_other_on: "§7Der Spieler §a%t §7 kann jetzt nicht mehr fliegen"
+fly_other_off: "§7Der Spieler §a%t §7 kann jetzt fliegen"
+fly_on: "§7Du kannst jetzt fliegen"
+fly_off: "§7Du kannst jetzt nicht mehr fliegen"
+
+heal_success: "§7Du hast dich geheilt"
+heal_error: "§cDu bist bereits geheilt"
+heal_other_success: "§7Du wurdest von §a%p §7 geheilt"
+heal_other_error: "§cDer Spieler §6%t §c ist bereits geheilt"
+
+gamemode_success: "§7Du hast dich in den Spielmodus §a%g §7gesetzt"
+gamemode_error: "§cDu bist bereits im Gamemode §6%g"
+gamemode_other_success: "§7Du hast den Spieler §a%t §7in den Spielmodus §a%g §7gesetzt"
+gamemode_other_error: "§cDer Spieler §6%t §cist bereits im Gamemode §6%g"
+
+head_success: "§7Du hast den kopf von §a%t §7bekommen"
+
+sethome_success: "§7Du hast den Home §a%h §7erstellt"
+sethome_error: "§cEin Home mit dem namen §6%h §cexistiert bereits"
+sethome_default_success: "§7Du hast deinen §aDefault §7Home gesetzt"
+delhome_success: "§7Du hast den Home §a%h §7gelöscht"
+delhome_error: "§cEin Home mit dem namen §6%h §cexistiert nicht"
+home_success: "§7Du hast dich zum Home §a%h §7teleportiert"
+home_error: "§cEin Home mit dem namen §6%h §cexistiert nicht"
+home_default_success: "§7Du hast dich zu deinem §aDefault §7Home teleportiert"
+home_default_error: "§cDu hat noch nie deinen §6Default §cHome gesetzt"
+
+invsee_error: "§cDu kannst nicht dein eigenes Inventar anschauen"
+
+###################
+
+rank_remove_success: "§7Dem Spieler §a%t §7wurden alle Ranks entzogen"
+rank_set_success: "§7Dem Spieler §a%p §7wurde der Rank §a%r §7gegeben"
+rank_set_error: "§cDer Spieler §6%p §cbesitzt bereits diesen Rank"
+rank_create_success: "§7Der Rank §a%r §7wurde erstellt"
+rank_delete_success: "§7Der Rank §a%r §7wurde gelöscht"
+rank_setprefix_success: "§7Der Prefix des Ranks §a%r §7wurde auf §a%p §7geändert"
+
+rank_dontexists: "§cDieser Ranks existiert nicht"
+rank_exists: "§cDieser Rank existiert bereits"
+
+###################
+
+speed_error: "§cDer wert darf nicht höher als §610§c sein"
+speed_fly_success: "§7Die FlySpeed wurde auf §a%s §7gesetzt"
+speed_walk_success: "§7Die WalkSpeed wurde auf §a%s §7gesetzt"
+
+sudo_success: "§7Der Spieler §a%t §7wurde gezwungen den Befehl §a/%b §7auszuführen"
+
+tpaccept_player_success: "§7Du wurdest zu §a%p §7Teleportiert"
+tpaccept_target_success: "§a%t §7wurde zu dir Teleportiert"
+
+tpa_sender_success: "§7Die Tpa wurde §a%t §7gesendet"
+tpa_target_success_1: "§a%p §7 hat dir eine Tpa gesendet"
+tpa_target_success_2: "§7Mache §a/tpaccept §7um die Anfrage anzunehmen"
+
+tphere_success: "§7Der Spieler §a%t §7wurde zu dir Teleportiert"
+tphere_error: "§cDu kannst dich nicht selbst zu dir Teleportieren"
+
+vanish_success: "§7Du bist nun im Vanish"
+vanish_error: "§7Du bist nicht mehr Vanish"
+vanish_other_success: "§7Der Spieler §a%t §7ist jetzt im Vanish"
+vanish_other_error: "§7Der Spieler §a%t §7 ist nicht mehr im Vanish"
+
+setwarp_success: "§7Du hast den Warp §a%w §7erstellt!"
+setwarp_error: "§cDen Warp §6%w §cgibt es schon"
+delwarp_success: "§7Du hast den Warp §a%w §7gelöscht!"
+delwarp_error: "§cDen Warp §6%w §cgibt es nicht"
+warp_succes: "§7Du wurdest zum Warp §a%w §7teleportiert!"
+warp_error: "§cDen Warp §6%w §cgibt es nicht"
