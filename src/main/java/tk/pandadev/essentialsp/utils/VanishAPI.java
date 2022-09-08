@@ -29,7 +29,6 @@ public class VanishAPI {
             System.out.println(isVanish(player));
             if (isVanish(player)) {
                 onlinePlayer.hidePlayer(this.plugin, player);
-                System.out.println("asdasd");
                 continue;
             }
             onlinePlayer.showPlayer(this.plugin, player);
