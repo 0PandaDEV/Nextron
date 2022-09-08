@@ -1,13 +1,15 @@
 locale: "en_US"
+join_message: "§2[§a+§2] §7%p"
+leave_message: "§4[§c-§4] §7%p"
 
 # Der Rank spieler sollte immer vorhanden sein ansonsten funktioniert das system nicht mehr!
 ranks:
   owner:
-    prefix: "§4Owner §7• §f"
+    prefix: "§4Owner §8• §f"
     players: []
   admin:
-    prefix: "§cAdmin §7• §f"
+    prefix: "§cAdmin §8• §f"
     players: []
   spieler:
-    prefix: "§6Player §7• §7"
+    prefix: "§6Player §8• §7"
     players: []

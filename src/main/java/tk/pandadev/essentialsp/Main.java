@@ -3,13 +3,11 @@ package tk.pandadev.essentialsp;
 import games.negative.framework.BasePlugin;
 import games.negative.framework.scoreboard.Scoreboard;
 import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
 import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.PluginManager;
-import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitRunnable;
 import tk.pandadev.essentialsp.commands.*;
 import tk.pandadev.essentialsp.listeners.*;
@@ -98,10 +96,10 @@ public final class Main extends BasePlugin {
     }
 
     private void createCustomConfig() {
-        settingsConfig = new File(getDataFolder(), "settings.yml");
+        settingsConfig = new File(getDataFolder(), "user_settings.yml");
         if (!settingsConfig.exists()) {
             settingsConfig.getParentFile().mkdirs();
-            saveResource("settings.yml", false);
+            saveResource("user_settings.yml", false);
         }
 
         settings = new YamlConfiguration();
@@ -110,10 +108,6 @@ public final class Main extends BasePlugin {
         } catch (IOException | InvalidConfigurationException e) {
             e.printStackTrace();
         }
-        /* User Edit:
-            Instead of the above Try/Catch, you can also use
-            YamlConfiguration.loadConfiguration(customConfigFile)
-        */
     }
 
     public void saveSettingsConfig() {

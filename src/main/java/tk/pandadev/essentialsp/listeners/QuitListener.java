@@ -18,7 +18,7 @@ public class QuitListener implements Listener {
         if (VanishAPI.isVanish(player)){
             event.setQuitMessage("");
         }else {
-            event.setQuitMessage("§4[§c-§4] " + ChatColor.RED + player.getName());
+            event.setQuitMessage(Main.getInstance().getConfig().getString("leave_message").replace("%p", player.getName()));
         }
     }
 
