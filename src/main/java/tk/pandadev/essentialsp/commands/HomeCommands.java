@@ -43,7 +43,7 @@ public class HomeCommands implements CommandExecutor, TabCompleter {
 
             Main.getInstance().getConfig().set("Homes." + player.getUniqueId() + ".default", player.getLocation());
             Main.getInstance().saveConfig();
-            player.sendMessage(Main.getPrefix() + "§7Du hast deinen §aDefault §7Home gesetzt");
+            player.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("sethome_default_success"));
             return true;
 
         } else if (label.equalsIgnoreCase("delhome") && args.length == 1){
@@ -65,7 +65,7 @@ public class HomeCommands implements CommandExecutor, TabCompleter {
 
                 player.teleport((Location) Objects.requireNonNull(Main.getInstance().getConfig().get("Homes." + player.getUniqueId() + "." + args[0].toLowerCase())));
                 player.playSound(player.getLocation(), Sound.ENTITY_ENDERMAN_TELEPORT, 1.0f, 1.0f);
-                if (Main.getInstance().getSettingsConfig().getBoolean(player.getUniqueId() + ".message")){
+                if (Main.getInstance().getSettingsConfig().getBoolean(player.getUniqueId() + ".feedback")){
                     player.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("home_success").replace("%h", args[0].toLowerCase()));
                 }
                 return true;
@@ -80,13 +80,13 @@ public class HomeCommands implements CommandExecutor, TabCompleter {
 
                 player.teleport((Location) Objects.requireNonNull(Main.getInstance().getConfig().get("Homes." + player.getUniqueId() + ".default")));
                 player.playSound(player.getLocation(), Sound.ENTITY_ENDERMAN_TELEPORT, 1.0f, 1.0f);
-                if (Main.getInstance().getSettingsConfig().getBoolean(player.getUniqueId() + ".message")){
-                    player.sendMessage(Main.getPrefix() + "§7Du hast dich zu deinem §aDefault §7Home teleportiert");
+                if (Main.getInstance().getSettingsConfig().getBoolean(player.getUniqueId() + ".feedback")){
+                    player.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("home_default_success"));
                 }
                 return true;
 
             } else {
-                player.sendMessage(Main.getPrefix() + "§cDu hat noch nie deinen §6Default §cHome gesetzt");
+                player.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("home_default_error"));
             }
 
         } else {
