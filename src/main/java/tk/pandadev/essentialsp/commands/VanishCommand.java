@@ -41,13 +41,13 @@ public class VanishCommand implements CommandExecutor, TabCompleter {
                         Main.getInstance().getVanishAPI().setVanish(target, false);
                         player.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("unvanish_other").replace("%t", target.getName()));
                         if (Main.getInstance().getSettingsConfig().getBoolean(target.getUniqueId() + ".vanish." + "message")){
-                            Bukkit.broadcastMessage(Main.getInstance().getConfig().getString("join_message").replace("%p", player.getName()));
+                            Bukkit.broadcastMessage(ChatColor.translateAlternateColorCodes('&', Main.getInstance().getConfig().getString("join_message").replace("%p", target.getName())));
                         }
                     } else{
                         Main.getInstance().getVanishAPI().setVanish(target, true);
                         player.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("vanish_other").replace("%t", target.getName()));
                         if (Main.getInstance().getSettingsConfig().getBoolean(target.getUniqueId() + ".vanish." + "message")){
-                            Bukkit.broadcastMessage(Main.getInstance().getConfig().getString("leave_message").replace("%p", player.getName()));
+                            Bukkit.broadcastMessage(ChatColor.translateAlternateColorCodes('&', Main.getInstance().getConfig().getString("leave_message").replace("%p", target.getName())));
                         }
                     }
                 } else {
@@ -67,13 +67,13 @@ public class VanishCommand implements CommandExecutor, TabCompleter {
                     Main.getInstance().getVanishAPI().setVanish(player, false);
                     player.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("unvanish"));
                     if (Main.getInstance().getSettingsConfig().getBoolean(player.getUniqueId() + ".vanish." + "message")){
-                        Bukkit.broadcastMessage(Main.getInstance().getConfig().getString("join_message").replace("%p", player.getName()));
+                        Bukkit.broadcastMessage(ChatColor.translateAlternateColorCodes('&', Main.getInstance().getConfig().getString("join_message").replace("%p", player.getName())));
                     }
                 } else{
                     Main.getInstance().getVanishAPI().setVanish(player, true);
                     player.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("vanish"));
                     if (Main.getInstance().getSettingsConfig().getBoolean(player.getUniqueId() + ".vanish." + "message")){
-                        Bukkit.broadcastMessage(Main.getInstance().getConfig().getString("leave_message").replace("%p", player.getName()));
+                        Bukkit.broadcastMessage(ChatColor.translateAlternateColorCodes('&', Main.getInstance().getConfig().getString("leave_message").replace("%p", player.getName())));
                     }
                 }
 

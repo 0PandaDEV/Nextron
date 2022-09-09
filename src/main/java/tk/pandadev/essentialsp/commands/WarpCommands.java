@@ -56,8 +56,7 @@ public class WarpCommands implements CommandExecutor, TabCompleter {
         } else if (label.equalsIgnoreCase("warp") && args.length == 1){
 
             if (Main.getInstance().getConfig().get("Warps." + args[0].toLowerCase()) != null) {
-                Location location = (Location) Main.getInstance().getConfig().get("Warps." + args[0].toLowerCase());
-                player.teleport(location);
+                player.teleport((Location) Main.getInstance().getConfig().get("Warps." + args[0].toLowerCase()));
                 if (Main.getInstance().getSettingsConfig().getBoolean(player.getUniqueId() + ".feedback")){
                     player.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("warp_success").replace("%w", args[0].toLowerCase()));
                 }
@@ -78,7 +77,7 @@ public class WarpCommands implements CommandExecutor, TabCompleter {
     public List<String> onTabComplete(CommandSender sender, Command command, String label, String[] args) {
         ArrayList<String> list = new ArrayList<String>();
 
-        if (args.length == 1) {
+        if (args.length == 1 && label.equalsIgnoreCase("warp") || label.equalsIgnoreCase("delwarp")) {
             list.addAll(Objects.requireNonNull(Main.getInstance().getConfig().getConfigurationSection("Warps")).getKeys(false));
         }
 

@@ -102,9 +102,7 @@ public class HomeCommands implements CommandExecutor, TabCompleter {
         ArrayList<String> list = new ArrayList<String>();
         Player playert = (Player)(sender);
 
-        if (args.length == 1 && args[0].equalsIgnoreCase("home")) {
-            list.addAll(Objects.requireNonNull(Main.getInstance().getConfig().getConfigurationSection("Homes." + playert.getUniqueId())).getKeys(false));
-        } else if (args.length == 1 && args[0].equalsIgnoreCase("delhome")){
+        if (args.length == 1 && label.equalsIgnoreCase("home") || label.equalsIgnoreCase("delhome")) {
             list.addAll(Objects.requireNonNull(Main.getInstance().getConfig().getConfigurationSection("Homes." + playert.getUniqueId())).getKeys(false));
         }
 
