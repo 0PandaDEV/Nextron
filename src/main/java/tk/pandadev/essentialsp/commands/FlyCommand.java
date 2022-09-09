@@ -31,9 +31,9 @@ public class FlyCommand implements CommandExecutor, TabCompleter {
                 if (target != null){
 
                     if (target.getAllowFlight()){
-                        player.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("fly_other_on").replace("%t", target.getName()));
-                    } else {
                         player.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("fly_other_off").replace("%t", target.getName()));
+                    } else {
+                        player.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("fly_other_on").replace("%t", target.getName()));
                     }
 
                     target.setAllowFlight(!target.getAllowFlight());
@@ -50,11 +50,11 @@ public class FlyCommand implements CommandExecutor, TabCompleter {
             if (player.hasPermission("essentialsp.fly")) {
 
                 if (player.getAllowFlight()){
-                    if (Main.getInstance().getSettingsConfig().getBoolean(player.getUniqueId() + ".message")){
+                    if (Main.getInstance().getSettingsConfig().getBoolean(player.getUniqueId() + ".feedback")){
                         player.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("fly_off"));
                     }
                 } else {
-                    if (Main.getInstance().getSettingsConfig().getBoolean(player.getUniqueId() + ".message")){
+                    if (Main.getInstance().getSettingsConfig().getBoolean(player.getUniqueId() + ".feedback")){
                         player.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("fly_on"));
                     }
                 }
