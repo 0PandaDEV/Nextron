@@ -20,7 +20,7 @@ public class JoinListener implements Listener {
         if (VanishAPI.isVanish(player)){
             event.setJoinMessage("");
         }else {
-            event.setJoinMessage(Main.getInstance().getConfig().getString("join_message").replace("%p", player.getName()));
+            event.setJoinMessage(ChatColor.translateAlternateColorCodes('&', Main.getInstance().getConfig().getString("join_message").replace("%p", player.getName())));
         }
         RankAPI.checkRank(player);
         run();
