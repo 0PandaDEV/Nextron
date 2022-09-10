@@ -21,18 +21,15 @@ import java.util.*;
 public final class Main extends BasePlugin {
 
     private static Main instance;
-    private Config config;
-
     private File settingsConfig;
     private FileConfiguration settings;
-    private static String Prefix = "§a§lEssentialsP §8» ";
-    private static String NoPerm = Prefix + LanguageLoader.translationMap.get("no_perms");
-    private static String InvalidPlayer = Prefix + LanguageLoader.translationMap.get("invalid_player");
-    private static String CommandInstance = Prefix + LanguageLoader.translationMap.get("command_instance_error");
+    private static final String Prefix = "§a§lEssentialsP §8» ";
     private VanishManager vanishManager;
     private VanishAPI vanishAPI;
     private TablistManager tablistManager;
-    private Scoreboard scoreboard;
+    public static String NoPerm;
+    public static String InvalidPlayer;
+    public static String CommandInstance;
 
     public static HashMap<Player, Player> tpa = new HashMap<>();
 
@@ -47,6 +44,10 @@ public final class Main extends BasePlugin {
         tablistManager = new TablistManager();
         new LanguageLoader(this);
 
+        NoPerm = Prefix + LanguageLoader.translationMap.get("no_perms");
+        InvalidPlayer = Prefix + LanguageLoader.translationMap.get("invalid_player");
+        CommandInstance = Prefix + LanguageLoader.translationMap.get("command_instance_error");
+
         Bukkit.getConsoleSender().sendMessage(Prefix + LanguageLoader.translationMap.get("activate_message"));
 
         registerListeners();
@@ -57,7 +58,6 @@ public final class Main extends BasePlugin {
             Main.getInstance().getTablistManager().setAllPlayerTeams();
             run();
         }
-
     }
 
     @Override
