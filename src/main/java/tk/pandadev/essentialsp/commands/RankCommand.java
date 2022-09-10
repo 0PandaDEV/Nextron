@@ -27,7 +27,7 @@ public class RankCommand implements CommandExecutor, TabCompleter {
 
         Player player = (Player)(sender);
 
-        if (args[0].equalsIgnoreCase("set") && args.length == 3){
+        if (args.length == 3 && args[0].equalsIgnoreCase("set")){
 
             if (player.hasPermission("essentialsp.rank.set")) {
 
@@ -47,7 +47,7 @@ public class RankCommand implements CommandExecutor, TabCompleter {
             }
 
 
-        } else if (args[0].equalsIgnoreCase("remove") && args.length == 2){
+        } else if (args.length == 2 && args[0].equalsIgnoreCase("remove")){
 
             if (player.hasPermission("essentialsp.rank.remove")) {
 
@@ -66,7 +66,7 @@ public class RankCommand implements CommandExecutor, TabCompleter {
             } else {
                 player.sendMessage(Main.getNoPerm());
             }
-        } else if (args[0].equalsIgnoreCase("create") && args.length >= 3){
+        } else if (args.length >= 3 && args[0].equalsIgnoreCase("create")){
             if (player.hasPermission("essentialsp.rank.create")) {
 
                 StringBuilder sb = new StringBuilder();
@@ -80,7 +80,7 @@ public class RankCommand implements CommandExecutor, TabCompleter {
             } else {
                 player.sendMessage(Main.getNoPerm());
             }
-        } else if (args[0].equalsIgnoreCase("delete") && args.length == 2){
+        } else if (args.length == 2 && args[0].equalsIgnoreCase("delete")){
 
             if (player.hasPermission("essentialsp.rank.delete")) {
 
@@ -90,7 +90,7 @@ public class RankCommand implements CommandExecutor, TabCompleter {
                 player.sendMessage(Main.getNoPerm());
             }
 
-        } else if (args[0].equalsIgnoreCase("modify") && args[1].equalsIgnoreCase("prefix") && args.length >= 4){
+        } else if (args.length >= 4 && args[0].equalsIgnoreCase("modify") && args[1].equalsIgnoreCase("prefix")){
 
             if (player.hasPermission("essentialsp.rank.modify.prefix")) {
 
@@ -106,7 +106,7 @@ public class RankCommand implements CommandExecutor, TabCompleter {
                 player.sendMessage(Main.getNoPerm());
             }
 
-        } else if (args[0].equalsIgnoreCase("modify") && args[1].equalsIgnoreCase("name") && args.length >= 4){
+        } else if (args.length >= 4 && args[0].equalsIgnoreCase("modify") && args[1].equalsIgnoreCase("name")){
 
             if (player.hasPermission("essentialsp.rank.modify.name")) {
 
@@ -122,10 +122,12 @@ public class RankCommand implements CommandExecutor, TabCompleter {
                 player.sendMessage(Main.getNoPerm());
             }
 
-        }
-
-        else {
-            player.sendMessage(Main.getPrefix() + "§c/setrank|removerank <player> <rankname>");
+        } else {
+            player.sendMessage(Main.getPrefix() +
+                    "§c/rank set <player> <rank>",
+                    "§c/setrank <name> <prefix> - use '&' for colors",
+                    "§c/removerank <player>",
+                    "§c/rank modify prefix <newprefix> - use '&' for colors");
         }
         return true;
     }
