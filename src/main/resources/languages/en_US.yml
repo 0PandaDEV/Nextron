@@ -8,7 +8,7 @@ invalid_player: "§cThis player is not online"
 homegui_leftclick: "§aLeft-click §c>> §7Opens home settings"
 
 homegui_rightclick: "§aRight-click §c>> §7Teleports to Home"
-homesettingsgui_feature: "§cThis feauture is not yet available"
+homesettingsgui_feature: "§cThis feature is not yet available"
 
 #################################
 
@@ -17,7 +17,7 @@ maingui_vanish_inactive_title: "§c❌ §8• §7Fake Join/Quit Message disabled
 
 maingui_vanish_lore_1: "§8Controls whether a fake join/quit"
 maingui_vanish_lore_2: "§8message will display"
-maingui_vanish_lore_3: "§8when you enter or leave the vanish"
+maingui_vanish_lore_3: "§8when you enter or leave vanish"
 
 maingui_vanish_lore_4: "§aLeft-click §c>> §7Toggle"
 
@@ -26,9 +26,9 @@ maingui_vanish_lore_4: "§aLeft-click §c>> §7Toggle"
 maingui_feedback_active_title: "§a✔ §8• §aCommand feedback is enabled"
 maingui_feedback_inactive_title: "§c❌ §8• §7Command Feedback is disabled"
 
-maingui_feedback_lore_1: "§8Controls whether a message is considered a result"
-maingui_feedback_lore_2: "§8To be displayed after a command"
-maingui_feedback_lore_3: "§8for example 'You have been set to gamemode creative'"
+maingui_feedback_lore_1: "§8Controls whether a message should"
+maingui_feedback_lore_2: "§8be sent after a command"
+maingui_feedback_lore_3: "§8for example 'Gamemode set to creative'"
 maingui_feedback_lore_4: "§8errors and important messages"
 maingui_feedback_lore_5: "§8will still be displayed."
 
@@ -71,7 +71,7 @@ invsee_error: "§cYou cannot run this command on yourself"
 
 rank_remove_success: "§7All ranks removed from §a%t"
 rank_set_success: "§a%p §7has been given the rank §a%r"
-rank_set_error: "§cThe player §6%p §calyready has this rank"
+rank_set_error: "§cThe player §6%p §calready has this rank"
 rank_create_success: "§7A rank named §a%r §7was created"
 rank_delete_success: "§7A rank named §a%r §7was deleted"
 rank_setprefix_success: "§7The prefix of the Rank §a%r §7has changed to §a%p"
@@ -84,6 +84,8 @@ rank_exists: "§cA rank with this name already exists"
 speed_error: "§cValue may not exceed 10"
 speed_fly_success: "§7Flyspeed set to §a%s"
 speed_walk_success: "§7Walkspeed set to §a%s"
+speed_reset: "§7Your speed has been reset to the default value"
+speed_error_digit: "§cThe value must be a number"
 
 sudo_success: "§a%t §7was forced to run §a/%b"
 
@@ -93,6 +95,7 @@ tpaccept_target_success: "§a%t §7has teleported to you"
 tpa_sender_success: "§7Tpa was sent to §a%t"
 tpa_target_success_1: "§a%p §7has requested to teleport to you"
 tpa_target_success_2: "§7Type §a/tpaccept §7to accept their request"
+tpa_error: "§cYou cannot tpa yourself"
 
 tphere_success: "§a%t §7has teleported to you"
 tphere_error: "§cYou cannot teleport to yourself"

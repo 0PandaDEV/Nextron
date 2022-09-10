@@ -1,7 +1,7 @@
 activate_message: "§aAktiviert"
 deactivate_message: "§aDeaktiviert"
 
-command_insntance_error: "§6Du musst diesen Command als Spieler ausführen!"
+command_instance_error: "§6Du musst diesen Command als Spieler ausführen!"
 no_perms: "§cDazu hast du keine Berechtigung"
 invalid_player: "§cDieser Spieler ist nicht Online"
 
@@ -84,6 +84,8 @@ rank_exists: "§cDieser Rank existiert bereits"
 speed_error: "§cDer wert darf nicht höher als §610§c sein"
 speed_fly_success: "§7Die FlySpeed wurde auf §a%s §7gesetzt"
 speed_walk_success: "§7Die WalkSpeed wurde auf §a%s §7gesetzt"
+speed_reset: "§7Deine Speed wurde auf standart zurückgesetzt"
+speed_error_digit: "§cDer wert muss eine zahl sein"
 
 sudo_success: "§7Der Spieler §a%t §7wurde gezwungen den Befehl §a/%b §7auszuführen"
 
@@ -93,6 +95,7 @@ tpaccept_target_success: "§a%t §7wurde zu dir Teleportiert"
 tpa_sender_success: "§7Die Tpa wurde §a%t §7gesendet"
 tpa_target_success_1: "§a%p §7 hat dir eine Tpa gesendet"
 tpa_target_success_2: "§7Mache §a/tpaccept §7um die Anfrage anzunehmen"
+tpa_error: "§cDu kannst nicht dir selbst eine Tpa schicken"
 
 tphere_success: "§7Der Spieler §a%t §7wurde zu dir Teleportiert"
 tphere_error: "§cDu kannst dich nicht selbst zu dir Teleportieren"
