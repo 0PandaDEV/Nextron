@@ -27,12 +27,15 @@ public class TpaCommand implements CommandExecutor, TabCompleter {
         if (args.length == 1){
             try {
                 Player target = Bukkit.getPlayer(args[0]);
-                Main.tpa.put(target, player);
-                target.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("tpa_target_success_1").replace("%p", player.getName()));
-                target.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("tpa_target_success_2"));
-                target.playSound(target.getLocation(), Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 1.0f, 1.0f);
-
-                player.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("tpa_sender_success").replace("%t", target.getName()));
+                if (!target.equals(player)){
+                    Main.tpa.put(target, player);
+                    target.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("tpa_target_success_1").replace("%p", player.getName()));
+                    target.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("tpa_target_success_2"));
+                    target.playSound(target.getLocation(), Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 1.0f, 1.0f);
+                    player.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("tpa_sender_success").replace("%t", target.getName()));
+                } else {
+                    player.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("tpa_error"));
+                }
             }
             catch (Exception e){
                 player.sendMessage(Main.getInvalidPlayer());
