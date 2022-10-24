@@ -49,9 +49,9 @@ fly_on: "§7Du kannst jetzt fliegen"
 fly_off: "§7Du kannst jetzt nicht mehr fliegen"
 
 heal_success: "§7Du hast dich geheilt"
-heal_error: "§cDu bist bereits geheilt"
+heal_error: "§cDu bist bereits geheilt oder hast volle Hungerkäulen"
 heal_other_success: "§7Du wurdest von §a%p §7 geheilt"
-heal_other_error: "§cDer Spieler §6%t §c ist bereits geheilt"
+heal_other_error: "§cDer Spieler §6%t §c ist bereits geheilt oder hat volle Hungerkäulen"
 
 gamemode_success: "§7Du hast dich in den Spielmodus §a%g §7gesetzt"
 gamemode_error: "§cDu bist bereits im Gamemode §6%g"

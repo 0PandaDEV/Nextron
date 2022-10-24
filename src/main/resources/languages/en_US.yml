@@ -49,9 +49,9 @@ fly_on: "§7Flight enabled"
 fly_off: "§7Flight disabled"
 
 heal_success: "§7You have been healed"
-heal_error: "§cYou are already at max health"
+heal_error: "§cYou are already at max health or have full hunger pillars"
 heal_other_success: "§a%p §7has healed you"
-heal_other_error: "§cThe player §6%t §c is already at max health"
+heal_other_error: "§cThe player §6%t §c is already at max health or has full hunger pillars"
 
 gamemode_success: "§7Gamemode set to §a%g"
 gamemode_error: "§cYou are already in gamemode §6%g"

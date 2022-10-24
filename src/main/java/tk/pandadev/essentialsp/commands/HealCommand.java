@@ -29,7 +29,7 @@ public class HealCommand implements CommandExecutor, TabCompleter {
 
             if (player.hasPermission("essentialsp.heal")) {
 
-                if (player.getHealth() != player.getMaxHealth()) {
+                if (player.getHealth() != player.getMaxHealth() || player.getFoodLevel() != 20) {
                     player.setHealth(player.getMaxHealth());
                     player.setFoodLevel(20);
                     if (Configs.settings.getBoolean(player.getUniqueId() + ".feedback")){
@@ -52,7 +52,7 @@ public class HealCommand implements CommandExecutor, TabCompleter {
                 Player target = Bukkit.getPlayer(args[0]);
 
                 if (target != null){
-                    if (target.getHealth() != 20.0) {
+                    if (target.getHealth() != 20.0 || target.getFoodLevel() != 20) {
                         target.setHealth(20.0);
                         target.setFoodLevel(20);
                         target.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("heal_other_success").replace("%p", player.getName()));
