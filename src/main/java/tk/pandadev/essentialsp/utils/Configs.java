@@ -80,7 +80,7 @@ public class Configs {
 
     public static void saveWarpConfig() {
         try{
-            settings.save(settingsConfig);
+            warp.save(warpConfig);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
