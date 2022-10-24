@@ -7,6 +7,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabCompleter;
 import org.bukkit.entity.Player;
 import tk.pandadev.essentialsp.Main;
+import tk.pandadev.essentialsp.utils.Configs;
 import tk.pandadev.essentialsp.utils.LanguageLoader;
 
 import java.util.ArrayList;
@@ -33,7 +34,7 @@ public class TphereCommand implements CommandExecutor, TabCompleter {
                     if (!Objects.equals(target.getName(), player.getName())) {
                         target.teleport(player.getLocation());
 
-                        if (Main.getInstance().getSettingsConfig().getBoolean(player.getUniqueId() + ".feedback")){
+                        if (Configs.settings.getBoolean(player.getUniqueId() + ".feedback")){
                             player.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("tphere_success").replace("%t", target.getName()));
                         }
 

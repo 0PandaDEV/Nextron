@@ -10,6 +10,7 @@ import org.bukkit.command.TabCompleter;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 import tk.pandadev.essentialsp.Main;
+import tk.pandadev.essentialsp.utils.Configs;
 import tk.pandadev.essentialsp.utils.LanguageLoader;
 import tk.pandadev.essentialsp.utils.VanishAPI;
 import tk.pandadev.essentialsp.utils.VanishManager;
@@ -40,13 +41,13 @@ public class VanishCommand implements CommandExecutor, TabCompleter {
                     if (VanishAPI.isVanish(target)){
                         Main.getInstance().getVanishAPI().setVanish(target, false);
                         player.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("unvanish_other").replace("%t", target.getName()));
-                        if (Main.getInstance().getSettingsConfig().getBoolean(target.getUniqueId() + ".vanish." + "message")){
+                        if (Configs.settings.getBoolean(target.getUniqueId() + ".vanish." + "message")){
                             Bukkit.broadcastMessage(ChatColor.translateAlternateColorCodes('&', Main.getInstance().getConfig().getString("join_message").replace("%p", target.getName())));
                         }
                     } else{
                         Main.getInstance().getVanishAPI().setVanish(target, true);
                         player.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("vanish_other").replace("%t", target.getName()));
-                        if (Main.getInstance().getSettingsConfig().getBoolean(target.getUniqueId() + ".vanish." + "message")){
+                        if (Configs.settings.getBoolean(target.getUniqueId() + ".vanish." + "message")){
                             Bukkit.broadcastMessage(ChatColor.translateAlternateColorCodes('&', Main.getInstance().getConfig().getString("leave_message").replace("%p", target.getName())));
                         }
                     }
@@ -66,13 +67,13 @@ public class VanishCommand implements CommandExecutor, TabCompleter {
                 if (VanishAPI.isVanish(player)){
                     Main.getInstance().getVanishAPI().setVanish(player, false);
                     player.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("unvanish"));
-                    if (Main.getInstance().getSettingsConfig().getBoolean(player.getUniqueId() + ".vanish." + "message")){
+                    if (Configs.settings.getBoolean(player.getUniqueId() + ".vanish." + "message")){
                         Bukkit.broadcastMessage(ChatColor.translateAlternateColorCodes('&', Main.getInstance().getConfig().getString("join_message").replace("%p", player.getName())));
                     }
                 } else{
                     Main.getInstance().getVanishAPI().setVanish(player, true);
                     player.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("vanish"));
-                    if (Main.getInstance().getSettingsConfig().getBoolean(player.getUniqueId() + ".vanish." + "message")){
+                    if (Configs.settings.getBoolean(player.getUniqueId() + ".vanish." + "message")){
                         Bukkit.broadcastMessage(ChatColor.translateAlternateColorCodes('&', Main.getInstance().getConfig().getString("leave_message").replace("%p", player.getName())));
                     }
                 }

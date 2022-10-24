@@ -7,6 +7,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabCompleter;
 import org.bukkit.entity.Player;
 import tk.pandadev.essentialsp.Main;
+import tk.pandadev.essentialsp.utils.Configs;
 import tk.pandadev.essentialsp.utils.LanguageLoader;
 
 import java.util.ArrayList;
@@ -50,11 +51,11 @@ public class FlyCommand implements CommandExecutor, TabCompleter {
             if (player.hasPermission("essentialsp.fly")) {
 
                 if (player.getAllowFlight()){
-                    if (Main.getInstance().getSettingsConfig().getBoolean(player.getUniqueId() + ".feedback")){
+                    if (Configs.settings.getBoolean(player.getUniqueId() + ".feedback")){
                         player.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("fly_off"));
                     }
                 } else {
-                    if (Main.getInstance().getSettingsConfig().getBoolean(player.getUniqueId() + ".feedback")){
+                    if (Configs.settings.getBoolean(player.getUniqueId() + ".feedback")){
                         player.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("fly_on"));
                     }
                 }

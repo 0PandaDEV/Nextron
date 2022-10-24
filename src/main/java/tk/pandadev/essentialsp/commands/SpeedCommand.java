@@ -6,6 +6,7 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import tk.pandadev.essentialsp.Main;
+import tk.pandadev.essentialsp.utils.Configs;
 import tk.pandadev.essentialsp.utils.LanguageLoader;
 
 public class SpeedCommand implements CommandExecutor {
@@ -30,12 +31,12 @@ public class SpeedCommand implements CommandExecutor {
                             player.setAllowFlight(true);
                             player.setFlying(true);
                             player.setFlySpeed(speed);
-                            if (Main.getInstance().getSettingsConfig().getBoolean(player.getUniqueId() + ".feedback")) {
+                            if (Configs.settings.getBoolean(player.getUniqueId() + ".feedback")) {
                                 player.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("speed_fly_success").replace("%s", args[0]));
                             }
                         } else if (player.isOnGround()) {
                             player.setWalkSpeed(speed);
-                            if (Main.getInstance().getSettingsConfig().getBoolean(player.getUniqueId() + ".feedback")) {
+                            if (Configs.settings.getBoolean(player.getUniqueId() + ".feedback")) {
                                 player.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("speed_walk_success").replace("%s", args[0]));
                             }
                         }

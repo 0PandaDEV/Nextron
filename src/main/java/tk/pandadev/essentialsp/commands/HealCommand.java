@@ -9,6 +9,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabCompleter;
 import org.bukkit.entity.Player;
 import tk.pandadev.essentialsp.Main;
+import tk.pandadev.essentialsp.utils.Configs;
 import tk.pandadev.essentialsp.utils.LanguageLoader;
 
 import java.util.ArrayList;
@@ -31,7 +32,7 @@ public class HealCommand implements CommandExecutor, TabCompleter {
                 if (player.getHealth() != player.getMaxHealth()) {
                     player.setHealth(player.getMaxHealth());
                     player.setFoodLevel(20);
-                    if (Main.getInstance().getSettingsConfig().getBoolean(player.getUniqueId() + ".feedback")){
+                    if (Configs.settings.getBoolean(player.getUniqueId() + ".feedback")){
                         player.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("heal_success"));
                     }
                     player.playSound(player.getLocation(), Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 1.0f, 1.0f);

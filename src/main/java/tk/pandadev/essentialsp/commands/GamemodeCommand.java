@@ -8,6 +8,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabCompleter;
 import org.bukkit.entity.Player;
 import tk.pandadev.essentialsp.Main;
+import tk.pandadev.essentialsp.utils.Configs;
 import tk.pandadev.essentialsp.utils.LanguageLoader;
 
 import java.util.ArrayList;
@@ -33,7 +34,7 @@ public class GamemodeCommand implements CommandExecutor, TabCompleter {
                 if (args[0].equalsIgnoreCase("1") || args[0].equalsIgnoreCase("creative")) {
                     if (player.getGameMode() != GameMode.CREATIVE){
                         player.setGameMode(GameMode.CREATIVE);
-                        if (Main.getInstance().getSettingsConfig().getBoolean(player.getUniqueId() + ".feedback")){
+                        if (Configs.settings.getBoolean(player.getUniqueId() + ".feedback")){
                             player.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("gamemode_success").replace("%g", "Creative"));
                         }
                     }else {
@@ -43,7 +44,7 @@ public class GamemodeCommand implements CommandExecutor, TabCompleter {
                 if (args[0].equalsIgnoreCase("0") || args[0].equalsIgnoreCase("survival")) {
                     if (player.getGameMode() != GameMode.SURVIVAL){
                         player.setGameMode(GameMode.SURVIVAL);
-                        if (Main.getInstance().getSettingsConfig().getBoolean(player.getUniqueId() + ".feedback")){
+                        if (Configs.settings.getBoolean(player.getUniqueId() + ".feedback")){
                             player.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("gamemode_success").replace("%g", "Survival"));
                         }
                     }else {
@@ -53,7 +54,7 @@ public class GamemodeCommand implements CommandExecutor, TabCompleter {
                 if (args[0].equalsIgnoreCase("2") || args[0].equalsIgnoreCase("adventure")) {
                     if (player.getGameMode() != GameMode.ADVENTURE){
                         player.setGameMode(GameMode.ADVENTURE);
-                        if (Main.getInstance().getSettingsConfig().getBoolean(player.getUniqueId() + ".feedback")){
+                        if (Configs.settings.getBoolean(player.getUniqueId() + ".feedback")){
                             player.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("gamemode_success").replace("%g", "Adventure"));
                         }
                     }else {
@@ -63,7 +64,7 @@ public class GamemodeCommand implements CommandExecutor, TabCompleter {
                 if (args[0].equalsIgnoreCase("3") || args[0].equalsIgnoreCase("spectator")) {
                     if (player.getGameMode() != GameMode.SPECTATOR){
                         player.setGameMode(GameMode.SPECTATOR);
-                        if (Main.getInstance().getSettingsConfig().getBoolean(player.getUniqueId() + ".feedback")){
+                        if (Configs.settings.getBoolean(player.getUniqueId() + ".feedback")){
                             player.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("gamemode_success").replace("%g", "Spectator"));
                         }
                     }else {

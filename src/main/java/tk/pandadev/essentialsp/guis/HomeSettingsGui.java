@@ -6,6 +6,7 @@ import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.Sound;
 import tk.pandadev.essentialsp.Main;
+import tk.pandadev.essentialsp.utils.Configs;
 import tk.pandadev.essentialsp.utils.LanguageLoader;
 import tk.pandadev.essentialsp.utils.Utils;
 
@@ -17,7 +18,7 @@ public class HomeSettingsGui extends GUI {
         super(home, 3);
 
         setItemClickEvent(12, player -> new ItemBuilder(Material.ENDER_PEARL).setName("§x§0§1§5§9§5§6Teleport").build(), ((player, event) -> {
-            player.teleport((Location) Objects.requireNonNull(Main.getInstance().getConfig().get("Homes." + player.getUniqueId() + "." + home)));
+            player.teleport((Location) Objects.requireNonNull(Configs.home.get("Homes." + player.getUniqueId() + "." + home)));
             player.playSound(player.getLocation(), Sound.ENTITY_ENDERMAN_TELEPORT, 1.0f, 1.0f);
             player.closeInventory();
         }));
@@ -32,9 +33,9 @@ public class HomeSettingsGui extends GUI {
             new HomeSettingsGui(home).open(player);
         }));
         setItemClickEvent(14, player -> new ItemBuilder(Material.RED_DYE).setName("§cDelete").build(), ((player, event) -> {
-            Main.getInstance().getConfig().set("Homes." + player.getUniqueId() + "." + home, null);
+            Configs.home.set("Homes." + player.getUniqueId() + "." + home, null);
             Main.getInstance().saveConfig();
-            if (Main.getInstance().getConfig().getConfigurationSection("Homes." + player.getUniqueId()).getKeys(false).isEmpty()) {
+            if (Configs.home.getConfigurationSection("Homes." + player.getUniqueId()).getKeys(false).isEmpty()) {
                 player.closeInventory();
             } else {
                 new HomeGui(player).open(player);

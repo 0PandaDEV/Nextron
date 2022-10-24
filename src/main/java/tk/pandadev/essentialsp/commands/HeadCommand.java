@@ -11,6 +11,7 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.SkullMeta;
 import tk.pandadev.essentialsp.Main;
+import tk.pandadev.essentialsp.utils.Configs;
 import tk.pandadev.essentialsp.utils.LanguageLoader;
 
 import java.util.ArrayList;
@@ -37,7 +38,7 @@ public class HeadCommand implements CommandExecutor, TabCompleter {
                 item.setItemMeta(meta);
                 Inventory inventory = player.getInventory();
                 inventory.addItem(item);
-                if (Main.getInstance().getSettingsConfig().getBoolean(player.getUniqueId() + ".feedback")){
+                if (Configs.settings.getBoolean(player.getUniqueId() + ".feedback")){
                     player.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("head_success").replace("%t", args[0]));
                 }
 
