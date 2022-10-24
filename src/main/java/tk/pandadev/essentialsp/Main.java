@@ -1,6 +1,10 @@
 package tk.pandadev.essentialsp;
 
 import games.negative.framework.BasePlugin;
+import games.negative.framework.database.Column;
+import games.negative.framework.database.ColumnType;
+import games.negative.framework.database.Database;
+import games.negative.framework.database.builder.TableBuilder;
 import games.negative.framework.scoreboard.Scoreboard;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.InvalidConfigurationException;
@@ -16,13 +20,14 @@ import tk.pandadev.essentialsp.utils.*;
 
 import java.io.File;
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
 import java.util.*;
 
 public final class Main extends BasePlugin {
 
     private static Main instance;
-    private File settingsConfig;
-    private FileConfiguration settings;
     private static final String Prefix = "§a§lEssentialsP §8» ";
     private VanishManager vanishManager;
     private VanishAPI vanishAPI;
@@ -37,8 +42,12 @@ public final class Main extends BasePlugin {
     public void onEnable() {
         super.onEnable();
         instance = this;
-        createCustomConfig();
         saveDefaultConfig();
+        Configs.createSettingsConfig();
+        Configs.createHomeConfig();
+        Configs.createWarpConfig();
+        Configs.saveHomeConfig();
+        Configs.saveWarpConfig();
         vanishManager = new VanishManager(this);
         vanishAPI = new VanishAPI(this);
         tablistManager = new TablistManager();
@@ -52,11 +61,10 @@ public final class Main extends BasePlugin {
 
         registerListeners();
         registerCommands();
+        Main.getInstance().getTablistManager().setAllPlayerTeams();
 
         for (Player player : Bukkit.getOnlinePlayers()) {
             SettingsConfig.checkSettings(player);
-            Main.getInstance().getTablistManager().setAllPlayerTeams();
-            run();
         }
     }
 
@@ -87,39 +95,13 @@ public final class Main extends BasePlugin {
         getCommand("rl").setExecutor(new ReloadCommand());
     }
 
+
     private void registerListeners(){
         PluginManager pluginManager = Bukkit.getPluginManager();
         pluginManager.registerEvents(new JoinListener(), this);
         pluginManager.registerEvents(new QuitListener(), this);
         pluginManager.registerEvents(new ChatEditor(), this);
         pluginManager.registerEvents(new InputListener(), this);
-    }
-
-    private void createCustomConfig() {
-        settingsConfig = new File(getDataFolder(), "user_settings.yml");
-        if (!settingsConfig.exists()) {
-            settingsConfig.getParentFile().mkdirs();
-            saveResource("user_settings.yml", false);
-        }
-
-        settings = new YamlConfiguration();
-        try {
-            settings.load(settingsConfig);
-        } catch (IOException | InvalidConfigurationException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void saveSettingsConfig() {
-        try{
-            settings.save(settingsConfig);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    public FileConfiguration getSettingsConfig() {
-        return this.settings;
     }
 
     public static Main getInstance() {
@@ -144,15 +126,6 @@ public final class Main extends BasePlugin {
 
     public TablistManager getTablistManager() {
         return tablistManager;
-    }
-
-    private void run() {
-        new BukkitRunnable() {
-            @Override
-            public void run() {
-                Main.getInstance().getTablistManager().setAllPlayerTeams();
-            }
-        }.runTaskTimer(Main.getInstance(), 20, 20);
     }
 
     public VanishAPI getVanishAPI() {
