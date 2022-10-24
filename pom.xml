@@ -6,7 +6,7 @@
 
     <groupId>tk.pandadev</groupId>
     <artifactId>EssentialsP</artifactId>
-    <version>1.2.3-beta.3</version>
+    <version>1.2.3-beta.4</version>
     <packaging>jar</packaging>
 
     <name>EssentialsP</name>
@@ -47,6 +47,27 @@
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-shade-plugin</artifactId>
+                <version>3.1.0</version>
+                <configuration>
+                    <relocations>
+                        <relocation>
+                            <pattern>org.bstats</pattern>
+                            <shadedPattern>me.name.util</shadedPattern>
+                        </relocation>
+                    </relocations>
+                </configuration>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>shade</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-jar-plugin</artifactId>
                 <version>2.3.1</version>
                 <configuration>
@@ -79,6 +100,10 @@
             <id>negative-games</id>
             <url>https://repo.negative.games/repository/negative-games/</url>
         </repository>
+        <repository>
+            <id>jitpack.io</id>
+            <url>https://jitpack.io</url>
+        </repository>
     </repositories>
 
     <dependencies>
@@ -98,6 +123,12 @@
             <groupId>games.negative.framework</groupId>
             <artifactId>Framework</artifactId>
             <version>2.2.0</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.bstats</groupId>
+            <artifactId>bstats-bukkit</artifactId>
+            <version>3.0.0</version>
             <scope>compile</scope>
         </dependency>
     </dependencies>
