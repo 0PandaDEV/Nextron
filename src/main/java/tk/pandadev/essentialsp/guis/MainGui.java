@@ -120,10 +120,11 @@ public class MainGui extends GUI {
 
         setItem(11, player1 -> new ItemBuilder(Material.HEART_OF_THE_SEA).setName("§3Vanish Settings").build());
 
-        setItemClickEvent(13, player1 -> new ItemBuilder(Material.COMPASS).setName("§7Home Settings").build(), (player1, event) -> {
-            if (Configs.home.getConfigurationSection("Homes").getKeys(false).isEmpty()){
+        setItemClickEvent(13, player1 -> new ItemBuilder(Material.COMPASS).setName("§7Homes").build(), (player1, event) -> {
+            if (Configs.home.getConfigurationSection("Homes") == null || Configs.home.getConfigurationSection("Homes").getKeys(false).isEmpty()){
                 player1.closeInventory();
                 player.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("maingui_no_homes"));
+                player.playSound(player.getLocation(), Sound.ENTITY_PILLAGER_AMBIENT, 100, 0.5f);
                 try {
                     Thread.sleep(2000);
                 } catch (InterruptedException e) {
@@ -135,16 +136,17 @@ public class MainGui extends GUI {
             }
         });
 
-        setItemClickEvent(31, player1 -> new ItemBuilder(Material.RECOVERY_COMPASS).setName("§7Warp Settings").build(), (player1, event) -> {
-            if (Configs.warp.getConfigurationSection("Wraps").getKeys(false).isEmpty()){
+        setItemClickEvent(31, player1 -> new ItemBuilder(Material.RECOVERY_COMPASS).setName("§7Warps").build(), (player1, event) -> {
+            if (Configs.warp.getConfigurationSection("Warps") == null || Configs.warp.getConfigurationSection("Warps").getKeys(false).isEmpty()){
                 player1.closeInventory();
                 player.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("maingui_no_warps"));
+                player.playSound(player.getLocation(), Sound.ENTITY_PILLAGER_AMBIENT, 100, 0.5f);
                 try {
                     Thread.sleep(2000);
                 } catch (InterruptedException e) {
                     throw new RuntimeException(e);
                 }
-                new WarpGui().open(player1);
+                new MainGui(player1).open(player1);
             } else {
                 new WarpGui().open(player1);
             }
