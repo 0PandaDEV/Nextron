@@ -24,6 +24,7 @@ public class RankAPI {
         } else {
             player.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("rank_dontexists"));
         }
+        Main.getInstance().getTablistManager().setAllPlayerTeams();
     }
 
     public static void removeRanks(Player player){
@@ -33,6 +34,7 @@ public class RankAPI {
             Main.getInstance().getConfig().set("ranks." + rank.toLowerCase() + ".players", list);
             Main.getInstance().saveConfig();
         }
+        Main.getInstance().getTablistManager().setAllPlayerTeams();
     }
 
     public static void createRank(Player player, String name, String prefix){
@@ -47,6 +49,7 @@ public class RankAPI {
                 player.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("rank_exists"));
             }
         }
+        Main.getInstance().getTablistManager().setAllPlayerTeams();
     }
 
     public static void deleteRank(Player player, String name){
@@ -57,19 +60,21 @@ public class RankAPI {
         } else {
             player.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("rank_dontexists"));
         }
+        Main.getInstance().getTablistManager().setAllPlayerTeams();
     }
 
-    public static void setPrefix(Player player, String name, String prefix){
-        if (Main.getInstance().getConfig().get("ranks." + name) != null){
-            Main.getInstance().getConfig().set("ranks." + name + ".prefix", prefix.substring(1));
+    public static void setPrefix(Player player, String rank, String prefix){
+        if (Main.getInstance().getConfig().get("ranks." + rank) != null){
+            Main.getInstance().getConfig().set("ranks." + rank + ".prefix", prefix.substring(1));
             Main.getInstance().saveConfig();
-            player.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("rank_setprefix_success").replace("%r", name).replace("%p", player.getName()));
+            player.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("rank_setprefix_success").replace("%r", rank).replace("%p", prefix.substring(1)));
         } else {
             player.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("rank_dontexists"));
         }
+        Main.getInstance().getTablistManager().setAllPlayerTeams();
     }
 
-    public static void setName(Player player, String rankname, String name){
+    public static void setName(Player player, String rankname, String rname){
 
         for (String rank : Main.getInstance().getConfig().getConfigurationSection("ranks").getKeys(false)){
             Main.getInstance().getConfig().set(rank, rankname);
@@ -82,6 +87,7 @@ public class RankAPI {
         //} else {
         //    player.sendMessage(Main.getPrefix() + "§cDieser Rank existiert nicht");
         //}
+        Main.getInstance().getTablistManager().setAllPlayerTeams();
     }
 
     public static String getRank(Player player){
@@ -100,6 +106,7 @@ public class RankAPI {
             Main.getInstance().getConfig().set("ranks.spieler.players", list);
             Main.getInstance().saveConfig();
         }
+        Main.getInstance().getTablistManager().setAllPlayerTeams();
     }
 
     public static String getFormatedRank(Player player){
