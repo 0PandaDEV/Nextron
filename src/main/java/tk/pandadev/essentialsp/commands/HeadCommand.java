@@ -45,6 +45,8 @@ public class HeadCommand implements CommandExecutor, TabCompleter {
             } else {
                 player.sendMessage(Main.getNoPerm());
             }
+        } else {
+            player.sendMessage(Main.getPrefix() + "§c/head <player>");
         }
 
         return false;
