@@ -23,7 +23,7 @@ public class JoinListener implements Listener {
             event.setJoinMessage(ChatColor.translateAlternateColorCodes('&', Main.getInstance().getConfig().getString("join_message").replace("%p", player.getName())));
         }
         RankAPI.checkRank(player);
-        run();
+        Main.getInstance().getTablistManager().setAllPlayerTeams();
     }
 
     private void run() {

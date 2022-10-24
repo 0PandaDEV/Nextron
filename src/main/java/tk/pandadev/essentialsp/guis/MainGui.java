@@ -10,11 +10,14 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import tk.pandadev.essentialsp.Main;
+import tk.pandadev.essentialsp.utils.Configs;
 import tk.pandadev.essentialsp.utils.LanguageLoader;
 
+import java.sql.Time;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Timer;
 
 public class MainGui extends GUI {
 
@@ -35,7 +38,7 @@ public class MainGui extends GUI {
                 .addLoreLine(LanguageLoader.translationMap.get("maingui_feedback_lore_6"))
                 .build();
 
-        ItemStack feedback_inactive = new ItemBuilder(Material.LIME_DYE)
+        ItemStack feedback_inactive = new ItemBuilder(Material.GRAY_DYE)
                 .setName(LanguageLoader.translationMap.get("maingui_feedback_inactive_title"))
                 .addLoreLine("")
                 .addLoreLine(LanguageLoader.translationMap.get("maingui_feedback_lore_1"))
@@ -47,11 +50,11 @@ public class MainGui extends GUI {
                 .addLoreLine(LanguageLoader.translationMap.get("maingui_feedback_lore_6"))
                 .build();
 
-        if (Main.getInstance().getSettingsConfig().getBoolean(player.getUniqueId() + ".feedback")){
+        if (Configs.settings.getBoolean(player.getUniqueId() + ".feedback")){
             setItemClickEvent(33, player1 -> feedback_active, (player1, event) -> {
                 if (event.getClick().isLeftClick()) {
-                    Main.getInstance().getSettingsConfig().set(player.getUniqueId() + ".feedback", false);
-                    Main.getInstance().saveSettingsConfig();
+                    Configs.settings.set(player.getUniqueId() + ".feedback", false);
+                    Configs.saveSettingsConfig();
                     new MainGui(player1).open(player1);
                     player.playSound(player.getLocation(), Sound.BLOCK_BEACON_DEACTIVATE, 100, 1);
                 }
@@ -59,8 +62,8 @@ public class MainGui extends GUI {
         } else {
             setItemClickEvent(33, player1 -> feedback_inactive, (player1, event) -> {
                 if (event.getClick().isLeftClick()) {
-                    Main.getInstance().getSettingsConfig().set(player.getUniqueId() + ".feedback", true);
-                    Main.getInstance().saveSettingsConfig();
+                    Configs.settings.set(player.getUniqueId() + ".feedback", true);
+                    Configs.saveSettingsConfig();
                     new MainGui(player1).open(player1);
                     player.playSound(player.getLocation(), Sound.BLOCK_BEACON_ACTIVATE, 100, 1);
                 }
@@ -93,11 +96,11 @@ public class MainGui extends GUI {
                 .addLoreLine(LanguageLoader.translationMap.get("maingui_vanish_lore_4"))
                 .build();
 
-        if (Main.getInstance().getSettingsConfig().getBoolean(player.getUniqueId() + ".vanish." + "message")){
+        if (Configs.settings.getBoolean(player.getUniqueId() + ".vanish." + "message")){
             setItemClickEvent(29, player1 -> vanish_active, (player1, event) -> {
                 if (event.getClick().isLeftClick()) {
-                    Main.getInstance().getSettingsConfig().set(player.getUniqueId() + ".vanish" + ".message", false);
-                    Main.getInstance().saveSettingsConfig();
+                    Configs.settings.set(player.getUniqueId() + ".vanish" + ".message", false);
+                    Configs.saveSettingsConfig();
                     new MainGui(player1).open(player1);
                     player.playSound(player.getLocation(), Sound.BLOCK_BEACON_DEACTIVATE, 100, 1);
                 }
@@ -105,8 +108,8 @@ public class MainGui extends GUI {
         } else {
             setItemClickEvent(29, player1 -> vanish_inactive, (player1, event) -> {
                 if (event.getClick().isLeftClick()) {
-                    Main.getInstance().getSettingsConfig().set(player.getUniqueId() + ".vanish" + ".message", true);
-                    Main.getInstance().saveSettingsConfig();
+                    Configs.settings.set(player.getUniqueId() + ".vanish" + ".message", true);
+                    Configs.saveSettingsConfig();
                     new MainGui(player1).open(player1);
                     player.playSound(player.getLocation(), Sound.BLOCK_BEACON_ACTIVATE, 100, 1);
                 }
@@ -118,11 +121,33 @@ public class MainGui extends GUI {
         setItem(11, player1 -> new ItemBuilder(Material.HEART_OF_THE_SEA).setName("§3Vanish Settings").build());
 
         setItemClickEvent(13, player1 -> new ItemBuilder(Material.COMPASS).setName("§7Home Settings").build(), (player1, event) -> {
-            new HomeGui(player1).open(player1);
+            if (Configs.home.getConfigurationSection("Homes").getKeys(false).isEmpty()){
+                player1.closeInventory();
+                player.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("maingui_no_homes"));
+                try {
+                    Thread.sleep(2000);
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
+                new MainGui(player1).open(player1);
+            } else {
+                new HomeGui(player1).open(player1);
+            }
         });
 
         setItemClickEvent(31, player1 -> new ItemBuilder(Material.RECOVERY_COMPASS).setName("§7Warp Settings").build(), (player1, event) -> {
-            new WarpGui().open(player1);
+            if (Configs.warp.getConfigurationSection("Wraps").getKeys(false).isEmpty()){
+                player1.closeInventory();
+                player.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("maingui_no_warps"));
+                try {
+                    Thread.sleep(2000);
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
+                new WarpGui().open(player1);
+            } else {
+                new WarpGui().open(player1);
+            }
         });
 
         setItem(20, player1 -> new ItemBuilder(Material.GRAY_STAINED_GLASS_PANE).setName(" ").build());
