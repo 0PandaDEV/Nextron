@@ -57,6 +57,7 @@ gamemode_success: "§7Du hast dich in den Spielmodus §a%g §7gesetzt"
 gamemode_error: "§cDu bist bereits im Gamemode §6%g"
 gamemode_other_success: "§7Du hast den Spieler §a%t §7in den Spielmodus §a%g §7gesetzt"
 gamemode_other_error: "§cDer Spieler §6%t §cist bereits im Gamemode §6%g"
+gamemode_invalid: "§cDieser Gamemode existiert nicht"
 
 head_success: "§7Du hast den kopf von §a%t §7bekommen"
 

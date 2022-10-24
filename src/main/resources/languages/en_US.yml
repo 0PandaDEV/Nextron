@@ -57,6 +57,7 @@ gamemode_success: "§7Gamemode set to §a%g"
 gamemode_error: "§cYou are already in gamemode §6%g"
 gamemode_other_success: "§7Set §a%t's §7gamemode to §a%g"
 gamemode_other_error: "§cThe player §6%t §cis already in gamemode §6%g"
+gamemode_invalid: "§cThis gamemode does not exist"
 
 head_success: "§7You have been given §a%t's §7head"
 

@@ -39,6 +39,7 @@ public class GamemodeCommand implements CommandExecutor, TabCompleter {
                         }
                     }else {
                         player.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("gamemode_error").replace("%g", "Creative"));
+                        return false;
                     }
                 }
                 if (args[0].equalsIgnoreCase("0") || args[0].equalsIgnoreCase("survival")) {
@@ -49,6 +50,7 @@ public class GamemodeCommand implements CommandExecutor, TabCompleter {
                         }
                     }else {
                         player.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("gamemode_error").replace("%g", "Survival"));
+                        return false;
                     }
                 }
                 if (args[0].equalsIgnoreCase("2") || args[0].equalsIgnoreCase("adventure")) {
@@ -59,6 +61,7 @@ public class GamemodeCommand implements CommandExecutor, TabCompleter {
                         }
                     }else {
                         player.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("gamemode_error").replace("%g", "Adventure"));
+                        return false;
                     }
                 }
                 if (args[0].equalsIgnoreCase("3") || args[0].equalsIgnoreCase("spectator")) {
@@ -69,7 +72,10 @@ public class GamemodeCommand implements CommandExecutor, TabCompleter {
                         }
                     }else {
                         player.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("gamemode_error").replace("%g", "Spectator"));
+                        return false;
                     }
+                } else {
+                    player.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("gamemode_invalid"));
                 }
 
             } else {
@@ -89,6 +95,7 @@ public class GamemodeCommand implements CommandExecutor, TabCompleter {
                             player.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("gamemode_other_success").replace("%t", target.getName()).replace("%g", "Creative"));
                         }else {
                             player.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("gamemode_other_error").replace("%t", target.getName()).replace("%g", "Creative"));
+                            return false;
                         }
                     }
                     if (args[0].equalsIgnoreCase("0") || args[0].equalsIgnoreCase("survival")) {
@@ -97,6 +104,7 @@ public class GamemodeCommand implements CommandExecutor, TabCompleter {
                             player.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("gamemode_other_success").replace("%t", target.getName()).replace("%g", "Survival"));
                         }else {
                             player.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("gamemode_other_error").replace("%t", target.getName()).replace("%g", "Survival"));
+                            return false;
                         }
                     }
                     if (args[0].equalsIgnoreCase("2") || args[0].equalsIgnoreCase("adventure")) {
@@ -105,6 +113,7 @@ public class GamemodeCommand implements CommandExecutor, TabCompleter {
                             player.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("gamemode_other_success").replace("%t", target.getName()).replace("%g", "Adventure"));
                         }else {
                             player.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("gamemode_other_error").replace("%t", target.getName()).replace("%g", "Adventure"));
+                            return false;
                         }
                     }
                     if (args[0].equalsIgnoreCase("3") || args[0].equalsIgnoreCase("spectator")) {
@@ -113,7 +122,10 @@ public class GamemodeCommand implements CommandExecutor, TabCompleter {
                             player.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("gamemode_other_success").replace("%t", target.getName()).replace("%g", "Spectator"));
                         }else {
                             player.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("gamemode_other_error").replace("%t", target.getName()).replace("%g", "Spectator"));
+                            return false;
                         }
+                    } else {
+                        player.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("gamemode_invalid"));
                     }
                 } else {
                     player.sendMessage(Main.getInvalidPlayer());
