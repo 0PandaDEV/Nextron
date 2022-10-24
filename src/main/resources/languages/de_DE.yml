@@ -34,6 +34,11 @@ maingui_feedback_lore_4: "§8Fehlermeldungen werden dennoch angezeigt"
 maingui_feedback_lore_5: "§8sowie wichtige nachrichten"
 maingui_feedback_lore_6: "§aLinksklick §c>> §7Toggle"
 
+#####################
+
+maingui_no_homes: "§cDu hast keine Homes"
+maingui_no_warps: "§cEs gibt keine Warps"
+
 #################################
 
 # Commands

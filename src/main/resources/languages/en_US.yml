@@ -34,6 +34,11 @@ maingui_feedback_lore_5: "§8will still be displayed."
 
 maingui_feedback_lore_6: "§aLeft-click §c>> §7Toggle"
 
+#####################
+
+maingui_no_homes: "§cYou don't have any homes"
+maingui_no_warps: "§cThere are no warps"
+
 #################################
 
 # Commands
