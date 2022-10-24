@@ -1,4 +1,4 @@
-<span style="color: red">**Attention: The plugin is only available in German at the moment, English coming soon!**</span>
+__**New: English Translation is now available!**__
 
 <img src="https://cdn.discordapp.com/attachments/903181864116826112/1014101954739322900/About.png" width="250"/>
 
