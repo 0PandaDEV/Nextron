@@ -8,6 +8,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabCompleter;
 import org.bukkit.entity.Player;
 import tk.pandadev.essentialsp.Main;
+import tk.pandadev.essentialsp.utils.Configs;
 import tk.pandadev.essentialsp.utils.LanguageLoader;
 
 import java.util.ArrayList;
@@ -24,13 +25,13 @@ public class WarpCommands implements CommandExecutor, TabCompleter {
         }
 
         Player player = (Player) (sender);
-
+        
         if (label.equalsIgnoreCase("setwarp") && args.length == 1){
 
             if (player.hasPermission("essentialsp.setwarp")){
-                if (Main.getInstance().getConfig().get("Warps." + args[0].toLowerCase()) == null) {
-                    Main.getInstance().getConfig().set("Warps." + args[0].toLowerCase(), player.getLocation());
-                    Main.getInstance().saveConfig();
+                if (Configs.warp.get("Warps." + args[0].toLowerCase()) == null) {
+                    Configs.warp.set("Warps." + args[0].toLowerCase(), player.getLocation());
+                    Configs.saveWarpConfig();
                     player.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("setwarp_success").replace("%w", args[0].toLowerCase()));
                     return true;
                 }
@@ -42,9 +43,9 @@ public class WarpCommands implements CommandExecutor, TabCompleter {
         } else if (label.equalsIgnoreCase("delwarp") && args.length == 1){
 
             if (player.hasPermission("essentialsp.delwarp")){
-                if (Main.getInstance().getConfig().get("Warps." + args[0].toLowerCase()) != null) {
-                    Main.getInstance().getConfig().set("Warps." + args[0].toLowerCase(), null);
-                    Main.getInstance().saveConfig();
+                if (Configs.warp.get("Warps." + args[0].toLowerCase()) != null) {
+                    Configs.warp.set("Warps." + args[0].toLowerCase(), null);
+                    Configs.saveWarpConfig();
                     player.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("delwarp_success").replace("%w", args[0].toLowerCase()));
                     return true;
                 }
@@ -55,9 +56,9 @@ public class WarpCommands implements CommandExecutor, TabCompleter {
 
         } else if (label.equalsIgnoreCase("warp") && args.length == 1){
 
-            if (Main.getInstance().getConfig().get("Warps." + args[0].toLowerCase()) != null) {
-                player.teleport((Location) Main.getInstance().getConfig().get("Warps." + args[0].toLowerCase()));
-                if (Main.getInstance().getSettingsConfig().getBoolean(player.getUniqueId() + ".feedback")){
+            if (Configs.warp.get("Warps." + args[0].toLowerCase()) != null) {
+                player.teleport((Location) Configs.warp.get("Warps." + args[0].toLowerCase()));
+                if (Configs.settings.getBoolean(player.getUniqueId() + ".feedback")){
                     player.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("warp_success").replace("%w", args[0].toLowerCase()));
                 }
                 player.playSound(player.getLocation(), Sound.ENTITY_ENDERMAN_TELEPORT, 1.0f, 1.0f);
@@ -77,8 +78,14 @@ public class WarpCommands implements CommandExecutor, TabCompleter {
     public List<String> onTabComplete(CommandSender sender, Command command, String label, String[] args) {
         ArrayList<String> list = new ArrayList<String>();
 
-        if (args.length == 1 && label.equalsIgnoreCase("warp") || label.equalsIgnoreCase("delwarp")) {
-            list.addAll(Objects.requireNonNull(Main.getInstance().getConfig().getConfigurationSection("Warps")).getKeys(false));
+        if (Configs.warp.getConfigurationSection("Warps") == null){
+            System.out.println("null in warps");
+        } else if (Configs.warp.getConfigurationSection("Warps").getKeys(false).isEmpty()){
+            System.out.println("empty in warps");
+        } else {
+            if (args.length == 1 && label.equalsIgnoreCase("warp") || label.equalsIgnoreCase("delwarp")) {
+                list.addAll(Objects.requireNonNull(Configs.warp.getConfigurationSection("Warps")).getKeys(false));
+            }
         }
 
         ArrayList<String> completerList = new ArrayList<String>();
