@@ -26,13 +26,13 @@ public class LanguageLoader {
         Main.getInstance().saveResource("languages/en_US.yml", true);
         Main.getInstance().saveResource("languages/de_DE.yml", true);
 
-        if (plugin.getConfig().getString("locale").equals("en_US")){
+        if (plugin.getConfig().getString("language").equals("en_US")){
             FileConfiguration translations = YamlConfiguration.loadConfiguration(defaultLanguageFile);
             for (String translation : translations.getKeys(false)){
                 translationMap.put(translation, translations.getString(translation));
             }
         } else {
-            FileConfiguration translations = YamlConfiguration.loadConfiguration(new File(plugin.getDataFolder(), "languages/" + plugin.getConfig().getString("locale") + ".yml"));
+            FileConfiguration translations = YamlConfiguration.loadConfiguration(new File(plugin.getDataFolder(), "languages/" + plugin.getConfig().getString("language") + ".yml"));
             for (String translation : translations.getKeys(false)){
                 translationMap.put(translation, translations.getString(translation));
             }
