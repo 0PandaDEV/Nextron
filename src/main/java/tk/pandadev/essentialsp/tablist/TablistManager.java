@@ -19,16 +19,15 @@ public class TablistManager {
     public void setPlayerTeams(Player player){
         Scoreboard scoreboard = player.getScoreboard();
 
-        ConfigurationSection ranks = Main.getInstance().getConfig().getConfigurationSection("ranks");
+        ConfigurationSection ranks = Main.getInstance().getConfig().getConfigurationSection("Ranks");
 
         for (String rank : ranks.getKeys(false)){
             Team finalrank = scoreboard.getTeam("010" + rank.toLowerCase());
             if (finalrank == null){
                 finalrank = scoreboard.registerNewTeam("010" + rank.toLowerCase());
             }
-            finalrank.setPrefix(Objects.requireNonNull(ranks.getString(rank + ".prefix")));
+            finalrank.setPrefix(ranks.getString(rank + ".prefix"));
             finalrank.setColor(ChatColor.GRAY);
-            finalrank.getName();
             for (Player target : Bukkit.getOnlinePlayers()){
                 if (ranks.getStringList(rank + ".players").contains(String.valueOf(target.getUniqueId()))) {
                     finalrank.addEntry(target.getName());

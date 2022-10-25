@@ -61,10 +61,12 @@ public final class Main extends BasePlugin {
 
         registerListeners();
         registerCommands();
-        Main.getInstance().getTablistManager().setAllPlayerTeams();
+        getTablistManager().setAllPlayerTeams();
 
         for (Player player : Bukkit.getOnlinePlayers()) {
             SettingsConfig.checkSettings(player);
+            RankAPI.createPlayerTeam(player);
+            RankAPI.checkRank(player);
         }
     }
 

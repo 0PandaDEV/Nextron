@@ -48,6 +48,11 @@ commands:
     permission: essentialsp.head
   rank:
     permission: essentialsp.rank
+    aliases:
+      - removerank
+      - createrank
+      - deleterank
+      - modifyrank
   menu:
     permission: essentialsp.menu
   rl:

@@ -1,15 +1,11 @@
-locale: "en_US"
+language: "en_US"
 join_message: "&2[&a+&2] &7%p"
 leave_message: "&4[&c-&4] &7%p"
 
-# Der Rank spieler sollte immer vorhanden sein ansonsten funktioniert das system nicht mehr!
-ranks:
+Ranks:
   owner:
     prefix: "§4Owner §8• §f"
     players: []
   admin:
     prefix: "§cAdmin §8• §f"
-    players: []
-  player:
-    prefix: "§6Player §8• §7"
     players: []

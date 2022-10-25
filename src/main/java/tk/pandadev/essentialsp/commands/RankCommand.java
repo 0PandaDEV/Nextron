@@ -6,7 +6,6 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabCompleter;
-import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.Player;
 import tk.pandadev.essentialsp.Main;
 import tk.pandadev.essentialsp.utils.LanguageLoader;
@@ -14,7 +13,6 @@ import tk.pandadev.essentialsp.utils.RankAPI;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 import java.util.Objects;
 
 public class RankCommand implements CommandExecutor, TabCompleter {
@@ -25,151 +23,88 @@ public class RankCommand implements CommandExecutor, TabCompleter {
             return false;
         }
 
-        Player player = (Player)(sender);
+        Player player = (Player) (sender);
+        RankAPI.createPlayerTeam(player);
+        RankAPI.checkRank(player);
 
-        if (args.length == 3 && args[0].equalsIgnoreCase("set")){
+        if (args.length == 2 && label.equalsIgnoreCase("rank")) {
 
-            if (player.hasPermission("essentialsp.rank.set")) {
+            if (!player.hasPermission("essentialsp.rank.set")) player.sendMessage(Main.getNoPerm());
+            Player target = Bukkit.getPlayer(args[0]);
+            if (target == null) player.sendMessage(Main.getInvalidPlayer());
+            RankAPI.setRank(target, args[1]);
+            RankAPI.checkRank(target);
 
-                Player target = Bukkit.getPlayer(args[1]);
+        } else if (args.length == 1 && label.equalsIgnoreCase("removerank")) {
 
-                if (target != null){
+            if (!player.hasPermission("essentialsp.rank.remove")) player.sendMessage(Main.getNoPerm());
 
-                    RankAPI.setRank(target, args[2]);
-                    RankAPI.checkRank(target);
+            Player target = Bukkit.getPlayer(args[0]);
+            if (target == null) player.sendMessage(Main.getInvalidPlayer());
 
-                } else {
-                    player.sendMessage(Main.getInvalidPlayer());
-                }
+            RankAPI.removeRanks(target);
+            RankAPI.checkRank(target);
 
-            } else {
-                player.sendMessage(Main.getNoPerm());
+            player.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("rank_remove_success").replace("%t", target.getName()));
+
+        } else if (args.length >= 2 && label.equalsIgnoreCase("createrank")) {
+
+            if (!player.hasPermission("essentialsp.rank.create")) player.sendMessage(Main.getNoPerm());
+
+            StringBuilder sb = new StringBuilder();
+            for(int i = 1; i < args.length; i++) {
+                if (i > 1) sb.append(" ");
+                sb.append(args[i]);
             }
 
+            RankAPI.createRank(player, args[0].toLowerCase(), ChatColor.translateAlternateColorCodes('&', String.valueOf(sb)));
 
-        } else if (args.length == 2 && args[0].equalsIgnoreCase("remove")){
+        } else if (args.length == 1 && label.equalsIgnoreCase("deleterank")) {
 
-            if (player.hasPermission("essentialsp.rank.remove")) {
+            if (!player.hasPermission("essentialsp.rank.delete")) player.sendMessage(Main.getNoPerm());
 
-                Player target = Bukkit.getPlayer(args[1]);
+            RankAPI.deleteRank(player, args[0].toLowerCase());
 
-                if (target != null){
+        } else if (args.length >= 3 && label.equalsIgnoreCase("modifyrank") && args[0].equalsIgnoreCase("prefix")){
 
-                    RankAPI.removeRanks(target);
-                    player.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("rank_remove_success").replace("%t", target.getName()));
-                    RankAPI.checkRank(target);
+            if (!player.hasPermission("essentialsp.rank.modify.prefix")) player.sendMessage(Main.getNoPerm());
 
-                } else {
-                    player.sendMessage(Main.getInvalidPlayer());
-                }
-
-            } else {
-                player.sendMessage(Main.getNoPerm());
-            }
-        } else if (args.length >= 3 && args[0].equalsIgnoreCase("create")){
-            if (player.hasPermission("essentialsp.rank.create")) {
-
-                StringBuilder sb = new StringBuilder();
-                for(int i = 2; i < args.length; i++) {
-                    if (i > 1) sb.append(" ");
-                    sb.append(args[i]);
-                }
-
-                RankAPI.createRank(player, args[1].toLowerCase(), ChatColor.translateAlternateColorCodes('&', String.valueOf(sb)));
-
-            } else {
-                player.sendMessage(Main.getNoPerm());
-            }
-        } else if (args.length == 2 && args[0].equalsIgnoreCase("delete")){
-
-            if (player.hasPermission("essentialsp.rank.delete")) {
-
-                RankAPI.deleteRank(player, args[1].toLowerCase());
-
-            }else {
-                player.sendMessage(Main.getNoPerm());
+            StringBuilder sb = new StringBuilder();
+            for(int i = 2; i < args.length; i++) {
+                sb.append(" ");
+                sb.append(args[i]);
             }
 
-        } else if (args.length >= 4 && args[0].equalsIgnoreCase("modify") && args[1].equalsIgnoreCase("prefix")){
+            RankAPI.setPrefix(player, args[1].toLowerCase(), ChatColor.translateAlternateColorCodes('&', String.valueOf(sb)));
 
-            if (player.hasPermission("essentialsp.rank.modify.prefix")) {
-
-                StringBuilder sb = new StringBuilder();
-                for(int i = 3; i < args.length; i++) {
-                    if (i > 1) sb.append(" ");
-                    sb.append(args[i]);
-                }
-
-                RankAPI.setPrefix(player, args[2].toLowerCase(), ChatColor.translateAlternateColorCodes('&', String.valueOf(sb)));
-
-            }else {
-                player.sendMessage(Main.getNoPerm());
-            }
-
-        } else if (args.length >= 4 && args[0].equalsIgnoreCase("modify") && args[1].equalsIgnoreCase("name")){
-
-            if (player.hasPermission("essentialsp.rank.modify.name")) {
-
-                StringBuilder sb = new StringBuilder();
-                for(int i = 3; i < args.length; i++) {
-                    if (i > 1) sb.append(" ");
-                    sb.append(args[i]);
-                }
-
-                RankAPI.setName(player, args[2].toLowerCase(), String.valueOf(sb));
-
-            } else {
-                player.sendMessage(Main.getNoPerm());
-            }
-
-        } else {
+        } else{
             player.sendMessage(Main.getPrefix() +
-                    "§c/rank set <player> <rank>",
-                    "§c/setrank <name> <prefix> - use '&' for colors",
+                    "§c/rank <player> <rank>",
                     "§c/removerank <player>",
-                    "§c/rank modify prefix <newprefix> - use '&' for colors");
+                    "§c/createrank <rankname> <prefix>",
+                    "§c/deleterank <rankname>",
+                    "§c/modifyrank prefix <rank> <newprefix>");
         }
         return true;
     }
 
     public List<String> onTabComplete(CommandSender sender, Command command, String label, String[] args) {
         ArrayList<String> list = new ArrayList<String>();
-        Player playert = (Player)(sender);
 
-        if (args.length == 1) {
-            list.add("set");
-            list.add("remove");
-            list.add("create");
-            list.add("delete");
-            list.add("modify");
-        } else if (args[0].equalsIgnoreCase("set") && args.length == 3){
-            list.addAll(Objects.requireNonNull(Main.getInstance().getConfig().getConfigurationSection("ranks")).getKeys(false));
-        } else if (args[0].equalsIgnoreCase("set") || args[0].equalsIgnoreCase("remove") && args.length == 2) {
-            for (Player player : Bukkit.getOnlinePlayers()) {
-                list.add(player.getName());
-            }
-        } else if (args[0].equalsIgnoreCase("delete") && args.length == 2){
-            list.addAll(Objects.requireNonNull(Main.getInstance().getConfig().getConfigurationSection("ranks")).getKeys(false));
-        } else if (args[0].equalsIgnoreCase("create") && args.length == 2) {
-            list.add("<rankname>");
-        } else if (args[0].equalsIgnoreCase("create") && args.length == 3) {
-            list.add("<prefix>");
-        } else if (args[0].equalsIgnoreCase("modify") && args[1].equalsIgnoreCase("prefix") && args.length == 4) {
-            list.add("<prefix>");
-        } else if (args[0].equalsIgnoreCase("modify") && args[1].equalsIgnoreCase("prefix") && args.length == 3) {
-            list.addAll(Objects.requireNonNull(Main.getInstance().getConfig().getConfigurationSection("ranks")).getKeys(false));
-        } else if (args[0].equalsIgnoreCase("modify") && args.length == 2){
-            list.add("prefix");
-            list.add("name");
-        } else if (args[0].equalsIgnoreCase("modify") && args.length == 3){
-            for (Player player : Bukkit.getOnlinePlayers()) {
-                list.add(player.getName());
-            }
-        } else if (args[0].equalsIgnoreCase("modify") && args[1].equalsIgnoreCase("name") && args.length == 3) {
-            list.addAll(Objects.requireNonNull(Main.getInstance().getConfig().getConfigurationSection("ranks")).getKeys(false));
-        } else if (args[0].equalsIgnoreCase("modify") && args[1].equalsIgnoreCase("name") && args.length == 4){
-            list.add("<rankname>");
-        }
+        // rank command
+        if (args.length == 1 && label.equalsIgnoreCase("rank")) for (Player player : Bukkit.getOnlinePlayers()) list.add(player.getName());
+        if (args.length == 2 && label.equalsIgnoreCase("rank")) list.addAll(Main.getInstance().getConfig().getConfigurationSection("Ranks").getKeys(false));
+        // remove rank command
+        if (args.length == 1 && label.equalsIgnoreCase("removerank")) for (Player player : Bukkit.getOnlinePlayers()) list.add(player.getName());
+        // create rank command
+        if (args.length == 1 && label.equalsIgnoreCase("createrank")) list.add("<rankname>");
+        if (args.length == 2 && label.equalsIgnoreCase("createrank")) list.add("<prefix>");
+        // delete rank command
+        if (args.length == 1 && label.equalsIgnoreCase("deleterank")) list.addAll(Main.getInstance().getConfig().getConfigurationSection("Ranks").getKeys(false));
+        // modify prefix command
+        if (args.length == 1 && label.equalsIgnoreCase("modifyrank") && args[0].equalsIgnoreCase("prefix")) list.add("prefix");
+        if (args.length == 2 && label.equalsIgnoreCase("modifyrank") && args[0].equalsIgnoreCase("prefix")) list.addAll(Main.getInstance().getConfig().getConfigurationSection("Ranks").getKeys(false));
+        if (args.length == 3 && label.equalsIgnoreCase("modifyrank") && args[0].equalsIgnoreCase("prefix")) list.add("<prefix>");
 
         ArrayList<String> completerList = new ArrayList<String>();
         String currentarg = args[args.length - 1].toLowerCase();
