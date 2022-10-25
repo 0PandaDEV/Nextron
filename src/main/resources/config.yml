@@ -10,6 +10,6 @@ ranks:
   admin:
     prefix: "§cAdmin §8• §f"
     players: []
-  spieler:
+  player:
     prefix: "§6Player §8• §7"
     players: []
