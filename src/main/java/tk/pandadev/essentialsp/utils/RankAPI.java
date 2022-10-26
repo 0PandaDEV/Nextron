@@ -89,12 +89,10 @@ public class RankAPI {
     }
 
     public static void checkRank(Player player){
-        System.out.println(getRank(player));
         if (Objects.equals(getRank(player), "player")){
             Scoreboard scoreboard = player.getScoreboard();
             Team finalrank = scoreboard.getTeam("010player");
             finalrank.addEntry(player.getName());
-            System.out.println(player.getName() + " player entry");
         }
     }
 

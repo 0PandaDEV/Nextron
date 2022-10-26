@@ -6,7 +6,7 @@
 
     <groupId>tk.pandadev</groupId>
     <artifactId>EssentialsP</artifactId>
-    <version>1.2.3-beta.4</version>
+    <version>1.2.3</version>
     <packaging>jar</packaging>
 
     <name>EssentialsP</name>
