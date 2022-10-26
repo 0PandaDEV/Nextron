@@ -78,14 +78,10 @@ public class WarpCommands implements CommandExecutor, TabCompleter {
     public List<String> onTabComplete(CommandSender sender, Command command, String label, String[] args) {
         ArrayList<String> list = new ArrayList<String>();
 
-        if (Configs.warp.getConfigurationSection("Warps") == null){
-            System.out.println("null in warps");
-        } else if (Configs.warp.getConfigurationSection("Warps").getKeys(false).isEmpty()){
-            System.out.println("empty in warps");
-        } else {
-            if (args.length == 1 && label.equalsIgnoreCase("warp") || label.equalsIgnoreCase("delwarp")) {
-                list.addAll(Objects.requireNonNull(Configs.warp.getConfigurationSection("Warps")).getKeys(false));
-            }
+        if (Configs.warp.getConfigurationSection("Warps") == null || Configs.warp.getConfigurationSection("Warps").getKeys(false).isEmpty()) {
+            return null;
+        } else if (args.length == 1 && label.equalsIgnoreCase("warp") || label.equalsIgnoreCase("delwarp")) {
+            list.addAll(Objects.requireNonNull(Configs.warp.getConfigurationSection("Warps")).getKeys(false));
         }
 
         ArrayList<String> completerList = new ArrayList<String>();

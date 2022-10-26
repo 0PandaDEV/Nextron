@@ -90,14 +90,10 @@ public class HomeCommands implements CommandExecutor, TabCompleter {
         ArrayList<String> list = new ArrayList<String>();
         Player playert = (Player)(sender);
 
-        if (Configs.home.getConfigurationSection("Homes") == null){
-            System.out.println("null in homes");
-        } else if (Configs.home.getConfigurationSection("Homes").getKeys(false).isEmpty()){
+        if (Configs.home.getConfigurationSection("Homes") == null || Configs.home.getConfigurationSection("Homes").getKeys(false).isEmpty()){
             System.out.println("empty in homes");
-        } else {
-            if (args.length == 1 && label.equalsIgnoreCase("home") || label.equalsIgnoreCase("delhome")) {
-                list.addAll(Objects.requireNonNull(Configs.home.getConfigurationSection("Homes." + playert.getUniqueId())).getKeys(false));
-            }
+        } else if (args.length == 1 && label.equalsIgnoreCase("home") || label.equalsIgnoreCase("delhome")) {
+            list.addAll(Objects.requireNonNull(Configs.home.getConfigurationSection("Homes." + playert.getUniqueId())).getKeys(false));
         }
 
         ArrayList<String> completerList = new ArrayList<String>();
