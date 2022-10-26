@@ -1,4 +1,4 @@
-package tk.pandadev.essentialsp.guis;
+package tk.pandadev.essentialsp.guis.mainextend;
 
 import games.negative.framework.gui.GUI;
 import games.negative.framework.util.ItemBuilder;
@@ -23,14 +23,8 @@ public class HomeSettingsGui extends GUI {
             player.closeInventory();
         }));
         setItemClickEvent(13, player -> new ItemBuilder(Material.YELLOW_DYE).setName("§eRename").build(), ((player, event) -> {
-            player.closeInventory();
             player.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("homesettingsgui_feature"));
-            try {
-                Thread.sleep(1000);
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
-            }
-            new HomeSettingsGui(home).open(player);
+            player.playSound(player.getLocation(), Sound.ENTITY_PILLAGER_AMBIENT, 100, 0.5f);
         }));
         setItemClickEvent(14, player -> new ItemBuilder(Material.RED_DYE).setName("§cDelete").build(), ((player, event) -> {
             Configs.home.set("Homes." + player.getUniqueId() + "." + home, null);
