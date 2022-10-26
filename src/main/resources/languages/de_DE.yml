@@ -6,8 +6,11 @@ no_perms: "§cDazu hast du keine Berechtigung"
 invalid_player: "§cDieser Spieler ist nicht Online"
 
 homegui_leftclick: "§aLinksklick §c>> §7Öffnet Home Einstellungen"
-
 homegui_rightclick: "§aRechtsklick §c>> §7Teleportiert zum Home"
+
+warpgui_leftclick: "§aLinksklick §c>> §7Öffnet Warp Einstellungen"
+warpgui_rightclick: "§aRechtsklick §c>> §7Teleportiert zum Warp"
+
 homesettingsgui_feauture: "§cDiese Feauture ist noch nicht verfügbar"
 
 #################################
