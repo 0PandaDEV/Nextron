@@ -1,24 +1,16 @@
-package tk.pandadev.essentialsp.guis;
+package tk.pandadev.essentialsp.guis.mainextend;
 
 import games.negative.framework.gui.GUI;
 import games.negative.framework.util.ItemBuilder;
-import org.bukkit.Bukkit;
 import org.bukkit.Location;
-import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
-import org.bukkit.event.player.AsyncPlayerChatEvent;
-import org.bukkit.inventory.Inventory;
-import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.ItemMeta;
-import tk.pandadev.essentialsp.Main;
+import tk.pandadev.essentialsp.guis.MainGui;
+import tk.pandadev.essentialsp.guis.mainextend.HomeSettingsGui;
 import tk.pandadev.essentialsp.utils.Configs;
 import tk.pandadev.essentialsp.utils.LanguageLoader;
 import tk.pandadev.essentialsp.utils.Utils;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Objects;
 
 public class HomeGui extends GUI {
