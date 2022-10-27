@@ -28,44 +28,29 @@ public class WarpCommands implements CommandExecutor, TabCompleter {
         
         if (label.equalsIgnoreCase("setwarp") && args.length == 1){
 
-            if (player.hasPermission("essentialsp.setwarp")){
-                if (Configs.warp.get("Warps." + args[0].toLowerCase()) == null) {
-                    Configs.warp.set("Warps." + args[0].toLowerCase(), player.getLocation());
-                    Configs.saveWarpConfig();
-                    player.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("setwarp_success").replace("%w", args[0].toLowerCase()));
-                    return true;
-                }
-                player.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("setwarp_error").replace("%w", args[0].toLowerCase()));
-            } else {
-                player.sendMessage(Main.getNoPerm());
-            }
+            if (!player.hasPermission("essentialsp.setwarp")) player.sendMessage(Main.getNoPerm());
+            if (Configs.warp.get("Warps." + args[0].toLowerCase()) != null) player.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("setwarp_error").replace("%w", args[0].toLowerCase()));
+            Configs.warp.set("Warps." + args[0].toLowerCase(), player.getLocation());
+            Configs.saveWarpConfig();
+            player.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("setwarp_success").replace("%w", args[0].toLowerCase()));
+            return true;
 
         } else if (label.equalsIgnoreCase("delwarp") && args.length == 1){
 
-            if (player.hasPermission("essentialsp.delwarp")){
-                if (Configs.warp.get("Warps." + args[0].toLowerCase()) != null) {
-                    Configs.warp.set("Warps." + args[0].toLowerCase(), null);
-                    Configs.saveWarpConfig();
-                    player.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("delwarp_success").replace("%w", args[0].toLowerCase()));
-                    return true;
-                }
-                player.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("delwarp_error").replace("%w", args[0].toLowerCase()));
-            } else {
-                player.sendMessage(Main.getNoPerm());
-            }
+            if (!player.hasPermission("essentialsp.delwarp")) player.sendMessage(Main.getNoPerm());
+            if (Configs.warp.get("Warps." + args[0].toLowerCase()) == null) player.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("delwarp_error").replace("%w", args[0].toLowerCase()));
+            Configs.warp.set("Warps." + args[0].toLowerCase(), null);
+            Configs.saveWarpConfig();
+            player.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("delwarp_success").replace("%w", args[0].toLowerCase()));
+            return true;
 
         } else if (label.equalsIgnoreCase("warp") && args.length == 1){
 
-            if (Configs.warp.get("Warps." + args[0].toLowerCase()) != null) {
-                player.teleport((Location) Configs.warp.get("Warps." + args[0].toLowerCase()));
-                if (Configs.settings.getBoolean(player.getUniqueId() + ".feedback")){
-                    player.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("warp_success").replace("%w", args[0].toLowerCase()));
-                }
-                player.playSound(player.getLocation(), Sound.ENTITY_ENDERMAN_TELEPORT, 1.0f, 1.0f);
-                return true;
-            } else {
-                player.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("warp_error").replace("%w", args[0].toLowerCase()));
-            }
+            if (Configs.warp.get("Warps." + args[0].toLowerCase()) == null) player.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("warp_error").replace("%w", args[0].toLowerCase()));
+            player.teleport((Location) Configs.warp.get("Warps." + args[0].toLowerCase()));
+            if (Configs.settings.getBoolean(player.getUniqueId() + ".feedback")) player.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("warp_success").replace("%w", args[0].toLowerCase()));
+            player.playSound(player.getLocation(), Sound.ENTITY_ENDERMAN_TELEPORT, 1.0f, 1.0f);
+            return true;
 
         } else {
             player.sendMessage(Main.getPrefix() + "§c/warp|setwarp|delwarp <NAME>");
