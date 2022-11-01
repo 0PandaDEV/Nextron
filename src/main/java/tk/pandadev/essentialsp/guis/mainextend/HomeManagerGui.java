@@ -6,17 +6,16 @@ import org.bukkit.Location;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import tk.pandadev.essentialsp.guis.MainGui;
-import tk.pandadev.essentialsp.guis.mainextend.HomeSettingsGui;
 import tk.pandadev.essentialsp.utils.Configs;
 import tk.pandadev.essentialsp.utils.LanguageLoader;
 import tk.pandadev.essentialsp.utils.Utils;
 
 import java.util.Objects;
 
-public class HomeGui extends GUI {
+public class HomeManagerGui extends GUI {
 
-    public HomeGui(Player player) {
-        super("§7Homes", 5);
+    public HomeManagerGui(Player player) {
+        super("§7Home Manager", 5);
 
         for (String home : Configs.home.getConfigurationSection("Homes." + player.getUniqueId()).getKeys(false)){
             addItemClickEvent(player1 -> new ItemBuilder(Utils.createSkull("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNjNkMDJjZGMwNzViYjFjYzVmNmZlM2M3NzExYWU0OTc3ZTM4YjkxMGQ1MGVkNjAyM2RmNzM5MTNlNWU3ZmNmZiJ9fX0="))

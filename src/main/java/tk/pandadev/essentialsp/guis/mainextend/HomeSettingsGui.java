@@ -8,7 +8,6 @@ import org.bukkit.Sound;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 import tk.pandadev.essentialsp.Main;
 import tk.pandadev.essentialsp.listeners.InputListener;
-import tk.pandadev.essentialsp.utils.Config;
 import tk.pandadev.essentialsp.utils.Configs;
 import tk.pandadev.essentialsp.utils.LanguageLoader;
 import tk.pandadev.essentialsp.utils.Utils;
@@ -46,13 +45,13 @@ public class HomeSettingsGui extends GUI {
             if (Configs.home.getConfigurationSection("Homes." + player.getUniqueId()).getKeys(false).isEmpty()) {
                 player.closeInventory();
             } else {
-                new HomeGui(player).open(player);
+                new HomeManagerGui(player).open(player);
             }
             player.playSound(player.getLocation(), Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 1.0f, 1.0f);
         }));
 
         setItemClickEvent(18, player1 -> new ItemBuilder(Utils.createSkull("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYmQ2OWUwNmU1ZGFkZmQ4NGU1ZjNkMWMyMTA2M2YyNTUzYjJmYTk0NWVlMWQ0ZDcxNTJmZGM1NDI1YmMxMmE5In19fQ==")).setName("§fBack").build(), (player1, event) -> {
-            new HomeGui(player1).open(player1);
+            new HomeManagerGui(player1).open(player1);
         });
     }
 }
