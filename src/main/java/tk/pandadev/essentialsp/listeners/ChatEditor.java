@@ -18,20 +18,12 @@ public class ChatEditor implements Listener {
         Player player = event.getPlayer();
         String message = event.getMessage();
 
-        ConfigurationSection ranks = Main.getInstance().getConfig().getConfigurationSection("ranks");
+        ConfigurationSection ranks = Main.getInstance().getConfig().getConfigurationSection("Ranks");
 
         for (String rank : ranks.getKeys(false)){
-            for (Player target : Bukkit.getOnlinePlayers()){
-                if (target == player){
-                    if (ranks.getStringList(rank + ".players").contains(String.valueOf(target.getUniqueId()))) {
-                        player.setDisplayName(ranks.getString(rank + ".prefix") + ChatColor.WHITE + target.getName());
-                        event.setFormat(player.getDisplayName() + " §8» §f" + ChatColor.translateAlternateColorCodes('&', message));
-                    }
-                } else {
-                    System.out.println("Invalid");
-                }
-            }
+            if (ranks.getStringList(rank + ".players").contains(player.getUniqueId().toString())) player.setDisplayName(ranks.getString(rank + ".prefix") + ChatColor.WHITE + player.getName());
         }
+        event.setFormat(player.getDisplayName() + " §8» §f" + ChatColor.translateAlternateColorCodes('&', message));
     }
 
 }
