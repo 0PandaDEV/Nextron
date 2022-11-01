@@ -16,7 +16,7 @@ import java.util.Objects;
 public class HomeGui extends GUI {
 
     public HomeGui(Player player) {
-        super("Homes", 5);
+        super("§7Homes", 5);
 
         for (String home : Configs.home.getConfigurationSection("Homes." + player.getUniqueId()).getKeys(false)){
             addItemClickEvent(player1 -> new ItemBuilder(Utils.createSkull("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNjNkMDJjZGMwNzViYjFjYzVmNmZlM2M3NzExYWU0OTc3ZTM4YjkxMGQ1MGVkNjAyM2RmNzM5MTNlNWU3ZmNmZiJ9fX0="))
