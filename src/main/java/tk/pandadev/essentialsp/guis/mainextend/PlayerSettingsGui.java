@@ -14,7 +14,7 @@ import tk.pandadev.essentialsp.utils.Utils;
 public class PlayerSettingsGui extends GUI {
 
     public PlayerSettingsGui(Player player) {
-        super("Settings", 3);
+        super("§7Settings", 3);
 
         ItemStack feedback_active = new ItemBuilder(Material.LIME_DYE)
                 .setName(LanguageLoader.translationMap.get("maingui_feedback_active_title"))
