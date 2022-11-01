@@ -6,9 +6,9 @@ import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import tk.pandadev.essentialsp.Main;
-import tk.pandadev.essentialsp.guis.mainextend.HomeGui;
+import tk.pandadev.essentialsp.guis.mainextend.HomeManagerGui;
 import tk.pandadev.essentialsp.guis.mainextend.PlayerSettingsGui;
-import tk.pandadev.essentialsp.guis.mainextend.WarpGui;
+import tk.pandadev.essentialsp.guis.mainextend.WarpManagerGui;
 import tk.pandadev.essentialsp.guis.rankmanager.RankManagerGui;
 import tk.pandadev.essentialsp.utils.Configs;
 import tk.pandadev.essentialsp.utils.LanguageLoader;
@@ -23,32 +23,36 @@ public class MainGui extends GUI {
             new PlayerSettingsGui(player1).open(player1);
         }));
 
-        setItemClickEvent(13, player1 -> new ItemBuilder(Material.COMPASS).setName("§7Homes").build(), (player1, event) -> {
+        setItemClickEvent(13, player1 -> new ItemBuilder(Material.COMPASS).setName("§7Home Manager").build(), (player1, event) -> {
             if (Configs.home.getConfigurationSection("Homes." + player1.getUniqueId()) == null || Configs.home.getConfigurationSection("Homes." + player1.getUniqueId()).getKeys(false).isEmpty()){
                 player.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("maingui_no_homes"));
                 player.playSound(player.getLocation(), Sound.ENTITY_PILLAGER_AMBIENT, 100, 0.5f);
             } else {
-                new HomeGui(player1).open(player1);
+                new HomeManagerGui(player1).open(player1);
             }
         });
 
-        setItemClickEvent(31, player1 -> new ItemBuilder(Material.RECOVERY_COMPASS).setName("§7Warps").build(), (player1, event) -> {
+        setItemClickEvent(31, player1 -> new ItemBuilder(Material.RECOVERY_COMPASS).setName("§x§2§9§d§f§e§bWarp Manager").build(), (player1, event) -> {
             if (Configs.warp.getConfigurationSection("Warps") == null || Configs.warp.getConfigurationSection("Warps").getKeys(false).isEmpty()){
                 player.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("maingui_no_warps"));
                 player.playSound(player.getLocation(), Sound.ENTITY_PILLAGER_AMBIENT, 100, 0.5f);
             } else {
-                new WarpGui().open(player1);
+                new WarpManagerGui().open(player1);
             }
         });
 
-        setItemClickEvent(24, player1 -> new ItemBuilder(Material.NAME_TAG).setName("§x§e§6§c§7§8§cRank Manager").build(), ((player1, event) -> {
-            if (Main.getInstance().getConfig().getConfigurationSection("Ranks") == null || Main.getInstance().getConfig().getConfigurationSection("Ranks").getKeys(false).isEmpty()){
-                player.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("maingui_no_ranks"));
-                player.playSound(player.getLocation(), Sound.ENTITY_PILLAGER_AMBIENT, 100, 0.5f);
-            } else {
-                new RankManagerGui().open(player1);
-            }
-        }));
+        if (player.hasPermission("essentialsp.rank")){
+            setItemClickEvent(24, player1 -> new ItemBuilder(Material.NAME_TAG).setName("§x§e§6§c§7§8§cRank Manager").build(), ((player1, event) -> {
+                if (Main.getInstance().getConfig().getConfigurationSection("Ranks") == null || Main.getInstance().getConfig().getConfigurationSection("Ranks").getKeys(false).isEmpty()){
+                    player.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("maingui_no_ranks"));
+                    player.playSound(player.getLocation(), Sound.ENTITY_PILLAGER_AMBIENT, 100, 0.5f);
+                } else {
+                    new RankManagerGui().open(player1);
+                }
+            }));
+        } else {
+            setItem(24, player1 -> new ItemBuilder(Material.BARRIER).setName("§c§lNo Permision").build());
+        }
 
         ////////////////////////////////////////////////////////////////////////////////////////////////
     }

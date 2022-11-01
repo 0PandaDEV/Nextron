@@ -25,12 +25,8 @@ public class MenuCommand implements CommandExecutor, TabCompleter {
         Player player = (Player) (sender);
 
         if (args.length == 0){
-            if (player.hasPermission("essentialsp.menu")){
-                new MainGui(player).open(player);
-                player.playSound(player.getLocation(), Sound.BLOCK_BARREL_OPEN, 100, 1);
-            } else {
-                player.sendMessage(Main.getNoPerm());
-            }
+            new MainGui(player).open(player);
+            player.playSound(player.getLocation(), Sound.BLOCK_BARREL_OPEN, 100, 1);
         } else {
             player.sendMessage(Main.getPrefix() + "§c/menu");
         }
