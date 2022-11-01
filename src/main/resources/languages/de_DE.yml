@@ -41,6 +41,7 @@ maingui_feedback_lore_6: "§aLinksklick §c>> §7Toggle"
 
 maingui_no_homes: "§cDu hast keine Homes"
 maingui_no_warps: "§cEs gibt keine Warps"
+maingui_no_ranks: "§cEs gibt keine Ranks"
 
 #################################
 
@@ -69,10 +70,12 @@ sethome_error: "§cEin Home mit dem namen §6%h §cexistiert bereits"
 sethome_default_success: "§7Du hast deinen §aDefault §7Home gesetzt"
 delhome_success: "§7Du hast den Home §a%h §7gelöscht"
 delhome_error: "§cEin Home mit dem namen §6%h §cexistiert nicht"
-home_success: "§7Du hast dich zum Home §a%h §7teleportiert"
+home_success: "§7Du wurdest zum Home §a%h §7teleportiert"
 home_error: "§cEin Home mit dem namen §6%h §cexistiert nicht"
 home_default_success: "§7Du hast dich zu deinem §aDefault §7Home teleportiert"
 home_default_error: "§cDu hat noch nie deinen §6Default §cHome gesetzt"
+home_rename_request: "§7Schreibe einen neuen Namen für den home §a%h §7in den Chat"
+home_rename_success: "§7Der Name des homes §a%h §7wurde auf §a%n §7geändert"
 
 invsee_error: "§cDu kannst nicht dein eigenes Inventar anschauen"
 
@@ -84,6 +87,9 @@ rank_set_error: "§cDer Spieler §6%p §cbesitzt bereits diesen Rank"
 rank_create_success: "§7Der Rank §a%r §7wurde erstellt"
 rank_delete_success: "§7Der Rank §a%r §7wurde gelöscht"
 rank_setprefix_success: "§7Der Prefix des Ranks §a%r §7wurde auf §a%p §7geändert"
+rank_setprefix_request: "§7Schreibe einen neuen §aPrefix §7in den Chat"
+rank_rename_request: "§7Schreibe einen neuen Namen für den rank §a%r §7in den Chat"
+rank_rename_success: "§7Der Name des ranks §a%r §7wurde auf §a%n §7geändert"
 
 rank_dontexists: "§cDieser Ranks existiert nicht"
 rank_exists: "§cDieser Rank existiert bereits"
@@ -120,3 +126,5 @@ delwarp_success: "§7Du hast den Warp §a%w §7gelöscht!"
 delwarp_error: "§cDen Warp §6%w §cgibt es nicht"
 warp_success: "§7Du wurdest zum Warp §a%w §7teleportiert!"
 warp_error: "§cDen Warp §6%w §cgibt es nicht"
+warp_rename_request: "§7Schreibe einen neuen Namen für den warp §a%w §7in den Chat"
+warp_rename_success: "§7Der Name des warps §a%w §7wurde auf §a%n §7geändert"

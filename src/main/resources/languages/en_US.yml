@@ -9,7 +9,7 @@ homegui_leftclick: "§aLeft-click §c>> §7Opens home settings"
 homegui_rightclick: "§aRight-click §c>> §7Teleports to Home"
 
 warpgui_leftclick: "§aLeft-click §c>> §7Opens warp settings"
-warpgui_rightclick: "§Right-click §c>> §7Teleports to Warp"
+warpgui_rightclick: "§aRight-click §c>> §7Teleports to Warp"
 
 homesettingsgui_feature: "§cThis feature is not yet available"
 
@@ -41,6 +41,7 @@ maingui_feedback_lore_6: "§aLeft-click §c>> §7Toggle"
 
 maingui_no_homes: "§cYou don't have any homes"
 maingui_no_warps: "§cThere are no warps"
+maingui_no_ranks: "§cThere are no ranks"
 
 #################################
 
@@ -70,9 +71,11 @@ sethome_default_success: "§7You have set your §aDefault §7Home"
 delhome_success: "§7You have deleted the home §a%h"
 delhome_error: "§cA home with the name §6%h §cdon't exists"
 home_success: "§7You have been teleported to §a%h"
-home_error: "§cA home with the name §6%h §cdon't exists"
+home_error: "§cA home named §6%h §cdon't exists"
 home_default_success: "§7You have been teleported to your §aDefault §7Home"
 home_default_error: "§cYou have never set your §6Default §cHome"
+home_rename_request: "§7Write a new name for the home §a%h §7in the chat"
+home_rename_success: "§7The name of the home §a%h §7was changed to §a%n"
 
 invsee_error: "§cYou cannot run this command on yourself"
 
@@ -84,6 +87,9 @@ rank_set_error: "§cThe player §6%p §calready has this rank"
 rank_create_success: "§7A rank named §a%r §7was created"
 rank_delete_success: "§7A rank named §a%r §7was deleted"
 rank_setprefix_success: "§7The prefix of the Rank §a%r §7has changed to §a%p"
+rank_setprefix_request: "§7Write a new §aPrefix §7in the chat"
+rank_rename_request: "§7Write a new name for the rank §a%r §7in the chat"
+rank_rename_success: "§7The name of the rank §a%r §7was changed to §a%n"
 
 rank_dontexists: "§cA rank with this name don't exists"
 rank_exists: "§cA rank with this name already exists"
@@ -118,5 +124,7 @@ setwarp_success: "§7Created warp named §a%w"
 setwarp_error: "§cA warp named §6%w §calready exists"
 delwarp_success: "§7Removed warp §a%w"
 delwarp_error: "§cThere is no warp named §6%w"
-warp_success: "§7Teleporting to §a%w"
+warp_success: "§7You have been teleported to §a%w"
 warp_error: "§cA warp named §6%w §cdon't exists"
+warp_rename_request: "§7Write a new name for the warp §a%w §7in the chat"
+warp_rename_success: "§7The name of the warp §a%w §7was changed to §a%n"
