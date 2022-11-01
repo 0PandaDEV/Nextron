@@ -71,11 +71,23 @@ public class RankCommand implements CommandExecutor, TabCompleter {
 
             StringBuilder sb = new StringBuilder();
             for(int i = 2; i < args.length; i++) {
-                sb.append(" ");
+                if (i > 1) sb.append(" ");
                 sb.append(args[i]);
             }
 
-            RankAPI.setPrefix(player, args[1].toLowerCase(), ChatColor.translateAlternateColorCodes('&', String.valueOf(sb)));
+            RankAPI.setPrefix(player, args[1].toLowerCase(), ChatColor.translateAlternateColorCodes('&', sb.toString()));
+
+        } else if (args.length >= 3 && label.equalsIgnoreCase("modifyrank") && args[0].equalsIgnoreCase("name")){
+
+            if (!player.hasPermission("essentialsp.rank.modify.name")) player.sendMessage(Main.getNoPerm());
+
+            StringBuilder sb = new StringBuilder();
+            for(int i = 2; i < args.length; i++) {
+                if (i > 1) sb.append(" ");
+                sb.append(args[i]);
+            }
+
+            RankAPI.rename(player, args[1].toLowerCase(), ChatColor.translateAlternateColorCodes('&', sb.toString()));
 
         } else{
             player.sendMessage(Main.getPrefix() +
@@ -83,7 +95,8 @@ public class RankCommand implements CommandExecutor, TabCompleter {
                     "§c/removerank <player>",
                     "§c/createrank <rankname> <prefix>",
                     "§c/deleterank <rankname>",
-                    "§c/modifyrank prefix <rank> <newprefix>");
+                    "§c/modifyrank prefix <rank> <newprefix>",
+                    "§c/modifyrank name <rank> <newprefix>");
         }
         return true;
     }
@@ -102,9 +115,11 @@ public class RankCommand implements CommandExecutor, TabCompleter {
         // delete rank command
         if (args.length == 1 && label.equalsIgnoreCase("deleterank")) list.addAll(Main.getInstance().getConfig().getConfigurationSection("Ranks").getKeys(false));
         // modify prefix command
-        if (args.length == 1 && label.equalsIgnoreCase("modifyrank") && args[0].equalsIgnoreCase("prefix")) list.add("prefix");
-        if (args.length == 2 && label.equalsIgnoreCase("modifyrank") && args[0].equalsIgnoreCase("prefix")) list.addAll(Main.getInstance().getConfig().getConfigurationSection("Ranks").getKeys(false));
+        if (args.length == 1 && label.equalsIgnoreCase("modifyrank")) list.add("prefix");
+        if (args.length == 1 && label.equalsIgnoreCase("modifyrank")) list.add("name");
+        if (args.length == 2 && label.equalsIgnoreCase("modifyrank")) list.addAll(Main.getInstance().getConfig().getConfigurationSection("Ranks").getKeys(false));
         if (args.length == 3 && label.equalsIgnoreCase("modifyrank") && args[0].equalsIgnoreCase("prefix")) list.add("<prefix>");
+        if (args.length == 3 && label.equalsIgnoreCase("modifyrank") && args[0].equalsIgnoreCase("name")) list.add("<name>");
 
         ArrayList<String> completerList = new ArrayList<String>();
         String currentarg = args[args.length - 1].toLowerCase();
