@@ -17,7 +17,7 @@ import tk.pandadev.essentialsp.utils.Utils;
 public class MainGui extends GUI {
 
     public MainGui(Player player) {
-        super("Menu", 5);
+        super("§7Menu", 5);
 
         setItemClickEvent(20, player1 -> new ItemBuilder(Utils.createSkull("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZWMyZmYyNDRkZmM5ZGQzYTJjZWY2MzExMmU3NTAyZGM2MzY3YjBkMDIxMzI5NTAzNDdiMmI0NzlhNzIzNjZkZCJ9fX0=")).setName("§fSettings").build(), ((player1, event) -> {
             new PlayerSettingsGui(player1).open(player1);
@@ -42,7 +42,12 @@ public class MainGui extends GUI {
         });
 
         setItemClickEvent(24, player1 -> new ItemBuilder(Material.NAME_TAG).setName("§x§e§6§c§7§8§cRank Manager").build(), ((player1, event) -> {
-            new RankManagerGui().open(player1);
+            if (Main.getInstance().getConfig().getConfigurationSection("Ranks") == null || Main.getInstance().getConfig().getConfigurationSection("Ranks").getKeys(false).isEmpty()){
+                player.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("maingui_no_ranks"));
+                player.playSound(player.getLocation(), Sound.ENTITY_PILLAGER_AMBIENT, 100, 0.5f);
+            } else {
+                new RankManagerGui().open(player1);
+            }
         }));
 
         ////////////////////////////////////////////////////////////////////////////////////////////////

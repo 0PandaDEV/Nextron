@@ -15,7 +15,7 @@ public class RankManagerGui extends GUI {
     private static FileConfiguration mainConfig = Main.getInstance().getConfig();
 
     public RankManagerGui() {
-        super("RankManager", 5);
+        super("§7Rank Manager", 5);
 
         for (String rank : mainConfig.getConfigurationSection("Ranks").getKeys(false)){
             addItemClickEvent(player1 -> new ItemBuilder(Material.NAME_TAG)
