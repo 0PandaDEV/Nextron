@@ -28,114 +28,50 @@ public class GamemodeCommand implements CommandExecutor, TabCompleter {
         Player player = (Player) (sender);
 
         if (args.length == 1) {
+            if (!player.hasPermission("essentialsp.gamemode")) player.sendMessage(Main.getNoPerm());
 
-            if (player.hasPermission("essentialsp.gamemode")) {
+            GameMode gamemode = null;
+            if (args[0].equalsIgnoreCase("0")) gamemode = GameMode.SURVIVAL;
+            if (args[0].equalsIgnoreCase("1")) gamemode = GameMode.CREATIVE;
+            if (args[0].equalsIgnoreCase("2")) gamemode = GameMode.ADVENTURE;
+            if (args[0].equalsIgnoreCase("3")) gamemode = GameMode.SPECTATOR;
+            if (args[0].equalsIgnoreCase("survival")) gamemode = GameMode.SURVIVAL;
+            if (args[0].equalsIgnoreCase("creative")) gamemode = GameMode.CREATIVE;
+            if (args[0].equalsIgnoreCase("adventure")) gamemode = GameMode.ADVENTURE;
+            if (args[0].equalsIgnoreCase("spectator")) gamemode = GameMode.SPECTATOR;
+            if (gamemode == null) player.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("gamemode_invalid"));
 
-                if (args[0].equalsIgnoreCase("1") || args[0].equalsIgnoreCase("creative")) {
-                    if (player.getGameMode() != GameMode.CREATIVE){
-                        player.setGameMode(GameMode.CREATIVE);
-                        if (Configs.settings.getBoolean(player.getUniqueId() + ".feedback")){
-                            player.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("gamemode_success").replace("%g", "Creative"));
-                        }
-                    }else {
-                        player.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("gamemode_error").replace("%g", "Creative"));
-                        return false;
-                    }
-                }
-                if (args[0].equalsIgnoreCase("0") || args[0].equalsIgnoreCase("survival")) {
-                    if (player.getGameMode() != GameMode.SURVIVAL){
-                        player.setGameMode(GameMode.SURVIVAL);
-                        if (Configs.settings.getBoolean(player.getUniqueId() + ".feedback")){
-                            player.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("gamemode_success").replace("%g", "Survival"));
-                        }
-                    }else {
-                        player.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("gamemode_error").replace("%g", "Survival"));
-                        return false;
-                    }
-                }
-                if (args[0].equalsIgnoreCase("2") || args[0].equalsIgnoreCase("adventure")) {
-                    if (player.getGameMode() != GameMode.ADVENTURE){
-                        player.setGameMode(GameMode.ADVENTURE);
-                        if (Configs.settings.getBoolean(player.getUniqueId() + ".feedback")){
-                            player.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("gamemode_success").replace("%g", "Adventure"));
-                        }
-                    }else {
-                        player.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("gamemode_error").replace("%g", "Adventure"));
-                        return false;
-                    }
-                }
-                if (args[0].equalsIgnoreCase("3") || args[0].equalsIgnoreCase("spectator")) {
-                    if (player.getGameMode() != GameMode.SPECTATOR){
-                        player.setGameMode(GameMode.SPECTATOR);
-                        if (Configs.settings.getBoolean(player.getUniqueId() + ".feedback")){
-                            player.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("gamemode_success").replace("%g", "Spectator"));
-                        }
-                    }else {
-                        player.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("gamemode_error").replace("%g", "Spectator"));
-                        return false;
-                    }
-                } else {
-                    player.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("gamemode_invalid"));
-                }
-
-            } else {
-                player.sendMessage(Main.getNoPerm());
+            if (player.getGameMode().equals(gamemode)){
+                player.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("gamemode_error").replace("%g", gamemode.toString().toLowerCase()));
+                return false;
             }
 
+            player.setGameMode(gamemode);
+            player.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("gamemode_success").replace("%g", gamemode.toString().toLowerCase()));
         } else if (args.length == 2){
+            if (!player.hasPermission("essentialsp.gamemode.other")) player.sendMessage(Main.getNoPerm());
 
-            if (player.hasPermission("essentialsp.gamemode.other")) {
+            Player target = Bukkit.getPlayer(args[1]);
+            GameMode gamemode = null;
+            if (args[0].equalsIgnoreCase("0")) gamemode = GameMode.SURVIVAL;
+            if (args[0].equalsIgnoreCase("1")) gamemode = GameMode.CREATIVE;
+            if (args[0].equalsIgnoreCase("2")) gamemode = GameMode.ADVENTURE;
+            if (args[0].equalsIgnoreCase("3")) gamemode = GameMode.SPECTATOR;
+            if (args[0].equalsIgnoreCase("survival")) gamemode = GameMode.SURVIVAL;
+            if (args[0].equalsIgnoreCase("creative")) gamemode = GameMode.CREATIVE;
+            if (args[0].equalsIgnoreCase("adventure")) gamemode = GameMode.ADVENTURE;
+            if (args[0].equalsIgnoreCase("spectator")) gamemode = GameMode.SPECTATOR;
+            if (gamemode == null) player.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("gamemode_invalid"));
 
-                Player target = Bukkit.getPlayer(args[1]);
-
-                if (target != null){
-                    if (args[0].equalsIgnoreCase("1") || args[0].equalsIgnoreCase("creative")) {
-                        if (target.getGameMode() != GameMode.CREATIVE){
-                            target.setGameMode(GameMode.CREATIVE);
-                            player.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("gamemode_other_success").replace("%t", target.getName()).replace("%g", "Creative"));
-                        }else {
-                            player.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("gamemode_other_error").replace("%t", target.getName()).replace("%g", "Creative"));
-                            return false;
-                        }
-                    }
-                    if (args[0].equalsIgnoreCase("0") || args[0].equalsIgnoreCase("survival")) {
-                        if (target.getGameMode() != GameMode.SURVIVAL){
-                            target.setGameMode(GameMode.SURVIVAL);
-                            player.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("gamemode_other_success").replace("%t", target.getName()).replace("%g", "Survival"));
-                        }else {
-                            player.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("gamemode_other_error").replace("%t", target.getName()).replace("%g", "Survival"));
-                            return false;
-                        }
-                    }
-                    if (args[0].equalsIgnoreCase("2") || args[0].equalsIgnoreCase("adventure")) {
-                        if (target.getGameMode() != GameMode.ADVENTURE){
-                            target.setGameMode(GameMode.ADVENTURE);
-                            player.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("gamemode_other_success").replace("%t", target.getName()).replace("%g", "Adventure"));
-                        }else {
-                            player.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("gamemode_other_error").replace("%t", target.getName()).replace("%g", "Adventure"));
-                            return false;
-                        }
-                    }
-                    if (args[0].equalsIgnoreCase("3") || args[0].equalsIgnoreCase("spectator")) {
-                        if (target.getGameMode() != GameMode.SPECTATOR){
-                            target.setGameMode(GameMode.SPECTATOR);
-                            player.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("gamemode_other_success").replace("%t", target.getName()).replace("%g", "Spectator"));
-                        }else {
-                            player.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("gamemode_other_error").replace("%t", target.getName()).replace("%g", "Spectator"));
-                            return false;
-                        }
-                    } else {
-                        player.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("gamemode_invalid"));
-                    }
-                } else {
-                    player.sendMessage(Main.getInvalidPlayer());
-                }
-            } else {
-                player.sendMessage(Main.getNoPerm());
+            if (target.getGameMode().equals(gamemode)){
+                player.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("gamemode_other_error").replace("%t", target.getName()).replace("%g", gamemode.toString().toLowerCase()));
+                return false;
             }
 
+            target.setGameMode(gamemode);
+            player.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("gamemode_other_success").replace("%t", target.getName()).replace("%g", gamemode.toString().toLowerCase()));
         } else {
-            player.sendMessage(Main.getPrefix() + "§c/gamemode [mode] <player>");
+            player.sendMessage(Main.getPrefix() + "§c/gamemode <mode> [player]");
         }
         return true;
     }
