@@ -2,27 +2,20 @@ package tk.pandadev.essentialsp.guis.mainextend;
 
 import games.negative.framework.gui.GUI;
 import games.negative.framework.util.ItemBuilder;
-import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.Sound;
-import org.bukkit.entity.Player;
-import org.bukkit.inventory.Inventory;
-import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.ItemMeta;
 import tk.pandadev.essentialsp.guis.MainGui;
 import tk.pandadev.essentialsp.utils.Configs;
 import tk.pandadev.essentialsp.utils.LanguageLoader;
 import tk.pandadev.essentialsp.utils.Utils;
 
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Objects;
 
-public class WarpGui extends GUI {
+public class WarpManagerGui extends GUI {
 
-    public WarpGui(){
-        super("§7Warps", 5);
+    public WarpManagerGui(){
+        super("§7Warp Manager", 5);
 
         for (String warp : Configs.warp.getConfigurationSection("Warps").getKeys(false)){
             addItemClickEvent(player1 -> new ItemBuilder(Material.NETHER_STAR)
