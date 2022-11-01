@@ -22,11 +22,11 @@ import java.util.Objects;
 public class WarpGui extends GUI {
 
     public WarpGui(){
-        super("Warps", 5);
+        super("§7Warps", 5);
 
         for (String warp : Configs.warp.getConfigurationSection("Warps").getKeys(false)){
             addItemClickEvent(player1 -> new ItemBuilder(Material.NETHER_STAR)
-                    .setName(warp)
+                    .setName("§f" + warp)
                     .addLoreLine("")
                     .addLoreLine(LanguageLoader.translationMap.get("warpgui_leftclick"))
                     .addLoreLine(LanguageLoader.translationMap.get("warpgui_rightclick"))

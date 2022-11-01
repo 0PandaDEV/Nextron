@@ -19,6 +19,7 @@ commands:
     aliases:
       - setwarp
       - delwarp
+      - renamewarp
   heal:
     permission: essentialsp.heal
   vanish:
@@ -34,6 +35,7 @@ commands:
     aliases:
       - sethome
       - delhome
+      - renamehome
   invsee:
     permission: essentialsp.invsee
   tphere:

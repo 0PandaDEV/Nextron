@@ -5,7 +5,10 @@ import games.negative.framework.util.ItemBuilder;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.Sound;
+import org.bukkit.event.player.AsyncPlayerChatEvent;
 import tk.pandadev.essentialsp.Main;
+import tk.pandadev.essentialsp.listeners.InputListener;
+import tk.pandadev.essentialsp.utils.Config;
 import tk.pandadev.essentialsp.utils.Configs;
 import tk.pandadev.essentialsp.utils.LanguageLoader;
 import tk.pandadev.essentialsp.utils.Utils;
@@ -15,7 +18,7 @@ import java.util.Objects;
 public class WarpSettginsGui extends GUI {
 
     public WarpSettginsGui(String warp){
-        super(warp, 3);
+        super("§7" + warp, 3);
 
         setItemClickEvent(12, player -> new ItemBuilder(Material.ENDER_PEARL).setName("§x§0§1§5§9§5§6Teleport").build(), ((player, event) -> {
             player.teleport((Location) Objects.requireNonNull(Configs.warp.get("Warps." + warp)));
@@ -23,13 +26,24 @@ public class WarpSettginsGui extends GUI {
             player.closeInventory();
         }));
         setItemClickEvent(13, player -> new ItemBuilder(Material.YELLOW_DYE).setName("§eRename").build(), ((player, event) -> {
-            player.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("homesettingsgui_feature"));
-            player.playSound(player.getLocation(), Sound.ENTITY_PILLAGER_AMBIENT, 100, 0.5f);
+            player.closeInventory();
+            player.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("warp_rename_request").replace("%w", warp));
+            InputListener.listen(player.getUniqueId(), new InputListener.InputListenerResponse() {
+                @Override
+                public void handle(AsyncPlayerChatEvent event) {
+                    event.setCancelled(true);
+                    Location location = (Location) Configs.warp.get("Warps." + warp);
+                    Configs.warp.set("Warps." + event.getMessage(), location);
+                    Configs.warp.set("Warps." + warp, null);
+                    Configs.saveWarpConfig();
+                    player.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("warp_rename_success").replace("%w", warp).replace("%n", event.getMessage()));
+                }
+            });
         }));
         setItemClickEvent(14, player -> new ItemBuilder(Material.RED_DYE).setName("§cDelete").build(), ((player, event) -> {
-            if (!player.isOp()) player.sendMessage(Main.getNoPerm());
-            Configs.warp.set("Wraps." + warp, null);
-            Main.getInstance().saveConfig();
+            if (!player.hasPermission("essentialsp.delwarp")) player.sendMessage(Main.getNoPerm());
+            Configs.warp.set("Warps." + warp, null);
+            Configs.saveWarpConfig();
             if (Configs.warp.getConfigurationSection("Warps").getKeys(false).isEmpty()) {
                 player.closeInventory();
             } else {
