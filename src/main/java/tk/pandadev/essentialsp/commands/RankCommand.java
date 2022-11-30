@@ -128,6 +128,7 @@ public class RankCommand implements CommandExecutor, TabCompleter {
             if (!s1.startsWith(currentarg)) continue;
             completerList.add(s);
         }
+
         return completerList;
     }
 }

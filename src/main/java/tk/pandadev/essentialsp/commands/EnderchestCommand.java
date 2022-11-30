@@ -20,10 +20,7 @@ public class EnderchestCommand implements CommandExecutor, TabCompleter {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
 
-        if (!(sender instanceof Player)) {
-            sender.sendMessage(Main.getCommandInstance());
-            return false;
-        }
+        if (!(sender instanceof Player)) {sender.sendMessage(Main.getCommandInstance()); return false;}
 
         Player player = (Player) (sender);
 
@@ -32,18 +29,12 @@ public class EnderchestCommand implements CommandExecutor, TabCompleter {
             player.openInventory(player.getEnderChest());
 
         } else if (args.length == 1) {
-            if (player.hasPermission("essentialsp.enderchest.other")){
-                Player target = Bukkit.getPlayer(args[0]);
+            if (!player.hasPermission("essentialsp.enderchest.other")){ player.sendMessage(Main.getNoPerm()); return false;}
+            Player target = Bukkit.getPlayer(args[0]);
+            if (target == null) { player.sendMessage(Main.getInvalidPlayer()); return false;}
 
-                if (target != null) {
-                    player.openInventory(target.getEnderChest());
-                    enderchest.contains(player.getUniqueId());
-                }  else {
-                    player.sendMessage(Main.getInvalidPlayer());
-                }
-            } else {
-                player.sendMessage(Main.getNoPerm());
-            }
+            player.openInventory(target.getEnderChest());
+            enderchest.contains(player.getUniqueId());
         } else {
             player.sendMessage(Main.getPrefix() + "§c/enderchest <player>");
         }
@@ -62,14 +53,6 @@ public class EnderchestCommand implements CommandExecutor, TabCompleter {
             }
         }
 
-        ArrayList<String> completerList = new ArrayList<String>();
-        String currentarg = args[args.length - 1].toLowerCase();
-        for (String s : list) {
-            String s1 = s.toLowerCase();
-            if (!s1.startsWith(currentarg)) continue;
-            completerList.add(s);
-        }
-
-        return completerList;
+        return list;
     }
 }

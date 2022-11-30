@@ -28,26 +28,17 @@ public class HeadCommand implements CommandExecutor, TabCompleter {
 
         Player player = (Player) (sender);
 
-        if (args.length == 1){
-            if (player.hasPermission("essentialsp.head")){
+        if (args.length != 1){ player.sendMessage(Main.getPrefix() + "§c/head <player>"); return false; }
+            if (!player.hasPermission("essentialsp.head")){ player.sendMessage(Main.getNoPerm()); return false; }
 
-                ItemStack item = new ItemStack(Material.PLAYER_HEAD, 1, (short) 3);
-                SkullMeta meta = (SkullMeta) item.getItemMeta();
-                meta.setDisplayName(args[0]);
-                meta.setOwner(args[0]);
-                item.setItemMeta(meta);
-                Inventory inventory = player.getInventory();
-                inventory.addItem(item);
-                if (Configs.settings.getBoolean(player.getUniqueId() + ".feedback")){
-                    player.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("head_success").replace("%t", args[0]));
-                }
-
-            } else {
-                player.sendMessage(Main.getNoPerm());
-            }
-        } else {
-            player.sendMessage(Main.getPrefix() + "§c/head <player>");
-        }
+            ItemStack item = new ItemStack(Material.PLAYER_HEAD, 1, (short) 3);
+            SkullMeta meta = (SkullMeta) item.getItemMeta();
+            meta.setDisplayName(args[0]);
+            meta.setOwner(args[0]);
+            item.setItemMeta(meta);
+            Inventory inventory = player.getInventory();
+            inventory.addItem(item);
+            if (Configs.settings.getBoolean(player.getUniqueId() + ".feedback")) player.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("head_success").replace("%t", args[0]));
 
         return false;
     }
@@ -61,14 +52,6 @@ public class HeadCommand implements CommandExecutor, TabCompleter {
             }
         }
 
-        ArrayList<String> completerList = new ArrayList<String>();
-        String currentarg = args[args.length - 1].toLowerCase();
-        for (String s : list) {
-            String s1 = s.toLowerCase();
-            if (!s1.startsWith(currentarg)) continue;
-            completerList.add(s);
-        }
-
-        return completerList;
+        return list;
     }
 }

@@ -20,10 +20,7 @@ public class GamemodeCommand implements CommandExecutor, TabCompleter {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
 
-        if (!(sender instanceof Player)) {
-            sender.sendMessage(Main.getCommandInstance());
-            return false;
-        }
+        if (!(sender instanceof Player)) { sender.sendMessage(Main.getCommandInstance()); return false; }
 
         Player player = (Player) (sender);
 
@@ -41,15 +38,12 @@ public class GamemodeCommand implements CommandExecutor, TabCompleter {
             if (args[0].equalsIgnoreCase("spectator")) gamemode = GameMode.SPECTATOR;
             if (gamemode == null) player.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("gamemode_invalid"));
 
-            if (player.getGameMode().equals(gamemode)){
-                player.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("gamemode_error").replace("%g", gamemode.toString().toLowerCase()));
-                return false;
-            }
+            if (player.getGameMode().equals(gamemode)){ player.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("gamemode_error").replace("%g", gamemode.toString().toLowerCase())); return false; }
 
             player.setGameMode(gamemode);
             player.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("gamemode_success").replace("%g", gamemode.toString().toLowerCase()));
         } else if (args.length == 2){
-            if (!player.hasPermission("essentialsp.gamemode.other")) player.sendMessage(Main.getNoPerm());
+            if (!player.hasPermission("essentialsp.gamemode.other")) {player.sendMessage(Main.getNoPerm()); return false;}
 
             Player target = Bukkit.getPlayer(args[1]);
             GameMode gamemode = null;
@@ -63,10 +57,7 @@ public class GamemodeCommand implements CommandExecutor, TabCompleter {
             if (args[0].equalsIgnoreCase("spectator")) gamemode = GameMode.SPECTATOR;
             if (gamemode == null) player.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("gamemode_invalid"));
 
-            if (target.getGameMode().equals(gamemode)){
-                player.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("gamemode_other_error").replace("%t", target.getName()).replace("%g", gamemode.toString().toLowerCase()));
-                return false;
-            }
+            if (target.getGameMode().equals(gamemode)){player.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("gamemode_other_error").replace("%t", target.getName()).replace("%g", gamemode.toString().toLowerCase()));return false;}
 
             target.setGameMode(gamemode);
             player.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("gamemode_other_success").replace("%t", target.getName()).replace("%g", gamemode.toString().toLowerCase()));
@@ -95,14 +86,6 @@ public class GamemodeCommand implements CommandExecutor, TabCompleter {
             }
         }
 
-        ArrayList<String> completerList = new ArrayList<String>();
-        String currentarg = args[args.length - 1].toLowerCase();
-        for (String s : list) {
-            String s1 = s.toLowerCase();
-            if (!s1.startsWith(currentarg)) continue;
-            completerList.add(s);
-        }
-
-        return completerList;
+        return list;
     }
 }

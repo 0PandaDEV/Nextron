@@ -27,46 +27,35 @@ public class HealCommand implements CommandExecutor, TabCompleter {
 
         if (args.length == 0) {
 
-            if (player.hasPermission("essentialsp.heal")) {
+            if (player.hasPermission("essentialsp.heal")) { player.sendMessage(Main.getNoPerm()); return false; }
 
-                if (player.getHealth() != player.getMaxHealth() || player.getFoodLevel() != 20) {
-                    player.setHealth(player.getMaxHealth());
-                    player.setFoodLevel(20);
-                    if (Configs.settings.getBoolean(player.getUniqueId() + ".feedback")){
-                        player.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("heal_success"));
-                    }
-                    player.playSound(player.getLocation(), Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 1.0f, 1.0f);
-                    return true;
+            if (player.getHealth() != player.getMaxHealth() || player.getFoodLevel() != 20) {
+                player.setHealth(player.getMaxHealth());
+                player.setFoodLevel(20);
+                if (Configs.settings.getBoolean(player.getUniqueId() + ".feedback")){
+                    player.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("heal_success"));
                 }
-                player.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("heal_error"));
-
-            } else {
-                player.sendMessage(Main.getNoPerm());
+                player.playSound(player.getLocation(), Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 1.0f, 1.0f);
+                return true;
             }
+            player.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("heal_error"));
 
 
         } else if (args.length == 1) {
 
-            if (player.hasPermission("essentialsp.heal.other")) {
+            if (player.hasPermission("essentialsp.heal.other")) { player.sendMessage(Main.getNoPerm()); return false; }
 
-                Player target = Bukkit.getPlayer(args[0]);
+            Player target = Bukkit.getPlayer(args[0]);
+            if (target == null){ player.sendMessage(Main.getInvalidPlayer()); return false; }
 
-                if (target != null){
-                    if (target.getHealth() != 20.0 || target.getFoodLevel() != 20) {
-                        target.setHealth(20.0);
-                        target.setFoodLevel(20);
-                        target.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("heal_other_success").replace("%p", player.getName()));
-                        target.playSound(target.getLocation(), Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 1.0f, 1.0f);
-                        return true;
-                    }
-                    player.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("heal_other_error").replace("%t", target.getName()));
-                } else {
-                    player.sendMessage(Main.getInvalidPlayer());
-                }
-
-            } else {
-                player.sendMessage(Main.getNoPerm());
+            if (target.getHealth() != 20.0 || target.getFoodLevel() != 20) {
+                target.setHealth(20.0);
+                target.setFoodLevel(20);
+                target.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("heal_other_success").replace("%p", player.getName()));
+                target.playSound(target.getLocation(), Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 1.0f, 1.0f);
+                return true;
             }
+            player.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("heal_other_error").replace("%t", target.getName()));
 
 
         } else {

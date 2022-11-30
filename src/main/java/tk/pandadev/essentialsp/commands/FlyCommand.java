@@ -25,47 +25,34 @@ public class FlyCommand implements CommandExecutor, TabCompleter {
         Player player = (Player) (sender);
 
         if (args.length == 1) {
-            if (player.hasPermission("essentialsp.fly.other")) {
+            if (!player.hasPermission("essentialsp.fly.other")) { player.sendMessage(Main.getNoPerm()); return false; }
 
-                Player target = Bukkit.getPlayer(args[0]);
+            Player target = Bukkit.getPlayer(args[0]);
+            if (target != null){ player.sendMessage(Main.getInvalidPlayer()); return false; }
 
-                if (target != null){
-
-                    if (target.getAllowFlight()){
-                        player.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("fly_other_off").replace("%t", target.getName()));
-                    } else {
-                        player.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("fly_other_on").replace("%t", target.getName()));
-                    }
-
-                    target.setAllowFlight(!target.getAllowFlight());
-                    target.setFallDistance(0.0f);
-
-                } else{
-                    player.sendMessage(Main.getInvalidPlayer());
-                }
-
-            } else{
-                player.sendMessage(Main.getNoPerm());
+            if (target.getAllowFlight()){
+                player.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("fly_other_off").replace("%t", target.getName()));
+            } else {
+                player.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("fly_other_on").replace("%t", target.getName()));
             }
+
+            target.setAllowFlight(!target.getAllowFlight());
+            target.setFallDistance(0.0f);
+
         } else if (args.length == 0){
-            if (player.hasPermission("essentialsp.fly")) {
+            if (!player.hasPermission("essentialsp.fly")) { player.sendMessage(Main.getNoPerm()); return false; }
 
-                if (player.getAllowFlight()){
-                    if (Configs.settings.getBoolean(player.getUniqueId() + ".feedback")){
-                        player.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("fly_off"));
-                    }
-                } else {
-                    if (Configs.settings.getBoolean(player.getUniqueId() + ".feedback")){
-                        player.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("fly_on"));
-                    }
+            if (player.getAllowFlight()){
+                if (Configs.settings.getBoolean(player.getUniqueId() + ".feedback")){
+                    player.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("fly_off"));
                 }
-
-                player.setAllowFlight(!player.getAllowFlight());
-                player.setFallDistance(0.0f);
-
-            } else{
-                player.sendMessage(Main.getNoPerm());
+            } else {
+                if (Configs.settings.getBoolean(player.getUniqueId() + ".feedback")){
+                    player.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("fly_on"));
+                }
             }
+            player.setAllowFlight(!player.getAllowFlight());
+            player.setFallDistance(0.0f);
         }else {
             player.sendMessage(Main.getPrefix() + "§c/fly [player]");
         }
@@ -84,14 +71,6 @@ public class FlyCommand implements CommandExecutor, TabCompleter {
             }
         }
 
-        ArrayList<String> completerList = new ArrayList<String>();
-        String currentarg = args[args.length - 1].toLowerCase();
-        for (String s : list) {
-            String s1 = s.toLowerCase();
-            if (!s1.startsWith(currentarg)) continue;
-            completerList.add(s);
-        }
-
-        return completerList;
+        return list;
     }
 }
