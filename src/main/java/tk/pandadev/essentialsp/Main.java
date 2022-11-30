@@ -95,6 +95,7 @@ public final class Main extends BasePlugin {
         getCommand("rank").setExecutor(new RankCommand());
         getCommand("menu").setExecutor(new MenuCommand());
         getCommand("rl").setExecutor(new ReloadCommand());
+        getCommand("features").setExecutor(new FeatureCommand());
     }
 
 

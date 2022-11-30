@@ -58,3 +58,5 @@ commands:
   menu:
   rl:
     permission: essentialsp.rl
+  features:
+    permission: essentialsp.features
