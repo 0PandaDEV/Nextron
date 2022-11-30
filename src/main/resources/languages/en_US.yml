@@ -76,6 +76,7 @@ home_default_success: "§7You have been teleported to your §aDefault §7Home"
 home_default_error: "§cYou have never set your §6Default §cHome"
 home_rename_request: "§7Write a new name for the home §a%h §7in the chat"
 home_rename_success: "§7The name of the home §a%h §7was changed to §a%n"
+home_reset_confirm: "§7Are you shure you want to overwrite the old home §7[§aYes§8/§cNo§7]"
 
 invsee_error: "§cYou cannot run this command on yourself"
 

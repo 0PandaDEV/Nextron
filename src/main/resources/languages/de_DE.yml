@@ -76,6 +76,7 @@ home_default_success: "§7Du hast dich zu deinem §aDefault §7Home teleportiert
 home_default_error: "§cDu hat noch nie deinen §6Default §cHome gesetzt"
 home_rename_request: "§7Schreibe einen neuen Namen für den home §a%h §7in den Chat"
 home_rename_success: "§7Der Name des homes §a%h §7wurde auf §a%n §7geändert"
+home_reset_confirm: "§7Bist du sicher das du den alten Home überschreiben willst §7[§aJa§8/§cNein§7]"
 
 invsee_error: "§cDu kannst nicht dein eigenes Inventar anschauen"
 
