@@ -8,7 +8,9 @@ supportedPlatforms:
   - paper
 supportedGameVersions: 1.19 - 1.19.2
 category: misc, adminTool, game
-introduction: A basic plugin that provides the ground structure for a server
+introduction:
+  en: A basic plugin that provides the ground structure for a server
+  de: Ein grundlegendes Plugin, das die Grundstruktur für einen Server bereitstellt
 description: |
   __**New: English Translation is now available!**__
   
