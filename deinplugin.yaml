@@ -7,7 +7,7 @@ supportedPlatforms:
   - spigot
   - paper
 supportedGameVersions: 1.19 - 1.19.2
-category: misc, adminTool, game
+category: misc
 introduction:
   en: A basic plugin that provides the ground structure for a server
   de: Ein grundlegendes Plugin, das die Grundstruktur für einen Server bereitstellt
