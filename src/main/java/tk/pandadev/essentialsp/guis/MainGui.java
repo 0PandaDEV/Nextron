@@ -6,6 +6,7 @@ import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import tk.pandadev.essentialsp.Main;
+import tk.pandadev.essentialsp.guis.featuretoggle.FeatureGui;
 import tk.pandadev.essentialsp.guis.mainextend.HomeManagerGui;
 import tk.pandadev.essentialsp.guis.mainextend.PlayerSettingsGui;
 import tk.pandadev.essentialsp.guis.mainextend.WarpManagerGui;
@@ -53,6 +54,10 @@ public class MainGui extends GUI {
         } else {
             setItem(24, player1 -> new ItemBuilder(Material.BARRIER).setName("§c§lNo Permision").build());
         }
+
+        setItemClickEvent(36, player1 -> new ItemBuilder(Material.REDSTONE).setName("§4§lFeature Manager").build(), (player1, event) -> {
+            new FeatureGui().open(player1);
+        });
 
         ////////////////////////////////////////////////////////////////////////////////////////////////
     }
