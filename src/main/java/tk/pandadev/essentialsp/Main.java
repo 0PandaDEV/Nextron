@@ -28,7 +28,7 @@ import java.util.*;
 public final class Main extends BasePlugin {
 
     private static Main instance;
-    private static final String Prefix = "§a§lEssentialsP §8» ";
+    private static final String Prefix = "§x§b§1§8§0§f§f§lEssentialsP §8» ";
     private VanishManager vanishManager;
     private VanishAPI vanishAPI;
     private TablistManager tablistManager;
