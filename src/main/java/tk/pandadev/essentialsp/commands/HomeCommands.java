@@ -1,21 +1,19 @@
 package tk.pandadev.essentialsp.commands;
 
-import org.bukkit.Bukkit;
+import net.md_5.bungee.api.chat.ClickEvent;
+import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.Location;
 import org.bukkit.Sound;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabCompleter;
-import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import tk.pandadev.essentialsp.Main;
 import tk.pandadev.essentialsp.utils.Configs;
 import tk.pandadev.essentialsp.utils.LanguageLoader;
-
-import java.sql.SQLException;
+import java.awt.*;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Objects;
 
@@ -38,7 +36,12 @@ public class HomeCommands implements CommandExecutor, TabCompleter {
                 Configs.saveHomeConfig();
                 player.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("sethome_success").replace("%h", args[0].toLowerCase()));
             } else {
-                player.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("sethome_error").replace("%h", args[0].toLowerCase()));
+                TextComponent yes = new TextComponent("§aYes");
+                yes.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "say hi"));
+                TextComponent message = new TextComponent(Main.getPrefix() + LanguageLoader.translationMap.get("home_reset_confirm").replace("%r", "§7["));
+                message.addExtra(yes);
+                message.addExtra("§8/§cNo§7]");
+                player.spigot().sendMessage(message); //§7[§aYes§8/§cNo§7] clickable
             }
 
         } else if (label.equalsIgnoreCase("sethome") && args.length == 0){
