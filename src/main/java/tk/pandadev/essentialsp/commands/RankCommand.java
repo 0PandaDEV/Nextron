@@ -29,7 +29,7 @@ public class RankCommand implements CommandExecutor, TabCompleter {
 
         if (args.length == 2 && label.equalsIgnoreCase("rank")) {
 
-            if (!player.hasPermission("essentialsp.rank.set")) player.sendMessage(Main.getNoPerm());
+            if (!player.hasPermission("essentialsp.rank.set")) {player.sendMessage(Main.getNoPerm()); return false;}
             Player target = Bukkit.getPlayer(args[0]);
             if (target == null) player.sendMessage(Main.getInvalidPlayer());
             RankAPI.setRank(target, args[1]);
@@ -37,7 +37,7 @@ public class RankCommand implements CommandExecutor, TabCompleter {
 
         } else if (args.length == 1 && label.equalsIgnoreCase("removerank")) {
 
-            if (!player.hasPermission("essentialsp.rank.remove")) player.sendMessage(Main.getNoPerm());
+            if (!player.hasPermission("essentialsp.rank.remove")) {player.sendMessage(Main.getNoPerm()); return false;}
 
             Player target = Bukkit.getPlayer(args[0]);
             if (target == null) player.sendMessage(Main.getInvalidPlayer());
@@ -49,7 +49,7 @@ public class RankCommand implements CommandExecutor, TabCompleter {
 
         } else if (args.length >= 2 && label.equalsIgnoreCase("createrank")) {
 
-            if (!player.hasPermission("essentialsp.rank.create")) player.sendMessage(Main.getNoPerm());
+            if (!player.hasPermission("essentialsp.rank.create")) {player.sendMessage(Main.getNoPerm()); return false;}
 
             StringBuilder sb = new StringBuilder();
             for(int i = 1; i < args.length; i++) {
@@ -61,13 +61,13 @@ public class RankCommand implements CommandExecutor, TabCompleter {
 
         } else if (args.length == 1 && label.equalsIgnoreCase("deleterank")) {
 
-            if (!player.hasPermission("essentialsp.rank.delete")) player.sendMessage(Main.getNoPerm());
+            if (!player.hasPermission("essentialsp.rank.delete")) {player.sendMessage(Main.getNoPerm()); return false;}
 
             RankAPI.deleteRank(player, args[0].toLowerCase());
 
         } else if (args.length >= 3 && label.equalsIgnoreCase("modifyrank") && args[0].equalsIgnoreCase("prefix")){
 
-            if (!player.hasPermission("essentialsp.rank.modify.prefix")) player.sendMessage(Main.getNoPerm());
+            if (!player.hasPermission("essentialsp.rank.modify.prefix")) {player.sendMessage(Main.getNoPerm()); return false;}
 
             StringBuilder sb = new StringBuilder();
             for(int i = 2; i < args.length; i++) {
@@ -79,7 +79,7 @@ public class RankCommand implements CommandExecutor, TabCompleter {
 
         } else if (args.length >= 3 && label.equalsIgnoreCase("modifyrank") && args[0].equalsIgnoreCase("name")){
 
-            if (!player.hasPermission("essentialsp.rank.modify.name")) player.sendMessage(Main.getNoPerm());
+            if (!player.hasPermission("essentialsp.rank.modify.name")) {player.sendMessage(Main.getNoPerm()); return false;}
 
             StringBuilder sb = new StringBuilder();
             for(int i = 2; i < args.length; i++) {
