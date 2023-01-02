@@ -15,9 +15,6 @@ homesettingsgui_feauture: "§cDiese Feauture ist noch nicht verfügbar"
 
 #################################
 
-maingui_vanish_active_title: "§a✔ §8• §7Fake Join/Quit Message aktiviert"
-maingui_vanish_inactive_title: "§c❌ §8• §7Fake Join/Quit Message deaktiviert"
-
 maingui_vanish_lore_1: "§8Steuert ob eine Fake Join oder Quit"
 maingui_vanish_lore_2: "§8Nachricht angezeigt werden soll"
 maingui_vanish_lore_3: "§8wen du in den Vanish gehst oder ihn verlässt"
@@ -25,9 +22,6 @@ maingui_vanish_lore_3: "§8wen du in den Vanish gehst oder ihn verlässt"
 maingui_vanish_lore_4: "§aLinksklick §c>> §7Toggle"
 
 #####################
-
-maingui_feedback_active_title: "§a✔ §8• §7Command Feedback ist aktiviert"
-maingui_feedback_inactive_title: "§c❌ §8• §7Command Feedback ist deaktiviert"
 
 maingui_feedback_lore_1: "§8Steuert ob eine Nachricht als ergebnis"
 maingui_feedback_lore_2: "§8nach einem Command angezeigt werden soll"
@@ -134,9 +128,13 @@ warp_rename_success: "§7Der Name des warps §a%w §7wurde auf §a%n §7geänder
 
 
 featuregui_warp_off: "§8Das Warp System ist bereit von allen genutzt zu werden!"
-featuregui_warp_on: "§8Das Warp System kann im moment nicht von normalen spielern benutzt werden!"
+featuregui_warp_on: "§8Das Warp System kann im moment nicht von nort zu werden!"
+featuregui_home_off: "§8Das Home System ist bereit von allen genutzt zu werden!"
+featuregui_home_on: "§8Das Home System kann im moment nicht von normalen spielern benutzt werden!"
+featuregui_tpa_off: "§8Das Tpa System ist bereit von allen genutzt zu werden!"
+featuregui_tpa_on: "§8Das Tpa System kann im moment nicht von normalen spielern benutzt werden!"
 leftclick: "§aLinksklick §c>> §7Toggle"
 
-feature_validvalues: "§cDas zweite Argument sollte eines dieser sein [warp_system, home_system, rank_system, tpa_system]"
+feature_validvalues: "§cDas zweite Argument sollte eines dieser sein §4[warp_system, home_system, rank_system, tpa_system]"
 feature_enable: "§7Das §a%n System §7wurde deaktiviert"
 feature_disable: "§7Das §a%n System §7wurde aktiviert"
