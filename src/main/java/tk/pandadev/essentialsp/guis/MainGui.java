@@ -55,9 +55,14 @@ public class MainGui extends GUI {
             setItem(24, player1 -> new ItemBuilder(Material.BARRIER).setName("§c§lNo Permision").build());
         }
 
-        setItemClickEvent(36, player1 -> new ItemBuilder(Material.REDSTONE).setName("§4§lFeature Manager").build(), (player1, event) -> {
-            new FeatureGui().open(player1);
-        });
+
+        if (player.hasPermission("essentialsp.features")){
+            setItemClickEvent(36, player1 -> new ItemBuilder(Material.REDSTONE).setName("§4§lFeature Manager").build(), (player1, event) -> {
+                new FeatureGui().open(player1);
+            });
+        } else {
+            setItem(36, player1 -> new ItemBuilder(Material.BARRIER).setName("§c§lNo Permision").build());
+        }
 
         ////////////////////////////////////////////////////////////////////////////////////////////////
     }
