@@ -15,7 +15,7 @@ homesettingsgui_feature: "§cThis feature is not yet available"
 
 #################################
 
-maingui_vanish_active_title: "§a✔ §8• §aFake Join/Quit Message enabled"
+maingui_vanish_active_title: "§a✔ §8• §7Fake Join/Quit Message enabled"
 maingui_vanish_inactive_title: "§c❌ §8• §7Fake Join/Quit Message disabled"
 
 maingui_vanish_lore_1: "§8Controls whether a fake join/quit"
@@ -26,7 +26,7 @@ maingui_vanish_lore_4: "§aLeft-click §c>> §7Toggle"
 
 #####################
 
-maingui_feedback_active_title: "§a✔ §8• §aCommand feedback is enabled"
+maingui_feedback_active_title: "§a✔ §8• §7Command feedback is enabled"
 maingui_feedback_inactive_title: "§c❌ §8• §7Command Feedback is disabled"
 
 maingui_feedback_lore_1: "§8Controls whether a message should"
@@ -77,6 +77,7 @@ home_default_error: "§cYou have never set your §6Default §cHome"
 home_rename_request: "§7Write a new name for the home §a%h §7in the chat"
 home_rename_success: "§7The name of the home §a%h §7was changed to §a%n"
 home_reset_confirm: "§7Are you shure you want to overwrite the old home %r"
+home_reset_success: "§7The position for the home §a%h §7has been moved successfully"
 
 invsee_error: "§cYou cannot run this command on yourself"
 
@@ -107,6 +108,7 @@ sudo_success: "§a%t §7was forced to run §a/%b"
 
 tpaccept_player_success: "§7Teleported to §a%p"
 tpaccept_target_success: "§a%t §7has teleported to you"
+tpaccept_error: "§cYou dont have any pending tpa's"
 
 tpa_sender_success: "§7Tpa was sent to §a%t"
 tpa_target_success_1: "§a%p §7has requested to teleport to you"
@@ -129,3 +131,11 @@ warp_success: "§7You have been teleported to §a%w"
 warp_error: "§cA warp named §6%w §cdon't exists"
 warp_rename_request: "§7Write a new name for the warp §a%w §7in the chat"
 warp_rename_success: "§7The name of the warp §a%w §7was changed to §a%n"
+
+featuregui_warp_off: "§8The warp system is ready to be used by everyone!"
+featuregui_warp_on: "§8The warp system can't be used by normal players now!"
+leftclick: "§aLeft-click §c>> §7Toggle"
+
+feature_validvalues: "§cThe second argument should be one of these [warp_system, home_system, rank_system, tpa_system]"
+feature_enable: "§7The §a%n system §7has been enabled"
+feature_disable: "§7The §a%n system §7has been disabled"

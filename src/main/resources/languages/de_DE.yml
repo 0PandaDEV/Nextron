@@ -15,26 +15,26 @@ homesettingsgui_feauture: "§cDiese Feauture ist noch nicht verfügbar"
 
 #################################
 
-maingui_vanish_active_title: "§a✔ §8• §aFake Join/Quit Message aktiviert"
-
+maingui_vanish_active_title: "§a✔ §8• §7Fake Join/Quit Message aktiviert"
 maingui_vanish_inactive_title: "§c❌ §8• §7Fake Join/Quit Message deaktiviert"
-maingui_vanish_lore_1: "§8Steuert ob eine Fake Join oder Quit"
 
+maingui_vanish_lore_1: "§8Steuert ob eine Fake Join oder Quit"
 maingui_vanish_lore_2: "§8Nachricht angezeigt werden soll"
 maingui_vanish_lore_3: "§8wen du in den Vanish gehst oder ihn verlässt"
+
 maingui_vanish_lore_4: "§aLinksklick §c>> §7Toggle"
 
 #####################
 
-maingui_feedback_active_title: "§a✔ §8• §aCommand Feedback ist aktiviert"
-
+maingui_feedback_active_title: "§a✔ §8• §7Command Feedback ist aktiviert"
 maingui_feedback_inactive_title: "§c❌ §8• §7Command Feedback ist deaktiviert"
-maingui_feedback_lore_1: "§8Steuert ob eine Nachricht als ergebnis"
 
+maingui_feedback_lore_1: "§8Steuert ob eine Nachricht als ergebnis"
 maingui_feedback_lore_2: "§8nach einem Command angezeigt werden soll"
 maingui_feedback_lore_3: "§8z.b. 'Du wurdest in den Gamemode Creative gesetzt'"
 maingui_feedback_lore_4: "§8Fehlermeldungen werden dennoch angezeigt"
 maingui_feedback_lore_5: "§8sowie wichtige nachrichten"
+
 maingui_feedback_lore_6: "§aLinksklick §c>> §7Toggle"
 
 #####################
@@ -77,6 +77,7 @@ home_default_error: "§cDu hat noch nie deinen §6Default §cHome gesetzt"
 home_rename_request: "§7Schreibe einen neuen Namen für den home §a%h §7in den Chat"
 home_rename_success: "§7Der Name des homes §a%h §7wurde auf §a%n §7geändert"
 home_reset_confirm: "§7Bist du sicher das du den alten Home überschreiben willst %r"
+home_reset_success: "§7Die Position des Homes §a%h §7wurde erfolgreich umgesetzt"
 
 invsee_error: "§cDu kannst nicht dein eigenes Inventar anschauen"
 
@@ -107,6 +108,7 @@ sudo_success: "§7Der Spieler §a%t §7wurde gezwungen den Befehl §a/%b §7ausz
 
 tpaccept_player_success: "§7Du wurdest zu §a%p §7Teleportiert"
 tpaccept_target_success: "§a%t §7wurde zu dir Teleportiert"
+tpaccept_error: "§cDu hast keine ausstehende Tpa's"
 
 tpa_sender_success: "§7Die Tpa wurde §a%t §7gesendet"
 tpa_target_success_1: "§a%p §7 hat dir eine Tpa gesendet"
@@ -129,3 +131,12 @@ warp_success: "§7Du wurdest zum Warp §a%w §7teleportiert!"
 warp_error: "§cDen Warp §6%w §cgibt es nicht"
 warp_rename_request: "§7Schreibe einen neuen Namen für den warp §a%w §7in den Chat"
 warp_rename_success: "§7Der Name des warps §a%w §7wurde auf §a%n §7geändert"
+
+
+featuregui_warp_off: "§8Das Warp System ist bereit von allen genutzt zu werden!"
+featuregui_warp_on: "§8Das Warp System kann im moment nicht von normalen spielern benutzt werden!"
+leftclick: "§aLinksklick §c>> §7Toggle"
+
+feature_validvalues: "§cDas zweite Argument sollte eines dieser sein [warp_system, home_system, rank_system, tpa_system]"
+feature_enable: "§7Das §a%n System §7wurde deaktiviert"
+feature_disable: "§7Das §a%n System §7wurde aktiviert"
