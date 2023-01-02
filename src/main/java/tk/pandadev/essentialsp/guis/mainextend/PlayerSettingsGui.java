@@ -17,7 +17,7 @@ public class PlayerSettingsGui extends GUI {
         super("§7Settings", 3);
 
         ItemStack feedback_active = new ItemBuilder(Material.LIME_DYE)
-                .setName(LanguageLoader.translationMap.get("maingui_feedback_active_title"))
+                .setName("§a✔ §8• §7Command feedback")
                 .addLoreLine("")
                 .addLoreLine(LanguageLoader.translationMap.get("maingui_feedback_lore_1"))
                 .addLoreLine(LanguageLoader.translationMap.get("maingui_feedback_lore_2"))
@@ -29,7 +29,7 @@ public class PlayerSettingsGui extends GUI {
                 .build();
 
         ItemStack feedback_inactive = new ItemBuilder(Material.GRAY_DYE)
-                .setName(LanguageLoader.translationMap.get("maingui_feedback_inactive_title"))
+                .setName("§c❌ §8• §7Command Feedback")
                 .addLoreLine("")
                 .addLoreLine(LanguageLoader.translationMap.get("maingui_feedback_lore_1"))
                 .addLoreLine(LanguageLoader.translationMap.get("maingui_feedback_lore_2"))
@@ -63,7 +63,7 @@ public class PlayerSettingsGui extends GUI {
         //////////////////////////////////////////
 
         ItemStack vanish_active = new ItemBuilder(Material.LIME_DYE)
-                .setName(LanguageLoader.translationMap.get("maingui_vanish_active_title"))
+                .setName("§a✔ §8• §7Fake Join/Quit Message")
                 .addLoreLine("")
                 .addLoreLine(LanguageLoader.translationMap.get("maingui_vanish_lore_1"))
                 .addLoreLine(LanguageLoader.translationMap.get("maingui_vanish_lore_2"))
@@ -73,7 +73,7 @@ public class PlayerSettingsGui extends GUI {
                 .build();
 
         ItemStack vanish_inactive = new ItemBuilder(Material.GRAY_DYE)
-                .setName(LanguageLoader.translationMap.get("maingui_vanish_inactive_title"))
+                .setName("§c❌ §8• §7Fake Join/Quit Message")
                 .addLoreLine("")
                 .addLoreLine(LanguageLoader.translationMap.get("maingui_vanish_lore_1"))
                 .addLoreLine(LanguageLoader.translationMap.get("maingui_vanish_lore_2"))
