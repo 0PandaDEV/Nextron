@@ -1,6 +1,8 @@
 package tk.pandadev.essentialsp.commands;
 
 import net.md_5.bungee.api.chat.ClickEvent;
+import net.md_5.bungee.api.chat.ComponentBuilder;
+import net.md_5.bungee.api.chat.HoverEvent;
 import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.Location;
 import org.bukkit.Sound;
@@ -37,11 +39,12 @@ public class HomeCommands implements CommandExecutor, TabCompleter {
                 player.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("sethome_success").replace("%h", args[0].toLowerCase()));
             } else {
                 TextComponent yes = new TextComponent("§aYes");
-                yes.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "say hi"));
-                TextComponent message = new TextComponent(Main.getPrefix() + LanguageLoader.translationMap.get("home_reset_confirm").replace("%r", "§7["));
+                yes.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/aisdvja4f89dfjvwe4p9r8jdfvjw34r8q0dvj34-" + args[0].toLowerCase()));
+                yes.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ComponentBuilder("§7Click to reset the position for §a" + args[0].toLowerCase()).create()));
+                TextComponent message = new TextComponent(Main.getPrefix() + LanguageLoader.translationMap.get("home_reset_confirm").replace("%r", "§8["));
                 message.addExtra(yes);
-                message.addExtra("§8/§cNo§7]");
-                player.spigot().sendMessage(message); //§7[§aYes§8/§cNo§7] clickable
+                message.addExtra("§8]");
+                player.spigot().sendMessage(message);
             }
 
         } else if (label.equalsIgnoreCase("sethome") && args.length == 0){
@@ -90,7 +93,7 @@ public class HomeCommands implements CommandExecutor, TabCompleter {
             Configs.home.set("Homes." + player.getUniqueId() + "." + args[1], (Location) Configs.home.get("Homes." + player.getUniqueId() + "." + args[0]));
             Configs.home.set("Homes." + player.getUniqueId() + "." + args[0], null);
             Configs.saveHomeConfig();
-            player.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("home_rename_success").replace("%h", args[0]).replace("%n", args[2]));
+            player.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("home_rename_success").replace("%h", args[0]).replace("%n", args[1]));
 
         } else {
             player.sendMessage(Main.getPrefix() + "§c/home|sethome|delhome <name>");

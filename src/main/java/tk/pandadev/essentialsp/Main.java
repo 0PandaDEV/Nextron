@@ -46,8 +46,10 @@ public final class Main extends BasePlugin {
         Configs.createSettingsConfig();
         Configs.createHomeConfig();
         Configs.createWarpConfig();
+        Configs.createFeatureConfig();
         Configs.saveHomeConfig();
         Configs.saveWarpConfig();
+        Configs.saveFeatureConfig();
         vanishManager = new VanishManager(this);
         vanishAPI = new VanishAPI(this);
         tablistManager = new TablistManager();
@@ -105,6 +107,7 @@ public final class Main extends BasePlugin {
         pluginManager.registerEvents(new QuitListener(), this);
         pluginManager.registerEvents(new ChatEditor(), this);
         pluginManager.registerEvents(new InputListener(), this);
+        pluginManager.registerEvents(new ClickableMessages(), this);
     }
 
     public static Main getInstance() {
