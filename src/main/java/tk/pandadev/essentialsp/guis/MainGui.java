@@ -57,7 +57,7 @@ public class MainGui extends GUI {
 
 
         if (player.hasPermission("essentialsp.features")){
-            setItemClickEvent(36, player1 -> new ItemBuilder(Material.REDSTONE).setName("§4§lFeature Manager").build(), (player1, event) -> {
+            setItemClickEvent(36, player1 -> new ItemBuilder(Material.REDSTONE).setName("§4Feature Manager").build(), (player1, event) -> {
                 new FeatureGui().open(player1);
             });
         } else {
