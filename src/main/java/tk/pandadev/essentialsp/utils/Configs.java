@@ -17,6 +17,9 @@ public class Configs {
     public static File warpConfig;
     public static FileConfiguration warp;
 
+    public static File featureConfig;
+    public static FileConfiguration feature;
+
     public static void createSettingsConfig() {
         settingsConfig = new File(Main.getInstance().getDataFolder(), "user_settings.yml");
         if (!settingsConfig.exists()) {
@@ -81,6 +84,29 @@ public class Configs {
     public static void saveWarpConfig() {
         try{
             warp.save(warpConfig);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public static void createFeatureConfig() {
+        featureConfig = new File(Main.getInstance().getDataFolder(), "features.yml");
+        if (!featureConfig.exists()) {
+            featureConfig.getParentFile().mkdirs();
+            Main.getInstance().saveResource("features.yml", false);
+        }
+
+        feature = new YamlConfiguration();
+        try {
+            feature.load(featureConfig);
+        } catch (IOException | InvalidConfigurationException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void saveFeatureConfig() {
+        try{
+            feature.save(featureConfig);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
