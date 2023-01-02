@@ -41,7 +41,7 @@ public class TpacceptCommand implements CommandExecutor {
                 Main.tpa.remove(target);
 
             } else {
-                player.sendMessage(Main.getPrefix() + "§cDu hast keine ausstehende Tpas");
+                player.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("tpaccept_error"));
             }
 
         } else {
