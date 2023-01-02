@@ -1,5 +1,6 @@
 package tk.pandadev.essentialsp.commands;
 
+import org.bukkit.Bukkit;
 import org.bukkit.Sound;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -37,19 +38,25 @@ public class FeatureCommand implements CommandExecutor, TabCompleter {
         } else if (args.length == 2){
             if (!validValues.contains(args[1])) {player.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("feature_validvalues")); return false;}
             if (args[0].equalsIgnoreCase("enable")){
+                if (args[1].replace("_system", "").equals("rank")) {return false;}
                 Configs.feature.set(args[1], true);
                 Configs.saveFeatureConfig();
-                if (Objects.equals(args[1].replace("_system", ""), "tpa")) {player.addAttachment(Main.getInstance()).setPermission("essentialsp.tpaccept", Configs.feature.getBoolean(args[1]));}
-                player.addAttachment(Main.getInstance()).setPermission("essentialsp." + args[1].replace("_system", ""), Configs.feature.getBoolean(args[1]));
-                player.playSound(player.getLocation(), Configs.feature.getBoolean("warp_system") ? Sound.BLOCK_BEACON_DEACTIVATE : Sound.BLOCK_BEACON_ACTIVATE, 100, 1);
+                for (Player onlineplayer : Bukkit.getOnlinePlayers()){
+                    if (args[1].replace("_system", "").equals("tpa")) {onlineplayer.addAttachment(Main.getInstance()).setPermission("essentialsp.tpaccept", Configs.feature.getBoolean(args[1]));}
+                    onlineplayer.addAttachment(Main.getInstance()).setPermission("essentialsp." + args[1].replace("_system", ""), Configs.feature.getBoolean(args[1]));
+                }
+                player.playSound(player.getLocation(), Sound.BLOCK_BEACON_ACTIVATE, 100, 1);
                 player.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("feature_enable").replace("%n", args[1].replace("_system", "")));
             }
             if (args[0].equalsIgnoreCase("disable")){
+                if (args[1].replace("_system", "").equals("rank")) {return false;}
                 Configs.feature.set(args[1], false);
                 Configs.saveFeatureConfig();
-                if (Objects.equals(args[1].replace("_system", ""), "tpa")) {player.addAttachment(Main.getInstance()).setPermission("essentialsp.tpaccept", Configs.feature.getBoolean(args[1]));}
-                player.addAttachment(Main.getInstance()).setPermission("essentialsp." + args[1].replace("_system", ""), Configs.feature.getBoolean(args[1]));
-                player.playSound(player.getLocation(), Configs.feature.getBoolean(args[1]) ? Sound.BLOCK_BEACON_DEACTIVATE : Sound.BLOCK_BEACON_ACTIVATE, 100, 1);
+                for (Player onlineplayer : Bukkit.getOnlinePlayers()){
+                    if (Objects.equals(args[1].replace("_system", ""), "tpa")) {onlineplayer.addAttachment(Main.getInstance()).setPermission("essentialsp.tpaccept", Configs.feature.getBoolean(args[1]));}
+                    onlineplayer.addAttachment(Main.getInstance()).setPermission("essentialsp." + args[1].replace("_system", ""), Configs.feature.getBoolean(args[1]));
+                }
+                player.playSound(player.getLocation(), Sound.BLOCK_BEACON_DEACTIVATE, 100, 1);
                 player.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("feature_disable").replace("%n", args[1].replace("_system", "")));
             }
         } else {
