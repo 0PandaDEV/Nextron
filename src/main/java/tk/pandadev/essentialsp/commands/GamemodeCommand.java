@@ -25,7 +25,7 @@ public class GamemodeCommand implements CommandExecutor, TabCompleter {
         Player player = (Player) (sender);
 
         if (args.length == 1) {
-            if (!player.hasPermission("essentialsp.gamemode")) player.sendMessage(Main.getNoPerm());
+            if (!player.hasPermission("essentialsp.gamemode")) {player.sendMessage(Main.getNoPerm()); return false;}
 
             GameMode gamemode = null;
             if (args[0].equalsIgnoreCase("0")) gamemode = GameMode.SURVIVAL;
