@@ -12,12 +12,46 @@ import tk.pandadev.essentialsp.Main;
 import tk.pandadev.essentialsp.guis.MainGui;
 import tk.pandadev.essentialsp.utils.Configs;
 import tk.pandadev.essentialsp.utils.LanguageLoader;
+import tk.pandadev.essentialsp.utils.RankAPI;
 import tk.pandadev.essentialsp.utils.Utils;
 
 public class FeatureGui extends GUI {
 
     public FeatureGui(){
         super("§7Feature Manager", 5);
+
+        ///////////////////////// Rank System ////////////////////////////
+
+        ItemStack on_rank = new ItemBuilder(Material.NAME_TAG)
+                .setName("§a✔ §8• §7Rank System")
+                .addLoreLine("")
+                .addLoreLine(LanguageLoader.translationMap.get("featuregui_rank_off"))
+                .addLoreLine("")
+                .addLoreLine(LanguageLoader.translationMap.get("leftclick"))
+                .build();
+
+        ItemStack off_rank = new ItemBuilder(Material.NAME_TAG)
+                .setName("§c❌ §8• §7Rank System")
+                .addLoreLine("")
+                .addLoreLine(LanguageLoader.translationMap.get("featuregui_rank_on"))
+                .addLoreLine("")
+                .addLoreLine(LanguageLoader.translationMap.get("leftclick"))
+                .build();
+
+        setItemClickEvent(19, player -> Configs.feature.getBoolean("rank_system") ? on_rank : off_rank, (player, event) -> {
+            Configs.feature.set("rank_system", !Configs.feature.getBoolean("rank_system"));
+            Configs.saveFeatureConfig();
+
+            // rank system activate and deactivate
+            for (Player onlineplayer : Bukkit.getOnlinePlayers()){
+                RankAPI.checkRank(onlineplayer);
+            }
+
+            player.playSound(player.getLocation(), Configs.feature.getBoolean("rank_system") ? Sound.BLOCK_BEACON_ACTIVATE : Sound.BLOCK_BEACON_DEACTIVATE, 100, 1);
+            new FeatureGui().open(player);
+        });
+
+        //////////////////////////////////////////////////////////////////
 
         ///////////////////////// Warp System ////////////////////////////
 
@@ -81,7 +115,7 @@ public class FeatureGui extends GUI {
 
         ///////////////////////// Tpa System /////////////////////////////
 
-        ItemStack on_tpa = new ItemBuilder(Material.NAME_TAG)
+        ItemStack on_tpa = new ItemBuilder(Material.BEACON)
                 .setName("§a✔ §8• §7Tpa System")
                 .addLoreLine("")
                 .addLoreLine(LanguageLoader.translationMap.get("featuregui_tpa_off"))
@@ -89,7 +123,7 @@ public class FeatureGui extends GUI {
                 .addLoreLine(LanguageLoader.translationMap.get("leftclick"))
                 .build();
 
-        ItemStack off_tpa = new ItemBuilder(Material.NAME_TAG)
+        ItemStack off_tpa = new ItemBuilder(Material.BEACON)
                 .setName("§c❌ §8• §7Tpa System")
                 .addLoreLine("")
                 .addLoreLine(LanguageLoader.translationMap.get("featuregui_tpa_on"))

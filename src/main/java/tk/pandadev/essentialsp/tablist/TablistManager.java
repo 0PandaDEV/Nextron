@@ -7,6 +7,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.scoreboard.Scoreboard;
 import org.bukkit.scoreboard.Team;
 import tk.pandadev.essentialsp.Main;
+import tk.pandadev.essentialsp.utils.Configs;
 
 import java.util.Objects;
 
@@ -26,7 +27,12 @@ public class TablistManager {
             if (finalrank == null){
                 finalrank = scoreboard.registerNewTeam("010" + rank.toLowerCase());
             }
-            finalrank.setPrefix(ranks.getString(rank + ".prefix"));
+            if (Configs.feature.getBoolean("rank_system")) {
+                finalrank.setPrefix(ranks.getString(rank + ".prefix"));
+            } else {
+                finalrank.setPrefix("");
+                player.setDisplayName(player.getName());
+            }
             finalrank.setColor(ChatColor.GRAY);
             for (Player target : Bukkit.getOnlinePlayers()){
                 if (ranks.getStringList(rank + ".players").contains(String.valueOf(target.getUniqueId()))) {

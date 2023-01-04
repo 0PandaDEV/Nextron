@@ -24,7 +24,11 @@ public class RankAPI {
         Scoreboard scoreboard = player.getScoreboard();
         Team finalrank = scoreboard.getTeam("010player");
         if (finalrank == null) finalrank = scoreboard.registerNewTeam("010player");
-        finalrank.setPrefix("§6Player §8• §7");
+        if (Configs.feature.getBoolean("rank_system")) {
+            finalrank.setPrefix("§6Player §8• §7");
+        } else {
+            finalrank.setPrefix("");
+        }
         finalrank.setColor(ChatColor.GRAY);
     }
 
@@ -116,11 +120,16 @@ public class RankAPI {
     }
 
     public static void checkRank(Player player){
+        createPlayerTeam(player);
         if (Objects.equals(getRank(player), "player")){
             Scoreboard scoreboard = player.getScoreboard();
             Team finalrank = scoreboard.getTeam("010player");
             finalrank.addEntry(player.getName());
-            player.setDisplayName("§6Player §8• §f" + player.getName());
+            if (Configs.feature.getBoolean("rank_system")) {
+                player.setDisplayName("§6Player §8• §f" + player.getName());
+            } else {
+                player.setDisplayName(player.getName());
+            }
         }
         Main.getInstance().getTablistManager().setAllPlayerTeams();
     }

@@ -8,6 +8,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 import tk.pandadev.essentialsp.Main;
+import tk.pandadev.essentialsp.utils.Configs;
 
 import java.util.Objects;
 
@@ -20,8 +21,12 @@ public class ChatEditor implements Listener {
 
         ConfigurationSection ranks = Main.getInstance().getConfig().getConfigurationSection("Ranks");
 
-        for (String rank : ranks.getKeys(false)){
-            if (ranks.getStringList(rank + ".players").contains(player.getUniqueId().toString())) player.setDisplayName(ranks.getString(rank + ".prefix") + ChatColor.WHITE + player.getName());
+        if (Configs.feature.getBoolean("rank_system")) {
+            for (String rank : ranks.getKeys(false)){
+                if (ranks.getStringList(rank + ".players").contains(player.getUniqueId().toString())) player.setDisplayName(ranks.getString(rank + ".prefix") + ChatColor.WHITE + player.getName());
+            }
+        } else {
+            player.setDisplayName(player.getName());
         }
         event.setFormat(player.getDisplayName() + " §8» §f" + ChatColor.translateAlternateColorCodes('&', message));
     }

@@ -11,6 +11,7 @@ import tk.pandadev.essentialsp.Main;
 import tk.pandadev.essentialsp.guis.featuretoggle.FeatureGui;
 import tk.pandadev.essentialsp.utils.Configs;
 import tk.pandadev.essentialsp.utils.LanguageLoader;
+import tk.pandadev.essentialsp.utils.RankAPI;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -38,23 +39,27 @@ public class FeatureCommand implements CommandExecutor, TabCompleter {
         } else if (args.length == 2){
             if (!validValues.contains(args[1])) {player.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("feature_validvalues")); return false;}
             if (args[0].equalsIgnoreCase("enable")){
-                if (args[1].replace("_system", "").equals("rank")) {return false;}
                 Configs.feature.set(args[1], true);
                 Configs.saveFeatureConfig();
                 for (Player onlineplayer : Bukkit.getOnlinePlayers()){
                     if (args[1].replace("_system", "").equals("tpa")) {onlineplayer.addAttachment(Main.getInstance()).setPermission("essentialsp.tpaccept", Configs.feature.getBoolean(args[1]));}
                     onlineplayer.addAttachment(Main.getInstance()).setPermission("essentialsp." + args[1].replace("_system", ""), Configs.feature.getBoolean(args[1]));
+                    if (args[1].replace("_system", "").equalsIgnoreCase("rank")) {
+                        RankAPI.checkRank(onlineplayer);
+                    }
                 }
                 player.playSound(player.getLocation(), Sound.BLOCK_BEACON_ACTIVATE, 100, 1);
                 player.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("feature_enable").replace("%n", args[1].replace("_system", "")));
             }
             if (args[0].equalsIgnoreCase("disable")){
-                if (args[1].replace("_system", "").equals("rank")) {return false;}
                 Configs.feature.set(args[1], false);
                 Configs.saveFeatureConfig();
                 for (Player onlineplayer : Bukkit.getOnlinePlayers()){
                     if (Objects.equals(args[1].replace("_system", ""), "tpa")) {onlineplayer.addAttachment(Main.getInstance()).setPermission("essentialsp.tpaccept", Configs.feature.getBoolean(args[1]));}
                     onlineplayer.addAttachment(Main.getInstance()).setPermission("essentialsp." + args[1].replace("_system", ""), Configs.feature.getBoolean(args[1]));
+                    if (args[1].replace("_system", "").equalsIgnoreCase("rank")) {
+                        RankAPI.checkRank(onlineplayer);
+                    }
                 }
                 player.playSound(player.getLocation(), Sound.BLOCK_BEACON_DEACTIVATE, 100, 1);
                 player.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("feature_disable").replace("%n", args[1].replace("_system", "")));

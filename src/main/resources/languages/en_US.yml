@@ -126,6 +126,8 @@ warp_error: "§cA warp named §6%w §cdon't exists"
 warp_rename_request: "§7Write a new name for the warp §a%w §7in the chat"
 warp_rename_success: "§7The name of the warp §a%w §7was changed to §a%n"
 
+featuregui_rank_off: "§8The rank system is ready to be used by everyone!"
+featuregui_rank_on: "§8The rank system can't be used by normal players now!"
 featuregui_warp_off: "§8The warp system is ready to be used by everyone!"
 featuregui_warp_on: "§8The warp system can't be used by normal players now!"
 featuregui_home_off: "§8The home system is ready to be used by everyone!"

@@ -126,7 +126,8 @@ warp_error: "§cDen Warp §6%w §cgibt es nicht"
 warp_rename_request: "§7Schreibe einen neuen Namen für den warp §a%w §7in den Chat"
 warp_rename_success: "§7Der Name des warps §a%w §7wurde auf §a%n §7geändert"
 
-
+featuregui_rank_off: "§8Das Rank System ist bereit von allen genutzt zu werden!"
+featuregui_rank_on: "§8Das Rank System kann im moment nicht von nort zu werden!"
 featuregui_warp_off: "§8Das Warp System ist bereit von allen genutzt zu werden!"
 featuregui_warp_on: "§8Das Warp System kann im moment nicht von nort zu werden!"
 featuregui_home_off: "§8Das Home System ist bereit von allen genutzt zu werden!"

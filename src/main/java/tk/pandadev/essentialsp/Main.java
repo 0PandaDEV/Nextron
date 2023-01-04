@@ -7,12 +7,15 @@ import games.negative.framework.database.Database;
 import games.negative.framework.database.builder.TableBuilder;
 import games.negative.framework.scoreboard.Scoreboard;
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
+import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.scheduler.BukkitRunnable;
+import org.bukkit.scoreboard.Team;
 import tk.pandadev.essentialsp.commands.*;
 import tk.pandadev.essentialsp.listeners.*;
 import tk.pandadev.essentialsp.tablist.TablistManager;
@@ -74,6 +77,20 @@ public final class Main extends BasePlugin {
 
     @Override
     public void onDisable() {
+        for (Player player : Bukkit.getOnlinePlayers()) {
+            for (String rank : getConfig().getConfigurationSection("Ranks").getKeys(false)){
+                player.getScoreboard().getTeam("010" + rank).removeEntry(player.getName());
+            }
+            player.getScoreboard().getTeam("010player").removeEntry(player.getName());
+            RankAPI.checkRank(player);
+
+            for (String rank : Main.getInstance().getConfig().getConfigurationSection("Ranks").getKeys(false)){
+                Team finalrank = player.getScoreboard().getTeam("010" + rank.toLowerCase());
+                finalrank.setPrefix("");
+                player.setDisplayName(player.getName());
+            }
+        }
+
         instance = null;
         Bukkit.getConsoleSender().sendMessage(Prefix + LanguageLoader.translationMap.get("deactivate_message"));
     }
