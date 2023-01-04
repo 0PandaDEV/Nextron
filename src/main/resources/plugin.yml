@@ -4,7 +4,7 @@ main: tk.pandadev.essentialsp.Main
 api-version: 1.19
 authors: [ PandaDEV ]
 description: '${project.description}'
-website: https://pandadev.tk
+website: '${project.url}'
 commands:
   gamemode:
     aliases:
