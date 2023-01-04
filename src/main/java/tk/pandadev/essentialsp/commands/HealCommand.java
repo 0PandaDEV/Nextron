@@ -27,7 +27,7 @@ public class HealCommand implements CommandExecutor, TabCompleter {
 
         if (args.length == 0) {
 
-            if (player.hasPermission("essentialsp.heal")) { player.sendMessage(Main.getNoPerm()); return false; }
+            if (!player.hasPermission("essentialsp.heal")) { player.sendMessage(Main.getNoPerm()); return false; }
 
             if (player.getHealth() != player.getMaxHealth() || player.getFoodLevel() != 20) {
                 player.setHealth(player.getMaxHealth());
@@ -43,7 +43,7 @@ public class HealCommand implements CommandExecutor, TabCompleter {
 
         } else if (args.length == 1) {
 
-            if (player.hasPermission("essentialsp.heal.other")) { player.sendMessage(Main.getNoPerm()); return false; }
+            if (!player.hasPermission("essentialsp.heal.other")) { player.sendMessage(Main.getNoPerm()); return false; }
 
             Player target = Bukkit.getPlayer(args[0]);
             if (target == null){ player.sendMessage(Main.getInvalidPlayer()); return false; }
