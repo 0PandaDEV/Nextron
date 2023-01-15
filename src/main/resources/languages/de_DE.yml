@@ -139,3 +139,5 @@ leftclick: "§aLinksklick §c>> §7Toggle"
 feature_validvalues: "§cDas zweite Argument sollte eines dieser sein §4[warp_system, home_system, rank_system, tpa_system]"
 feature_enable: "§7Das §a%n System §7wurde deaktiviert"
 feature_disable: "§7Das §a%n System §7wurde aktiviert"
+
+rename_error: "§cDu hast kein Item in der Hand"
