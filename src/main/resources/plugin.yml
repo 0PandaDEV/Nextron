@@ -60,3 +60,7 @@ commands:
     permission: essentialsp.rl
   features:
     permission: essentialsp.features
+  back:
+    permission: essentialsp.back
+  rename:
+    permission: essentialsp.rename

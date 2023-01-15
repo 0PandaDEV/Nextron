@@ -115,6 +115,8 @@ public final class Main extends BasePlugin {
         getCommand("menu").setExecutor(new MenuCommand());
         getCommand("rl").setExecutor(new ReloadCommand());
         getCommand("features").setExecutor(new FeatureCommand());
+        getCommand("back").setExecutor(new BackCommand());
+        getCommand("rename").setExecutor(new RenameCommand());
     }
 
 
@@ -125,6 +127,7 @@ public final class Main extends BasePlugin {
         pluginManager.registerEvents(new ChatEditor(), this);
         pluginManager.registerEvents(new InputListener(), this);
         pluginManager.registerEvents(new ClickableMessages(), this);
+        pluginManager.registerEvents(new BackCommandListener(), this);
     }
 
     public static Main getInstance() {
