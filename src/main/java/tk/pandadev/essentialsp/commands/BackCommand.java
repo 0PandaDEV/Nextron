@@ -23,6 +23,9 @@ public class BackCommand implements CommandExecutor, TabCompleter {
 
         if (args.length == 0){
 
+            Configs.settings.set(player.getUniqueId() + ".lastback", player.getLocation());
+            Configs.settings.set(player.getUniqueId() + ".isback", true);
+            Configs.saveSettingsConfig();
             player.teleport((Location) Configs.settings.get(player.getUniqueId() + ".lastpos"));
 
         } else {

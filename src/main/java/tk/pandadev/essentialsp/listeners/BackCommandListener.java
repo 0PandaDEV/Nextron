@@ -19,6 +19,7 @@ public class BackCommandListener implements Listener {
     @EventHandler
     public void onTeleport(PlayerTeleportEvent event){
         Player player = event.getPlayer();
+        if (Configs.settings.getBoolean(player.getUniqueId() + ".isback")){Configs.settings.set(player.getUniqueId() + ".isback", false); return;}
         Configs.settings.set(player.getUniqueId() + ".lastpos", player.getLocation());
         Configs.saveSettingsConfig();
     }
