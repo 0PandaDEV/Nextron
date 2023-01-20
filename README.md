@@ -1,8 +1,16 @@
 <img src="https://cdn.discordapp.com/attachments/903181864116826112/1058339339937001522/EssentialsP_Banner.png" />
 
+
 __**The newest beta is most likely the stablest but can contain bugs!**__
 
 [Learn More >](https://essentialsp.tk)
+
+<details>
+<summary>
+Testing
+</summary>
+<span>If you want to help me test my plugin, join the <a href="https://discord.gg/Y7SbYphVw9" >discord</a> or the IP <code>test.essentialsp.tk</code></span>
+</details>
 
 ***
 
