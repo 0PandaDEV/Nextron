@@ -21,10 +21,17 @@ public class RenameCommand implements CommandExecutor, TabCompleter {
         if (!(sender instanceof Player)) { sender.sendMessage(Main.getCommandInstance()); return false; }
         Player player = (Player) (sender);
 
-        if (args.length == 1){
+        if (args.length >= 1){
             ItemMeta itemMeta = player.getItemInHand().getItemMeta();
             if (itemMeta == null){player.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("rename_error")); return false;}
-            itemMeta.setDisplayName(ChatColor.translateAlternateColorCodes('&', args[0]));
+
+            StringBuilder sb = new StringBuilder();
+            for(int i = 0; i < args.length; i++) {
+                if (i > 0) sb.append(" ");
+                sb.append(args[i]);
+            }
+
+            itemMeta.setDisplayName(ChatColor.translateAlternateColorCodes('&', String.valueOf(sb)));
             player.getItemInHand().setItemMeta(itemMeta);
         } else {
             player.sendMessage(Main.getPrefix() + "§c/rename <name>");
