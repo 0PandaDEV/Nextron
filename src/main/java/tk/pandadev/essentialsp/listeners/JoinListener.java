@@ -13,6 +13,9 @@ import tk.pandadev.essentialsp.utils.RankAPI;
 import tk.pandadev.essentialsp.utils.SettingsConfig;
 import tk.pandadev.essentialsp.utils.VanishAPI;
 
+import java.util.Objects;
+import java.util.UUID;
+
 public class JoinListener implements Listener {
 
     @EventHandler
@@ -24,8 +27,8 @@ public class JoinListener implements Listener {
         }else {
             event.setJoinMessage(ChatColor.translateAlternateColorCodes('&', Main.getInstance().getConfig().getString("join_message").replace("%p", player.getName())));
         }
-        if (player.getUniqueId().equals("2dae5251-257a-4d28-b220-60fe24de72f0")){
-            event.setJoinMessage(event.getJoinMessage() + " §8• §x§6§2§0§0§f§fPlugin Creator");
+        if (player.getUniqueId().equals(UUID.fromString("2dae5251-257a-4d28-b220-60fe24de72f0"))){
+            event.setJoinMessage(event.getJoinMessage() + " §8• §x§6§2§0§0§f§fEssentialsP Plugin Creator");
             for (Player onlineplayer : Bukkit.getOnlinePlayers()){
                 onlineplayer.playSound(onlineplayer.getLocation(), Sound.UI_TOAST_CHALLENGE_COMPLETE, 100, 1);
             }
@@ -33,15 +36,6 @@ public class JoinListener implements Listener {
         RankAPI.createPlayerTeam(player);
         RankAPI.checkRank(player);
         Main.getInstance().getTablistManager().setAllPlayerTeams();
-    }
-
-    private void run() {
-        new BukkitRunnable() {
-            @Override
-            public void run() {
-                Main.getInstance().getTablistManager().setAllPlayerTeams();
-            }
-        }.runTaskTimer(Main.getInstance(), 20, 20);
     }
 
 }
