@@ -1,6 +1,6 @@
 <img src="https://cdn.discordapp.com/attachments/903181864116826112/1058339339937001522/EssentialsP_Banner.png" />
 
-**Thanks so much for 100 downloads 💖, it means a world to me and shows me that it's worth to update this project!**
+**Thanks so much for 100 downloads 💖, it means a world to me, and it shows me that it's worth to continue this project.**
 
 [Learn More >](https://essentialsp.tk)
 
