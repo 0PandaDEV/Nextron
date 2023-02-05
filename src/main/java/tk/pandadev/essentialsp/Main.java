@@ -92,7 +92,7 @@ public final class Main extends BasePlugin {
         }
 
         instance = null;
-        Bukkit.getConsoleSender().sendMessage(Prefix + LanguageLoader.translationMap.get("deactivate_message"));
+        Bukkit.getConsoleSender().sendMessage(Prefix + LanguageLoader.translationMap.get("disabled_message"));
     }
 
     private void registerCommands(){
