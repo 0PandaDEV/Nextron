@@ -23,6 +23,11 @@ maingui_vanish_lore_4: "§aLinksklick §c>> §7Toggle"
 
 #####################
 
+maingui_tpa_lore_1: "§8Steuert ob andere spieler dir"
+maingui_tpa_lore_2: "§8einen tpa anfrage senden können"
+
+#####################
+
 maingui_feedback_lore_1: "§8Steuert ob eine Nachricht als ergebnis"
 maingui_feedback_lore_2: "§8nach einem Command angezeigt werden soll"
 maingui_feedback_lore_3: "§8z.b. 'Du wurdest in den Gamemode Creative gesetzt'"
@@ -108,6 +113,7 @@ tpa_sender_success: "§7Die Tpa wurde §a%t §7gesendet"
 tpa_target_success_1: "§a%p §7 hat dir eine Tpa gesendet"
 tpa_target_success_2: "§7Mache §a/tpaccept §7um die Anfrage anzunehmen"
 tpa_error: "§cDu kannst nicht dir selbst eine Tpa schicken"
+tpa_allow: "§cDu kannst diesem spieler keine Tpa anfrage schicken weil er diese deaktiviert hat"
 
 tphere_success: "§7Der Spieler §a%t §7wurde zu dir Teleportiert"
 tphere_error: "§cDu kannst dich nicht selbst zu dir Teleportieren"

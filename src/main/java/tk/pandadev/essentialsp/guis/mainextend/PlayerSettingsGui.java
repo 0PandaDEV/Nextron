@@ -41,7 +41,7 @@ public class PlayerSettingsGui extends GUI {
                 .build();
 
         if (Configs.settings.getBoolean(player.getUniqueId() + ".feedback")){
-            setItemClickEvent(12, player1 -> feedback_active, (player1, event) -> {
+            setItemClickEvent(11, player1 -> feedback_active, (player1, event) -> {
                 if (event.getClick().isLeftClick()) {
                     Configs.settings.set(player.getUniqueId() + ".feedback", false);
                     Configs.saveSettingsConfig();
@@ -50,9 +50,49 @@ public class PlayerSettingsGui extends GUI {
                 }
             });
         } else {
-            setItemClickEvent(12, player1 -> feedback_inactive, (player1, event) -> {
+            setItemClickEvent(11, player1 -> feedback_inactive, (player1, event) -> {
                 if (event.getClick().isLeftClick()) {
                     Configs.settings.set(player.getUniqueId() + ".feedback", true);
+                    Configs.saveSettingsConfig();
+                    new PlayerSettingsGui(player1).open(player1);
+                    player.playSound(player.getLocation(), Sound.BLOCK_BEACON_ACTIVATE, 100, 1);
+                }
+            });
+        }
+
+        //////////////////////////////////////////
+
+        ItemStack tpa_active = new ItemBuilder(Material.LIME_DYE)
+                .setName("§a✔ §8• §7Allow tpa requests")
+                .addLoreLine("")
+                .addLoreLine(LanguageLoader.translationMap.get("maingui_tpa_lore_1"))
+                .addLoreLine(LanguageLoader.translationMap.get("maingui_tpa_lore_2"))
+                .addLoreLine("")
+                .addLoreLine(LanguageLoader.translationMap.get("maingui_vanish_lore_4"))
+                .build();
+
+        ItemStack tpa_inactive = new ItemBuilder(Material.GRAY_DYE)
+                .setName("§c❌ §8• §7Allow tpa requests")
+                .addLoreLine("")
+                .addLoreLine(LanguageLoader.translationMap.get("maingui_tpa_lore_1"))
+                .addLoreLine(LanguageLoader.translationMap.get("maingui_tpa_lore_2"))
+                .addLoreLine("")
+                .addLoreLine(LanguageLoader.translationMap.get("maingui_vanish_lore_4"))
+                .build();
+
+        if (Configs.settings.getBoolean(player.getUniqueId() + ".allowtpas")) {
+            setItemClickEvent(13, player1 -> tpa_active, (player1, event) -> {
+                if (event.getClick().isLeftClick()) {
+                    Configs.settings.set(player.getUniqueId() + ".allowtpas", false);
+                    Configs.saveSettingsConfig();
+                    new PlayerSettingsGui(player1).open(player1);
+                    player.playSound(player.getLocation(), Sound.BLOCK_BEACON_DEACTIVATE, 100, 1);
+                }
+            });
+        } else {
+            setItemClickEvent(13, player1 -> tpa_inactive, (player1, event) -> {
+                if (event.getClick().isLeftClick()) {
+                    Configs.settings.set(player.getUniqueId() + ".allowtpas", true);
                     Configs.saveSettingsConfig();
                     new PlayerSettingsGui(player1).open(player1);
                     player.playSound(player.getLocation(), Sound.BLOCK_BEACON_ACTIVATE, 100, 1);
@@ -83,7 +123,7 @@ public class PlayerSettingsGui extends GUI {
                 .build();
 
         if (Configs.settings.getBoolean(player.getUniqueId() + ".vanish." + "message")){
-            setItemClickEvent(14, player1 -> vanish_active, (player1, event) -> {
+            setItemClickEvent(15, player1 -> vanish_active, (player1, event) -> {
                 if (event.getClick().isLeftClick()) {
                     Configs.settings.set(player.getUniqueId() + ".vanish" + ".message", false);
                     Configs.saveSettingsConfig();
@@ -92,7 +132,7 @@ public class PlayerSettingsGui extends GUI {
                 }
             });
         } else {
-            setItemClickEvent(14, player1 -> vanish_inactive, (player1, event) -> {
+            setItemClickEvent(15, player1 -> vanish_inactive, (player1, event) -> {
                 if (event.getClick().isLeftClick()) {
                     Configs.settings.set(player.getUniqueId() + ".vanish" + ".message", true);
                     Configs.saveSettingsConfig();

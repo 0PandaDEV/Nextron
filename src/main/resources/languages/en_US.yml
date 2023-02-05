@@ -1,5 +1,5 @@
 activate_message: "§aActivated"
-deactivate_message: "§aDeactivated"
+disabled_message: "§aDisabled"
 
 command_instance_error: "§6This command can only be run by a player!"
 no_perms: "§cYou do not have permission to do this"
@@ -16,17 +16,22 @@ homesettingsgui_feature: "§cThis feature is not yet available"
 #################################
 
 maingui_vanish_lore_1: "§8Controls whether a fake join/quit"
-maingui_vanish_lore_2: "§8message will display"
-maingui_vanish_lore_3: "§8when you enter or leave vanish"
+maingui_vanish_lore_2: "§8message will be sent"
+maingui_vanish_lore_3: "§8when you enter or leave the vanish."
 
 maingui_vanish_lore_4: "§aLeft-click §c>> §7Toggle"
 
 #####################
 
+maingui_tpa_lore_1: "§8Controls whether other players"
+maingui_tpa_lore_2: "§8can send you a tpa requests or not."
+
+#####################
+
 maingui_feedback_lore_1: "§8Controls whether a message should"
-maingui_feedback_lore_2: "§8be sent after a command"
-maingui_feedback_lore_3: "§8for example 'Gamemode set to creative'"
-maingui_feedback_lore_4: "§8errors and important messages"
+maingui_feedback_lore_2: "§8be sent after a command gets executed"
+maingui_feedback_lore_3: "§8for example 'Gamemode set to creative'."
+maingui_feedback_lore_4: "§8Errors and important messages"
 maingui_feedback_lore_5: "§8will still be displayed."
 
 maingui_feedback_lore_6: "§aLeft-click §c>> §7Toggle"
@@ -100,14 +105,15 @@ speed_error_digit: "§cThe value must be a number"
 
 sudo_success: "§a%t §7was forced to run §a/%b"
 
-tpaccept_player_success: "§7Teleported to §a%p"
-tpaccept_target_success: "§a%t §7has teleported to you"
+tpaccept_player_success: "§7You got teleported to §a%p"
+tpaccept_target_success: "§a%t §7got teleported to you"
 tpaccept_error: "§cYou don't have any pending tpa's"
 
 tpa_sender_success: "§7Tpa was sent to §a%t"
 tpa_target_success_1: "§a%p §7has requested to teleport to you"
 tpa_target_success_2: "§7Type §a/tpaccept §7to accept their request"
 tpa_error: "§cYou cannot tpa yourself"
+tpa_allow: "§cYou cannot send a tpa request to this player because he disabled it"
 
 tphere_success: "§a%t §7has teleported to you"
 tphere_error: "§cYou cannot teleport to yourself"

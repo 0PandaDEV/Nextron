@@ -8,6 +8,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabCompleter;
 import org.bukkit.entity.Player;
 import tk.pandadev.essentialsp.Main;
+import tk.pandadev.essentialsp.utils.Configs;
 import tk.pandadev.essentialsp.utils.LanguageLoader;
 
 import java.util.ArrayList;
@@ -28,6 +29,7 @@ public class TpaCommand implements CommandExecutor, TabCompleter {
             try {
                 Player target = Bukkit.getPlayer(args[0]);
                 if (!target.equals(player)){
+                    if (!Configs.settings.getBoolean(target.getUniqueId() + ".allowtpas")) {player.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("tpa_allow")); return false;}
                     Main.tpa.put(target, player);
                     target.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("tpa_target_success_1").replace("%p", player.getName()));
                     target.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("tpa_target_success_2"));
