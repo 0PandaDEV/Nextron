@@ -16,15 +16,8 @@ public class SudoCommand implements CommandExecutor, TabCompleter {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
 
-        if (!(sender instanceof Player)) {
-            sender.sendMessage(Main.getCommandInstance());
-            return false;
-        }
-
-        Player player = (Player) (sender);
-
         if (args.length >= 2){
-            if (player.hasPermission("essentialsp.sudo")){
+            if (sender.hasPermission("essentialsp.sudo")){
                 Player target = Bukkit.getPlayer(args[0]);
 
                 if (target != null){
@@ -37,13 +30,13 @@ public class SudoCommand implements CommandExecutor, TabCompleter {
 
                     target.chat("/" + sb);
 
-                    player.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("sudo_success").replace("%t", target.getName()).replace("%b", sb));
+                    sender.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("sudo_success").replace("%t", target.getName()).replace("%b", sb));
                 } else {
-                    player.sendMessage(Main.getInvalidPlayer());
+                    sender.sendMessage(Main.getInvalidPlayer());
                 }
             }
         }else {
-            player.sendMessage(Main.getPrefix() + "§c/sudo <player> <command>");
+            sender.sendMessage(Main.getPrefix() + "§c/sudo <player> <command>");
         }
 
         return false;

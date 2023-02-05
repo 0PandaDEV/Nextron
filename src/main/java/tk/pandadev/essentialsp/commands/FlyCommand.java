@@ -17,29 +17,30 @@ public class FlyCommand implements CommandExecutor, TabCompleter {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
 
-        if (!(sender instanceof Player)) {
-            sender.sendMessage(Main.getCommandInstance());
-            return false;
-        }
-
-        Player player = (Player) (sender);
-
         if (args.length == 1) {
-            if (!player.hasPermission("essentialsp.fly.other")) { player.sendMessage(Main.getNoPerm()); return false; }
+            if (!sender.hasPermission("essentialsp.fly.other")) { sender.sendMessage(Main.getNoPerm()); return false; }
 
             Player target = Bukkit.getPlayer(args[0]);
-            if (target != null){ player.sendMessage(Main.getInvalidPlayer()); return false; }
+            if (target != null){ sender.sendMessage(Main.getInvalidPlayer()); return false; }
 
             if (target.getAllowFlight()){
-                player.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("fly_other_off").replace("%t", target.getName()));
+                sender.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("fly_other_off").replace("%t", target.getName()));
             } else {
-                player.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("fly_other_on").replace("%t", target.getName()));
+                sender.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("fly_other_on").replace("%t", target.getName()));
             }
 
             target.setAllowFlight(!target.getAllowFlight());
             target.setFallDistance(0.0f);
 
         } else if (args.length == 0){
+
+            if (!(sender instanceof Player)) {
+                sender.sendMessage(Main.getCommandInstance());
+                return false;
+            }
+
+            Player player = (Player) (sender);
+
             if (!player.hasPermission("essentialsp.fly")) { player.sendMessage(Main.getNoPerm()); return false; }
 
             if (player.getAllowFlight()){
@@ -54,7 +55,7 @@ public class FlyCommand implements CommandExecutor, TabCompleter {
             player.setAllowFlight(!player.getAllowFlight());
             player.setFallDistance(0.0f);
         }else {
-            player.sendMessage(Main.getPrefix() + "§c/fly [player]");
+            sender.sendMessage(Main.getPrefix() + "§c/fly [player]");
         }
 
         return false;

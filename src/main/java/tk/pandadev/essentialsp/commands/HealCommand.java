@@ -18,14 +18,15 @@ import java.util.List;
 public class HealCommand implements CommandExecutor, TabCompleter {
 
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-        if (!(sender instanceof Player)) {
-            sender.sendMessage(Main.getCommandInstance());
-            return false;
-        }
-
-        Player player = (Player)(sender);
 
         if (args.length == 0) {
+
+            if (!(sender instanceof Player)) {
+                sender.sendMessage(Main.getCommandInstance());
+                return false;
+            }
+
+            Player player = (Player)(sender);
 
             if (!player.hasPermission("essentialsp.heal")) { player.sendMessage(Main.getNoPerm()); return false; }
 
@@ -43,23 +44,23 @@ public class HealCommand implements CommandExecutor, TabCompleter {
 
         } else if (args.length == 1) {
 
-            if (!player.hasPermission("essentialsp.heal.other")) { player.sendMessage(Main.getNoPerm()); return false; }
+            if (!sender.hasPermission("essentialsp.heal.other")) { sender.sendMessage(Main.getNoPerm()); return false; }
 
             Player target = Bukkit.getPlayer(args[0]);
-            if (target == null){ player.sendMessage(Main.getInvalidPlayer()); return false; }
+            if (target == null){ sender.sendMessage(Main.getInvalidPlayer()); return false; }
 
             if (target.getHealth() != 20.0 || target.getFoodLevel() != 20) {
                 target.setHealth(20.0);
                 target.setFoodLevel(20);
-                target.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("heal_other_success").replace("%p", player.getName()));
+                target.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("heal_other_success").replace("%p", sender instanceof Player ? sender.getName() : "Console"));
                 target.playSound(target.getLocation(), Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 1.0f, 1.0f);
                 return true;
             }
-            player.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("heal_other_error").replace("%t", target.getName()));
+            sender.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("heal_other_error").replace("%t", target.getName()));
 
 
         } else {
-            player.sendMessage(Main.getPrefix() + "§c/heal [player]");
+            sender.sendMessage(Main.getPrefix() + "§c/heal [player]");
         }
         return true;
     }

@@ -23,21 +23,16 @@ public class FeatureCommand implements CommandExecutor, TabCompleter {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
 
-        if (!(sender instanceof Player)) {
-            sender.sendMessage(Main.getCommandInstance());
-            return false;
-        }
-
-        Player player = (Player) (sender);
-
         List<String> validValues = Arrays.asList("warp_system", "home_system", "rank_system", "tpa_system");
 
         if (args.length == 0){
+            if (!(sender instanceof Player)) {sender.sendMessage(Main.getCommandInstance()); return false;}
+            Player player = (Player) (sender);
             if (!player.isOp()) {player.sendMessage(Main.getNoPerm()); return false;}
             new FeatureGui().open(player);
             player.playSound(player.getLocation(), Sound.BLOCK_BARREL_OPEN, 100, 1);
         } else if (args.length == 2){
-            if (!validValues.contains(args[1])) {player.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("feature_validvalues")); return false;}
+            if (!validValues.contains(args[1])) {sender.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("feature_validvalues")); return false;}
             if (args[0].equalsIgnoreCase("enable")){
                 Configs.feature.set(args[1], true);
                 Configs.saveFeatureConfig();
@@ -48,8 +43,8 @@ public class FeatureCommand implements CommandExecutor, TabCompleter {
                         RankAPI.checkRank(onlineplayer);
                     }
                 }
-                player.playSound(player.getLocation(), Sound.BLOCK_BEACON_ACTIVATE, 100, 1);
-                player.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("feature_enable").replace("%n", args[1].replace("_system", "")));
+                if (sender instanceof Player) { Player player = (Player) (sender); (player).playSound(player.getLocation(), Sound.BLOCK_BEACON_ACTIVATE, 100, 1); }
+                sender.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("feature_enable").replace("%n", args[1].replace("_system", "")));
             }
             if (args[0].equalsIgnoreCase("disable")){
                 Configs.feature.set(args[1], false);
@@ -61,11 +56,11 @@ public class FeatureCommand implements CommandExecutor, TabCompleter {
                         RankAPI.checkRank(onlineplayer);
                     }
                 }
-                player.playSound(player.getLocation(), Sound.BLOCK_BEACON_DEACTIVATE, 100, 1);
-                player.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("feature_disable").replace("%n", args[1].replace("_system", "")));
+                if (sender instanceof Player) { Player player = (Player) (sender); (player).playSound(player.getLocation(), Sound.BLOCK_BEACON_DEACTIVATE, 100, 1); }
+                sender.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("feature_disable").replace("%n", args[1].replace("_system", "")));
             }
         } else {
-            player.sendMessage(Main.getPrefix() + "§c/features"); return false;
+            sender.sendMessage(Main.getPrefix() + "§c/features"); return false;
         }
 
         return false;

@@ -18,38 +18,35 @@ import java.util.Objects;
 public class RankCommand implements CommandExecutor, TabCompleter {
 
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-        if (!(sender instanceof Player)) {
-            sender.sendMessage(Main.getCommandInstance());
-            return false;
+        if (sender instanceof Player) {
+            Player player = (Player) (sender);
+            RankAPI.createPlayerTeam(player);
+            RankAPI.checkRank(player);
         }
-
-        Player player = (Player) (sender);
-        RankAPI.createPlayerTeam(player);
-        RankAPI.checkRank(player);
 
         if (args.length == 2 && label.equalsIgnoreCase("rank")) {
 
-            if (!player.hasPermission("essentialsp.rank.set")) {player.sendMessage(Main.getNoPerm()); return false;}
+            if (!sender.hasPermission("essentialsp.rank.set")) {sender.sendMessage(Main.getNoPerm()); return false;}
             Player target = Bukkit.getPlayer(args[0]);
-            if (target == null) player.sendMessage(Main.getInvalidPlayer());
-            RankAPI.setRank(target, args[1]);
+            if (target == null) {sender.sendMessage(Main.getInvalidPlayer()); return false;}
+            RankAPI.setRank(sender, target, args[1]);
             RankAPI.checkRank(target);
 
         } else if (args.length == 1 && label.equalsIgnoreCase("removerank")) {
 
-            if (!player.hasPermission("essentialsp.rank.remove")) {player.sendMessage(Main.getNoPerm()); return false;}
+            if (!sender.hasPermission("essentialsp.rank.remove")) {sender.sendMessage(Main.getNoPerm()); return false;}
 
             Player target = Bukkit.getPlayer(args[0]);
-            if (target == null) player.sendMessage(Main.getInvalidPlayer());
+            if (target == null) {sender.sendMessage(Main.getInvalidPlayer()); return false;}
 
             RankAPI.removeRanks(target);
             RankAPI.checkRank(target);
 
-            player.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("rank_remove_success").replace("%t", target.getName()));
+            sender.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("rank_remove_success").replace("%t", target.getName()));
 
         } else if (args.length >= 2 && label.equalsIgnoreCase("createrank")) {
 
-            if (!player.hasPermission("essentialsp.rank.create")) {player.sendMessage(Main.getNoPerm()); return false;}
+            if (!sender.hasPermission("essentialsp.rank.create")) {sender.sendMessage(Main.getNoPerm()); return false;}
 
             StringBuilder sb = new StringBuilder();
             for(int i = 1; i < args.length; i++) {
@@ -57,17 +54,18 @@ public class RankCommand implements CommandExecutor, TabCompleter {
                 sb.append(args[i]);
             }
 
-            RankAPI.createRank(player, args[0].toLowerCase(), ChatColor.translateAlternateColorCodes('&', String.valueOf(sb)));
+            assert sender instanceof Player;
+            RankAPI.createRank((Player) sender, args[0].toLowerCase(), ChatColor.translateAlternateColorCodes('&', String.valueOf(sb)));
 
         } else if (args.length == 1 && label.equalsIgnoreCase("deleterank")) {
 
-            if (!player.hasPermission("essentialsp.rank.delete")) {player.sendMessage(Main.getNoPerm()); return false;}
+            if (!sender.hasPermission("essentialsp.rank.delete")) {sender.sendMessage(Main.getNoPerm()); return false;}
 
-            RankAPI.deleteRank(player, args[0].toLowerCase());
+            RankAPI.deleteRank((Player) sender, args[0].toLowerCase());
 
         } else if (args.length >= 3 && label.equalsIgnoreCase("modifyrank") && args[0].equalsIgnoreCase("prefix")){
 
-            if (!player.hasPermission("essentialsp.rank.modify.prefix")) {player.sendMessage(Main.getNoPerm()); return false;}
+            if (!sender.hasPermission("essentialsp.rank.modify.prefix")) {sender.sendMessage(Main.getNoPerm()); return false;}
 
             StringBuilder sb = new StringBuilder();
             for(int i = 2; i < args.length; i++) {
@@ -75,22 +73,16 @@ public class RankCommand implements CommandExecutor, TabCompleter {
                 sb.append(args[i]);
             }
 
-            RankAPI.setPrefix(player, args[1].toLowerCase(), ChatColor.translateAlternateColorCodes('&', sb.toString()));
+            RankAPI.setPrefix((Player) sender, args[1].toLowerCase(), ChatColor.translateAlternateColorCodes('&', sb.toString()));
 
-        } else if (args.length >= 3 && label.equalsIgnoreCase("modifyrank") && args[0].equalsIgnoreCase("name")){
+        } else if (args.length == 3 && label.equalsIgnoreCase("modifyrank") && args[0].equalsIgnoreCase("name")){
 
-            if (!player.hasPermission("essentialsp.rank.modify.name")) {player.sendMessage(Main.getNoPerm()); return false;}
+            if (!sender.hasPermission("essentialsp.rank.modify.name")) {sender.sendMessage(Main.getNoPerm()); return false;}
 
-            StringBuilder sb = new StringBuilder();
-            for(int i = 2; i < args.length; i++) {
-                if (i > 1) sb.append(" ");
-                sb.append(args[i]);
-            }
-
-            RankAPI.rename(player, args[1].toLowerCase(), ChatColor.translateAlternateColorCodes('&', sb.toString()));
+            RankAPI.rename((Player) sender, args[1].toLowerCase(), ChatColor.translateAlternateColorCodes('&', args[2]));
 
         } else{
-            player.sendMessage(Main.getPrefix() +
+            sender.sendMessage(Main.getPrefix() +
                     "§c/rank <player> <rank>",
                     "§c/removerank <player>",
                     "§c/createrank <rankname> <prefix>",

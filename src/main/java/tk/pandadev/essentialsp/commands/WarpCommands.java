@@ -19,14 +19,15 @@ public class WarpCommands implements CommandExecutor, TabCompleter {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
 
-        if (!(sender instanceof Player)) {
-            sender.sendMessage(Main.getCommandInstance());
-            return false;
-        }
 
-        Player player = (Player) (sender);
-        
         if (label.equalsIgnoreCase("setwarp") && args.length == 1){
+
+            if (!(sender instanceof Player)) {
+                sender.sendMessage(Main.getCommandInstance());
+                return false;
+            }
+
+            Player player = (Player) (sender);
 
             if (!player.hasPermission("essentialsp.setwarp")) {
                 player.sendMessage(Main.getNoPerm());
@@ -43,20 +44,27 @@ public class WarpCommands implements CommandExecutor, TabCompleter {
 
         } else if (label.equalsIgnoreCase("delwarp") && args.length == 1){
 
-            if (!player.hasPermission("essentialsp.delwarp")){
-                player.sendMessage(Main.getNoPerm());
+            if (!sender.hasPermission("essentialsp.delwarp")){
+                sender.sendMessage(Main.getNoPerm());
                 return false;
             }
             if (Configs.warp.get("Warps." + args[0].toLowerCase()) == null) {
-                player.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("delwarp_error").replace("%w", args[0].toLowerCase()));
+                sender.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("delwarp_error").replace("%w", args[0].toLowerCase()));
                 return false;
             }
             Configs.warp.set("Warps." + args[0].toLowerCase(), null);
             Configs.saveWarpConfig();
-            player.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("delwarp_success").replace("%w", args[0].toLowerCase()));
+            sender.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("delwarp_success").replace("%w", args[0].toLowerCase()));
             return true;
 
-        } else if (label.equalsIgnoreCase("warp") && args.length == 1){
+        } else if (label.equalsIgnoreCase("warp") || label.equalsIgnoreCase("w") && args.length == 1){
+
+            if (!(sender instanceof Player)) {
+                sender.sendMessage(Main.getCommandInstance());
+                return false;
+            }
+
+            Player player = (Player) (sender);
 
             if (Configs.warp.get("Warps." + args[0].toLowerCase()) == null) {
                 player.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("warp_error").replace("%w", args[0].toLowerCase()));
@@ -70,17 +78,17 @@ public class WarpCommands implements CommandExecutor, TabCompleter {
         } else if (label.equalsIgnoreCase("renamewarp") && args.length == 2) {
 
             if (Configs.warp.get("Warps." + args[0].toLowerCase()) == null) {
-                player.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("warp_error").replace("%w", args[0].toLowerCase()));
+                sender.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("warp_error").replace("%w", args[0].toLowerCase()));
                 return false;
             }
 
             Configs.warp.set("Warps." + args[1], (Location) Configs.warp.get("Warps." + args[0]));
             Configs.warp.set("Warps." + args[0], null);
             Configs.saveHomeConfig();
-            player.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("warp_rename_success").replace("%h", args[0]).replace("%n", args[1]));
+            sender.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("warp_rename_success").replace("%h", args[0]).replace("%n", args[1]));
 
         } else {
-            player.sendMessage(Main.getPrefix() + "§c/warp|setwarp|delwarp <NAME>");
+            sender.sendMessage(Main.getPrefix() + "§c/warp|setwarp|delwarp <NAME>");
         }
 
         return true;
