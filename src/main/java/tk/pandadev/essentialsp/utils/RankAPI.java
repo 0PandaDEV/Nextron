@@ -2,6 +2,7 @@ package tk.pandadev.essentialsp.utils;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.command.CommandSender;
 import org.bukkit.command.PluginCommandYamlParser;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
@@ -34,13 +35,13 @@ public class RankAPI {
 
     //////////////////////////////////////////////
 
-    public static void setRank(Player player, String rank){
+    public static void setRank(CommandSender sender, Player player, String rank){
         if (mainConfig.get("Ranks." + rank.toLowerCase()) == null) {
-            player.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("rank_dontexists"));
+            sender.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("rank_dontexists"));
             return;
         }
         if (mainConfig.getStringList("Ranks." + rank.toLowerCase() + ".players").contains(player)) {
-            player.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("rank_set_error").replace("%p", player.getName()).replace("%r", rank.toLowerCase()));
+            sender.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("rank_set_error").replace("%p", player.getName()).replace("%r", rank.toLowerCase()));
             return;
         }
         removeRanks(player);
@@ -49,7 +50,7 @@ public class RankAPI {
         mainConfig.set("Ranks." + rank.toLowerCase() + ".players", list);
         Main.getInstance().saveConfig();
         Main.getInstance().getTablistManager().setAllPlayerTeams();
-        player.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("rank_set_success").replace("%p", player.getName()).replace("%r", rank.toLowerCase()));
+        sender.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("rank_set_success").replace("%p", player.getName()).replace("%r", rank.toLowerCase()));
     }
 
     public static void removeRanks(Player player){
