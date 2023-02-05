@@ -20,6 +20,7 @@ commands:
       - setwarp
       - delwarp
       - renamewarp
+      - w
   heal:
     permission: essentialsp.heal
   vanish:
@@ -36,10 +37,13 @@ commands:
       - sethome
       - delhome
       - renamehome
+      - h
   invsee:
     permission: essentialsp.invsee
   tphere:
     permission: essentialsp.tphere
+    aliases:
+      - tph
   speed:
     permission: essentialsp.speed
   fly:
@@ -56,6 +60,8 @@ commands:
       - deleterank
       - modifyrank
   menu:
+    aliases:
+      - m
   rl:
     permission: essentialsp.rl
   features:
