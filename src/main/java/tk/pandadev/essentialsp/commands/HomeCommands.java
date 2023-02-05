@@ -1,8 +1,7 @@
 package tk.pandadev.essentialsp.commands;
 
-import net.md_5.bungee.api.chat.ClickEvent;
-import net.md_5.bungee.api.chat.ComponentBuilder;
-import net.md_5.bungee.api.chat.HoverEvent;
+import net.md_5.bungee.api.ChatMessageType;
+import net.md_5.bungee.api.chat.*;
 import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.Location;
 import org.bukkit.Sound;
@@ -18,6 +17,7 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.UUID;
 
 public class HomeCommands implements CommandExecutor, TabCompleter {
 
@@ -44,7 +44,7 @@ public class HomeCommands implements CommandExecutor, TabCompleter {
                 TextComponent message = new TextComponent(Main.getPrefix() + LanguageLoader.translationMap.get("home_reset_confirm").replace("%r", "§8["));
                 message.addExtra(yes);
                 message.addExtra("§8]");
-                player.spigot().sendMessage(message);
+                player.spigot().sendMessage(ChatMessageType.SYSTEM, message);
             }
 
         } else if (label.equalsIgnoreCase("sethome") && args.length == 0){
@@ -63,7 +63,7 @@ public class HomeCommands implements CommandExecutor, TabCompleter {
                 player.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("delhome_error").replace("%h", args[0].toLowerCase()));
             }
 
-        } else if (label.equalsIgnoreCase("home") && args.length == 1){
+        } else if (label.equalsIgnoreCase("home") || label.equalsIgnoreCase("h") && args.length == 1){
 
             if (Configs.home.getString("Homes." + player.getUniqueId() + "." + args[0].toLowerCase()) != null){
                 player.teleport((Location) Configs.home.get("Homes." + player.getUniqueId() + "." + args[0].toLowerCase()));

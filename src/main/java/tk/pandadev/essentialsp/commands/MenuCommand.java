@@ -24,7 +24,7 @@ public class MenuCommand implements CommandExecutor, TabCompleter {
 
         Player player = (Player) (sender);
 
-        if (args.length == 0){
+        if (label.equalsIgnoreCase("menu") || label.equalsIgnoreCase("m") && args.length == 0){
             new MainGui(player).open(player);
             player.playSound(player.getLocation(), Sound.BLOCK_BARREL_OPEN, 100, 1);
         } else {

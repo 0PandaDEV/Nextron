@@ -25,7 +25,7 @@ public class TphereCommand implements CommandExecutor, TabCompleter {
 
         Player player = (Player) (sender);
 
-        if (args.length == 1){
+        if (label.equalsIgnoreCase("tphere") || label.equalsIgnoreCase("tph") && args.length == 1){
             if (player.hasPermission("essentialsp.tphere")){
                 Player target = Bukkit.getPlayer(args[0]);
 
