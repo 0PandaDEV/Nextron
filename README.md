@@ -1,15 +1,14 @@
 <img src="https://cdn.discordapp.com/attachments/903181864116826112/1058339339937001522/EssentialsP_Banner.png" />
 
-
-__**The newest beta is most likely the stablest but can contain bugs!**__
+**Thanks so much for 100 downloads 💖, it means a world to me, and it shows me that it's worth to continue this project.**
 
 [Learn More >](https://essentialsp.tk)
 
 <details>
 <summary>
-Testing
+🛠️ Testing
 </summary>
-<span>If you want to help me test my plugin, join the <a href="https://discord.gg/Y7SbYphVw9" >discord</a> or the IP <code>test.essentialsp.tk</code></span>
+<span>If you want to help me test my plugin, join the <a href="https://discord.gg/Y7SbYphVw9" >discord</a> or the IP <code>test.essentialsp.tk</code> (not guaranteed that the server is online)</span>
 </details>
 
 ***
