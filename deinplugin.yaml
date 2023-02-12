@@ -2,7 +2,7 @@ specVersion: 1
 type: plugin
 name: EssentialsP
 authors:
-  - =PandaDEV
+  - 0PandaDEV
 supportedPlatforms:
   - spigot
   - paper
