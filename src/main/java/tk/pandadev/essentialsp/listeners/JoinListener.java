@@ -29,9 +29,6 @@ public class JoinListener implements Listener {
         }
         if (player.getUniqueId().equals(UUID.fromString("2dae5251-257a-4d28-b220-60fe24de72f0"))){
             event.setJoinMessage(event.getJoinMessage() + " §8• §x§6§2§0§0§f§fEssentialsP Plugin Creator");
-            for (Player onlineplayer : Bukkit.getOnlinePlayers()){
-                onlineplayer.playSound(onlineplayer.getLocation(), Sound.UI_TOAST_CHALLENGE_COMPLETE, 100, 1);
-            }
         }
         RankAPI.createPlayerTeam(player);
         RankAPI.checkRank(player);
