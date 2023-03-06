@@ -28,15 +28,23 @@ public class GamemodeCommand implements CommandExecutor, TabCompleter {
             if (!player.hasPermission("essentialsp.gamemode")) {player.sendMessage(Main.getNoPerm()); return false;}
 
             GameMode gamemode = null;
-            if (args[0].equalsIgnoreCase("0")) gamemode = GameMode.SURVIVAL;
-            if (args[0].equalsIgnoreCase("1")) gamemode = GameMode.CREATIVE;
-            if (args[0].equalsIgnoreCase("2")) gamemode = GameMode.ADVENTURE;
-            if (args[0].equalsIgnoreCase("3")) gamemode = GameMode.SPECTATOR;
-            if (args[0].equalsIgnoreCase("survival")) gamemode = GameMode.SURVIVAL;
-            if (args[0].equalsIgnoreCase("creative")) gamemode = GameMode.CREATIVE;
-            if (args[0].equalsIgnoreCase("adventure")) gamemode = GameMode.ADVENTURE;
-            if (args[0].equalsIgnoreCase("spectator")) gamemode = GameMode.SPECTATOR;
-            if (gamemode == null) player.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("gamemode_invalid"));
+            if (args[0].equalsIgnoreCase("0")) {gamemode = GameMode.SURVIVAL;}
+            else if (args[0].equalsIgnoreCase("1")){gamemode = GameMode.CREATIVE;}
+            else if (args[0].equalsIgnoreCase("2")) {gamemode = GameMode.ADVENTURE;}
+            else if (args[0].equalsIgnoreCase("3")) {gamemode = GameMode.SPECTATOR;}
+            else if (args[0].equalsIgnoreCase("survival")){gamemode = GameMode.SURVIVAL;}
+            else if (args[0].equalsIgnoreCase("creative")){gamemode = GameMode.CREATIVE;}
+            else if (args[0].equalsIgnoreCase("adventure")){gamemode = GameMode.ADVENTURE;}
+            else if (args[0].equalsIgnoreCase("spectator")){gamemode = GameMode.SPECTATOR;}
+            else if (args[0].equalsIgnoreCase("s")){gamemode = GameMode.SURVIVAL;}
+            else if (args[0].equalsIgnoreCase("c")){gamemode = GameMode.CREATIVE;}
+            else if (args[0].equalsIgnoreCase("a")) {gamemode = GameMode.ADVENTURE;}
+            else if (args[0].equalsIgnoreCase("sp")) {gamemode = GameMode.SPECTATOR;}
+            else {
+                System.out.println("asdad");
+                sender.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("gamemode_invalid"));
+                return false;
+            }
 
             if (player.getGameMode().equals(gamemode)){ player.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("gamemode_error").replace("%g", gamemode.toString().toLowerCase())); return false; }
 
@@ -47,15 +55,23 @@ public class GamemodeCommand implements CommandExecutor, TabCompleter {
 
             Player target = Bukkit.getPlayer(args[1]);
             GameMode gamemode = null;
-            if (args[0].equalsIgnoreCase("0")) gamemode = GameMode.SURVIVAL;
-            if (args[0].equalsIgnoreCase("1")) gamemode = GameMode.CREATIVE;
-            if (args[0].equalsIgnoreCase("2")) gamemode = GameMode.ADVENTURE;
-            if (args[0].equalsIgnoreCase("3")) gamemode = GameMode.SPECTATOR;
-            if (args[0].equalsIgnoreCase("survival")) gamemode = GameMode.SURVIVAL;
-            if (args[0].equalsIgnoreCase("creative")) gamemode = GameMode.CREATIVE;
-            if (args[0].equalsIgnoreCase("adventure")) gamemode = GameMode.ADVENTURE;
-            if (args[0].equalsIgnoreCase("spectator")) gamemode = GameMode.SPECTATOR;
-            if (gamemode == null) sender.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("gamemode_invalid"));
+            if (args[0].equalsIgnoreCase("0")) {gamemode = GameMode.SURVIVAL;}
+            else if (args[0].equalsIgnoreCase("1")){gamemode = GameMode.CREATIVE;}
+            else if (args[0].equalsIgnoreCase("2")) {gamemode = GameMode.ADVENTURE;}
+            else if (args[0].equalsIgnoreCase("3")) {gamemode = GameMode.SPECTATOR;}
+            else if (args[0].equalsIgnoreCase("survival")){gamemode = GameMode.SURVIVAL;}
+            else if (args[0].equalsIgnoreCase("creative")){gamemode = GameMode.CREATIVE;}
+            else if (args[0].equalsIgnoreCase("adventure")){gamemode = GameMode.ADVENTURE;}
+            else if (args[0].equalsIgnoreCase("spectator")){gamemode = GameMode.SPECTATOR;}
+            else if (args[0].equalsIgnoreCase("s")){gamemode = GameMode.SURVIVAL;}
+            else if (args[0].equalsIgnoreCase("c")){gamemode = GameMode.CREATIVE;}
+            else if (args[0].equalsIgnoreCase("a")) {gamemode = GameMode.ADVENTURE;}
+            else if (args[0].equalsIgnoreCase("sp")) {gamemode = GameMode.SPECTATOR;}
+            else {
+                System.out.println("asdad");
+                sender.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("gamemode_invalid"));
+                return false;
+            }
 
             if (target.getGameMode().equals(gamemode)){sender.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("gamemode_other_error").replace("%t", target.getName()).replace("%g", gamemode.toString().toLowerCase()));return false;}
 
@@ -80,6 +96,10 @@ public class GamemodeCommand implements CommandExecutor, TabCompleter {
             list.add("creative");
             list.add("adventure");
             list.add("spectator");
+            list.add("s");
+            list.add("c");
+            list.add("a");
+            list.add("sp");
         } else if (args.length == 2 && playert.hasPermission("essentialsp.gamemode.other")){
             for (Player player : Bukkit.getOnlinePlayers()) {
                 list.add(player.getName());
