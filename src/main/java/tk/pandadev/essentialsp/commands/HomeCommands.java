@@ -13,6 +13,7 @@ import org.bukkit.entity.Player;
 import tk.pandadev.essentialsp.Main;
 import tk.pandadev.essentialsp.utils.Configs;
 import tk.pandadev.essentialsp.utils.LanguageLoader;
+
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -31,9 +32,9 @@ public class HomeCommands implements CommandExecutor, TabCompleter {
 
         Player player = (Player) (sender);
 
-        if (label.equalsIgnoreCase("sethome") && args.length == 1){
+        if (label.equalsIgnoreCase("sethome") && args.length == 1) {
 
-            if (Configs.home.getString("Homes." + player.getUniqueId() + "." + args[0].toLowerCase()) == null){
+            if (Configs.home.getString("Homes." + player.getUniqueId() + "." + args[0].toLowerCase()) == null) {
                 Configs.home.set("Homes." + player.getUniqueId() + "." + args[0].toLowerCase(), player.getLocation());
                 Configs.saveHomeConfig();
                 player.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("sethome_success").replace("%h", args[0].toLowerCase()));
@@ -47,15 +48,15 @@ public class HomeCommands implements CommandExecutor, TabCompleter {
                 player.spigot().sendMessage(ChatMessageType.SYSTEM, message);
             }
 
-        } else if (label.equalsIgnoreCase("sethome") && args.length == 0){
+        } else if (label.equalsIgnoreCase("sethome") && args.length == 0) {
 
             Configs.home.set("Homes." + player.getUniqueId() + ".default", player.getLocation());
             Configs.saveHomeConfig();
             player.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("sethome_default_success"));
 
-        } else if (label.equalsIgnoreCase("delhome") && args.length == 1){
+        } else if (label.equalsIgnoreCase("delhome") && args.length == 1) {
 
-            if (Configs.home.getString("Homes." + player.getUniqueId() + "." + args[0].toLowerCase()) != null){
+            if (Configs.home.getString("Homes." + player.getUniqueId() + "." + args[0].toLowerCase()) != null) {
                 Configs.home.set("Homes." + player.getUniqueId() + "." + args[0].toLowerCase(), null);
                 Configs.saveHomeConfig();
                 player.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("delhome_success").replace("%h", args[0].toLowerCase()));
@@ -63,9 +64,18 @@ public class HomeCommands implements CommandExecutor, TabCompleter {
                 player.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("delhome_error").replace("%h", args[0].toLowerCase()));
             }
 
-        } else if (label.equalsIgnoreCase("home") || label.equalsIgnoreCase("h") && args.length == 1){
+        } else if (label.equalsIgnoreCase("home") && args.length == 0) {
 
-            if (Configs.home.getString("Homes." + player.getUniqueId() + "." + args[0].toLowerCase()) != null){
+            if (Configs.home.getString("Homes." + player.getUniqueId() + ".default") != null) {
+                player.teleport((Location) Configs.home.get("Homes." + player.getUniqueId() + ".default"));
+                player.playSound(player.getLocation(), Sound.ENTITY_ENDERMAN_TELEPORT, 100, 1);
+                player.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("home_default_success"));
+            } else {
+                player.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("home_default_error"));
+            }
+        } else if (label.equalsIgnoreCase("home") || label.equalsIgnoreCase("h") && args.length == 1) {
+
+            if (Configs.home.getString("Homes." + player.getUniqueId() + "." + args[0].toLowerCase()) != null) {
                 player.teleport((Location) Configs.home.get("Homes." + player.getUniqueId() + "." + args[0].toLowerCase()));
                 player.playSound(player.getLocation(), Sound.ENTITY_ENDERMAN_TELEPORT, 100, 1);
                 player.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("home_success").replace("%h", args[0].toLowerCase()));
@@ -73,19 +83,9 @@ public class HomeCommands implements CommandExecutor, TabCompleter {
                 player.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("home_error").replace("%h", args[0].toLowerCase()));
             }
 
-        } else if (label.equalsIgnoreCase("home") && args.length == 0){
-
-            if (Configs.home.getString("Homes." + player.getUniqueId() + ".default") != null){
-                player.teleport((Location) Configs.home.get("Homes." + player.getUniqueId() + ".default"));
-                player.playSound(player.getLocation(), Sound.ENTITY_ENDERMAN_TELEPORT, 100, 1);
-                player.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("home_default_success"));
-            } else {
-                player.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("home_default_error"));
-            }
-
         } else if (label.equalsIgnoreCase("renamehome") && args.length == 2) {
 
-            if (Configs.home.getString("Homes." + player.getUniqueId() + "." + args[0].toLowerCase()) == null){
+            if (Configs.home.getString("Homes." + player.getUniqueId() + "." + args[0].toLowerCase()) == null) {
                 player.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("home_error").replace("%h", args[0].toLowerCase()));
                 return false;
             }
@@ -106,11 +106,11 @@ public class HomeCommands implements CommandExecutor, TabCompleter {
     @Override
     public List<String> onTabComplete(CommandSender sender, Command command, String label, String[] args) {
         ArrayList<String> list = new ArrayList<String>();
-        Player playert = (Player)(sender);
+        Player playert = (Player) (sender);
 
-        if (Configs.home.getConfigurationSection("Homes") == null || Configs.home.getConfigurationSection("Homes").getKeys(false).isEmpty()){
+        if (Configs.home.getConfigurationSection("Homes") == null || Configs.home.getConfigurationSection("Homes").getKeys(false).isEmpty()) {
             return null;
-        } else if (args.length == 1 && label.equalsIgnoreCase("home") || label.equalsIgnoreCase("delhome") || label.equalsIgnoreCase("renamehome")) {
+        } else if (args.length == 1 && label.equalsIgnoreCase("home") || label.equalsIgnoreCase("delhome") || label.equalsIgnoreCase("renamehome") || label.equalsIgnoreCase("h")) {
             list.addAll(Objects.requireNonNull(Configs.home.getConfigurationSection("Homes." + playert.getUniqueId())).getKeys(false));
         }
 
