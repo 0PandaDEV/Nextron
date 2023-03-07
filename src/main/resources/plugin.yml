@@ -9,6 +9,10 @@ commands:
   gamemode:
     aliases:
       - gm
+      - gms
+      - gmc
+      - gma
+      - gmsp
     permission: essentialsp.gamemode
   enderchest:
     permission: essentialsp.enderchest

@@ -20,7 +20,7 @@ public class GamemodeCommand implements CommandExecutor, TabCompleter {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
 
-        if (args.length == 1) {
+        if (args.length == 0){
             if (!(sender instanceof Player)) { sender.sendMessage(Main.getCommandInstance()); return false; }
 
             Player player = (Player) (sender);
@@ -28,10 +28,31 @@ public class GamemodeCommand implements CommandExecutor, TabCompleter {
             if (!player.hasPermission("essentialsp.gamemode")) {player.sendMessage(Main.getNoPerm()); return false;}
 
             GameMode gamemode = null;
-            if (args[0].equalsIgnoreCase("0")) {gamemode = GameMode.SURVIVAL;}
-            else if (args[0].equalsIgnoreCase("1")){gamemode = GameMode.CREATIVE;}
-            else if (args[0].equalsIgnoreCase("2")) {gamemode = GameMode.ADVENTURE;}
-            else if (args[0].equalsIgnoreCase("3")) {gamemode = GameMode.SPECTATOR;}
+            if (label.equalsIgnoreCase("gms")) {gamemode = GameMode.SURVIVAL;}
+            else if (label.equalsIgnoreCase("gmc")){gamemode = GameMode.CREATIVE;}
+            else if (label.equalsIgnoreCase("gma")) {gamemode = GameMode.ADVENTURE;}
+            else if (label.equalsIgnoreCase("gmsp")) {gamemode = GameMode.SPECTATOR;}
+            else {
+                sender.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("gamemode_invalid"));
+                return false;
+            }
+
+            if (player.getGameMode().equals(gamemode)){ player.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("gamemode_error").replace("%g", gamemode.toString().toLowerCase())); return false; }
+
+            player.setGameMode(gamemode);
+            player.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("gamemode_success").replace("%g", gamemode.toString().toLowerCase()));
+        } else if (args.length == 1) {
+            if (!(sender instanceof Player)) { sender.sendMessage(Main.getCommandInstance()); return false; }
+
+            Player player = (Player) (sender);
+
+            if (!player.hasPermission("essentialsp.gamemode")) {player.sendMessage(Main.getNoPerm()); return false;}
+
+            GameMode gamemode = null;
+            if (args[0].equalsIgnoreCase("0") || label.equalsIgnoreCase("gms")) {gamemode = GameMode.SURVIVAL;}
+            else if (args[0].equalsIgnoreCase("1") || label.equalsIgnoreCase("gmc")){gamemode = GameMode.CREATIVE;}
+            else if (args[0].equalsIgnoreCase("2") || label.equalsIgnoreCase("gma")) {gamemode = GameMode.ADVENTURE;}
+            else if (args[0].equalsIgnoreCase("3") || label.equalsIgnoreCase("gmsp")) {gamemode = GameMode.SPECTATOR;}
             else if (args[0].equalsIgnoreCase("survival")){gamemode = GameMode.SURVIVAL;}
             else if (args[0].equalsIgnoreCase("creative")){gamemode = GameMode.CREATIVE;}
             else if (args[0].equalsIgnoreCase("adventure")){gamemode = GameMode.ADVENTURE;}
@@ -41,7 +62,6 @@ public class GamemodeCommand implements CommandExecutor, TabCompleter {
             else if (args[0].equalsIgnoreCase("a")) {gamemode = GameMode.ADVENTURE;}
             else if (args[0].equalsIgnoreCase("sp")) {gamemode = GameMode.SPECTATOR;}
             else {
-                System.out.println("asdad");
                 sender.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("gamemode_invalid"));
                 return false;
             }
