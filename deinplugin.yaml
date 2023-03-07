@@ -6,7 +6,7 @@ authors:
 supportedPlatforms:
   - spigot
   - paper
-supportedGameVersions: 1.19 - 1.19.2
+supportedGameVersions: 1.19 - 1.19.3
 category: misc
 introduction:
   en: A basic plugin that provides the ground structure for a server. Everything you ever need in one plugin!
@@ -25,7 +25,7 @@ description: |
   <summary>
   🛠️ Testing
   </summary>
-  <span>If you want to help me test my plugin, join the <a href="https://discord.gg/Y7SbYphVw9" >discord</a> or the IP <code>test.essentialsp.tk</code> (not guaranteed that the server is online)</span>
+  <span>If you want to help me test my plugin, join on the <a href="https://discord.gg/Y7SbYphVw9" >discord.</a></span>
   </details>
 
   ***

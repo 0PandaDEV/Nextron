@@ -8,7 +8,7 @@
 <summary>
 🛠️ Testing
 </summary>
-<span>If you want to help me test my plugin, join the <a href="https://discord.gg/Y7SbYphVw9" >discord</a> or the IP <code>test.essentialsp.tk</code> (not guaranteed that the server is online)</span>
+<span>If you want to help me test my plugin, join on the <a href="https://discord.gg/Y7SbYphVw9" >discord.</a></span>
 </details>
 
 ***
