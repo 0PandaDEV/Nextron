@@ -1,38 +1,21 @@
 package tk.pandadev.essentialsp;
 
 import games.negative.framework.BasePlugin;
-import games.negative.framework.database.Column;
-import games.negative.framework.database.ColumnType;
-import games.negative.framework.database.Database;
-import games.negative.framework.database.builder.TableBuilder;
-import games.negative.framework.scoreboard.Scoreboard;
 import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
-import org.bukkit.configuration.ConfigurationSection;
-import org.bukkit.configuration.InvalidConfigurationException;
-import org.bukkit.configuration.file.FileConfiguration;
-import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.PluginManager;
-import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scoreboard.Team;
 import tk.pandadev.essentialsp.commands.*;
 import tk.pandadev.essentialsp.listeners.*;
 import tk.pandadev.essentialsp.tablist.TablistManager;
 import tk.pandadev.essentialsp.utils.*;
 
-import java.io.File;
-import java.io.IOException;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
-import java.util.*;
+import java.util.HashMap;
 
 public final class Main extends BasePlugin {
 
     private static Main instance;
     private static final String Prefix = "§x§b§1§8§0§f§f§lEssentialsP §8» ";
-    private VanishManager vanishManager;
     private VanishAPI vanishAPI;
     private TablistManager tablistManager;
     public static String NoPerm;
@@ -53,7 +36,6 @@ public final class Main extends BasePlugin {
         Configs.saveHomeConfig();
         Configs.saveWarpConfig();
         Configs.saveFeatureConfig();
-        vanishManager = new VanishManager(this);
         vanishAPI = new VanishAPI(this);
         tablistManager = new TablistManager();
         new LanguageLoader(this);
@@ -146,9 +128,6 @@ public final class Main extends BasePlugin {
         return NoPerm;
     }
 
-    public VanishManager getVanishManager() {
-        return vanishManager;
-    }
 
     public TablistManager getTablistManager() {
         return tablistManager;

@@ -1,6 +1,8 @@
 language: "en_US"
+# currently available en_US, de_DE
 join_message: "&2[&a+&2] &7%p"
 leave_message: "&4[&c-&4] &7%p"
+# %p represents the players name
 
 Ranks:
   owner:
