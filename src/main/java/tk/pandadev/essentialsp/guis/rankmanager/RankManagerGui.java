@@ -4,8 +4,6 @@ import games.negative.framework.gui.GUI;
 import games.negative.framework.util.ItemBuilder;
 import org.bukkit.Material;
 import org.bukkit.configuration.file.FileConfiguration;
-import org.bukkit.entity.Player;
-import org.bukkit.inventory.ItemStack;
 import tk.pandadev.essentialsp.Main;
 import tk.pandadev.essentialsp.guis.MainGui;
 import tk.pandadev.essentialsp.utils.Utils;

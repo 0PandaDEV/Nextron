@@ -1,7 +1,6 @@
 package tk.pandadev.essentialsp.utils;
 
 import org.bukkit.entity.Player;
-import tk.pandadev.essentialsp.Main;
 
 public class SettingsConfig {
     public static void checkSettings(Player player){

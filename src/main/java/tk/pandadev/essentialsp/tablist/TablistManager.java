@@ -9,8 +9,6 @@ import org.bukkit.scoreboard.Team;
 import tk.pandadev.essentialsp.Main;
 import tk.pandadev.essentialsp.utils.Configs;
 
-import java.util.Objects;
-
 public class TablistManager {
 
     public void setAllPlayerTeams(){

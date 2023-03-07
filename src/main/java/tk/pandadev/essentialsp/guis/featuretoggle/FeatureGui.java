@@ -7,7 +7,6 @@ import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.permissions.PermissionAttachment;
 import tk.pandadev.essentialsp.Main;
 import tk.pandadev.essentialsp.guis.MainGui;
 import tk.pandadev.essentialsp.utils.Configs;
@@ -46,7 +45,6 @@ public class FeatureGui extends GUI {
             for (Player onlineplayer : Bukkit.getOnlinePlayers()){
                 RankAPI.checkRank(onlineplayer);
             }
-
             player.playSound(player.getLocation(), Configs.feature.getBoolean("rank_system") ? Sound.BLOCK_BEACON_ACTIVATE : Sound.BLOCK_BEACON_DEACTIVATE, 100, 1);
             new FeatureGui().open(player);
         });

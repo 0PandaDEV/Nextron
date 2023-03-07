@@ -1,7 +1,9 @@
 package tk.pandadev.essentialsp.commands;
 
 import net.md_5.bungee.api.ChatMessageType;
-import net.md_5.bungee.api.chat.*;
+import net.md_5.bungee.api.chat.ClickEvent;
+import net.md_5.bungee.api.chat.ComponentBuilder;
+import net.md_5.bungee.api.chat.HoverEvent;
 import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.Location;
 import org.bukkit.Sound;
@@ -14,11 +16,9 @@ import tk.pandadev.essentialsp.Main;
 import tk.pandadev.essentialsp.utils.Configs;
 import tk.pandadev.essentialsp.utils.LanguageLoader;
 
-import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-import java.util.UUID;
 
 public class HomeCommands implements CommandExecutor, TabCompleter {
 

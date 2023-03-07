@@ -3,18 +3,15 @@ package tk.pandadev.essentialsp.utils;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
-import org.bukkit.command.PluginCommandYamlParser;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.scoreboard.Scoreboard;
 import org.bukkit.scoreboard.Team;
 import tk.pandadev.essentialsp.Main;
 
-import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-import java.util.UUID;
 
 public class RankAPI {
     private static FileConfiguration mainConfig = Main.getInstance().getConfig();

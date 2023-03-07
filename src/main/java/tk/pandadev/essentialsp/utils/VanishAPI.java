@@ -5,8 +5,6 @@ import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 import tk.pandadev.essentialsp.Main;
 
-import java.util.ArrayList;
-
 public class VanishAPI {
 
     private final Plugin plugin;

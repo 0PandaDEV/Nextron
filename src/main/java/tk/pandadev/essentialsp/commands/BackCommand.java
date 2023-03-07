@@ -7,7 +7,6 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabCompleter;
 import org.bukkit.entity.Player;
 import tk.pandadev.essentialsp.Main;
-import tk.pandadev.essentialsp.utils.Config;
 import tk.pandadev.essentialsp.utils.Configs;
 
 import java.util.ArrayList;
@@ -22,7 +21,6 @@ public class BackCommand implements CommandExecutor, TabCompleter {
         Player player = (Player) (sender);
 
         if (args.length == 0){
-
             Configs.settings.set(player.getUniqueId() + ".lastback", player.getLocation());
             Configs.settings.set(player.getUniqueId() + ".isback", true);
             Configs.saveSettingsConfig();

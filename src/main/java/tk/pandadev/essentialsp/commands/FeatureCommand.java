@@ -22,7 +22,6 @@ public class FeatureCommand implements CommandExecutor, TabCompleter {
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-
         List<String> validValues = Arrays.asList("warp_system", "home_system", "rank_system", "tpa_system");
 
         if (args.length == 0){

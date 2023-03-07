@@ -1,6 +1,5 @@
 package tk.pandadev.essentialsp.listeners;
 
-import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.Player;
@@ -9,8 +8,6 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 import tk.pandadev.essentialsp.Main;
 import tk.pandadev.essentialsp.utils.Configs;
-
-import java.util.Objects;
 
 public class ChatEditor implements Listener {
 

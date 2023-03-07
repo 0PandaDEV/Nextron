@@ -2,7 +2,6 @@ package tk.pandadev.essentialsp.commands;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
-import org.bukkit.Server;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -13,7 +12,6 @@ import tk.pandadev.essentialsp.Main;
 import tk.pandadev.essentialsp.utils.Configs;
 import tk.pandadev.essentialsp.utils.LanguageLoader;
 import tk.pandadev.essentialsp.utils.VanishAPI;
-import tk.pandadev.essentialsp.utils.VanishManager;
 
 import java.util.ArrayList;
 import java.util.List;

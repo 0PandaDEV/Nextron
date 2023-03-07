@@ -1,19 +1,15 @@
 package tk.pandadev.essentialsp.listeners;
 
-import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
-import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
-import org.bukkit.scheduler.BukkitRunnable;
 import tk.pandadev.essentialsp.Main;
 import tk.pandadev.essentialsp.utils.RankAPI;
 import tk.pandadev.essentialsp.utils.SettingsConfig;
 import tk.pandadev.essentialsp.utils.VanishAPI;
 
-import java.util.Objects;
 import java.util.UUID;
 
 public class JoinListener implements Listener {
