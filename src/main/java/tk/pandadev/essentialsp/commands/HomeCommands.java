@@ -5,18 +5,23 @@ import net.md_5.bungee.api.chat.ClickEvent;
 import net.md_5.bungee.api.chat.ComponentBuilder;
 import net.md_5.bungee.api.chat.HoverEvent;
 import net.md_5.bungee.api.chat.TextComponent;
+import net.wesjd.anvilgui.AnvilGUI;
 import org.bukkit.Location;
+import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabCompleter;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
 import tk.pandadev.essentialsp.Main;
 import tk.pandadev.essentialsp.utils.Configs;
 import tk.pandadev.essentialsp.utils.LanguageLoader;
+import tk.pandadev.essentialsp.utils.Utils;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
@@ -83,17 +88,30 @@ public class HomeCommands implements CommandExecutor, TabCompleter {
                 player.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("home_error").replace("%h", args[0].toLowerCase()));
             }
 
-        } else if (label.equalsIgnoreCase("renamehome") && args.length == 2) {
+        } else if (label.equalsIgnoreCase("renamehome") && args.length == 1) {
 
             if (Configs.home.getString("Homes." + player.getUniqueId() + "." + args[0].toLowerCase()) == null) {
                 player.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("home_error").replace("%h", args[0].toLowerCase()));
                 return false;
             }
 
-            Configs.home.set("Homes." + player.getUniqueId() + "." + args[1], (Location) Configs.home.get("Homes." + player.getUniqueId() + "." + args[0]));
-            Configs.home.set("Homes." + player.getUniqueId() + "." + args[0], null);
-            Configs.saveHomeConfig();
-            player.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("home_rename_success").replace("%h", args[0]).replace("%n", args[1]));
+            new AnvilGUI.Builder()
+                    .onComplete((completion) -> {
+                        if(Utils.countWords(completion.getText()) > 1) {
+                            player.playSound(player.getLocation(), Sound.ENTITY_PILLAGER_AMBIENT, 100, 0.5f);
+                            return Arrays.asList(AnvilGUI.ResponseAction.replaceInputText("Only one word"));
+                        }
+                        Configs.home.set("Homes." + player.getUniqueId() + "." + completion.getText(), (Location) Configs.home.get("Homes." + player.getUniqueId() + "." + args[0]));
+                        Configs.home.set("Homes." + player.getUniqueId() + "." + args[0], null);
+                        Configs.saveHomeConfig();
+                        player.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("home_rename_success").replace("%h", args[0]).replace("%n", completion.getText()));
+                        return Arrays.asList(AnvilGUI.ResponseAction.close());
+                    })
+                    .preventClose()
+                    .itemLeft(new ItemStack(Material.NAME_TAG))
+                    .title("Enter a name")
+                    .plugin(Main.getInstance())
+                    .open(player);
 
         } else {
             player.sendMessage(Main.getPrefix() + "§c/home|sethome|delhome <name>");
@@ -110,7 +128,7 @@ public class HomeCommands implements CommandExecutor, TabCompleter {
 
         if (Configs.home.getConfigurationSection("Homes") == null || Configs.home.getConfigurationSection("Homes").getKeys(false).isEmpty()) {
             return null;
-        } else if (args.length == 1 && label.equalsIgnoreCase("home") || label.equalsIgnoreCase("delhome") || label.equalsIgnoreCase("renamehome") || label.equalsIgnoreCase("h")) {
+        } else if (args.length == 1 && label.equalsIgnoreCase("home") || label.equalsIgnoreCase("delhome") || label.equalsIgnoreCase("h")) {
             list.addAll(Objects.requireNonNull(Configs.home.getConfigurationSection("Homes." + playert.getUniqueId())).getKeys(false));
         }
 
