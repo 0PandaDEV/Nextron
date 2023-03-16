@@ -15,7 +15,7 @@ import java.util.HashMap;
 public final class Main extends BasePlugin {
 
     private static Main instance;
-    private static final String Prefix = "§x§b§1§8§0§f§f§lEssentialsP §8» ";
+    private static final String Prefix = "§x§b§1§8§0§f§f§lNextron §8» ";
     private VanishAPI vanishAPI;
     private TablistManager tablistManager;
     public static String NoPerm;
