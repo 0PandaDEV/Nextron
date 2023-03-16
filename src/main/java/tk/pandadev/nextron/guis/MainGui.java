@@ -42,7 +42,7 @@ public class MainGui extends GUI {
             }
         });
 
-        if (player.hasPermission("essentialsp.rank")){
+        if (player.hasPermission("nextron.rank")){
             setItemClickEvent(24, player1 -> new ItemBuilder(Material.NAME_TAG).setName("§x§e§6§c§7§8§cRank Manager").build(), ((player1, event) -> {
                 if (Main.getInstance().getConfig().getConfigurationSection("Ranks") == null || Main.getInstance().getConfig().getConfigurationSection("Ranks").getKeys(false).isEmpty()){
                     player.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("maingui_no_ranks"));
@@ -56,7 +56,7 @@ public class MainGui extends GUI {
         }
 
 
-        if (player.hasPermission("essentialsp.features")){
+        if (player.hasPermission("nextron.features")){
             setItemClickEvent(36, player1 -> new ItemBuilder(Material.REDSTONE).setName("§4Feature Manager").build(), (player1, event) -> {
                 new FeatureGui().open(player1);
             });

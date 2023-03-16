@@ -18,7 +18,7 @@ public class FlyCommand implements CommandExecutor, TabCompleter {
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
 
         if (args.length == 1) {
-            if (!sender.hasPermission("essentialsp.fly.other")) { sender.sendMessage(Main.getNoPerm()); return false; }
+            if (!sender.hasPermission("nextron.fly.other")) { sender.sendMessage(Main.getNoPerm()); return false; }
 
             Player target = Bukkit.getPlayer(args[0]);
             if (target != null){ sender.sendMessage(Main.getInvalidPlayer()); return false; }
@@ -41,7 +41,7 @@ public class FlyCommand implements CommandExecutor, TabCompleter {
 
             Player player = (Player) (sender);
 
-            if (!player.hasPermission("essentialsp.fly")) { player.sendMessage(Main.getNoPerm()); return false; }
+            if (!player.hasPermission("nextron.fly")) { player.sendMessage(Main.getNoPerm()); return false; }
 
             if (player.getAllowFlight()){
                 if (Configs.settings.getBoolean(player.getUniqueId() + ".feedback")){
@@ -66,7 +66,7 @@ public class FlyCommand implements CommandExecutor, TabCompleter {
 
         Player playert = (Player) (sender);
         ArrayList<String> list = new ArrayList<String>();
-        if (args.length == 1 && playert.hasPermission("essentialsp.fly.other")){
+        if (args.length == 1 && playert.hasPermission("nextron.fly.other")){
             for (Player player : Bukkit.getOnlinePlayers()) {
                 list.add(player.getName());
             }

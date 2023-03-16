@@ -73,7 +73,7 @@ public class FeatureGui extends GUI {
             Configs.feature.set("warp_system", !Configs.feature.getBoolean("warp_system"));
             Configs.saveFeatureConfig();
             for (Player onlineplayer : Bukkit.getOnlinePlayers()){
-                onlineplayer.addAttachment(Main.getInstance()).setPermission("essentialsp.warp", Configs.feature.getBoolean("warp_system"));
+                onlineplayer.addAttachment(Main.getInstance()).setPermission("nextron.warp", Configs.feature.getBoolean("warp_system"));
             }
             player.playSound(player.getLocation(), Configs.feature.getBoolean("warp_system") ? Sound.BLOCK_BEACON_ACTIVATE : Sound.BLOCK_BEACON_DEACTIVATE, 100, 1);
             new FeatureGui().open(player);
@@ -103,7 +103,7 @@ public class FeatureGui extends GUI {
             Configs.feature.set("home_system", !Configs.feature.getBoolean("home_system"));
             Configs.saveFeatureConfig();
             for (Player onlineplayer : Bukkit.getOnlinePlayers()){
-                onlineplayer.addAttachment(Main.getInstance()).setPermission("essentialsp.home", Configs.feature.getBoolean("home_system"));
+                onlineplayer.addAttachment(Main.getInstance()).setPermission("nextron.home", Configs.feature.getBoolean("home_system"));
             }
             player.playSound(player.getLocation(), Configs.feature.getBoolean("home_system") ? Sound.BLOCK_BEACON_ACTIVATE : Sound.BLOCK_BEACON_DEACTIVATE, 100, 1);
             new FeatureGui().open(player);
@@ -133,8 +133,8 @@ public class FeatureGui extends GUI {
             Configs.feature.set("tpa_system", !Configs.feature.getBoolean("tpa_system"));
             Configs.saveFeatureConfig();
             for (Player onlineplayer : Bukkit.getOnlinePlayers()){
-                onlineplayer.addAttachment(Main.getInstance()).setPermission("essentialsp.tpa", Configs.feature.getBoolean("tpa_system"));
-                onlineplayer.addAttachment(Main.getInstance()).setPermission("essentialsp.tpaccept", Configs.feature.getBoolean("tpa_system"));
+                onlineplayer.addAttachment(Main.getInstance()).setPermission("nextron.tpa", Configs.feature.getBoolean("tpa_system"));
+                onlineplayer.addAttachment(Main.getInstance()).setPermission("nextron.tpaccept", Configs.feature.getBoolean("tpa_system"));
             }
             player.playSound(player.getLocation(), Configs.feature.getBoolean("tpa_system") ? Sound.BLOCK_BEACON_ACTIVATE : Sound.BLOCK_BEACON_DEACTIVATE, 100, 1);
             new FeatureGui().open(player);

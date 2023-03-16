@@ -25,7 +25,7 @@ public class InvseeCommand implements CommandExecutor, TabCompleter {
 
         if (args.length == 1){
 
-            if (player.hasPermission("essentialsp.invsee")) {
+            if (player.hasPermission("nextron.invsee")) {
 
                 Player target = Bukkit.getPlayer(args[0]);
 
@@ -59,7 +59,7 @@ public class InvseeCommand implements CommandExecutor, TabCompleter {
         ArrayList<String> list = new ArrayList<String>();
         Player playert = (Player)(sender);
 
-        if (args.length == 1 && playert.hasPermission("essentialsp.invsee")){
+        if (args.length == 1 && playert.hasPermission("nextron.invsee")){
             for (Player player : Bukkit.getOnlinePlayers()) {
                 list.add(player.getName());
             }

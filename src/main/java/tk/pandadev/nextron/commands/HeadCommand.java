@@ -29,7 +29,7 @@ public class HeadCommand implements CommandExecutor, TabCompleter {
         Player player = (Player) (sender);
 
         if (args.length != 1){ player.sendMessage(Main.getPrefix() + "§c/head <player>"); return false; }
-            if (!player.hasPermission("essentialsp.head")){ player.sendMessage(Main.getNoPerm()); return false; }
+            if (!player.hasPermission("nextron.head")){ player.sendMessage(Main.getNoPerm()); return false; }
 
             ItemStack item = new ItemStack(Material.PLAYER_HEAD, 1, (short) 3);
             SkullMeta meta = (SkullMeta) item.getItemMeta();

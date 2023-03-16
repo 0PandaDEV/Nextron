@@ -31,7 +31,7 @@ public class VanishCommand implements CommandExecutor, TabCompleter {
 
         if (args.length == 1) {
 
-            if (player.hasPermission("essentialsp.vanish.other")) {
+            if (player.hasPermission("nextron.vanish.other")) {
 
                 Player target = Bukkit.getPlayer(args[0]);
 
@@ -60,7 +60,7 @@ public class VanishCommand implements CommandExecutor, TabCompleter {
 
         } else if (args.length == 0){
 
-            if (player.hasPermission("essentialsp.vanish")) {
+            if (player.hasPermission("nextron.vanish")) {
 
                 if (VanishAPI.isVanish(player)){
                     Main.getInstance().getVanishAPI().setVanish(player, false);
@@ -93,7 +93,7 @@ public class VanishCommand implements CommandExecutor, TabCompleter {
         ArrayList<String> list = new ArrayList<String>();
         Player playert = (Player)(sender);
 
-        if (args.length == 1 && playert.hasPermission("essentialsp.vanish.other")){
+        if (args.length == 1 && playert.hasPermission("nextron.vanish.other")){
             for (Player player : Bukkit.getOnlinePlayers()) {
                 list.add(player.getName());
             }

@@ -21,7 +21,7 @@ public class SpeedCommand implements CommandExecutor {
         Player player = (Player) (sender);
 
         if (args.length == 1){
-            if (player.hasPermission("essentialsp.speed")){
+            if (player.hasPermission("nextron.speed")){
                 if (NumberUtils.isNumber(args[0])) {
                     float speed = Integer.parseInt(args[0]) / 10f;
                     if (speed > 1) {
@@ -48,7 +48,7 @@ public class SpeedCommand implements CommandExecutor {
                 player.sendMessage(Main.getNoPerm());
             }
         } else if (args.length == 0){
-            if (player.hasPermission("essentialsp.speed.reset")){
+            if (player.hasPermission("nextron.speed.reset")){
                 player.setAllowFlight(true);
                 player.setFlying(true);
                 player.setFlySpeed((float) 0.1);

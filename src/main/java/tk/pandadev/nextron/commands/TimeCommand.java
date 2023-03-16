@@ -1,7 +1,5 @@
 package tk.pandadev.nextron.commands;
 
-
-import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -12,39 +10,36 @@ import tk.pandadev.nextron.Main;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.bukkit.Bukkit.getServer;
-
-public class ReloadCommand implements CommandExecutor, TabCompleter {
+public class TimeCommand implements CommandExecutor, TabCompleter {
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
 
-        if (args.length == 0){
-            if (sender instanceof Player){
-                if (sender.hasPermission("nextron.rl")) {
-                    Bukkit.broadcastMessage(Main.getPrefix() + "§cReloading Server");
-                    getServer().reload();
-                    Bukkit.broadcastMessage(Main.getPrefix() + "§aReload Complete!");
-                } else {
-                    sender.sendMessage(Main.getNoPerm());
-                }
-            } else {
-                Bukkit.broadcastMessage(Main.getPrefix() + "§cReloading Server");
-                getServer().reload();
-                Bukkit.broadcastMessage(Main.getPrefix() + "§aReload Complete!");
-            }
+        if (!(sender instanceof Player)) {
+            sender.sendMessage(Main.getCommandInstance());
+            return false;
+        }
+        Player player = (Player) (sender);
+
+        if (label.equalsIgnoreCase("day") && args.length == 0) {
+        } else if (label.equalsIgnoreCase("night") && args.length == 0) {
+
+        } else if (label.equalsIgnoreCase("midnight") && args.length == 0) {
+
+        } else if (label.equalsIgnoreCase("noon") && args.length == 0) {
+
         } else {
-            sender.sendMessage(Main.getPrefix() + "§c/rl");
+            sender.sendMessage(Main.getPrefix() + "§c/day | night | midnight | noon");
         }
 
         return false;
+
     }
 
     @Override
     public List<String> onTabComplete(CommandSender sender, Command command, String label, String[] args) {
-        Player playert = (Player) (sender);
         ArrayList<String> list = new ArrayList<String>();
-
+        Player playert = (Player) (sender);
 
 
         ArrayList<String> completerList = new ArrayList<String>();

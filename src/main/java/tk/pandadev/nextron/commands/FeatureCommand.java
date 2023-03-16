@@ -36,8 +36,8 @@ public class FeatureCommand implements CommandExecutor, TabCompleter {
                 Configs.feature.set(args[1], true);
                 Configs.saveFeatureConfig();
                 for (Player onlineplayer : Bukkit.getOnlinePlayers()){
-                    if (args[1].replace("_system", "").equals("tpa")) {onlineplayer.addAttachment(Main.getInstance()).setPermission("essentialsp.tpaccept", Configs.feature.getBoolean(args[1]));}
-                    onlineplayer.addAttachment(Main.getInstance()).setPermission("essentialsp." + args[1].replace("_system", ""), Configs.feature.getBoolean(args[1]));
+                    if (args[1].replace("_system", "").equals("tpa")) {onlineplayer.addAttachment(Main.getInstance()).setPermission("nextron.tpaccept", Configs.feature.getBoolean(args[1]));}
+                    onlineplayer.addAttachment(Main.getInstance()).setPermission("nextron." + args[1].replace("_system", ""), Configs.feature.getBoolean(args[1]));
                     if (args[1].replace("_system", "").equalsIgnoreCase("rank")) {
                         RankAPI.checkRank(onlineplayer);
                     }
@@ -49,8 +49,8 @@ public class FeatureCommand implements CommandExecutor, TabCompleter {
                 Configs.feature.set(args[1], false);
                 Configs.saveFeatureConfig();
                 for (Player onlineplayer : Bukkit.getOnlinePlayers()){
-                    if (Objects.equals(args[1].replace("_system", ""), "tpa")) {onlineplayer.addAttachment(Main.getInstance()).setPermission("essentialsp.tpaccept", Configs.feature.getBoolean(args[1]));}
-                    onlineplayer.addAttachment(Main.getInstance()).setPermission("essentialsp." + args[1].replace("_system", ""), Configs.feature.getBoolean(args[1]));
+                    if (Objects.equals(args[1].replace("_system", ""), "tpa")) {onlineplayer.addAttachment(Main.getInstance()).setPermission("nextron.tpaccept", Configs.feature.getBoolean(args[1]));}
+                    onlineplayer.addAttachment(Main.getInstance()).setPermission("nextron." + args[1].replace("_system", ""), Configs.feature.getBoolean(args[1]));
                     if (args[1].replace("_system", "").equalsIgnoreCase("rank")) {
                         RankAPI.checkRank(onlineplayer);
                     }

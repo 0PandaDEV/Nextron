@@ -1,6 +1,6 @@
 name: '${project.artifactId}'
 version: '${project.version}'
-main: tk.pandadev.essentialsp.Main
+main: tk.pandadev.nextron.Main
 api-version: 1.13
 authors: [ PandaDEV ]
 description: '${project.description}'
@@ -13,51 +13,51 @@ commands:
       - gmc
       - gma
       - gmsp
-    permission: essentialsp.gamemode
+    permission: nextron.gamemode
   enderchest:
-    permission: essentialsp.enderchest
+    permission: nextron.enderchest
     aliases:
       - ec
   warp:
-    permission: essentialsp.warp
+    permission: nextron.warp
     aliases:
       - setwarp
       - delwarp
       - renamewarp
       - w
   heal:
-    permission: essentialsp.heal
+    permission: nextron.heal
   vanish:
-    permission: essentialsp.vanish
+    permission: nextron.vanish
     aliases:
       - v
   tpa:
-    permission: essentialsp.tpa
+    permission: nextron.tpa
   tpaccept:
-    permission: essentialsp.tpaccept
+    permission: nextron.tpaccept
   home:
-    permission: essentialsp.home
+    permission: nextron.home
     aliases:
       - sethome
       - delhome
       - renamehome
       - h
   invsee:
-    permission: essentialsp.invsee
+    permission: nextron.invsee
   tphere:
-    permission: essentialsp.tphere
+    permission: nextron.tphere
     aliases:
       - tph
   speed:
-    permission: essentialsp.speed
+    permission: nextron.speed
   fly:
-    permission: essentialsp.fly
+    permission: nextron.fly
   sudo:
-    permission: essentialsp.sudo
+    permission: nextron.sudo
   head:
-    permission: essentialsp.head
+    permission: nextron.head
   rank:
-    permission: essentialsp.rank
+    permission: nextron.rank
     aliases:
       - removerank
       - createrank
@@ -67,10 +67,10 @@ commands:
     aliases:
       - m
   rl:
-    permission: essentialsp.rl
+    permission: nextron.rl
   features:
-    permission: essentialsp.features
+    permission: nextron.features
   back:
-    permission: essentialsp.back
+    permission: nextron.back
   rename:
-    permission: essentialsp.rename
+    permission: nextron.rename

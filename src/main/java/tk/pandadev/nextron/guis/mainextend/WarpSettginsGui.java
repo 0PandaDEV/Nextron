@@ -25,7 +25,7 @@ public class WarpSettginsGui extends GUI {
             player.closeInventory();
         }));
         setItemClickEvent(13, player -> new ItemBuilder(Material.YELLOW_DYE).setName("§eRename").build(), ((player, event) -> {
-            if (!player.hasPermission("essentialsp.rename")){
+            if (!player.hasPermission("nextron.rename")){
                 player.sendMessage(Main.getNoPerm());
                 return;
             }
@@ -44,7 +44,7 @@ public class WarpSettginsGui extends GUI {
             });
         }));
         setItemClickEvent(14, player -> new ItemBuilder(Material.RED_DYE).setName("§cDelete").build(), ((player, event) -> {
-            if (!player.hasPermission("essentialsp.delwarp")){
+            if (!player.hasPermission("nextron.delwarp")){
                 player.sendMessage(Main.getNoPerm());
                 return;
             }

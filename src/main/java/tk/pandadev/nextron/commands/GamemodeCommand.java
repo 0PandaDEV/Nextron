@@ -24,7 +24,7 @@ public class GamemodeCommand implements CommandExecutor, TabCompleter {
 
             Player player = (Player) (sender);
 
-            if (!player.hasPermission("essentialsp.gamemode")) {player.sendMessage(Main.getNoPerm()); return false;}
+            if (!player.hasPermission("nextron.gamemode")) {player.sendMessage(Main.getNoPerm()); return false;}
 
             GameMode gamemode = null;
             if (label.equalsIgnoreCase("gms")) {gamemode = GameMode.SURVIVAL;}
@@ -45,7 +45,7 @@ public class GamemodeCommand implements CommandExecutor, TabCompleter {
 
             Player player = (Player) (sender);
 
-            if (!player.hasPermission("essentialsp.gamemode")) {player.sendMessage(Main.getNoPerm()); return false;}
+            if (!player.hasPermission("nextron.gamemode")) {player.sendMessage(Main.getNoPerm()); return false;}
 
             GameMode gamemode = null;
             if (args[0].equalsIgnoreCase("0") || label.equalsIgnoreCase("gms")) {gamemode = GameMode.SURVIVAL;}
@@ -70,7 +70,7 @@ public class GamemodeCommand implements CommandExecutor, TabCompleter {
             player.setGameMode(gamemode);
             player.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("gamemode_success").replace("%g", gamemode.toString().toLowerCase()));
         } else if (args.length == 2){
-            if (!sender.hasPermission("essentialsp.gamemode.other")) {sender.sendMessage(Main.getNoPerm()); return false;}
+            if (!sender.hasPermission("nextron.gamemode.other")) {sender.sendMessage(Main.getNoPerm()); return false;}
 
             Player target = Bukkit.getPlayer(args[1]);
             GameMode gamemode = null;
@@ -106,7 +106,7 @@ public class GamemodeCommand implements CommandExecutor, TabCompleter {
     public List<String> onTabComplete(CommandSender sender, Command command, String label, String[] args) {
         Player playert = (Player) (sender);
         ArrayList<String> list = new ArrayList<String>();
-        if (args.length == 1 && playert.hasPermission("essentialsp.gamemode")) {
+        if (args.length == 1 && playert.hasPermission("nextron.gamemode")) {
             list.add("0");
             list.add("1");
             list.add("2");
@@ -119,7 +119,7 @@ public class GamemodeCommand implements CommandExecutor, TabCompleter {
             list.add("c");
             list.add("a");
             list.add("sp");
-        } else if (args.length == 2 && playert.hasPermission("essentialsp.gamemode.other")){
+        } else if (args.length == 2 && playert.hasPermission("nextron.gamemode.other")){
             for (Player player : Bukkit.getOnlinePlayers()) {
                 list.add(player.getName());
             }

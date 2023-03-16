@@ -28,7 +28,7 @@ public class EnderchestCommand implements CommandExecutor, TabCompleter {
             player.openInventory(player.getEnderChest());
 
         } else if (args.length == 1) {
-            if (!player.hasPermission("essentialsp.enderchest.other")){ player.sendMessage(Main.getNoPerm()); return false;}
+            if (!player.hasPermission("nextron.enderchest.other")){ player.sendMessage(Main.getNoPerm()); return false;}
             Player target = Bukkit.getPlayer(args[0]);
             if (target == null) { player.sendMessage(Main.getInvalidPlayer()); return false;}
 
@@ -46,7 +46,7 @@ public class EnderchestCommand implements CommandExecutor, TabCompleter {
         ArrayList<String> list = new ArrayList<String>();
         Player playert = (Player)(sender);
 
-        if (args.length == 1 && playert.hasPermission("essentialsp.enderchest.other")){
+        if (args.length == 1 && playert.hasPermission("nextron.enderchest.other")){
             for (Player player : Bukkit.getOnlinePlayers()) {
                 list.add(player.getName());
             }

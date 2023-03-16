@@ -27,7 +27,7 @@ public class HealCommand implements CommandExecutor, TabCompleter {
 
             Player player = (Player)(sender);
 
-            if (!player.hasPermission("essentialsp.heal")) { player.sendMessage(Main.getNoPerm()); return false; }
+            if (!player.hasPermission("nextron.heal")) { player.sendMessage(Main.getNoPerm()); return false; }
 
             if (player.getHealth() != player.getMaxHealth() || player.getFoodLevel() != 20) {
                 player.setHealth(player.getMaxHealth());
@@ -43,7 +43,7 @@ public class HealCommand implements CommandExecutor, TabCompleter {
 
         } else if (args.length == 1) {
 
-            if (!sender.hasPermission("essentialsp.heal.other")) { sender.sendMessage(Main.getNoPerm()); return false; }
+            if (!sender.hasPermission("nextron.heal.other")) { sender.sendMessage(Main.getNoPerm()); return false; }
 
             Player target = Bukkit.getPlayer(args[0]);
             if (target == null){ sender.sendMessage(Main.getInvalidPlayer()); return false; }
@@ -68,7 +68,7 @@ public class HealCommand implements CommandExecutor, TabCompleter {
         ArrayList<String> list = new ArrayList<String>();
         Player playert = (Player)(sender);
 
-        if (args.length == 1 && playert.hasPermission("essentialsp.heal.other")) {
+        if (args.length == 1 && playert.hasPermission("nextron.heal.other")) {
             for (Player player : Bukkit.getOnlinePlayers()) {
                 list.add(player.getName());
             }
