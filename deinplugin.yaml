@@ -1,6 +1,6 @@
 specVersion: 1
 type: plugin
-name: EssentialsP
+name: Nextron
 authors:
   - 0PandaDEV
 supportedPlatforms:
@@ -12,14 +12,14 @@ introduction:
   en: A basic plugin that provides the ground structure for a server. Everything you ever need in one plugin!
   de: Ein grundlegendes Plugin, das die Grundstruktur für einen Server bereitstellt. Alles was du je brauchen wirst in einen Plugin!
 description: |
-  <img src="https://cdn.discordapp.com/attachments/903181864116826112/1058339339937001522/EssentialsP_Banner.png" />
+  <img src="https://cdn.discordapp.com/attachments/903181864116826112/1085873702295588874/Nextron_Banner.png" />
 
   <br>
   <br>
 
-  **Thanks so much for 100 downloads 💖, it means a world to me, and it shows me that it's worth to continue this project.**
+  **IMPORTANT: This plugin is renamed to Nextron and was EssentialsP before!**
 
-  [Learn More >](https://essentialsp.tk)
+  [Learn More >](https://nextron.vercel.app/)
 
   <details>
   <summary>
@@ -35,7 +35,7 @@ description: |
   <br>
   <br>
 
-  EssentialsP is a plugin that provides the basic structure of a server with many features. Such as basic commands for creating homes, warps, and other server structure related things. It also includes a menu where each user can manage their plugin settings.
+  Nextron is a powerful Minecraft plugin which is meant to replace any other plugins you use at the moment. It has beautiful GUI's that simplifies the process to many users because you don't have to use complicated commands. is a plugin that provides the basic structure of a server with many features. Such as basic commands for creating homes, warps, and other server structure related things. It also includes a menu where each user can manage their plugin settings.
 
   ***
 
@@ -45,8 +45,8 @@ description: |
   <br>
 
   - A permission plugin is highly recommended, for example [LuckPerms](https://luckperms.net/), as it can manage all permissions.
-  - EssentialsP runs on Bukkit, Spigot, Paper and [Purpur (recommended)](https://purpurmc.org/).
-  - EssentialsP supports 1.19 and higher.
+  - Nextron runs on Bukkit, Spigot, Paper and [Purpur (recommended)](https://purpurmc.org/).
+  - Nextron supports 1.19 and higher.
 
   ***
 
@@ -55,7 +55,7 @@ description: |
   <br>
   <br>
 
-  If you have any issues or find a bug, please remember to report it here [GitHub](https://github.com/0PandaDEV/EssentialsP/issues)
+  If you have any issues or find a bug, please remember to report it here [GitHub](https://github.com/0PandaDEV/Nextron/issues)
 
   ***
 
@@ -75,4 +75,4 @@ tags:
   - structure
   - base
   - customizable
-icon: https://i.imgur.com/VsnbsEM.png
+icon: https://i.imgur.com/wWsVTLr.png
