@@ -1,8 +1,8 @@
 <img src="https://cdn.discordapp.com/attachments/903181864116826112/1085873702295588874/Nextron_Banner.png" />
 
-**Thanks so much for 100 downloads 💖, it means a world to me, and it shows me that it's worth to continue this project.**
+**IMPORTANT: This plugin is renamed to Nextron and was EssentialsP before!**
 
-[Learn More >](https://essentialsp.tk)
+[Learn More >](https://nextron.vercel.app/)
 
 <details>
 <summary>
