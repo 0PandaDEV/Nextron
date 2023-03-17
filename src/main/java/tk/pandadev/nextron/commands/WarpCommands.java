@@ -82,6 +82,10 @@ public class WarpCommands implements CommandExecutor, TabCompleter {
 
         } else if (label.equalsIgnoreCase("renamewarp") && args.length == 1) {
 
+            if (!sender.hasPermission("nextron.renamewarp")){
+                sender.sendMessage(Main.getNoPerm());
+                return false;
+            }
             if (!(sender instanceof Player)) {
                 sender.sendMessage(Main.getCommandInstance());
                 return false;
