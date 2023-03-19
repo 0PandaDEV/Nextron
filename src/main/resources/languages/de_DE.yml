@@ -147,3 +147,8 @@ feature_enable: "§7Das §a%n System §7wurde deaktiviert"
 feature_disable: "§7Das §a%n System §7wurde aktiviert"
 
 rename_error: "§cDu hast kein Item in der Hand"
+
+anvil_gui_one_word: "Nur ein Wort"
+
+rank_gui_not_ready: "§7Nicht bereit einen neuen Rank zu erstellen"
+rank_gui_ready: "§aBereit einen neuen Rank zu erstellen"

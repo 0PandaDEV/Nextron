@@ -99,7 +99,7 @@ public class HomeCommands implements CommandExecutor, TabCompleter {
                     .onComplete((completion) -> {
                         if(Utils.countWords(completion.getText()) > 1) {
                             player.playSound(player.getLocation(), Sound.ENTITY_PILLAGER_AMBIENT, 100, 0.5f);
-                            return Arrays.asList(AnvilGUI.ResponseAction.replaceInputText("Only one word"));
+                            return Arrays.asList(AnvilGUI.ResponseAction.replaceInputText(LanguageLoader.translationMap.get("anvil_gui_one_word")));
                         }
                         Configs.home.set("Homes." + player.getUniqueId() + "." + completion.getText(), (Location) Configs.home.get("Homes." + player.getUniqueId() + "." + args[0]));
                         Configs.home.set("Homes." + player.getUniqueId() + "." + args[0], null);

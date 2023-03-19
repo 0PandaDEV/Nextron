@@ -102,7 +102,7 @@ public class WarpCommands implements CommandExecutor, TabCompleter {
                     .onComplete((completion) -> {
                         if(Utils.countWords(completion.getText()) > 1) {
                             player.playSound(player.getLocation(), Sound.ENTITY_PILLAGER_AMBIENT, 100, 0.5f);
-                            return Arrays.asList(AnvilGUI.ResponseAction.replaceInputText("Only one word"));
+                            return Arrays.asList(AnvilGUI.ResponseAction.replaceInputText(LanguageLoader.translationMap.get("anvil_gui_one_word")));
                         }
                         Configs.warp.set("Warps." + completion.getText(), (Location) Configs.warp.get("Warps." + args[0]));
                         Configs.warp.set("Warps." + args[0], null);

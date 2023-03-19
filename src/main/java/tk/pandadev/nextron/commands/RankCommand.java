@@ -104,7 +104,7 @@ public class RankCommand implements CommandExecutor, TabCompleter {
                     .onComplete((completion) -> {
                         if(Utils.countWords(completion.getText()) > 1) {
                             player.playSound(player.getLocation(), Sound.ENTITY_PILLAGER_AMBIENT, 100, 0.5f);
-                            return Collections.singletonList(AnvilGUI.ResponseAction.replaceInputText("Only one word"));
+                            return Collections.singletonList(AnvilGUI.ResponseAction.replaceInputText(LanguageLoader.translationMap.get("anvil_gui_one_word")));
                         }
                         RankAPI.rename((Player) sender, args[1].toLowerCase(), ChatColor.translateAlternateColorCodes('&', " " + completion.getText()));
                         return Arrays.asList(AnvilGUI.ResponseAction.close());

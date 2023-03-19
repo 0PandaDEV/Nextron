@@ -9,6 +9,7 @@ import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import tk.pandadev.nextron.Main;
+import tk.pandadev.nextron.utils.LanguageLoader;
 import tk.pandadev.nextron.utils.RankAPI;
 import tk.pandadev.nextron.utils.Utils;
 
@@ -22,9 +23,9 @@ public class ManualRankGui extends GUI {
     public ManualRankGui(Player player, String name, String prefix){
         super("Manual Rank Creation", 5);
 
-        ItemStack create_off = new ItemBuilder(Material.GRAY_DYE).setName("§7Not ready to create the rank").build();
+        ItemStack create_off = new ItemBuilder(Material.GRAY_DYE).setName(LanguageLoader.translationMap.get("rank_gui_not_ready")).build();
 
-        ItemStack create_on = new ItemBuilder(Material.LIME_DYE).setName("§aReady to create the rank").build();
+        ItemStack create_on = new ItemBuilder(Material.LIME_DYE).setName(LanguageLoader.translationMap.get("rank_gui_ready")).build();
 
         if (name.equals("not set") && prefix.equals("not set")){
             ready = false;
@@ -46,7 +47,7 @@ public class ManualRankGui extends GUI {
                     .onComplete((completion) -> {
                         if(Utils.countWords(completion.getText()) > 1) {
                             player.playSound(player.getLocation(), Sound.ENTITY_PILLAGER_AMBIENT, 100, 0.5f);
-                            return Collections.singletonList(AnvilGUI.ResponseAction.replaceInputText("Only one word"));
+                            return Collections.singletonList(AnvilGUI.ResponseAction.replaceInputText(LanguageLoader.translationMap.get("anvil_gui_one_word")));
                         }
                         new ManualRankGui(player, completion.getText().replace(" ", ""), "not set").open(player);
                         return Arrays.asList(AnvilGUI.ResponseAction.close());
@@ -66,7 +67,7 @@ public class ManualRankGui extends GUI {
                         return Arrays.asList(AnvilGUI.ResponseAction.close());
                     })
                     .itemLeft(new ItemStack(Material.NAME_TAG))
-                    .title("Enter the pref")
+                    .title("Enter the prefix")
                     .plugin(Main.getInstance())
                     .open(player);
         });
