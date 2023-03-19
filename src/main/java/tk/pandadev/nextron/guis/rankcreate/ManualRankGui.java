@@ -3,38 +3,76 @@ package tk.pandadev.nextron.guis.rankcreate;
 import games.negative.framework.gui.GUI;
 import games.negative.framework.util.ItemBuilder;
 import net.wesjd.anvilgui.AnvilGUI;
+import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import tk.pandadev.nextron.Main;
+import tk.pandadev.nextron.utils.RankAPI;
 import tk.pandadev.nextron.utils.Utils;
 
 import java.util.Arrays;
+import java.util.Collections;
 
 public class ManualRankGui extends GUI {
+
+    public boolean ready;
 
     public ManualRankGui(Player player, String name, String prefix){
         super("Manual Rank Creation", 5);
 
-        new AnvilGUI.Builder()
-                .onComplete((completion) -> {
-                    if(Utils.countWords(completion.getText()) > 1) {
-                        player.playSound(player.getLocation(), Sound.ENTITY_PILLAGER_AMBIENT, 100, 0.5f);
-                        return Arrays.asList(AnvilGUI.ResponseAction.replaceInputText("Only one word"));
-                    }
+        ItemStack create_off = new ItemBuilder(Material.GRAY_DYE).setName("§7Not ready to create the rank").build();
 
-                    return Arrays.asList(AnvilGUI.ResponseAction.close());
-                })
-                .preventClose()
-                .itemLeft(new ItemStack(Material.NAME_TAG))
-                .title("Enter the name")
-                .plugin(Main.getInstance())
-                .open(player);
+        ItemStack create_on = new ItemBuilder(Material.LIME_DYE).setName("§aReady to create the rank").build();
+
+        if (name.equals("not set") && prefix.equals("not set")){
+            ready = false;
+        } else{
+            ready = true;
+        }
+
+        setItemClickEvent(22, player1 -> ready ? create_on : create_off, (player1, event) -> {
+            if (ready){
+                RankAPI.createRank(player, name, ChatColor.translateAlternateColorCodes('&', " " + prefix));
+                player.closeInventory();
+            }
+        });
+
+        setItemClickEvent(20, player1 -> new ItemBuilder(Material.NAME_TAG)
+                .setName("§7Name: §a" + name)
+                .build(), (player1, event) -> {
+            new AnvilGUI.Builder()
+                    .onComplete((completion) -> {
+                        if(Utils.countWords(completion.getText()) > 1) {
+                            player.playSound(player.getLocation(), Sound.ENTITY_PILLAGER_AMBIENT, 100, 0.5f);
+                            return Collections.singletonList(AnvilGUI.ResponseAction.replaceInputText("Only one word"));
+                        }
+                        new ManualRankGui(player, completion.getText().replace(" ", ""), "not set").open(player);
+                        return Arrays.asList(AnvilGUI.ResponseAction.close());
+                    })
+                    .itemLeft(new ItemStack(Material.NAME_TAG))
+                    .title("Enter the name")
+                    .plugin(Main.getInstance())
+                    .open(player);
+        });
+
+        setItemClickEvent(24, player1 -> new ItemBuilder(Material.NAME_TAG)
+                .setName("§7Prefix: §a" + prefix)
+                .build(), (player1, event) -> {
+            new AnvilGUI.Builder()
+                    .onComplete((completion) -> {
+                        new ManualRankGui(player, name, completion.getText()).open(player);
+                        return Arrays.asList(AnvilGUI.ResponseAction.close());
+                    })
+                    .itemLeft(new ItemStack(Material.NAME_TAG))
+                    .title("Enter the pref")
+                    .plugin(Main.getInstance())
+                    .open(player);
+        });
 
         setItemClickEvent(36, player1 -> new ItemBuilder(Material.RED_DYE).setName("§cQuit").build(), (player1, event) -> {
             player1.closeInventory();
         });
     }
-
 }

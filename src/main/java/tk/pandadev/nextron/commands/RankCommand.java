@@ -1,18 +1,25 @@
 package tk.pandadev.nextron.commands;
 
+import net.wesjd.anvilgui.AnvilGUI;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.Material;
+import org.bukkit.Sound;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabCompleter;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
 import tk.pandadev.nextron.Main;
 import tk.pandadev.nextron.guis.rankcreate.ChooseTemplateGui;
 import tk.pandadev.nextron.utils.LanguageLoader;
 import tk.pandadev.nextron.utils.RankAPI;
+import tk.pandadev.nextron.utils.Utils;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 public class RankCommand implements CommandExecutor, TabCompleter {
@@ -44,7 +51,7 @@ public class RankCommand implements CommandExecutor, TabCompleter {
 
             sender.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("rank_remove_success").replace("%t", target.getName()));
 
-        } else if (args.length >= 2 && label.equalsIgnoreCase("createrank")) {
+        } else if (args.length == 0 && label.equalsIgnoreCase("createrank")) {
 
             if (!(sender instanceof Player)) {
                 sender.sendMessage(Main.getCommandInstance());
@@ -55,49 +62,66 @@ public class RankCommand implements CommandExecutor, TabCompleter {
 
             new ChooseTemplateGui().open(player);
 
-            //if (!sender.hasPermission("nextron.rank.create")) {sender.sendMessage(Main.getNoPerm()); return false;}
-//
-            //StringBuilder sb = new StringBuilder();
-            //for(int i = 1; i < args.length; i++) {
-            //    if (i > 1) sb.append(" ");
-            //    sb.append(args[i]);
-            //}
-//
-            //assert sender instanceof Player;
-            //RankAPI.createRank((Player) sender, args[0].toLowerCase(), ChatColor.translateAlternateColorCodes('&', String.valueOf(sb)));
-
         } else if (args.length == 1 && label.equalsIgnoreCase("deleterank")) {
 
             if (!sender.hasPermission("nextron.rank.delete")) {sender.sendMessage(Main.getNoPerm()); return false;}
 
             RankAPI.deleteRank((Player) sender, args[0].toLowerCase());
 
-        } else if (args.length >= 3 && label.equalsIgnoreCase("modifyrank") && args[0].equalsIgnoreCase("prefix")){
+        } else if (args.length == 2 && label.equalsIgnoreCase("modifyrank") && args[0].equalsIgnoreCase("prefix")){
+
+            if (!(sender instanceof Player)) {
+                sender.sendMessage(Main.getCommandInstance());
+                return false;
+            }
+
+            Player player = (Player) (sender);
 
             if (!sender.hasPermission("nextron.rank.modify.prefix")) {sender.sendMessage(Main.getNoPerm()); return false;}
 
-            StringBuilder sb = new StringBuilder();
-            for(int i = 2; i < args.length; i++) {
-                if (i > 1) sb.append(" ");
-                sb.append(args[i]);
+            new AnvilGUI.Builder()
+                    .onComplete((completion) -> {
+                        RankAPI.setPrefix((Player) sender, args[1].toLowerCase(), ChatColor.translateAlternateColorCodes('&', " " + completion.getText()));
+                        return Arrays.asList(AnvilGUI.ResponseAction.close());
+                    })
+                    .itemLeft(new ItemStack(Material.NAME_TAG))
+                    .title("Enter the prefix")
+                    .plugin(Main.getInstance())
+                    .open(player);
+
+        } else if (args.length == 2 && label.equalsIgnoreCase("modifyrank") && args[0].equalsIgnoreCase("name")){
+
+            if (!(sender instanceof Player)) {
+                sender.sendMessage(Main.getCommandInstance());
+                return false;
             }
 
-            RankAPI.setPrefix((Player) sender, args[1].toLowerCase(), ChatColor.translateAlternateColorCodes('&', sb.toString()));
-
-        } else if (args.length == 3 && label.equalsIgnoreCase("modifyrank") && args[0].equalsIgnoreCase("name")){
+            Player player = (Player) (sender);
 
             if (!sender.hasPermission("nextron.rank.modify.name")) {sender.sendMessage(Main.getNoPerm()); return false;}
 
-            RankAPI.rename((Player) sender, args[1].toLowerCase(), ChatColor.translateAlternateColorCodes('&', args[2]));
+            new AnvilGUI.Builder()
+                    .onComplete((completion) -> {
+                        if(Utils.countWords(completion.getText()) > 1) {
+                            player.playSound(player.getLocation(), Sound.ENTITY_PILLAGER_AMBIENT, 100, 0.5f);
+                            return Collections.singletonList(AnvilGUI.ResponseAction.replaceInputText("Only one word"));
+                        }
+                        RankAPI.rename((Player) sender, args[1].toLowerCase(), ChatColor.translateAlternateColorCodes('&', " " + completion.getText()));
+                        return Arrays.asList(AnvilGUI.ResponseAction.close());
+                    })
+                    .itemLeft(new ItemStack(Material.NAME_TAG))
+                    .title("Enter the name")
+                    .plugin(Main.getInstance())
+                    .open(player);
 
         } else{
             sender.sendMessage(Main.getPrefix() +
                     "§c/rank <player> <rank>",
                     "§c/removerank <player>",
-                    "§c/createrank <rankname> <prefix>",
+                    "§c/createrank",
                     "§c/deleterank <rankname>",
-                    "§c/modifyrank prefix <rank> <newprefix>",
-                    "§c/modifyrank name <rank> <newprefix>");
+                    "§c/modifyrank prefix <rank>",
+                    "§c/modifyrank name <rank>");
         }
         return true;
     }
@@ -110,17 +134,12 @@ public class RankCommand implements CommandExecutor, TabCompleter {
         if (args.length == 2 && label.equalsIgnoreCase("rank")) list.addAll(Main.getInstance().getConfig().getConfigurationSection("Ranks").getKeys(false));
         // remove rank command
         if (args.length == 1 && label.equalsIgnoreCase("removerank")) for (Player player : Bukkit.getOnlinePlayers()) list.add(player.getName());
-        // create rank command
-        if (args.length == 1 && label.equalsIgnoreCase("createrank")) list.add("<rankname>");
-        if (args.length == 2 && label.equalsIgnoreCase("createrank")) list.add("<prefix>");
         // delete rank command
         if (args.length == 1 && label.equalsIgnoreCase("deleterank")) list.addAll(Main.getInstance().getConfig().getConfigurationSection("Ranks").getKeys(false));
         // modify prefix command
         if (args.length == 1 && label.equalsIgnoreCase("modifyrank")) list.add("prefix");
         if (args.length == 1 && label.equalsIgnoreCase("modifyrank")) list.add("name");
         if (args.length == 2 && label.equalsIgnoreCase("modifyrank")) list.addAll(Main.getInstance().getConfig().getConfigurationSection("Ranks").getKeys(false));
-        if (args.length == 3 && label.equalsIgnoreCase("modifyrank") && args[0].equalsIgnoreCase("prefix")) list.add("<prefix>");
-        if (args.length == 3 && label.equalsIgnoreCase("modifyrank") && args[0].equalsIgnoreCase("name")) list.add("<name>");
 
         ArrayList<String> completerList = new ArrayList<String>();
         String currentarg = args[args.length - 1].toLowerCase();
