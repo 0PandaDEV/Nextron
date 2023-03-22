@@ -3,6 +3,7 @@ package tk.pandadev.nextron;
 import games.negative.framework.BasePlugin;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
+import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.scoreboard.Team;
 import tk.pandadev.nextron.commands.*;
@@ -15,12 +16,14 @@ import java.util.HashMap;
 public final class Main extends BasePlugin {
 
     private static Main instance;
+    private static Plugin plugin;
     private static final String Prefix = "§x§b§1§8§0§f§f§lNextron §8» ";
     private VanishAPI vanishAPI;
     private TablistManager tablistManager;
     public static String NoPerm;
     public static String InvalidPlayer;
     public static String CommandInstance;
+    private UpdateChecker updateChecker;
 
     public static HashMap<Player, Player> tpa = new HashMap<>();
 
@@ -28,6 +31,10 @@ public final class Main extends BasePlugin {
     public void onEnable() {
         super.onEnable();
         instance = this;
+
+        updateChecker = new UpdateChecker(this, "0pandadev/nextron");
+        updateChecker.checkForUpdates();
+
         saveDefaultConfig();
         Configs.createSettingsConfig();
         Configs.createHomeConfig();
@@ -55,6 +62,7 @@ public final class Main extends BasePlugin {
             RankAPI.createPlayerTeam(player);
             RankAPI.checkRank(player);
         }
+
     }
 
     @Override
@@ -74,6 +82,7 @@ public final class Main extends BasePlugin {
         }
 
         instance = null;
+        updateChecker = null;
         Bukkit.getConsoleSender().sendMessage(Prefix + LanguageLoader.translationMap.get("disabled_message"));
     }
 
@@ -99,6 +108,7 @@ public final class Main extends BasePlugin {
         getCommand("features").setExecutor(new FeatureCommand());
         getCommand("back").setExecutor(new BackCommand());
         getCommand("rename").setExecutor(new RenameCommand());
+        getCommand("help").setExecutor(new HelpCommand());
     }
 
 
