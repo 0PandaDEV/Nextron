@@ -1,95 +1,84 @@
 package tk.pandadev.nextron.utils;
 
-import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
-import org.bukkit.plugin.java.JavaPlugin;
-
 import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.Scanner;
 
 public class UpdateChecker {
-    private final JavaPlugin plugin;
-    private final String repoName;
+    private final String username;
+    private final String repository;
 
-    public UpdateChecker(JavaPlugin plugin, String repoName) {
-        this.plugin = plugin;
-        this.repoName = repoName;
+    public UpdateChecker(String username, String repository) {
+        this.username = username;
+        this.repository = repository;
     }
 
-    public void checkForUpdates() {
-        try {
-            String latestReleaseTag = getLatestReleaseTag();
-            String currentVersion = plugin.getDescription().getVersion();
-            if (isVersionNewer(latestReleaseTag, currentVersion)) {
-                plugin.getLogger().info("A newer version of the plugin is available: " + latestReleaseTag);
-                // perform update logic here
-            } else {
-                plugin.getLogger().info("Plugin is up to date.");
-            }
-        } catch (IOException e) {
-            plugin.getLogger().warning("Failed to check for updates: " + e.getMessage());
+    public boolean isNewerVersion(String currentVersion) {
+        System.out.println(getLatestVersion());
+        System.out.println(currentVersion);
+        String latestVersion = getLatestVersion();
+
+        if (latestVersion == null) {
+            return false;
         }
-    }
 
-    private String getLatestReleaseTag() throws IOException {
-        String url = "https://api.github.com/repos/" + repoName + "/releases";
-        HttpURLConnection connection = (HttpURLConnection) new URL(url).openConnection();
-        connection.setRequestMethod("GET");
+        // Split version strings into major, minor, patch, and pre-release parts
+        String[] current = currentVersion.split("[.-]");
+        String[] latest = latestVersion.split("[.-]");
 
-        int statusCode = connection.getResponseCode();
-        if (statusCode == HttpURLConnection.HTTP_OK) {
-            Scanner scanner = new Scanner(connection.getInputStream());
-            String responseBody = scanner.useDelimiter("\\A").next();
-            scanner.close();
+        // Parse major, minor, and patch version numbers
+        int currentMajor = Integer.parseInt(current[0]);
+        int currentMinor = current.length > 1 ? Integer.parseInt(current[1]) : 0;
+        int currentPatch = current.length > 2 ? Integer.parseInt(current[2]) : 0;
 
-            // Find the first release that's not a draft or a pre-release
-            JsonParser parser = new JsonParser();
-            JsonArray releases = parser.parse(responseBody).getAsJsonArray();
-            for (JsonElement releaseElement : releases) {
-                JsonObject release = releaseElement.getAsJsonObject();
-                boolean isDraft = release.get("draft").getAsBoolean();
-                boolean isPrerelease = release.get("prerelease").getAsBoolean();
-                if (!isDraft && !isPrerelease) {
-                    String tagName = release.get("tag_name").getAsString();
-                    return tagName;
-                }
-            }
+        int latestMajor = Integer.parseInt(latest[0]);
+        int latestMinor = latest.length > 1 ? Integer.parseInt(latest[1]) : 0;
+        int latestPatch = latest.length > 2 ? Integer.parseInt(latest[2]) : 0;
 
-            // If no non-draft, non-pre-release releases were found, return the latest tag
-            for (JsonElement releaseElement : releases) {
-                JsonObject release = releaseElement.getAsJsonObject();
-                boolean isDraft = release.get("draft").getAsBoolean();
-                boolean isPrerelease = release.get("prerelease").getAsBoolean();
-                if (!isDraft && isPrerelease) {
-                    String tagName = release.get("tag_name").getAsString();
-                    return tagName;
-                }
-            }
-
-            // If no releases were found at all, throw an exception
-            throw new IOException("Failed to retrieve release information from GitHub API.");
-        } else {
-            throw new IOException("Failed to retrieve release information from GitHub API. Status code: " + statusCode);
+        // Compare major, minor, and patch version numbers
+        if (latestMajor > currentMajor ||
+                (latestMajor == currentMajor && latestMinor > currentMinor) ||
+                (latestMajor == currentMajor && latestMinor == currentMinor && latestPatch > currentPatch)) {
+            return true;
         }
-    }
 
-    public static boolean isVersionNewer(String version1, String version2) {
-        String[] v1 = version1.replaceAll("[^0-9.]+", "").split("\\.");
-        String[] v2 = version2.replaceAll("[^0-9.]+", "").split("\\.");
+        // If major, minor, and patch version numbers are equal, compare pre-release parts
+        if (latest.length > 3 && current.length > 3) {
+            String currentPreRelease = current[3];
+            String latestPreRelease = latest[3];
 
-        for (int i = 0; i < Math.max(v1.length, v2.length); i++) {
-            int n1 = i < v1.length ? Integer.parseInt(v1[i]) : 0;
-            int n2 = i < v2.length ? Integer.parseInt(v2[i]) : 0;
-            if (n1 != n2) {
-                return n1 > n2;
+            if (currentPreRelease.isEmpty() && !latestPreRelease.isEmpty()) {
+                return true;
+            } else if (!currentPreRelease.isEmpty() && latestPreRelease.isEmpty()) {
+                return false;
+            } else if (!currentPreRelease.isEmpty() && !latestPreRelease.isEmpty()) {
+                return currentPreRelease.compareTo(latestPreRelease) < 0;
             }
         }
 
         return false;
     }
 
+
+    private String getLatestVersion() {
+        try {
+            URL url = new URL("https://api.github.com/repos/" + username + "/" + repository + "/releases/latest");
+            HttpURLConnection con = (HttpURLConnection) url.openConnection();
+            con.setRequestMethod("GET");
+            con.setRequestProperty("Accept", "application/vnd.github.v3+json");
+
+            Scanner scanner = new Scanner(con.getInputStream());
+            String response = scanner.useDelimiter("\\A").next();
+            scanner.close();
+
+            System.out.println(response.split("\"tag_name\":\"")[1].split("\"")[0].replace("v", ""));
+
+            return response.split("\"tag_name\":\"")[1].split("\"")[0].replace("v", "");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return null;
+    }
 }
