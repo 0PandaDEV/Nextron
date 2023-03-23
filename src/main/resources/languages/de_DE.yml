@@ -1,5 +1,5 @@
-activate_message: "§aAktiviert"
-deactivate_message: "§aDeaktiviert"
+activate_message: "§aErfolgreich geladen"
+deactivate_message: "§aErfolgreich entladen"
 
 command_instance_error: "§6Du musst diesen Command als Spieler ausführen!"
 no_perms: "§cDazu hast du keine Berechtigung"
