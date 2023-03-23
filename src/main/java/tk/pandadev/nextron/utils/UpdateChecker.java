@@ -25,8 +25,14 @@ public class UpdateChecker {
             String latestReleaseTag = getLatestReleaseTag();
             String currentVersion = plugin.getDescription().getVersion();
             if (isVersionNewer(latestReleaseTag, currentVersion)) {
-                plugin.getLogger().info("A newer version of the plugin is available: " + latestReleaseTag);
-                // perform update logic here
+                System.out.println(" ");
+                System.out.println("§8---------------< §x§b§1§8§0§f§f§lNextron Update §8>---------------");
+                System.out.println(" ");
+                System.out.println("§7Current version: §cv" + currentVersion);
+                System.out.println("§7Latest version: §a" + latestReleaseTag);
+                System.out.println(" ");
+                System.out.println("§8------------------------------------------------");
+                System.out.println(" ");
             } else {
                 plugin.getLogger().info("Plugin is up to date.");
             }
@@ -45,29 +51,23 @@ public class UpdateChecker {
             Scanner scanner = new Scanner(connection.getInputStream());
             String responseBody = scanner.useDelimiter("\\A").next();
             scanner.close();
-
-            // Find the first release that's not a draft or a pre-release
+            // Find the first release that's not a draft
             JsonParser parser = new JsonParser();
             JsonArray releases = parser.parse(responseBody).getAsJsonArray();
             for (JsonElement releaseElement : releases) {
                 JsonObject release = releaseElement.getAsJsonObject();
                 boolean isDraft = release.get("draft").getAsBoolean();
-                boolean isPrerelease = release.get("prerelease").getAsBoolean();
-                if (!isDraft && !isPrerelease) {
+                if (!isDraft) {
                     String tagName = release.get("tag_name").getAsString();
                     return tagName;
                 }
             }
 
-            // If no non-draft, non-pre-release releases were found, return the latest tag
-            for (JsonElement releaseElement : releases) {
-                JsonObject release = releaseElement.getAsJsonObject();
-                boolean isDraft = release.get("draft").getAsBoolean();
-                boolean isPrerelease = release.get("prerelease").getAsBoolean();
-                if (!isDraft && isPrerelease) {
-                    String tagName = release.get("tag_name").getAsString();
-                    return tagName;
-                }
+            // If no non-draft releases were found, return the latest tag
+            if (!releases.isJsonNull() && releases.size() > 0) {
+                JsonObject latestRelease = releases.get(0).getAsJsonObject();
+                String latestTagName = latestRelease.get("tag_name").getAsString();
+                return latestTagName;
             }
 
             // If no releases were found at all, throw an exception
@@ -77,19 +77,27 @@ public class UpdateChecker {
         }
     }
 
-    public static boolean isVersionNewer(String version1, String version2) {
-        String[] v1 = version1.replaceAll("[^0-9.]+", "").split("\\.");
-        String[] v2 = version2.replaceAll("[^0-9.]+", "").split("\\.");
+    public static boolean isVersionNewer(String remoteVersion, String currentVersion){
+        int remote = Integer.parseInt(remoteVersion.replaceAll("[^\\d]+", ""));
+        int current = Integer.parseInt(currentVersion.replaceAll("[^\\d]+", ""));
 
-        for (int i = 0; i < Math.max(v1.length, v2.length); i++) {
-            int n1 = i < v1.length ? Integer.parseInt(v1[i]) : 0;
-            int n2 = i < v2.length ? Integer.parseInt(v2[i]) : 0;
-            if (n1 != n2) {
-                return n1 > n2;
-            }
+        if (String.valueOf(current).length() == 4 && String.valueOf(remote).length() == 4) return remote > current;
+        else if (String.valueOf(remote).length() == 4){
+
+            // substring but from behind
+
+            String lat = remoteVersion.replaceAll("beta.*$", "");
+            int r = Integer.parseInt(lat.replaceAll("[^\\d]+", ""));
+            return !(r <= current);
+        } else if (String.valueOf(current).length() == 4){
+
+            // substring but from behind
+
+            String curr = currentVersion.replaceAll("beta.*$", "");
+            int c = Integer.parseInt(curr.replaceAll("[^\\d]+", ""));
+            return remote >= c;
         }
-
-        return false;
+        return remote > current;
     }
 
 }
