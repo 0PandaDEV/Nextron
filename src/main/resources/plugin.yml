@@ -67,10 +67,13 @@ commands:
     aliases:
       - m
   rl:
-    permission: nextron.rl
+    permission: nextron.reload
+    aliases:
+      - reload
   features:
     permission: nextron.features
   back:
     permission: nextron.back
   rename:
     permission: nextron.rename
+  help:
