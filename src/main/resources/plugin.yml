@@ -77,3 +77,5 @@ commands:
   rename:
     permission: nextron.rename
   help:
+  god:
+    permission: nextron.god
