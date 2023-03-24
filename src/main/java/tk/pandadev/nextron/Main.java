@@ -33,8 +33,6 @@ public final class Main extends BasePlugin {
         updateChecker = new UpdateChecker(this, "0pandadev/nextron");
         updateChecker.checkForUpdates();
 
-        System.out.println(getDescription().getVersion());
-
         saveDefaultConfig();
         Configs.createSettingsConfig();
         Configs.createHomeConfig();
