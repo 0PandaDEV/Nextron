@@ -82,21 +82,11 @@ public class UpdateChecker {
         int current = Integer.parseInt(currentVersion.replaceAll("[^\\d]+", ""));
 
         if (String.valueOf(current).length() == 4 && String.valueOf(remote).length() == 4) return remote > current;
-        else if (String.valueOf(remote).length() == 4){
 
-            // substring but from behind
+        else if (String.valueOf(remote).length() == 4) return !(Integer.parseInt(String.valueOf(remote).substring(0, String.valueOf(remote).length() - 1)) <= current);
 
-            String lat = remoteVersion.replaceAll("beta.*$", "");
-            int r = Integer.parseInt(lat.replaceAll("[^\\d]+", ""));
-            return !(r <= current);
-        } else if (String.valueOf(current).length() == 4){
+        else if (String.valueOf(current).length() == 4) return remote >= Integer.parseInt(String.valueOf(current).substring(0, String.valueOf(current).length() - 1));
 
-            // substring but from behind
-
-            String curr = currentVersion.replaceAll("beta.*$", "");
-            int c = Integer.parseInt(curr.replaceAll("[^\\d]+", ""));
-            return remote >= c;
-        }
         return remote > current;
     }
 
