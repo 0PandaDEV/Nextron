@@ -152,3 +152,9 @@ anvil_gui_one_word: "Nur ein Wort"
 
 rank_gui_not_ready: "§7Nicht bereit einen neuen Rank zu erstellen"
 rank_gui_ready: "§aBereit einen neuen Rank zu erstellen"
+
+god_on: "§7Du bist jetzt im God modus"
+god_off: "§7Du bist nicht mehr im God modus"
+
+god_on_other: "§a%p §7ist jetzt im God modus"
+god_off_other: "§a%p §7ist nicht mehr im God modus"

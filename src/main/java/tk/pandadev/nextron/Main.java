@@ -107,6 +107,8 @@ public final class Main extends BasePlugin {
         getCommand("features").setExecutor(new FeatureCommand());
         getCommand("back").setExecutor(new BackCommand());
         getCommand("rename").setExecutor(new RenameCommand());
+        getCommand("god").setExecutor(new GodCommand());
+        getCommand("help").setExecutor(new HelpCommand());
     }
 
 
