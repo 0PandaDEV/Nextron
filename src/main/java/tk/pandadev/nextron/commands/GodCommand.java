@@ -24,8 +24,8 @@ public class GodCommand implements CommandExecutor, TabCompleter {
 
             if (player.hasPermission("nextron.god")) {
                 player.setInvulnerable(!player.isInvulnerable());
-                if (player.isInvulnerable()) player.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("god_off")); // off message
-                else player.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("god_on")); // on message
+                if (player.isInvulnerable()) player.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("god_on"));
+                else player.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("god_off"));
             }
         } else if (args.length == 1) {
             if (sender.hasPermission("nextron.god.other")) {
@@ -34,8 +34,8 @@ public class GodCommand implements CommandExecutor, TabCompleter {
                 if (target == null){ sender.sendMessage(Main.getInvalidPlayer()); return false;}
 
                 target.setInvulnerable(!target.isInvulnerable());
-                if (target.isInvulnerable()) sender.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("god_off_other")); // off message
-                else sender.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("god_on_other")); // on message
+                if (target.isInvulnerable()) sender.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("god_on_other"));
+                else sender.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("god_off_other"));
             }
         }
 
