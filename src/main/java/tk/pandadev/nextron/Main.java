@@ -23,7 +23,6 @@ public final class Main extends BasePlugin {
     public static String NoPerm;
     public static String InvalidPlayer;
     public static String CommandInstance;
-    private UpdateChecker updateChecker;
 
     public static HashMap<Player, Player> tpa = new HashMap<>();
 
@@ -32,8 +31,14 @@ public final class Main extends BasePlugin {
         super.onEnable();
         instance = this;
 
-        updateChecker = new UpdateChecker(this, "0pandadev/nextron");
-        updateChecker.checkForUpdates();
+        UpdateChecker updateChecker = new UpdateChecker("0pandadev", "nextron");
+        if (updateChecker.isNewerVersion(getDescription().getVersion())) {
+            getLogger().warning("A new version of your plugin is available!");
+        } else {
+            getLogger().info("Your plugin is up to date!");
+        }
+
+        System.out.println(getDescription().getVersion());
 
         saveDefaultConfig();
         Configs.createSettingsConfig();
@@ -82,7 +87,6 @@ public final class Main extends BasePlugin {
         }
 
         instance = null;
-        updateChecker = null;
         Bukkit.getConsoleSender().sendMessage(Prefix + LanguageLoader.translationMap.get("disabled_message"));
     }
 
@@ -108,7 +112,6 @@ public final class Main extends BasePlugin {
         getCommand("features").setExecutor(new FeatureCommand());
         getCommand("back").setExecutor(new BackCommand());
         getCommand("rename").setExecutor(new RenameCommand());
-        getCommand("help").setExecutor(new HelpCommand());
     }
 
 
