@@ -158,3 +158,5 @@ god_off: "§7You're no longer in god mode"
 
 god_on_other: "§a%p §7is now in god mode"
 god_off_other: "§a%p §7is no longer in god mode"
+
+time_success: "§7Time has been set to §a%d"

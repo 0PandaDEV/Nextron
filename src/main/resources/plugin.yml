@@ -79,3 +79,9 @@ commands:
   help:
   god:
     permission: nextron.god
+  day:
+    permission: nextron.time
+    aliases:
+      - night
+      - noon
+      - midnight

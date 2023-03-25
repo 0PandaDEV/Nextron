@@ -107,6 +107,7 @@ public final class Main extends BasePlugin {
         getCommand("rename").setExecutor(new RenameCommand());
         getCommand("god").setExecutor(new GodCommand());
         getCommand("help").setExecutor(new HelpCommand());
+        getCommand("day").setExecutor(new TimeCommand());
     }
 
 
