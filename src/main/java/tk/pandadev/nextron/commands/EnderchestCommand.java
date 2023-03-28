@@ -12,7 +12,7 @@ import java.util.List;
 
 public class EnderchestCommand extends CommandBase implements TabCompleter {
     public EnderchestCommand() {
-        super("enderchest", "Opens a GUI where the player can access his enderchest.", "/enderchest", "nextron.enderchest");
+        super("enderchest", "Opens a GUI where the player can access his enderchest.", "/enderchest [player]\n/ec [player]", "nextron.enderchest");
     }
 
     @Override
