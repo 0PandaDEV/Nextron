@@ -14,13 +14,17 @@ import tk.pandadev.nextron.utils.LanguageLoader;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TpaCommand implements CommandExecutor, TabCompleter {
-    @Override
-    public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
+public class TpaCommand extends CommandBase implements CommandExecutor, TabCompleter {
 
+    public TpaCommand(){
+        super("tpa", "Sends a tpa request to a player", "/tpa <player>", "nextron.tpa");
+    }
+
+    @Override
+    protected void execute(CommandSender sender, String label, String[] args) {
         if (!(sender instanceof Player)) {
             sender.sendMessage(Main.getCommandInstance());
-            return false;
+            return;
         }
 
         Player player = (Player) (sender);
@@ -29,7 +33,7 @@ public class TpaCommand implements CommandExecutor, TabCompleter {
             try {
                 Player target = Bukkit.getPlayer(args[0]);
                 if (!target.equals(player)){
-                    if (!Configs.settings.getBoolean(target.getUniqueId() + ".allowtpas")) {player.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("tpa_allow")); return false;}
+                    if (!Configs.settings.getBoolean(target.getUniqueId() + ".allowtpas")) {player.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("tpa_allow")); return;}
                     Main.tpa.put(target, player);
                     target.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("tpa_target_success_1").replace("%p", player.getName()));
                     target.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("tpa_target_success_2"));
@@ -45,8 +49,6 @@ public class TpaCommand implements CommandExecutor, TabCompleter {
         } else {
             player.sendMessage(Main.getPrefix() + "§c/tpa <player>");
         }
-
-        return false;
     }
 
     @Override

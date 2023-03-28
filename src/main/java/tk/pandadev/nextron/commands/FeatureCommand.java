@@ -3,7 +3,6 @@ package tk.pandadev.nextron.commands;
 import org.bukkit.Bukkit;
 import org.bukkit.Sound;
 import org.bukkit.command.Command;
-import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabCompleter;
 import org.bukkit.entity.Player;
@@ -18,20 +17,24 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
-public class FeatureCommand implements CommandExecutor, TabCompleter {
+public class FeatureCommand extends CommandBase implements TabCompleter {
+
+    public FeatureCommand() {
+        super("feature", "Opens a GUI where you can enable/disable all the systems in the plugin", "/feature [enable/disable] [feature]", "nextron.feature");
+    }
 
     @Override
-    public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
+    protected void execute(CommandSender sender, String label, String[] args) {
         List<String> validValues = Arrays.asList("warp_system", "home_system", "rank_system", "tpa_system");
 
         if (args.length == 0){
-            if (!(sender instanceof Player)) {sender.sendMessage(Main.getCommandInstance()); return false;}
+            if (!(sender instanceof Player)) {sender.sendMessage(Main.getCommandInstance()); return;}
             Player player = (Player) (sender);
-            if (!player.isOp()) {player.sendMessage(Main.getNoPerm()); return false;}
+            if (!player.isOp()) {player.sendMessage(Main.getNoPerm()); return;}
             new FeatureGui().open(player);
             player.playSound(player.getLocation(), Sound.BLOCK_BARREL_OPEN, 100, 1);
         } else if (args.length == 2){
-            if (!validValues.contains(args[1])) {sender.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("feature_validvalues")); return false;}
+            if (!validValues.contains(args[1])) {sender.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("feature_validvalues")); return;}
             if (args[0].equalsIgnoreCase("enable")){
                 Configs.feature.set(args[1], true);
                 Configs.saveFeatureConfig();
@@ -59,10 +62,8 @@ public class FeatureCommand implements CommandExecutor, TabCompleter {
                 sender.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("feature_disable").replace("%n", args[1].replace("_system", "")));
             }
         } else {
-            sender.sendMessage(Main.getPrefix() + "§c/features"); return false;
+            sender.sendMessage(Main.getPrefix() + "§c/features");
         }
-
-        return false;
     }
 
     @Override

@@ -25,14 +25,17 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
-public class HomeCommands implements CommandExecutor, TabCompleter {
+public class HomeCommands extends CommandBase implements CommandExecutor, TabCompleter {
+
+    public HomeCommands(){
+        super("home", "Teleports you instant to a player set position", "/home <home>", "nextron.home");
+    }
 
     @Override
-    public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-
+    protected void execute(CommandSender sender, String label, String[] args) {
         if (!(sender instanceof Player)) {
             sender.sendMessage(Main.getCommandInstance());
-            return false;
+            return;
         }
 
         Player player = (Player) (sender);
@@ -92,7 +95,7 @@ public class HomeCommands implements CommandExecutor, TabCompleter {
 
             if (Configs.home.getString("Homes." + player.getUniqueId() + "." + args[0].toLowerCase()) == null) {
                 player.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("home_error").replace("%h", args[0].toLowerCase()));
-                return false;
+                return;
             }
 
             new AnvilGUI.Builder()
@@ -116,9 +119,6 @@ public class HomeCommands implements CommandExecutor, TabCompleter {
         } else {
             player.sendMessage(Main.getPrefix() + "§c/home|sethome|delhome <name>");
         }
-
-
-        return false;
     }
 
     @Override

@@ -2,7 +2,6 @@ package tk.pandadev.nextron.commands;
 
 import org.bukkit.Location;
 import org.bukkit.command.Command;
-import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabCompleter;
 import org.bukkit.entity.Player;
@@ -12,12 +11,16 @@ import tk.pandadev.nextron.utils.Configs;
 import java.util.ArrayList;
 import java.util.List;
 
-public class BackCommand implements CommandExecutor, TabCompleter {
+public class BackCommand extends CommandBase implements TabCompleter {
+
+    public BackCommand(){
+        super("back", "Teleports the player back to the last (death, tpa, home, warp) position.", "/back", "nextron.back");
+    }
 
     @Override
-    public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-
-        if (!(sender instanceof Player)) { sender.sendMessage(Main.getCommandInstance()); return false; }
+    protected void execute(CommandSender sender, String label, String[] args) {
+        
+        if (!(sender instanceof Player)) { sender.sendMessage(Main.getCommandInstance()); return; }
         Player player = (Player) (sender);
 
         if (args.length == 0){
@@ -29,8 +32,6 @@ public class BackCommand implements CommandExecutor, TabCompleter {
         } else {
             player.sendMessage(Main.getPrefix() + "§c/back");
         }
-
-        return false;
     }
 
     @Override

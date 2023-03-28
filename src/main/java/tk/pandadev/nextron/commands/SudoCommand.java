@@ -12,10 +12,14 @@ import tk.pandadev.nextron.utils.LanguageLoader;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SudoCommand implements CommandExecutor, TabCompleter {
-    @Override
-    public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
+public class SudoCommand extends CommandBase implements CommandExecutor, TabCompleter {
 
+    public SudoCommand(){
+        super("sudo", "Forces a player to execute a command", "/sudo <player> <command>", "nextron.sudo");
+    }
+
+    @Override
+    protected void execute(CommandSender sender, String label, String[] args) {
         if (args.length >= 2){
             if (sender.hasPermission("nextron.sudo")){
                 Player target = Bukkit.getPlayer(args[0]);
@@ -38,8 +42,6 @@ public class SudoCommand implements CommandExecutor, TabCompleter {
         }else {
             sender.sendMessage(Main.getPrefix() + "§c/sudo <player> <command>");
         }
-
-        return false;
     }
 
     @Override

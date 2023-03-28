@@ -1,7 +1,6 @@
 package tk.pandadev.nextron.commands;
 
 import org.apache.commons.lang3.math.NumberUtils;
-import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -9,13 +8,17 @@ import tk.pandadev.nextron.Main;
 import tk.pandadev.nextron.utils.Configs;
 import tk.pandadev.nextron.utils.LanguageLoader;
 
-public class SpeedCommand implements CommandExecutor {
-    @Override
-    public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
+public class SpeedCommand extends CommandBase implements CommandExecutor {
 
+    public SpeedCommand(){
+        super("speed", "Allows you to set your fly/walk speed", "/speed [speed]", "nextron.speed");
+    }
+
+    @Override
+    protected void execute(CommandSender sender, String label, String[] args) {
         if (!(sender instanceof Player)) {
             sender.sendMessage(Main.getCommandInstance());
-            return false;
+            return;
         }
 
         Player player = (Player) (sender);
@@ -57,12 +60,8 @@ public class SpeedCommand implements CommandExecutor {
             }else{
                 player.sendMessage(Main.getNoPerm());
             }
-        }
-
-        else {
+        } else {
             player.sendMessage(Main.getPrefix() + "§c/speed <amount>");
         }
-
-        return false;
     }
 }

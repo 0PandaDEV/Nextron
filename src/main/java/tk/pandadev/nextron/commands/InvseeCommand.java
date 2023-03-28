@@ -12,13 +12,17 @@ import tk.pandadev.nextron.utils.LanguageLoader;
 import java.util.ArrayList;
 import java.util.List;
 
-public class InvseeCommand implements CommandExecutor, TabCompleter {
-    @Override
-    public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
+public class InvseeCommand extends CommandBase implements CommandExecutor, TabCompleter {
 
+    public InvseeCommand(){
+        super("invsee", "Lets you inspect and control another player's inventory", "/invsee <player>", "nextron.invsee");
+    }
+
+    @Override
+    protected void execute(CommandSender sender, String label, String[] args) {
         if (!(sender instanceof Player)) {
             sender.sendMessage(Main.getCommandInstance());
-            return false;
+            return;
         }
 
         Player player = (Player) (sender);
@@ -49,8 +53,6 @@ public class InvseeCommand implements CommandExecutor, TabCompleter {
         } else {
             player.sendMessage(Main.getPrefix() + "§c/invsee <player>");
         }
-
-        return false;
     }
 
     @Override

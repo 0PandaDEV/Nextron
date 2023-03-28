@@ -13,15 +13,19 @@ import tk.pandadev.nextron.utils.LanguageLoader;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FlyCommand implements CommandExecutor, TabCompleter {
-    @Override
-    public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
+public class FlyCommand extends CommandBase implements CommandExecutor, TabCompleter {
 
+    public FlyCommand() {
+        super("fly", "Enables/disables fly for you or another player", "/fly [player]", "nextron.fly");
+    }
+
+    @Override
+    protected void execute(CommandSender sender, String label, String[] args) {
         if (args.length == 1) {
-            if (!sender.hasPermission("nextron.fly.other")) { sender.sendMessage(Main.getNoPerm()); return false; }
+            if (!sender.hasPermission("nextron.fly.other")) { sender.sendMessage(Main.getNoPerm()); return; }
 
             Player target = Bukkit.getPlayer(args[0]);
-            if (target != null){ sender.sendMessage(Main.getInvalidPlayer()); return false; }
+            if (target != null){ sender.sendMessage(Main.getInvalidPlayer()); return; }
 
             if (target.getAllowFlight()){
                 sender.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("fly_other_off").replace("%t", target.getName()));
@@ -36,12 +40,12 @@ public class FlyCommand implements CommandExecutor, TabCompleter {
 
             if (!(sender instanceof Player)) {
                 sender.sendMessage(Main.getCommandInstance());
-                return false;
+                return;
             }
 
             Player player = (Player) (sender);
 
-            if (!player.hasPermission("nextron.fly")) { player.sendMessage(Main.getNoPerm()); return false; }
+            if (!player.hasPermission("nextron.fly")) { player.sendMessage(Main.getNoPerm()); return; }
 
             if (player.getAllowFlight()){
                 if (Configs.settings.getBoolean(player.getUniqueId() + ".feedback")){
@@ -57,8 +61,6 @@ public class FlyCommand implements CommandExecutor, TabCompleter {
         }else {
             sender.sendMessage(Main.getPrefix() + "§c/fly [player]");
         }
-
-        return false;
     }
 
     @Override

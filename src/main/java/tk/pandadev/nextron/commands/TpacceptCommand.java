@@ -1,7 +1,6 @@
 package tk.pandadev.nextron.commands;
 
 import org.bukkit.Sound;
-import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -9,13 +8,18 @@ import tk.pandadev.nextron.Main;
 import tk.pandadev.nextron.utils.Configs;
 import tk.pandadev.nextron.utils.LanguageLoader;
 
-public class TpacceptCommand implements CommandExecutor {
-    @Override
-    public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
+public class TpacceptCommand extends CommandBase implements CommandExecutor {
 
+    public TpacceptCommand(){
+        super("tpaccept", "Accepts a incoming tpa request", "/tpaccept", "nextron.tpaccept");
+    }
+
+
+    @Override
+    protected void execute(CommandSender sender, String label, String[] args) {
         if (!(sender instanceof Player)) {
             sender.sendMessage(Main.getCommandInstance());
-            return false;
+            return;
         }
 
         Player player = (Player) (sender);
@@ -47,7 +51,5 @@ public class TpacceptCommand implements CommandExecutor {
         } else {
             player.sendMessage(Main.getPrefix() + "§c/tpaccept");
         }
-
-        return false;
     }
 }

@@ -12,14 +12,17 @@ import tk.pandadev.nextron.guis.MainGui;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MenuCommand implements CommandExecutor, TabCompleter {
+public class MenuCommand extends CommandBase implements CommandExecutor, TabCompleter {
+
+    public MenuCommand(){
+        super("menu", "Opens the menu where you can simply do everything", "/menu", "");
+    }
 
     @Override
-    public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-
+    protected void execute(CommandSender sender, String label, String[] args) {
         if (!(sender instanceof Player)) {
             sender.sendMessage(Main.getCommandInstance());
-            return false;
+            return;
         }
 
         Player player = (Player) (sender);
@@ -30,8 +33,6 @@ public class MenuCommand implements CommandExecutor, TabCompleter {
         } else {
             player.sendMessage(Main.getPrefix() + "§c/menu");
         }
-
-        return false;
     }
 
     @Override

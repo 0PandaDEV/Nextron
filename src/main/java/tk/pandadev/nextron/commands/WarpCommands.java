@@ -20,82 +20,85 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
-public class WarpCommands implements CommandExecutor, TabCompleter {
+public class WarpCommands extends CommandBase implements CommandExecutor, TabCompleter {
+
+    public WarpCommands(){
+        super("warp", "Teleports you to public available positions", "/warp <warp>", "nextron.warp");
+    }
+
     @Override
-    public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-
-
+    protected void execute(CommandSender sender, String label, String[] args) {
         if (label.equalsIgnoreCase("setwarp") && args.length == 1){
 
             if (!(sender instanceof Player)) {
                 sender.sendMessage(Main.getCommandInstance());
-                return false;
+                return;
             }
 
             Player player = (Player) (sender);
 
             if (!player.hasPermission("nextron.setwarp")) {
                 player.sendMessage(Main.getNoPerm());
-                return false;
+                return;
             }
             if (Configs.warp.get("Warps." + args[0].toLowerCase()) != null){
                 player.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("setwarp_error").replace("%w", args[0].toLowerCase()));
-                return false;
+                return;
             }
             Configs.warp.set("Warps." + args[0].toLowerCase(), player.getLocation());
             Configs.saveWarpConfig();
             player.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("setwarp_success").replace("%w", args[0].toLowerCase()));
-            return true;
+            return;
 
         } else if (label.equalsIgnoreCase("delwarp") && args.length == 1){
 
             if (!sender.hasPermission("nextron.delwarp")){
                 sender.sendMessage(Main.getNoPerm());
-                return false;
+                return;
             }
             if (Configs.warp.get("Warps." + args[0].toLowerCase()) == null) {
                 sender.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("delwarp_error").replace("%w", args[0].toLowerCase()));
-                return false;
+                return;
             }
             Configs.warp.set("Warps." + args[0].toLowerCase(), null);
             Configs.saveWarpConfig();
             sender.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("delwarp_success").replace("%w", args[0].toLowerCase()));
-            return true;
+            return;
 
         } else if (label.equalsIgnoreCase("warp") || label.equalsIgnoreCase("w") && args.length == 1){
 
             if (!(sender instanceof Player)) {
                 sender.sendMessage(Main.getCommandInstance());
-                return false;
+                return;
             }
 
             Player player = (Player) (sender);
 
             if (Configs.warp.get("Warps." + args[0].toLowerCase()) == null) {
                 player.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("warp_error").replace("%w", args[0].toLowerCase()));
-                return false;
+                return;
             }
             player.teleport((Location) Configs.warp.get("Warps." + args[0].toLowerCase()));
             if (Configs.settings.getBoolean(player.getUniqueId() + ".feedback")) player.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("warp_success").replace("%w", args[0].toLowerCase()));
             player.playSound(player.getLocation(), Sound.ENTITY_ENDERMAN_TELEPORT, 1.0f, 1.0f);
-            return true;
+            return;
 
         } else if (label.equalsIgnoreCase("renamewarp") && args.length == 1) {
 
             if (!sender.hasPermission("nextron.renamewarp")){
                 sender.sendMessage(Main.getNoPerm());
-                return false;
+                return;
             }
             if (!(sender instanceof Player)) {
                 sender.sendMessage(Main.getCommandInstance());
-                return false;
+                return;
             }
 
             Player player = (Player) (sender);
 
             if (Configs.warp.get("Warps." + args[0].toLowerCase()) == null) {
                 sender.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("warp_error").replace("%w", args[0].toLowerCase()));
-                return false;
+                return;
             }
 
             new AnvilGUI.Builder()
@@ -118,9 +121,7 @@ public class WarpCommands implements CommandExecutor, TabCompleter {
 
         } else {
             sender.sendMessage(Main.getPrefix() + "§c/warp|setwarp|delwarp <NAME>");
-        }
-
-        return true;
+        }   
     }
 
     @Override

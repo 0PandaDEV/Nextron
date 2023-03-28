@@ -13,18 +13,20 @@ import tk.pandadev.nextron.utils.LanguageLoader;
 import java.util.ArrayList;
 import java.util.List;
 
-public class GamemodeCommand implements CommandExecutor, TabCompleter {
+public class GamemodeCommand extends CommandBase implements CommandExecutor, TabCompleter {
 
+    public GamemodeCommand(){
+        super("gamemode", "Changes the gamemode", "/gamemode <gamemode> [player]", "nextron.gamemode");
+    }
 
     @Override
-    public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-
+    protected void execute(CommandSender sender, String label, String[] args) {
         if (args.length == 0){
-            if (!(sender instanceof Player)) { sender.sendMessage(Main.getCommandInstance()); return false; }
+            if (!(sender instanceof Player)) { sender.sendMessage(Main.getCommandInstance()); return; }
 
             Player player = (Player) (sender);
 
-            if (!player.hasPermission("nextron.gamemode")) {player.sendMessage(Main.getNoPerm()); return false;}
+            if (!player.hasPermission("nextron.gamemode")) {player.sendMessage(Main.getNoPerm()); return;}
 
             GameMode gamemode = null;
             if (label.equalsIgnoreCase("gms")) {gamemode = GameMode.SURVIVAL;}
@@ -33,19 +35,19 @@ public class GamemodeCommand implements CommandExecutor, TabCompleter {
             else if (label.equalsIgnoreCase("gmsp")) {gamemode = GameMode.SPECTATOR;}
             else {
                 sender.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("gamemode_invalid"));
-                return false;
+                return;
             }
 
-            if (player.getGameMode().equals(gamemode)){ player.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("gamemode_error").replace("%g", gamemode.toString().toLowerCase())); return false; }
+            if (player.getGameMode().equals(gamemode)){ player.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("gamemode_error").replace("%g", gamemode.toString().toLowerCase())); return; }
 
             player.setGameMode(gamemode);
             player.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("gamemode_success").replace("%g", gamemode.toString().toLowerCase()));
         } else if (args.length == 1) {
-            if (!(sender instanceof Player)) { sender.sendMessage(Main.getCommandInstance()); return false; }
+            if (!(sender instanceof Player)) { sender.sendMessage(Main.getCommandInstance()); return; }
 
             Player player = (Player) (sender);
 
-            if (!player.hasPermission("nextron.gamemode")) {player.sendMessage(Main.getNoPerm()); return false;}
+            if (!player.hasPermission("nextron.gamemode")) {player.sendMessage(Main.getNoPerm()); return;}
 
             GameMode gamemode = null;
             if (args[0].equalsIgnoreCase("0") || label.equalsIgnoreCase("gms")) {gamemode = GameMode.SURVIVAL;}
@@ -62,15 +64,15 @@ public class GamemodeCommand implements CommandExecutor, TabCompleter {
             else if (args[0].equalsIgnoreCase("sp")) {gamemode = GameMode.SPECTATOR;}
             else {
                 sender.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("gamemode_invalid"));
-                return false;
+                return;
             }
 
-            if (player.getGameMode().equals(gamemode)){ player.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("gamemode_error").replace("%g", gamemode.toString().toLowerCase())); return false; }
+            if (player.getGameMode().equals(gamemode)){ player.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("gamemode_error").replace("%g", gamemode.toString().toLowerCase())); return; }
 
             player.setGameMode(gamemode);
             player.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("gamemode_success").replace("%g", gamemode.toString().toLowerCase()));
         } else if (args.length == 2){
-            if (!sender.hasPermission("nextron.gamemode.other")) {sender.sendMessage(Main.getNoPerm()); return false;}
+            if (!sender.hasPermission("nextron.gamemode.other")) {sender.sendMessage(Main.getNoPerm()); return;}
 
             Player target = Bukkit.getPlayer(args[1]);
             GameMode gamemode = null;
@@ -89,17 +91,16 @@ public class GamemodeCommand implements CommandExecutor, TabCompleter {
             else {
                 System.out.println("asdad");
                 sender.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("gamemode_invalid"));
-                return false;
+                return;
             }
 
-            if (target.getGameMode().equals(gamemode)){sender.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("gamemode_other_error").replace("%t", target.getName()).replace("%g", gamemode.toString().toLowerCase()));return false;}
+            if (target.getGameMode().equals(gamemode)){sender.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("gamemode_other_error").replace("%t", target.getName()).replace("%g", gamemode.toString().toLowerCase()));return;}
 
             target.setGameMode(gamemode);
             sender.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("gamemode_other_success").replace("%t", target.getName()).replace("%g", gamemode.toString().toLowerCase()));
         } else {
             sender.sendMessage(Main.getPrefix() + "§c/gamemode <mode> [player]");
         }
-        return true;
     }
 
     @Override

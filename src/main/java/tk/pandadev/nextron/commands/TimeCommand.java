@@ -11,18 +11,21 @@ import tk.pandadev.nextron.utils.LanguageLoader;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TimeCommand implements CommandExecutor, TabCompleter {
+public class TimeCommand extends CommandBase implements CommandExecutor, TabCompleter {
+
+    public TimeCommand(){
+        super("day", "Allows you to set the time", "/day | night | midnight | noon", "nextron.time");
+    }
 
     @Override
-    public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-
+    protected void execute(CommandSender sender, String label, String[] args) {
         if (!(sender instanceof Player)) {
             sender.sendMessage(Main.getCommandInstance());
-            return false;
+            return;
         }
         Player player = (Player) (sender);
 
-        if (!player.hasPermission("nextron.time")) {player.sendMessage(Main.getNoPerm()); return false;}
+        if (!player.hasPermission("nextron.time")) {player.sendMessage(Main.getNoPerm()); return;}
 
         if (label.equalsIgnoreCase("day") && args.length == 0) {
             player.getLocation().getWorld().setTime(1000);
@@ -37,6 +40,11 @@ public class TimeCommand implements CommandExecutor, TabCompleter {
             player.getLocation().getWorld().setTime(6000);
             player.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("time_success").replace("%d", "noon"));
         } else sender.sendMessage(Main.getPrefix() + "§c/day | night | midnight | noon");
+    }
+
+    @Override
+    public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
+
 
         return false;
 

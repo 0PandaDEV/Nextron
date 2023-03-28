@@ -13,17 +13,20 @@ import tk.pandadev.nextron.utils.LanguageLoader;
 import java.util.ArrayList;
 import java.util.List;
 
-public class RenameCommand implements CommandExecutor, TabCompleter {
+public class RenameCommand extends CommandBase implements CommandExecutor, TabCompleter {
+
+    public RenameCommand(){
+        super("rename", "Renames the item you are currently holding", "/rename <name>", "nextron.rename");
+    }
 
     @Override
-    public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-
-        if (!(sender instanceof Player)) { sender.sendMessage(Main.getCommandInstance()); return false; }
+    protected void execute(CommandSender sender, String label, String[] args) {
+        if (!(sender instanceof Player)) { sender.sendMessage(Main.getCommandInstance()); return; }
         Player player = (Player) (sender);
 
         if (args.length >= 1){
             ItemMeta itemMeta = player.getItemInHand().getItemMeta();
-            if (itemMeta == null){player.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("rename_error")); return false;}
+            if (itemMeta == null){player.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("rename_error")); return;}
 
             StringBuilder sb = new StringBuilder();
             for(int i = 0; i < args.length; i++) {
@@ -36,8 +39,6 @@ public class RenameCommand implements CommandExecutor, TabCompleter {
         } else {
             player.sendMessage(Main.getPrefix() + "§c/rename <name>");
         }
-
-        return false;
     }
 
     @Override

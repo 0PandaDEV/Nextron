@@ -14,13 +14,17 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class TphereCommand implements CommandExecutor, TabCompleter {
-    @Override
-    public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
+public class TphereCommand extends CommandBase implements CommandExecutor, TabCompleter {
 
+    public TphereCommand(){
+        super("tphere", "Teleports a player to you", "/tphere <player>", "nextron.tphere");
+    }
+
+    @Override
+    protected void execute(CommandSender sender, String label, String[] args) {
         if (!(sender instanceof Player)) {
             sender.sendMessage(Main.getCommandInstance());
-            return false;
+            return;
         }
 
         Player player = (Player) (sender);
@@ -48,8 +52,6 @@ public class TphereCommand implements CommandExecutor, TabCompleter {
         } else {
             player.sendMessage(Main.getPrefix() + "§c/tphere <player>");
         }
-
-        return false;
     }
 
     @Override

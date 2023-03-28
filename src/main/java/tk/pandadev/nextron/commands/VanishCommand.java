@@ -7,7 +7,6 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabCompleter;
 import org.bukkit.entity.Player;
-import org.bukkit.plugin.Plugin;
 import tk.pandadev.nextron.Main;
 import tk.pandadev.nextron.utils.Configs;
 import tk.pandadev.nextron.utils.LanguageLoader;
@@ -16,15 +15,17 @@ import tk.pandadev.nextron.utils.VanishAPI;
 import java.util.ArrayList;
 import java.util.List;
 
-public class VanishCommand implements CommandExecutor, TabCompleter {
+public class VanishCommand extends CommandBase implements CommandExecutor, TabCompleter {
 
-    public Plugin plugin;
+    public VanishCommand(){
+        super("vanish", "Hides you form the tab list and other players can't see you", "/vanish [player]", "nextron.vanish");
+    }
 
-    public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-
+    @Override
+    protected void execute(CommandSender sender, String label, String[] args) {
         if (!(sender instanceof Player)) {
             sender.sendMessage(Main.getCommandInstance());
-            return false;
+            return;
         }
 
         Player player = (Player) (sender);
@@ -84,7 +85,6 @@ public class VanishCommand implements CommandExecutor, TabCompleter {
         } else {
             player.sendMessage(Main.getPrefix() + "§c/vanish <player>");
         }
-        return false;
     }
 
     @Override

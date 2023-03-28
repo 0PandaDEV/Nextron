@@ -12,14 +12,16 @@ import tk.pandadev.nextron.utils.LanguageLoader;
 import java.util.ArrayList;
 import java.util.List;
 
-public class GodCommand implements CommandExecutor, TabCompleter {
+public class GodCommand extends CommandBase implements CommandExecutor, TabCompleter {
+
+    public GodCommand(){
+        super("god", "Makes you invulnerable", "/god [player]", "nextron.god");
+    }
 
     @Override
-    public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-
-
+    protected void execute(CommandSender sender, String label, String[] args) {
         if (args.length == 0){
-            if (!(sender instanceof Player)) { sender.sendMessage(Main.getCommandInstance()); return false; }
+            if (!(sender instanceof Player)) { sender.sendMessage(Main.getCommandInstance()); return; }
             Player player = (Player) (sender);
 
             if (player.hasPermission("nextron.god")) {
@@ -31,16 +33,15 @@ public class GodCommand implements CommandExecutor, TabCompleter {
             if (sender.hasPermission("nextron.god.other")) {
                 Player target = Bukkit.getPlayer(args[0]);
 
-                if (target == null){ sender.sendMessage(Main.getInvalidPlayer()); return false;}
+                if (target == null){ sender.sendMessage(Main.getInvalidPlayer()); return;}
 
                 target.setInvulnerable(!target.isInvulnerable());
                 if (target.isInvulnerable()) sender.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("god_on_other"));
                 else sender.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("god_off_other"));
             }
         }
-
-        return false;
     }
+
 
     @Override
     public List<String> onTabComplete(CommandSender sender, Command command, String label, String[] args) {

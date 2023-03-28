@@ -17,30 +17,32 @@ import tk.pandadev.nextron.utils.LanguageLoader;
 import java.util.ArrayList;
 import java.util.List;
 
-public class HeadCommand implements CommandExecutor, TabCompleter {
-    @Override
-    public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
+public class HeadCommand extends CommandBase implements CommandExecutor, TabCompleter {
 
+    public HeadCommand(){
+        super("head", "Gives you the head of any player", "/head <player>", "nextron.head");
+    }
+
+    @Override
+    protected void execute(CommandSender sender, String label, String[] args) {
         if (!(sender instanceof Player)) {
             sender.sendMessage(Main.getCommandInstance());
-            return false;
+            return;
         }
 
         Player player = (Player) (sender);
 
-        if (args.length != 1){ player.sendMessage(Main.getPrefix() + "§c/head <player>"); return false; }
-            if (!player.hasPermission("nextron.head")){ player.sendMessage(Main.getNoPerm()); return false; }
+        if (args.length != 1){ player.sendMessage(Main.getPrefix() + "§c/head <player>"); return; }
+        if (!player.hasPermission("nextron.head")){ player.sendMessage(Main.getNoPerm()); return; }
 
-            ItemStack item = new ItemStack(Material.PLAYER_HEAD, 1, (short) 3);
-            SkullMeta meta = (SkullMeta) item.getItemMeta();
-            meta.setDisplayName(args[0]);
-            meta.setOwner(args[0]);
-            item.setItemMeta(meta);
-            Inventory inventory = player.getInventory();
-            inventory.addItem(item);
-            if (Configs.settings.getBoolean(player.getUniqueId() + ".feedback")) player.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("head_success").replace("%t", args[0]));
-
-        return false;
+        ItemStack item = new ItemStack(Material.PLAYER_HEAD, 1, (short) 3);
+        SkullMeta meta = (SkullMeta) item.getItemMeta();
+        meta.setDisplayName(args[0]);
+        meta.setOwner(args[0]);
+        item.setItemMeta(meta);
+        Inventory inventory = player.getInventory();
+        inventory.addItem(item);
+        if (Configs.settings.getBoolean(player.getUniqueId() + ".feedback")) player.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("head_success").replace("%t", args[0]));
     }
 
     @Override
