@@ -47,14 +47,16 @@ public class HelpCommand extends CommandBase implements TabCompleter {
                     ""
             );
         } else if (args.length == 1){
+            String usage = CommandBase.getUsage(args[0]).contains("\n") ? "\n" + CommandBase.getUsage(args[0]) : CommandBase.getUsage(args[0]) + "";
+
             sender.sendMessage(
-                    "§8---------------< §x§b§1§8§0§f§f§lHelp menu for " + args[0] + " §8>---------------",
+                    "§8-----< §x§b§1§8§0§f§f§lHelp menu for " + args[0] + " §8>-----",
                     "",
                     "§7Name: §a" + CommandBase.getName(args[0]),
                     "§7Description: §a" + CommandBase.getDescription(args[0]),
-                    "§7Usage: §a" + CommandBase.getUsage(args[0]),
+                    "§7Usage: §a" + usage,
                     "",
-                    "§8-------------------------------" + args[0].replaceAll("[^\\d]+", "-") + "-----------------"
+                    "§8---------------------" + args[0].replaceAll("[a-z]", "-") + "-------"
             );
         } else {
             sender.sendMessage(Main.getPrefix() + "§c/help [command]");
