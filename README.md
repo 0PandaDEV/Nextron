@@ -2,7 +2,7 @@
 
 **IMPORTANT: This plugin is renamed to Nextron and was EssentialsP before!**
 
-[Learn More >](https://nextron.vercel.app/)
+[Learn More >](https://essentialsp.tk/)
 
 <details>
 <summary>
