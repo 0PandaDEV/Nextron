@@ -5,6 +5,7 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import tk.pandadev.nextron.Main;
 
+import java.util.Arrays;
 import java.util.HashMap;
 
 public abstract class CommandBase implements CommandExecutor {
@@ -51,13 +52,13 @@ public abstract class CommandBase implements CommandExecutor {
 
     public static String getDescription(String name){
         HashMap<String, String> localCommandInfo = commands.get(name);
-        System.out.println(localCommandInfo.keySet().toArray());
+        System.out.println(Arrays.toString(localCommandInfo.keySet().toArray()));
         return localCommandInfo.keySet().toArray(new String[0])[0];
     }
 
     public static String getUsage(String name){
         HashMap<String, String> localCommandInfo = commands.get(name);
-        System.out.println(localCommandInfo.keySet().toArray());
+        System.out.println(Arrays.toString(localCommandInfo.keySet().toArray()));
         return localCommandInfo.keySet().toArray(new String[0])[1];
     }
 
