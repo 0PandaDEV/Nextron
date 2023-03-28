@@ -5,7 +5,6 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import tk.pandadev.nextron.Main;
 
-import java.util.Arrays;
 import java.util.HashMap;
 
 public abstract class CommandBase implements CommandExecutor {
@@ -16,12 +15,12 @@ public abstract class CommandBase implements CommandExecutor {
     private String usage;
 
     public static HashMap<String, HashMap<String, String>> commands = new HashMap<>();
-    public static HashMap<String, String> commandInfo = new HashMap<>();
-     protected CommandBase(String command, String description, String usage, String permission) {
+    protected CommandBase(String command, String description, String usage, String permission) {
         this.command = command;
         this.description = description;
         this.usage = usage;
         this.permission = permission;
+        HashMap<String, String> commandInfo = new HashMap<>();
         commandInfo.put(description, usage);
         commands.put(command, commandInfo);
     }
@@ -52,14 +51,14 @@ public abstract class CommandBase implements CommandExecutor {
 
     public static String getDescription(String name){
         HashMap<String, String> localCommandInfo = commands.get(name);
-        System.out.println(Arrays.toString(localCommandInfo.keySet().toArray()));
         return localCommandInfo.keySet().toArray(new String[0])[0];
     }
 
     public static String getUsage(String name){
         HashMap<String, String> localCommandInfo = commands.get(name);
-        System.out.println(Arrays.toString(localCommandInfo.keySet().toArray()));
-        return localCommandInfo.keySet().toArray(new String[0])[1];
+        String usage = localCommandInfo.get(localCommandInfo.keySet().toArray(new String[0])[0]);
+        usage = usage.replace("\\n", "\n");
+        return usage;
     }
 
 }
