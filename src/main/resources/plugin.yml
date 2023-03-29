@@ -66,10 +66,6 @@ commands:
   menu:
     aliases:
       - m
-  rl:
-    permission: nextron.reload
-    aliases:
-      - reload
   features:
     permission: nextron.features
   back:
@@ -85,3 +81,5 @@ commands:
       - night
       - noon
       - midnight
+  rl:
+    permission: nextron.reload

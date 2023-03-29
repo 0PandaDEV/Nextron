@@ -101,13 +101,13 @@ public final class Main extends BasePlugin {
         getCommand("head").setExecutor(new HeadCommand());
         getCommand("rank").setExecutor(new RankCommand());
         getCommand("menu").setExecutor(new MenuCommand());
-        getCommand("rl").setExecutor(new ReloadCommand());
         getCommand("features").setExecutor(new FeatureCommand());
         getCommand("back").setExecutor(new BackCommand());
         getCommand("rename").setExecutor(new RenameCommand());
         getCommand("god").setExecutor(new GodCommand());
         getCommand("help").setExecutor(new HelpCommand());
         getCommand("day").setExecutor(new TimeCommand());
+        getCommand("rl").setExecutor(new ReloadCommand());
     }
 
 
