@@ -111,7 +111,7 @@ tpaccept_error: "§cYou don't have any pending tpa's"
 
 tpa_sender_success: "§7Tpa was sent to §a%t"
 tpa_target_success_1: "§a%p §7has requested to teleport to you"
-tpa_target_success_2: "§7Type §a/tpaccept §7to accept their request"
+tpa_target_success_2: "§7Type §a/tpaccept §7to accept their request or click here §c"
 tpa_error: "§cYou cannot tpa yourself"
 tpa_allow: "§cYou cannot send a tpa request to this player because he disabled it"
 

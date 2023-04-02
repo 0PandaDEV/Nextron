@@ -111,7 +111,7 @@ tpaccept_error: "§cDu hast keine ausstehende Tpa's"
 
 tpa_sender_success: "§7Die Tpa wurde §a%t §7gesendet"
 tpa_target_success_1: "§a%p §7 hat dir eine Tpa gesendet"
-tpa_target_success_2: "§7Mache §a/tpaccept §7um die Anfrage anzunehmen"
+tpa_target_success_2: "§7Führe §a/tpaccept §7aus um die Anfrage anzunehmen oder clicke auf §c"
 tpa_error: "§cDu kannst nicht dir selbst eine Tpa schicken"
 tpa_allow: "§cDu kannst diesem spieler keine Tpa anfrage schicken weil er diese deaktiviert hat"
 

@@ -1,5 +1,10 @@
 package tk.pandadev.nextron.commands;
 
+import net.md_5.bungee.api.ChatMessageType;
+import net.md_5.bungee.api.chat.ClickEvent;
+import net.md_5.bungee.api.chat.ComponentBuilder;
+import net.md_5.bungee.api.chat.HoverEvent;
+import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.Bukkit;
 import org.bukkit.Sound;
 import org.bukkit.command.Command;
@@ -36,7 +41,25 @@ public class TpaCommand extends CommandBase implements CommandExecutor, TabCompl
                     if (!Configs.settings.getBoolean(target.getUniqueId() + ".allowtpas")) {player.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("tpa_allow")); return;}
                     Main.tpa.put(target, player);
                     target.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("tpa_target_success_1").replace("%p", player.getName()));
-                    target.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("tpa_target_success_2"));
+
+                    TextComponent targetMessage = new TextComponent(LanguageLoader.translationMap.get("tpa_target_success_2"));
+
+                    //deny
+                    TextComponent deny = new TextComponent("§cDeny");
+                    deny.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/sädfgsklädfgosergopsmfgb09sej405t2poigms0fb89sew4t23ä2mfg908us-" + target.getName()));
+                    deny.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ComponentBuilder("§7Click to reset the position for §a" + args[0].toLowerCase()).create()));
+
+                    //accept
+                    TextComponent accept = new TextComponent("§aAccept");
+                    accept.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/sädfgsklädfgosergopsmfgb09sej405t2poigms0fb89sew4t23ä2mfg908u-" + target.getName()));
+                    accept.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ComponentBuilder("§7Click to the tpa request from §a" + player.getName()).create()));
+
+                    targetMessage.addExtra(deny);
+                    targetMessage.addExtra("§8/");
+                    targetMessage.addExtra(accept);
+
+
+                    target.spigot().sendMessage(ChatMessageType.SYSTEM, targetMessage);
                     target.playSound(target.getLocation(), Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 1.0f, 1.0f);
                     player.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("tpa_sender_success").replace("%t", target.getName()));
                 } else {
