@@ -14,7 +14,7 @@ import java.util.List;
 public class TimeCommand extends CommandBase implements CommandExecutor, TabCompleter {
 
     public TimeCommand(){
-        super("day", "Allows you to set the time", "/day | night | midnight | noon", "nextron.time");
+        super("day", "Allows you to set the time", "/day | night | midnight | noon", "", "nextron.time");
     }
 
     @Override

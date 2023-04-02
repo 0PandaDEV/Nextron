@@ -14,7 +14,7 @@ import java.util.List;
 public class BackCommand extends CommandBase implements TabCompleter {
 
     public BackCommand(){
-        super("back", "Teleports the player back to the last (death, tpa, home, warp) position.", "/back", "nextron.back");
+        super("back", "Teleports the player back to the last (death, tpa, home, warp) position.", "/back", "", "nextron.back");
     }
 
     @Override

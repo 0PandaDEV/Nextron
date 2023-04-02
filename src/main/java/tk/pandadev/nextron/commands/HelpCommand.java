@@ -12,7 +12,7 @@ import java.util.List;
 public class HelpCommand extends CommandBase implements TabCompleter {
 
     public HelpCommand(){
-        super("help", "Gives you a list of all commands with a short description", "/help", "nextron.help");
+        super("help", "Gives you a list of all commands with a short description", "/help", "", "nextron.help");
     }
 
     @Override
@@ -47,16 +47,29 @@ public class HelpCommand extends CommandBase implements TabCompleter {
                     ""
             );
         } else if (args.length == 1){
-            String usage = CommandBase.getUsage(args[0]).contains("\n") ? "\n" + CommandBase.getUsage(args[0]) : CommandBase.getUsage(args[0]) + "";
+            String usage = "\n";
+
+            if (!CommandBase.getUsage(args[0]).isEmpty()){
+                if (!CommandBase.getUsage(args[0]).contains("\n")) {usage = "§7Usage: §a" + CommandBase.getUsage(args[0]);}
+                else {usage = "§7Usage: \n§a" + CommandBase.getUsage(args[0]);}
+            }
+
+
+            String aliases = "\n";
+
+            if (!CommandBase.getAliases(args[0]).isEmpty()){
+                if (!CommandBase.getAliases(args[0]).contains("\n")) {aliases = "§7Aliases: §a" + CommandBase.getAliases(args[0]) + "\n ";}
+                else {aliases = "§7Aliases: \n§a" + CommandBase.getAliases(args[0]) + "\n ";}
+            }
 
             sender.sendMessage(
                     "§8-----< §x§b§1§8§0§f§f§lHelp menu for " + args[0] + " §8>-----",
                     "",
                     "§7Name: §a" + CommandBase.getName(args[0]),
                     "§7Description: §a" + CommandBase.getDescription(args[0]),
-                    "§7Usage: §a" + usage,
-                    "",
-                    "§8---------------------" + args[0].replaceAll("[a-z]", "-") + "-------"
+                    usage,
+                    aliases,
+                    "§8§l---------------------" + args[0].replaceAll("[a-z]", "-") + "-------"
             );
         } else {
             sender.sendMessage(Main.getPrefix() + "§c/help [command]");

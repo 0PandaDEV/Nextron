@@ -11,7 +11,7 @@ import tk.pandadev.nextron.utils.LanguageLoader;
 public class SpeedCommand extends CommandBase implements CommandExecutor {
 
     public SpeedCommand(){
-        super("speed", "Allows you to set your fly/walk speed", "/speed [speed]", "nextron.speed");
+        super("speed", "Allows you to set your fly/walk speed", "/speed [speed]", "", "nextron.speed");
     }
 
     @Override

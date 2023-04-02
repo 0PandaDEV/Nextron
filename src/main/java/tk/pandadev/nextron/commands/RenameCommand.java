@@ -16,7 +16,7 @@ import java.util.List;
 public class RenameCommand extends CommandBase implements CommandExecutor, TabCompleter {
 
     public RenameCommand(){
-        super("rename", "Renames the item you are currently holding", "/rename <name>", "nextron.rename");
+        super("rename", "Renames the item you are currently holding", "/rename <name>", "", "nextron.rename");
     }
 
     @Override

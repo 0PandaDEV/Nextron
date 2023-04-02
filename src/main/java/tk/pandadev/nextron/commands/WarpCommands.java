@@ -23,7 +23,7 @@ import java.util.Objects;
 public class WarpCommands extends CommandBase implements CommandExecutor, TabCompleter {
 
     public WarpCommands(){
-        super("warp", "Teleports you to public available positions", "/warp <warp>", "nextron.warp");
+        super("warp", "Teleports you to public available positions", "/warp <warp>", "/w <warp>", "nextron.warp");
     }
 
     @Override

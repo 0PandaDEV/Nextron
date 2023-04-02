@@ -14,7 +14,7 @@ import java.util.List;
 public class TpdenyCommand extends CommandBase implements TabCompleter {
 
     public TpdenyCommand() {
-        super("tpdeny", "Denys an incoming tpa request", "/tpdeny", "nextron.tpdeny");
+        super("tpdeny", "Denys an incoming tpa request", "/tpdeny", "/tpd", "nextron.tpdeny");
     }
 
     @Override

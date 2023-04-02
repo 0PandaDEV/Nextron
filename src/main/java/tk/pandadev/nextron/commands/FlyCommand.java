@@ -16,7 +16,7 @@ import java.util.List;
 public class FlyCommand extends CommandBase implements CommandExecutor, TabCompleter {
 
     public FlyCommand() {
-        super("fly", "Enables/disables fly for you or another player", "/fly [player]", "nextron.fly");
+        super("fly", "Enables/disables fly for you or another player", "/fly [player]", "", "nextron.fly");
     }
 
     @Override

@@ -17,7 +17,7 @@ import java.util.Objects;
 public class TphereCommand extends CommandBase implements CommandExecutor, TabCompleter {
 
     public TphereCommand(){
-        super("tphere", "Teleports a player to you", "/tphere <player>", "nextron.tphere");
+        super("tphere", "Teleports a player to you", "/tphere <player>", "/tph", "nextron.tphere");
     }
 
     @Override

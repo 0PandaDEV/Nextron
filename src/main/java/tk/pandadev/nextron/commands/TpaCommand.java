@@ -22,7 +22,7 @@ import java.util.List;
 public class TpaCommand extends CommandBase implements CommandExecutor, TabCompleter {
 
     public TpaCommand(){
-        super("tpa", "Sends a tpa request to a player", "/tpa <player>", "nextron.tpa");
+        super("tpa", "Sends a tpa request to a player", "/tpa <player>", "", "nextron.tpa");
     }
 
     @Override

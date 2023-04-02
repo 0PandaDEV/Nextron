@@ -28,7 +28,7 @@ import java.util.Objects;
 public class HomeCommands extends CommandBase implements CommandExecutor, TabCompleter {
 
     public HomeCommands(){
-        super("home", "Teleports you instant to a player set position", "/home <home>", "nextron.home");
+        super("home", "Teleports you instant to a player set position", "/home <home>", "/h <home>", "nextron.home");
     }
 
     @Override

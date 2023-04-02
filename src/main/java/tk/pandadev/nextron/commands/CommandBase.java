@@ -5,6 +5,7 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import tk.pandadev.nextron.Main;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 public abstract class CommandBase implements CommandExecutor {
@@ -13,15 +14,19 @@ public abstract class CommandBase implements CommandExecutor {
     private String description;
 
     private String usage;
+    private String aliasses;
 
-    public static HashMap<String, HashMap<String, String>> commands = new HashMap<>();
-    protected CommandBase(String command, String description, String usage, String permission) {
+    public static HashMap<String, ArrayList<String>> commands = new HashMap<>();
+    protected CommandBase(String command, String description, String usage, String aliasses, String permission) {
         this.command = command;
         this.description = description;
         this.usage = usage;
         this.permission = permission;
-        HashMap<String, String> commandInfo = new HashMap<>();
-        commandInfo.put(description, usage);
+        this.aliasses = aliasses;
+        ArrayList<String> commandInfo = new ArrayList();
+        commandInfo.add(0, usage);
+        commandInfo.add(1, description);
+        commandInfo.add(2, aliasses);
         commands.put(command, commandInfo);
     }
     public String getCommandName() {
@@ -50,15 +55,22 @@ public abstract class CommandBase implements CommandExecutor {
     }
 
     public static String getDescription(String name){
-        HashMap<String, String> localCommandInfo = commands.get(name);
-        return localCommandInfo.keySet().toArray(new String[0])[0];
+        ArrayList<String> localCommandInfo = commands.get(name);
+        return localCommandInfo.get(1);
     }
 
     public static String getUsage(String name){
-        HashMap<String, String> localCommandInfo = commands.get(name);
-        String usage = localCommandInfo.get(localCommandInfo.keySet().toArray(new String[0])[0]);
+        ArrayList<String> localCommandInfo = commands.get(name);
+        String usage = localCommandInfo.get(0);
         usage = usage.replace("\\n", "\n");
         return usage;
+    }
+
+    public static String getAliases(String name){
+        ArrayList<String> localCommandInfo = commands.get(name);
+        String aliasses = localCommandInfo.get(2);
+        aliasses = aliasses.replace("\\n", "\n");
+        return aliasses;
     }
 
 }

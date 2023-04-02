@@ -7,7 +7,7 @@ import tk.pandadev.nextron.Main;
 public class ReloadCommand extends CommandBase {
 
     public ReloadCommand() {
-        super("rl", "Reloads the server", "/rl", "nextron.reload");
+        super("rl", "Reloads the server", "/rl", "", "nextron.reload");
     }
 
     @Override

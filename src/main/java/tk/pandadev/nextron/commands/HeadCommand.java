@@ -20,7 +20,7 @@ import java.util.List;
 public class HeadCommand extends CommandBase implements CommandExecutor, TabCompleter {
 
     public HeadCommand(){
-        super("head", "Gives you the head of any player", "/head <player>", "nextron.head");
+        super("head", "Gives you the head of any player", "/head <player>", "", "nextron.head");
     }
 
     @Override

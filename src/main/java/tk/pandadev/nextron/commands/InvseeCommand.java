@@ -15,7 +15,7 @@ import java.util.List;
 public class InvseeCommand extends CommandBase implements CommandExecutor, TabCompleter {
 
     public InvseeCommand(){
-        super("invsee", "Lets you inspect and control another player's inventory", "/invsee <player>", "nextron.invsee");
+        super("invsee", "Lets you inspect and control another player's inventory", "/invsee <player>", "", "nextron.invsee");
     }
 
     @Override

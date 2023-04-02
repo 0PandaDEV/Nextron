@@ -20,7 +20,7 @@ import java.util.Objects;
 public class FeatureCommand extends CommandBase implements TabCompleter {
 
     public FeatureCommand() {
-        super("feature", "Opens a GUI where you can enable/disable all the systems in the plugin", "/feature [enable/disable] [feature]", "nextron.feature");
+        super("feature", "Opens a GUI where you can enable/disable all the systems in the plugin", "/feature [enable/disable] [feature]", "", "nextron.feature");
     }
 
     @Override

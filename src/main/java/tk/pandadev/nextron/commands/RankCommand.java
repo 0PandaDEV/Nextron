@@ -25,7 +25,7 @@ import java.util.List;
 public class RankCommand extends CommandBase implements CommandExecutor, TabCompleter {
 
     public RankCommand(){
-        super("rank", "Allows you to create ranks with prefixes to group players", "/rank <player> <rank>", "nextron.rank");
+        super("rank", "Allows you to create ranks with prefixes to group players", "/rank <player> <rank>", "", "nextron.rank");
     }
 
     @Override

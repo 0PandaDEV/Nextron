@@ -15,7 +15,7 @@ import java.util.List;
 public class MenuCommand extends CommandBase implements CommandExecutor, TabCompleter {
 
     public MenuCommand(){
-        super("menu", "Opens the menu where you can simply do everything", "/menu", "");
+        super("menu", "Opens the menu where you can simply do everything", "/menu", "/m", "");
     }
 
     @Override
