@@ -1,5 +1,5 @@
-activate_message: "§aSuccessfully loaded"
-disabled_message: "§aSuccessfully unloaded"
+activate_message: "§aSuccessfully enabled"
+disabled_message: "§aSuccessfully disabled"
 
 command_instance_error: "§6This command can only be run by a player!"
 no_perms: "§cYou do not have permission to do this"
