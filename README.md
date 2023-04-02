@@ -1,6 +1,6 @@
 <img src="https://cdn.discordapp.com/attachments/903181864116826112/1085873702295588874/Nextron_Banner.png" />
 
-**IMPORTANT: This plugin is renamed to Nextron and was EssentialsP before!**
+**IMPORTANT: This project is being renamed to Nextron. Before it was EssentialsP!**
 
 [Learn More >](https://essentialsp.tk/)
 
@@ -36,3 +36,7 @@ If you have any issues or find a bug, please remember to report it here [GitHub]
 <img src="https://cdn.discordapp.com/attachments/903181864116826112/1043082635771134002/Credits_purple.png" height="54px"/>
 
 [NegativeGames Framework](https://github.com/Negative-Games/Framework) Dependency by NegativeDev, seailz and joeecodes
+
+***
+
+See all my projects [here](https://modrinth.com/user/PandaDEV)
