@@ -33,10 +33,10 @@ public class TpacceptCommand extends CommandBase implements CommandExecutor {
                 target.teleport(player.getLocation());
 
                 if (Configs.settings.getBoolean(target.getUniqueId() + ".feedback")){
-                    player.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("tpaccept_player_success").replace("%p", player.getName()));
+                    target.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("tpaccept_player_success").replace("%p", target.getName()));
                 }
                 if (Configs.settings.getBoolean(player.getUniqueId() + ".feedback")){
-                    player.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("tpaccept_target_success").replace("%t", target.getName()));
+                    player.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("tpaccept_target_success").replace("%t", player.getName()));
                 }
 
                 target.playSound(player.getLocation(), Sound.ENTITY_ENDERMAN_TELEPORT, 1.0f, 1.0f);
