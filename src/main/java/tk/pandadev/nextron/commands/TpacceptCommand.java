@@ -11,7 +11,7 @@ import tk.pandadev.nextron.utils.LanguageLoader;
 public class TpacceptCommand extends CommandBase implements CommandExecutor {
 
     public TpacceptCommand(){
-        super("tpaccept", "Accepts a incoming tpa request", "/tpaccept", "nextron.tpaccept");
+        super("tpaccept", "Accepts an incoming tpa request", "/tpaccept", "nextron.tpaccept");
     }
 
 
