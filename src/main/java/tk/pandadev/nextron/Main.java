@@ -108,6 +108,7 @@ public final class Main extends BasePlugin {
         getCommand("help").setExecutor(new HelpCommand());
         getCommand("day").setExecutor(new TimeCommand());
         getCommand("rl").setExecutor(new ReloadCommand());
+        getCommand("tpdeny").setExecutor(new TpdenyCommand());
     }
 
 

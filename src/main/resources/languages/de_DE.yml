@@ -160,3 +160,6 @@ god_on_other: "§a%p §7ist jetzt im God modus"
 god_off_other: "§a%p §7ist nicht mehr im God modus"
 
 time_success: "§7Zeit wurde auf §a%d §7gesetzt"
+
+tpdeny_player: "§7Du hast du tpa anfrage von §a%p §7abgelehnt"
+tpdeny_target: "§a%p §7hat deine tpa anfrage abgelehnt"

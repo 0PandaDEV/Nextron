@@ -83,3 +83,7 @@ commands:
       - midnight
   rl:
     permission: nextron.reload
+  tpdeny:
+    permission: nextron.tpdeny
+    aliases:
+      - tpd
