@@ -38,24 +38,15 @@ public class FlyCommand extends CommandBase implements CommandExecutor, TabCompl
 
         } else if (args.length == 0){
 
-            if (!(sender instanceof Player)) {
-                sender.sendMessage(Main.getCommandInstance());
-                return;
-            }
+            if (!(sender instanceof Player)) {sender.sendMessage(Main.getCommandInstance());return;}
 
             Player player = (Player) (sender);
 
             if (!player.hasPermission("nextron.fly")) { player.sendMessage(Main.getNoPerm()); return; }
 
-            if (player.getAllowFlight()){
-                if (Configs.settings.getBoolean(player.getUniqueId() + ".feedback")){
-                    player.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("fly_off"));
-                }
-            } else {
-                if (Configs.settings.getBoolean(player.getUniqueId() + ".feedback")){
-                    player.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("fly_on"));
-                }
-            }
+            if (player.getAllowFlight()){if (Configs.settings.getBoolean(player.getUniqueId() + ".feedback")){player.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("fly_off"));}
+            } else {if (Configs.settings.getBoolean(player.getUniqueId() + ".feedback")){player.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("fly_on"));}}
+
             player.setAllowFlight(!player.getAllowFlight());
             player.setFallDistance(0.0f);
         }else {

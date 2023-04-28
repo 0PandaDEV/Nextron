@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.Objects;
 
 public class RankAPI {
-    private static FileConfiguration mainConfig = Main.getInstance().getConfig();
+    private static final FileConfiguration mainConfig = Main.getInstance().getConfig();
 
     //////////////////////////////////////////////
 

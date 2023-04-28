@@ -8,8 +8,8 @@ import java.io.File;
 import java.io.IOException;
 
 public class Config {
-    private FileConfiguration configuration;
-    private File file;
+    private final FileConfiguration configuration;
+    private final File file;
 
     public Config(String name, File path) {
         this.file = new File(path, name);

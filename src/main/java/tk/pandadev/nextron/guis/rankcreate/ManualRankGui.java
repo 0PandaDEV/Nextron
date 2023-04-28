@@ -13,7 +13,6 @@ import tk.pandadev.nextron.utils.LanguageLoader;
 import tk.pandadev.nextron.utils.RankAPI;
 import tk.pandadev.nextron.utils.Utils;
 
-import java.util.Arrays;
 import java.util.Collections;
 
 public class ManualRankGui extends GUI {
@@ -27,11 +26,7 @@ public class ManualRankGui extends GUI {
 
         ItemStack create_on = new ItemBuilder(Material.LIME_DYE).setName(LanguageLoader.translationMap.get("rank_gui_ready")).build();
 
-        if (name.equals("not set") && prefix.equals("not set")){
-            ready = false;
-        } else{
-            ready = true;
-        }
+        ready = !name.equals("not set") || !prefix.equals("not set");
 
         setItemClickEvent(22, player1 -> ready ? create_on : create_off, (player1, event) -> {
             if (ready){
@@ -50,7 +45,7 @@ public class ManualRankGui extends GUI {
                             return Collections.singletonList(AnvilGUI.ResponseAction.replaceInputText(LanguageLoader.translationMap.get("anvil_gui_one_word")));
                         }
                         new ManualRankGui(player, completion.getText().replace(" ", ""), "not set").open(player);
-                        return Arrays.asList(AnvilGUI.ResponseAction.close());
+                        return Collections.singletonList(AnvilGUI.ResponseAction.close());
                     })
                     .itemLeft(new ItemStack(Material.NAME_TAG))
                     .title("Enter the name")
@@ -64,7 +59,7 @@ public class ManualRankGui extends GUI {
             new AnvilGUI.Builder()
                     .onComplete((completion) -> {
                         new ManualRankGui(player, name, completion.getText()).open(player);
-                        return Arrays.asList(AnvilGUI.ResponseAction.close());
+                        return Collections.singletonList(AnvilGUI.ResponseAction.close());
                     })
                     .itemLeft(new ItemStack(Material.NAME_TAG))
                     .title("Enter the prefix")

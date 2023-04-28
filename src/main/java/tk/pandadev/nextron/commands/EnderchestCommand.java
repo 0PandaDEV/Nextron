@@ -21,19 +21,20 @@ public class EnderchestCommand extends CommandBase implements TabCompleter {
         if (!(sender instanceof Player)) {sender.sendMessage(Main.getCommandInstance()); return;}
         Player player = (Player) (sender);
 
-        if (args.length == 0) {
+        if (args.length == 0){player.openInventory(player.getEnderChest()); return;}
 
-            player.openInventory(player.getEnderChest());
-
-        } else if (args.length == 1) {
+        if (args.length == 1) {
             if (!player.hasPermission("nextron.enderchest.other")){ player.sendMessage(Main.getNoPerm()); return;}
+
             Player target = Bukkit.getPlayer(args[0]);
+
             if (target == null) { player.sendMessage(Main.getInvalidPlayer()); return;}
 
             player.openInventory(target.getEnderChest());
-        } else {
-            player.sendMessage(Main.getPrefix() + "§c/enderchest <player>");
+            return;
         }
+
+        player.sendMessage(Main.getPrefix() + "§c/enderchest <player>");
     }
 
     @Override

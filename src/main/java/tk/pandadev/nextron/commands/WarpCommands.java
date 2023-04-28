@@ -16,7 +16,7 @@ import tk.pandadev.nextron.utils.LanguageLoader;
 import tk.pandadev.nextron.utils.Utils;
 
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
@@ -48,7 +48,6 @@ public class WarpCommands extends CommandBase implements CommandExecutor, TabCom
             Configs.warp.set("Warps." + args[0].toLowerCase(), player.getLocation());
             Configs.saveWarpConfig();
             player.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("setwarp_success").replace("%w", args[0].toLowerCase()));
-            return;
 
         } else if (label.equalsIgnoreCase("delwarp") && args.length == 1){
 
@@ -63,7 +62,6 @@ public class WarpCommands extends CommandBase implements CommandExecutor, TabCom
             Configs.warp.set("Warps." + args[0].toLowerCase(), null);
             Configs.saveWarpConfig();
             sender.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("delwarp_success").replace("%w", args[0].toLowerCase()));
-            return;
 
         } else if (label.equalsIgnoreCase("warp") || label.equalsIgnoreCase("w") && args.length == 1){
 
@@ -81,7 +79,6 @@ public class WarpCommands extends CommandBase implements CommandExecutor, TabCom
             player.teleport((Location) Configs.warp.get("Warps." + args[0].toLowerCase()));
             if (Configs.settings.getBoolean(player.getUniqueId() + ".feedback")) player.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("warp_success").replace("%w", args[0].toLowerCase()));
             player.playSound(player.getLocation(), Sound.ENTITY_ENDERMAN_TELEPORT, 1.0f, 1.0f);
-            return;
 
         } else if (label.equalsIgnoreCase("renamewarp") && args.length == 1) {
 
@@ -105,13 +102,13 @@ public class WarpCommands extends CommandBase implements CommandExecutor, TabCom
                     .onComplete((completion) -> {
                         if(Utils.countWords(completion.getText()) > 1) {
                             player.playSound(player.getLocation(), Sound.ENTITY_PILLAGER_AMBIENT, 100, 0.5f);
-                            return Arrays.asList(AnvilGUI.ResponseAction.replaceInputText(LanguageLoader.translationMap.get("anvil_gui_one_word")));
+                            return Collections.singletonList(AnvilGUI.ResponseAction.replaceInputText(LanguageLoader.translationMap.get("anvil_gui_one_word")));
                         }
-                        Configs.warp.set("Warps." + completion.getText(), (Location) Configs.warp.get("Warps." + args[0]));
+                        Configs.warp.set("Warps." + completion.getText(), Configs.warp.get("Warps." + args[0]));
                         Configs.warp.set("Warps." + args[0], null);
                         Configs.saveHomeConfig();
                         sender.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("warp_rename_success").replace("%h", args[0]).replace("%n", completion.getText()));
-                        return Arrays.asList(AnvilGUI.ResponseAction.close());
+                        return Collections.singletonList(AnvilGUI.ResponseAction.close());
                     })
                     .preventClose()
                     .itemLeft(new ItemStack(Material.NAME_TAG))

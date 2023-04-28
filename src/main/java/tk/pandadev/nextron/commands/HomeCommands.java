@@ -21,7 +21,7 @@ import tk.pandadev.nextron.utils.LanguageLoader;
 import tk.pandadev.nextron.utils.Utils;
 
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
@@ -102,13 +102,13 @@ public class HomeCommands extends CommandBase implements CommandExecutor, TabCom
                     .onComplete((completion) -> {
                         if(Utils.countWords(completion.getText()) > 1) {
                             player.playSound(player.getLocation(), Sound.ENTITY_PILLAGER_AMBIENT, 100, 0.5f);
-                            return Arrays.asList(AnvilGUI.ResponseAction.replaceInputText(LanguageLoader.translationMap.get("anvil_gui_one_word")));
+                            return Collections.singletonList(AnvilGUI.ResponseAction.replaceInputText(LanguageLoader.translationMap.get("anvil_gui_one_word")));
                         }
-                        Configs.home.set("Homes." + player.getUniqueId() + "." + completion.getText(), (Location) Configs.home.get("Homes." + player.getUniqueId() + "." + args[0]));
+                        Configs.home.set("Homes." + player.getUniqueId() + "." + completion.getText(), Configs.home.get("Homes." + player.getUniqueId() + "." + args[0]));
                         Configs.home.set("Homes." + player.getUniqueId() + "." + args[0], null);
                         Configs.saveHomeConfig();
                         player.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("home_rename_success").replace("%h", args[0]).replace("%n", completion.getText()));
-                        return Arrays.asList(AnvilGUI.ResponseAction.close());
+                        return Collections.singletonList(AnvilGUI.ResponseAction.close());
                     })
                     .preventClose()
                     .itemLeft(new ItemStack(Material.NAME_TAG))

@@ -24,21 +24,22 @@ public class GodCommand extends CommandBase implements CommandExecutor, TabCompl
             if (!(sender instanceof Player)) { sender.sendMessage(Main.getCommandInstance()); return; }
             Player player = (Player) (sender);
 
-            if (player.hasPermission("nextron.god")) {
-                player.setInvulnerable(!player.isInvulnerable());
-                if (player.isInvulnerable()) player.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("god_on"));
-                else player.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("god_off"));
-            }
+            if (player.hasPermission("nextron.god")) { player.sendMessage(Main.getNoPerm()); return;}
+
+            player.setInvulnerable(!player.isInvulnerable());
+            if (player.isInvulnerable()) player.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("god_on"));
+            else player.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("god_off"));
+
         } else if (args.length == 1) {
-            if (sender.hasPermission("nextron.god.other")) {
-                Player target = Bukkit.getPlayer(args[0]);
+            if (sender.hasPermission("nextron.god.other")) { sender.sendMessage(Main.getNoPerm()); return;}
 
-                if (target == null){ sender.sendMessage(Main.getInvalidPlayer()); return;}
+            Player target = Bukkit.getPlayer(args[0]);
 
-                target.setInvulnerable(!target.isInvulnerable());
-                if (target.isInvulnerable()) sender.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("god_on_other"));
-                else sender.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("god_off_other"));
-            }
+            if (target == null){ sender.sendMessage(Main.getInvalidPlayer()); return;}
+
+            target.setInvulnerable(!target.isInvulnerable());
+            if (target.isInvulnerable()) sender.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("god_on_other"));
+            else sender.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("god_off_other"));
         }
     }
 

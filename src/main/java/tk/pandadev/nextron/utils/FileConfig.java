@@ -7,7 +7,7 @@ import java.io.IOException;
 
 public class FileConfig extends YamlConfiguration {
 
-    private String path;
+    private final String path;
 
     public FileConfig(String folder, String filname){
         this.path = "plugins/" + folder + "/" + filname;

@@ -36,9 +36,7 @@ public class HealCommand extends CommandBase implements CommandExecutor, TabComp
             if (player.getHealth() != player.getMaxHealth() || player.getFoodLevel() != 20) {
                 player.setHealth(player.getMaxHealth());
                 player.setFoodLevel(20);
-                if (Configs.settings.getBoolean(player.getUniqueId() + ".feedback")){
-                    player.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("heal_success"));
-                }
+                if (Configs.settings.getBoolean(player.getUniqueId() + ".feedback")){player.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("heal_success"));}
                 player.playSound(player.getLocation(), Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 1.0f, 1.0f);
             }
             player.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("heal_error"));

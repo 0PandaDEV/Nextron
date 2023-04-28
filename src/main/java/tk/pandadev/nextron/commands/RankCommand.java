@@ -18,7 +18,6 @@ import tk.pandadev.nextron.utils.RankAPI;
 import tk.pandadev.nextron.utils.Utils;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -87,7 +86,7 @@ public class RankCommand extends CommandBase implements CommandExecutor, TabComp
             new AnvilGUI.Builder()
                     .onComplete((completion) -> {
                         RankAPI.setPrefix((Player) sender, args[1].toLowerCase(), ChatColor.translateAlternateColorCodes('&', " " + completion.getText()));
-                        return Arrays.asList(AnvilGUI.ResponseAction.close());
+                        return Collections.singletonList(AnvilGUI.ResponseAction.close());
                     })
                     .itemLeft(new ItemStack(Material.NAME_TAG))
                     .title("Enter the prefix")
@@ -112,7 +111,7 @@ public class RankCommand extends CommandBase implements CommandExecutor, TabComp
                             return Collections.singletonList(AnvilGUI.ResponseAction.replaceInputText(LanguageLoader.translationMap.get("anvil_gui_one_word")));
                         }
                         RankAPI.rename((Player) sender, args[1].toLowerCase(), ChatColor.translateAlternateColorCodes('&', " " + completion.getText()));
-                        return Arrays.asList(AnvilGUI.ResponseAction.close());
+                        return Collections.singletonList(AnvilGUI.ResponseAction.close());
                     })
                     .itemLeft(new ItemStack(Material.NAME_TAG))
                     .title("Enter the name")

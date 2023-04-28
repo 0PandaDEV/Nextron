@@ -15,7 +15,7 @@ import tk.pandadev.nextron.utils.Utils;
 
 public class RankSettingsGui extends GUI {
 
-    private static FileConfiguration mainConfig = Main.getInstance().getConfig();
+    private static final FileConfiguration mainConfig = Main.getInstance().getConfig();
 
     public RankSettingsGui(String rank) {
         super("§7" + rank, 3);

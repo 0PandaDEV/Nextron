@@ -10,7 +10,7 @@ import tk.pandadev.nextron.utils.Utils;
 
 public class RankManagerGui extends GUI {
 
-    private static FileConfiguration mainConfig = Main.getInstance().getConfig();
+    private static final FileConfiguration mainConfig = Main.getInstance().getConfig();
 
     public RankManagerGui() {
         super("§7Rank Manager", 5);
