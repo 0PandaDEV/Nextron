@@ -163,3 +163,5 @@ time_success: "§7Time has been set to §a%d"
 
 tpdeny_player: "§7You denied the tpa request from §a%p"
 tpdeny_target: "§a%p §7denied your tpa request"
+
+back_other_success: "§a%p §7wurde zurück zur letzten position teleportiert"
