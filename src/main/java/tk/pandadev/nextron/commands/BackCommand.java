@@ -2,13 +2,18 @@ package tk.pandadev.nextron.commands;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
+import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
+import org.bukkit.command.TabCompleter;
 import org.bukkit.entity.Player;
 import tk.pandadev.nextron.Main;
 import tk.pandadev.nextron.utils.Configs;
 import tk.pandadev.nextron.utils.LanguageLoader;
 
-public class BackCommand extends CommandBase {
+import java.util.ArrayList;
+import java.util.List;
+
+public class BackCommand extends CommandBase implements TabCompleter {
 
     public BackCommand() {
         super("back", "Teleports the player back to the last (death, tpa, home, warp) position.", "/back", "", "nextron.back");
@@ -43,7 +48,20 @@ public class BackCommand extends CommandBase {
 
         player.sendMessage(Main.getPrefix() + "§c/back");
 
+    }
 
+    @Override
+    public List<String> onTabComplete(CommandSender sender, Command command, String label, String[] args) {
+        ArrayList<String> list = new ArrayList<String>();
+        Player playert = (Player)(sender);
+
+        if (args.length == 1){
+            for (Player player : Bukkit.getOnlinePlayers()) {
+                list.add(player.getName());
+            }
+        }
+
+        return list;
     }
 
 }
