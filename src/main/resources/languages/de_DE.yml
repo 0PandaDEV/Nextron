@@ -164,4 +164,7 @@ time_success: "§7Zeit wurde auf §a%d §7gesetzt"
 tpdeny_player: "§7Du hast du tpa anfrage von §a%p §7abgelehnt"
 tpdeny_target: "§a%p §7hat deine tpa anfrage abgelehnt"
 
-back_other_success: "§a%p §7was teleported back to the last position"
+back_other_success: "§a%p §7wurde zurück zur letzten position teleportiert"
+
+night_vision_add: "§7Night vision wurde §a%p §7gegeben"
+night_vision_remove: "§7Night vision wurde §a%p §7weggenommen"

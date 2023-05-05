@@ -109,6 +109,7 @@ public final class Main extends BasePlugin {
         getCommand("day").setExecutor(new TimeCommand());
         getCommand("rl").setExecutor(new ReloadCommand());
         getCommand("tpdeny").setExecutor(new TpdenyCommand());
+        getCommand("nightvision").setExecutor(new NightVisionCommand());
     }
 
 

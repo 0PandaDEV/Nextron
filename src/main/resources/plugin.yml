@@ -87,3 +87,5 @@ commands:
     permission: nextron.tpdeny
     aliases:
       - tpd
+  nightvision:
+    permission: nextron.nightvision

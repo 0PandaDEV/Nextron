@@ -164,4 +164,7 @@ time_success: "§7Time has been set to §a%d"
 tpdeny_player: "§7You denied the tpa request from §a%p"
 tpdeny_target: "§a%p §7denied your tpa request"
 
-back_other_success: "§a%p §7wurde zurück zur letzten position teleportiert"
+back_other_success: "§a%p §7was teleported back to the last position"
+
+night_vision_add: "§7Night vision was given to §a%p"
+night_vision_remove: "§7Night vision was taken from §a%p"
