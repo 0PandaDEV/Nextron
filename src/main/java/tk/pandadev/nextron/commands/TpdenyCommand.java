@@ -52,7 +52,15 @@ public class TpdenyCommand extends CommandBase implements TabCompleter {
         Player playert = (Player) (sender);
 
 
-        return list;
+        ArrayList<String> completerList = new ArrayList<String>();
+        String currentarg = args[args.length - 1].toLowerCase();
+        for (String s : list) {
+            String s1 = s.toLowerCase();
+            if (!s1.startsWith(currentarg)) continue;
+            completerList.add(s);
+        }
+
+        return completerList;
     }
 
 }
