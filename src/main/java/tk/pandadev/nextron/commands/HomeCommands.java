@@ -110,9 +110,9 @@ public class HomeCommands extends CommandBase implements CommandExecutor, TabCom
                         player.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("home_rename_success").replace("%h", args[0]).replace("%n", completion.getText()));
                         return Collections.singletonList(AnvilGUI.ResponseAction.close());
                     })
-                    .preventClose()
+                    .text(args[0])
                     .itemLeft(new ItemStack(Material.NAME_TAG))
-                    .title("Enter a name")
+                    .title("Enter the new name")
                     .plugin(Main.getInstance())
                     .open(player);
 

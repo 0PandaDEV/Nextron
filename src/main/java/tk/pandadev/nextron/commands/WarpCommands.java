@@ -110,6 +110,7 @@ public class WarpCommands extends CommandBase implements CommandExecutor, TabCom
                         sender.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("warp_rename_success").replace("%h", args[0]).replace("%n", completion.getText()));
                         return Collections.singletonList(AnvilGUI.ResponseAction.close());
                     })
+                    .text(Configs.warp.getString("Warps." + args[0]))
                     .preventClose()
                     .itemLeft(new ItemStack(Material.NAME_TAG))
                     .title("Enter a name")
