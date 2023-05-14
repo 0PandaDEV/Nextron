@@ -26,7 +26,7 @@ public class ManualRankGui extends GUI {
 
         ItemStack create_on = new ItemBuilder(Material.LIME_DYE).setName(LanguageLoader.translationMap.get("rank_gui_ready")).build();
 
-        ready = !name.equals("not set") || !prefix.equals("not set");
+        ready = !name.equals("not set") && !prefix.equals("not set");
 
         setItemClickEvent(22, player1 -> ready ? create_on : create_off, (player1, event) -> {
             if (ready){
