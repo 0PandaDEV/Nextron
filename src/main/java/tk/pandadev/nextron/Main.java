@@ -33,16 +33,23 @@ public final class Main extends BasePlugin {
         Bukkit.getScheduler().runTaskAsynchronously(this, () -> {
             updateChecker = new UpdateChecker(this, "0pandadev/nextron");
             updateChecker.checkForUpdates();
+            saveDefaultConfig();
+            Configs.createSettingsConfig();
+            Configs.createHomeConfig();
+            Configs.createWarpConfig();
+            Configs.createFeatureConfig();
+            Configs.saveHomeConfig();
+            Configs.saveWarpConfig();
+            Configs.saveFeatureConfig();
+            getTablistManager().setAllPlayerTeams();
+
+            for (Player player : Bukkit.getOnlinePlayers()) {
+                SettingsConfig.checkSettings(player);
+                RankAPI.createPlayerTeam(player);
+                RankAPI.checkRank(player);
+            }
         });
 
-        saveDefaultConfig();
-        Configs.createSettingsConfig();
-        Configs.createHomeConfig();
-        Configs.createWarpConfig();
-        Configs.createFeatureConfig();
-        Configs.saveHomeConfig();
-        Configs.saveWarpConfig();
-        Configs.saveFeatureConfig();
         vanishAPI = new VanishAPI(this);
         tablistManager = new TablistManager();
         new LanguageLoader(this);
@@ -55,14 +62,6 @@ public final class Main extends BasePlugin {
 
         registerListeners();
         registerCommands();
-        getTablistManager().setAllPlayerTeams();
-
-        for (Player player : Bukkit.getOnlinePlayers()) {
-            SettingsConfig.checkSettings(player);
-            RankAPI.createPlayerTeam(player);
-            RankAPI.checkRank(player);
-        }
-
     }
 
     @Override
