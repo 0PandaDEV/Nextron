@@ -30,8 +30,10 @@ public final class Main extends BasePlugin {
         super.onEnable();
         instance = this;
 
-        updateChecker = new UpdateChecker(this, "0pandadev/nextron");
-        updateChecker.checkForUpdates();
+        Bukkit.getScheduler().runTaskAsynchronously(this, () -> {
+            updateChecker = new UpdateChecker(this, "0pandadev/nextron");
+            updateChecker.checkForUpdates();
+        });
 
         saveDefaultConfig();
         Configs.createSettingsConfig();
