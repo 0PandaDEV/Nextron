@@ -108,14 +108,14 @@
             <scope>compile</scope>
         </dependency>
         <dependency>
-            <groupId>com.github.HttpMarco</groupId>
-            <artifactId>Aeon</artifactId>
-            <version>4fde7693d5</version>
-        </dependency>
-        <dependency>
             <groupId>net.wesjd</groupId>
             <artifactId>anvilgui</artifactId>
             <version>1.6.3-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>dev.triumphteam</groupId>
+            <artifactId>triumph-gui</artifactId>
+            <version>3.1.4</version>
         </dependency>
     </dependencies>
 </project>
