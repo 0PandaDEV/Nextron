@@ -31,6 +31,14 @@ public class CreateRankGUIs {
             manualRankCreation(player, "owner", "§4Owner §8• §f");
         }));
 
+        gui.setItem(3,5, dev.triumphteam.gui.builder.item.ItemBuilder.from(Material.ORANGE_DYE).setName("§x§f§e§a§1§3§1Admin").asGuiItem(event -> {
+            manualRankCreation(player, "admin", "§x§f§e§a§1§3§1Admin §8• §f");
+        }));
+
+        gui.setItem(3,7, dev.triumphteam.gui.builder.item.ItemBuilder.from(Material.PURPLE_DYE).setName("§x§c§d§7§4§f§bDev").asGuiItem(event -> {
+            manualRankCreation(player, "dev", "§x§c§d§7§4§f§bDev §8• §f");
+        }));
+
         gui.setItem(5, 9, dev.triumphteam.gui.builder.item.ItemBuilder.skull(Utils.createSkull("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvMTliZjMyOTJlMTI2YTEwNWI1NGViYTcxM2FhMWIxNTJkNTQxYTFkODkzODgyOWM1NjM2NGQxNzhlZDIyYmYifX19")).name(Component.text("§fSkip")).asGuiItem(event -> {
             manualRankCreation(player, "not set", "not set");
         }));
@@ -42,7 +50,7 @@ public class CreateRankGUIs {
         Gui gui = Gui.gui()
                 .disableAllInteractions()
                 .rows(5)
-                .title(Component.text("Manual Rank Creation"))
+                .title(Component.text("Rank Creation"))
                 .create();
 
         ItemStack create_off = new ItemBuilder(Material.GRAY_DYE).setName(LanguageLoader.translationMap.get("rank_gui_not_ready")).build();
