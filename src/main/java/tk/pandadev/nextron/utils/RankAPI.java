@@ -95,7 +95,7 @@ public class RankAPI {
         mainConfig.set("Ranks." + rank.toLowerCase() + ".prefix", prefix.substring(1));
         Main.getInstance().saveConfig();
         Main.getInstance().getTablistManager().setAllPlayerTeams();
-        player.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("rank_setprefix_success").replace("%r", rank.toLowerCase()).replace("%p", prefix));
+        player.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("rank_setprefix_success").replace("%r", rank.toLowerCase()).replace("%p", prefix.substring(1)));
     }
 
     public static void rename(Player player, String rank, String name){
@@ -107,7 +107,7 @@ public class RankAPI {
         mainConfig.set("Ranks." + name.substring(1).toLowerCase() + ".players", mainConfig.get("Ranks." + rank.toLowerCase() + ".players"));
         mainConfig.set("Ranks." + rank.toLowerCase(), null);
         Main.getInstance().saveConfig();
-        player.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("rank_rename_success").replace("%r", rank.toLowerCase()).replace("%n", name.toLowerCase()));
+        player.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("rank_rename_success").replace("%r", rank.toLowerCase()).replace("%n", name.toLowerCase().substring(1)));
     }
 
     public static String getRank(Player player){
@@ -118,6 +118,9 @@ public class RankAPI {
     }
 
     public static void checkRank(Player player){
+        if (Main.getInstance().getConfig().getConfigurationSection("Ranks") == null) {
+            return;
+        }
         createPlayerTeam(player);
         if (Objects.equals(getRank(player), "player")){
             Scoreboard scoreboard = player.getScoreboard();
