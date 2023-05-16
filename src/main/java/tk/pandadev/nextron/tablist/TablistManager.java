@@ -20,6 +20,9 @@ public class TablistManager {
 
         ConfigurationSection ranks = Main.getInstance().getConfig().getConfigurationSection("Ranks");
 
+        if (Main.getInstance().getConfig().getConfigurationSection("Ranks") == null) {
+            return;
+        }
         for (String rank : ranks.getKeys(false)){
             Team finalrank = scoreboard.getTeam("010" + rank.toLowerCase());
             if (finalrank == null){

@@ -148,7 +148,7 @@ public class RankCommand extends CommandBase implements CommandExecutor, TabComp
 
         } else {
             sender.sendMessage(Main.getPrefix() +
-                    "§c/rank <player> <rank>",
+                            "§c/rank <player> <rank>",
                     "§c/removerank <player>",
                     "§c/createrank",
                     "§c/deleterank <rankname>",
@@ -165,21 +165,27 @@ public class RankCommand extends CommandBase implements CommandExecutor, TabComp
             for (Player player : Bukkit.getOnlinePlayers())
                 list.add(player.getName());
         if (args.length == 2 && label.equalsIgnoreCase("rank"))
-            list.addAll(Main.getInstance().getConfig().getConfigurationSection("Ranks").getKeys(false));
+            if (Main.getInstance().getConfig().getConfigurationSection("Ranks") != null) {
+                list.addAll(Main.getInstance().getConfig().getConfigurationSection("Ranks").getKeys(false));
+            }
         // remove rank command
         if (args.length == 1 && label.equalsIgnoreCase("removerank"))
             for (Player player : Bukkit.getOnlinePlayers())
                 list.add(player.getName());
         // delete rank command
         if (args.length == 1 && label.equalsIgnoreCase("deleterank"))
-            list.addAll(Main.getInstance().getConfig().getConfigurationSection("Ranks").getKeys(false));
+            if (Main.getInstance().getConfig().getConfigurationSection("Ranks") != null) {
+                list.addAll(Main.getInstance().getConfig().getConfigurationSection("Ranks").getKeys(false));
+            }
         // modify prefix command
         if (args.length == 1 && label.equalsIgnoreCase("modifyrank"))
             list.add("prefix");
         if (args.length == 1 && label.equalsIgnoreCase("modifyrank"))
             list.add("name");
         if (args.length == 2 && label.equalsIgnoreCase("modifyrank"))
-            list.addAll(Main.getInstance().getConfig().getConfigurationSection("Ranks").getKeys(false));
+            if (Main.getInstance().getConfig().getConfigurationSection("Ranks") != null) {
+                list.addAll(Main.getInstance().getConfig().getConfigurationSection("Ranks").getKeys(false));
+            }
 
         ArrayList<String> completerList = new ArrayList<String>();
         String currentarg = args[args.length - 1].toLowerCase();
