@@ -128,7 +128,7 @@ public class HomeCommands extends CommandBase implements CommandExecutor, TabCom
 
         if (Configs.home.getConfigurationSection("Homes") == null || Configs.home.getConfigurationSection("Homes").getKeys(false).isEmpty()) {
             return null;
-        } else if (args.length == 1 && label.equalsIgnoreCase("home") || label.equalsIgnoreCase("delhome") || label.equalsIgnoreCase("h")) {
+        } else if (args.length == 1 && label.equalsIgnoreCase("home") || label.equalsIgnoreCase("delhome") || label.equalsIgnoreCase("h") || label.equalsIgnoreCase("renamehome")) {
             list.addAll(Objects.requireNonNull(Configs.home.getConfigurationSection("Homes." + playert.getUniqueId())).getKeys(false));
         }
 
