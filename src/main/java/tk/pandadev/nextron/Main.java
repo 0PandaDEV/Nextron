@@ -29,9 +29,12 @@ public final class Main extends BasePlugin {
     public void onEnable() {
         super.onEnable();
         instance = this;
+        tablistManager = new TablistManager();
 
-        updateChecker = new UpdateChecker(this, "0pandadev/nextron");
-        updateChecker.checkForUpdates();
+        Bukkit.getScheduler().runTaskAsynchronously(this, () -> {
+            updateChecker = new UpdateChecker(this, "0pandadev/nextron");
+            updateChecker.checkForUpdates();
+        });
 
         saveDefaultConfig();
         Configs.createSettingsConfig();
@@ -41,8 +44,15 @@ public final class Main extends BasePlugin {
         Configs.saveHomeConfig();
         Configs.saveWarpConfig();
         Configs.saveFeatureConfig();
+        getTablistManager().setAllPlayerTeams();
+
+        for (Player player : Bukkit.getOnlinePlayers()) {
+            SettingsConfig.checkSettings(player);
+            RankAPI.createPlayerTeam(player);
+            RankAPI.checkRank(player);
+        }
+
         vanishAPI = new VanishAPI(this);
-        tablistManager = new TablistManager();
         new LanguageLoader(this);
 
         NoPerm = Prefix + LanguageLoader.translationMap.get("no_perms");
@@ -53,26 +63,21 @@ public final class Main extends BasePlugin {
 
         registerListeners();
         registerCommands();
-        getTablistManager().setAllPlayerTeams();
-
-        for (Player player : Bukkit.getOnlinePlayers()) {
-            SettingsConfig.checkSettings(player);
-            RankAPI.createPlayerTeam(player);
-            RankAPI.checkRank(player);
-        }
-
     }
 
     @Override
     public void onDisable() {
         for (Player player : Bukkit.getOnlinePlayers()) {
-            for (String rank : getConfig().getConfigurationSection("Ranks").getKeys(false)){
+            if (Main.getInstance().getConfig().getConfigurationSection("Ranks") == null) {
+                break;
+            }
+            for (String rank : getConfig().getConfigurationSection("Ranks").getKeys(false)) {
                 player.getScoreboard().getTeam("010" + rank).removeEntry(player.getName());
             }
             player.getScoreboard().getTeam("010player").removeEntry(player.getName());
             RankAPI.checkRank(player);
 
-            for (String rank : Main.getInstance().getConfig().getConfigurationSection("Ranks").getKeys(false)){
+            for (String rank : Main.getInstance().getConfig().getConfigurationSection("Ranks").getKeys(false)) {
                 Team finalrank = player.getScoreboard().getTeam("010" + rank.toLowerCase());
                 finalrank.setPrefix("");
                 player.setDisplayName(player.getName());
@@ -83,7 +88,7 @@ public final class Main extends BasePlugin {
         Bukkit.getConsoleSender().sendMessage(Prefix + LanguageLoader.translationMap.get("disabled_message"));
     }
 
-    private void registerCommands(){
+    private void registerCommands() {
         getCommand("gamemode").setExecutor(new GamemodeCommand());
         getCommand("enderchest").setExecutor(new GamemodeCommand());
         getCommand("home").setExecutor(new HomeCommands());
@@ -113,7 +118,7 @@ public final class Main extends BasePlugin {
     }
 
 
-    private void registerListeners(){
+    private void registerListeners() {
         PluginManager pluginManager = Bukkit.getPluginManager();
         pluginManager.registerEvents(new JoinListener(), this);
         pluginManager.registerEvents(new QuitListener(), this);

@@ -1,13 +1,7 @@
-language: "en_US"
 # currently available en_US, de_DE
+language: "en_US"
+
+# %p represents the players name
+# for a full color pallet open cmd and type 'color ?'
 join_message: "&2[&a+&2] &7%p"
 leave_message: "&4[&c-&4] &7%p"
-# %p represents the players name
-
-Ranks:
-  owner:
-    prefix: "§4Owner §8• §f"
-    players: []
-  admin:
-    prefix: "§cAdmin §8• §f"
-    players: []

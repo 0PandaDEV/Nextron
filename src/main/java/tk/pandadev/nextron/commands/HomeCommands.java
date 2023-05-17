@@ -110,9 +110,9 @@ public class HomeCommands extends CommandBase implements CommandExecutor, TabCom
                         player.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("home_rename_success").replace("%h", args[0]).replace("%n", completion.getText()));
                         return Collections.singletonList(AnvilGUI.ResponseAction.close());
                     })
-                    .preventClose()
+                    .text(args[0])
                     .itemLeft(new ItemStack(Material.NAME_TAG))
-                    .title("Enter a name")
+                    .title("Enter the new name")
                     .plugin(Main.getInstance())
                     .open(player);
 
@@ -128,10 +128,18 @@ public class HomeCommands extends CommandBase implements CommandExecutor, TabCom
 
         if (Configs.home.getConfigurationSection("Homes") == null || Configs.home.getConfigurationSection("Homes").getKeys(false).isEmpty()) {
             return null;
-        } else if (args.length == 1 && label.equalsIgnoreCase("home") || label.equalsIgnoreCase("delhome") || label.equalsIgnoreCase("h")) {
+        } else if (args.length == 1 && label.equalsIgnoreCase("home") || label.equalsIgnoreCase("delhome") || label.equalsIgnoreCase("h") || label.equalsIgnoreCase("renamehome")) {
             list.addAll(Objects.requireNonNull(Configs.home.getConfigurationSection("Homes." + playert.getUniqueId())).getKeys(false));
         }
 
-        return list;
+        ArrayList<String> completerList = new ArrayList<String>();
+        String currentarg = args[args.length - 1].toLowerCase();
+        for (String s : list) {
+            String s1 = s.toLowerCase();
+            if (!s1.startsWith(currentarg)) continue;
+            completerList.add(s);
+        }
+
+        return completerList;
     }
 }

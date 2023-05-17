@@ -20,7 +20,7 @@ import java.util.Objects;
 public class FeatureCommand extends CommandBase implements TabCompleter {
 
     public FeatureCommand() {
-        super("feature", "Opens a GUI where you can enable/disable all the systems in the plugin", "/feature [enable/disable] [feature]", "", "nextron.feature");
+        super("features", "Opens a GUI where you can enable/disable all the systems in the plugin", "/features [enable/disable] [feature]", "", "nextron.features");
     }
 
     @Override
@@ -49,6 +49,7 @@ public class FeatureCommand extends CommandBase implements TabCompleter {
                 sender.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("feature_enable").replace("%n", args[1].replace("_system", "")));
             }
             if (args[0].equalsIgnoreCase("disable")){
+                System.out.println("enable");
                 Configs.feature.set(args[1], false);
                 Configs.saveFeatureConfig();
                 for (Player onlineplayer : Bukkit.getOnlinePlayers()){
@@ -81,7 +82,15 @@ public class FeatureCommand extends CommandBase implements TabCompleter {
             list.add("tpa_system");
         }
 
-        return list;
+        ArrayList<String> completerList = new ArrayList<String>();
+        String currentarg = args[args.length - 1].toLowerCase();
+        for (String s : list) {
+            String s1 = s.toLowerCase();
+            if (!s1.startsWith(currentarg)) continue;
+            completerList.add(s);
+        }
+
+        return completerList;
     }
 
 }

@@ -6,7 +6,7 @@ authors:
 supportedPlatforms:
   - spigot
   - paper
-supportedGameVersions: 1.19 - 1.19.3
+supportedGameVersions: 1.19 - 1.19.4
 category: misc
 introduction:
   en: A basic plugin that provides the ground structure for a server. Everything you ever need in one plugin!

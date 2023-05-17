@@ -110,6 +110,7 @@ public class WarpCommands extends CommandBase implements CommandExecutor, TabCom
                         sender.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("warp_rename_success").replace("%h", args[0]).replace("%n", completion.getText()));
                         return Collections.singletonList(AnvilGUI.ResponseAction.close());
                     })
+                    .text(Configs.warp.getString("Warps." + args[0]))
                     .preventClose()
                     .itemLeft(new ItemStack(Material.NAME_TAG))
                     .title("Enter a name")
@@ -131,6 +132,14 @@ public class WarpCommands extends CommandBase implements CommandExecutor, TabCom
             list.addAll(Objects.requireNonNull(Configs.warp.getConfigurationSection("Warps")).getKeys(false));
         }
 
-        return list;
+        ArrayList<String> completerList = new ArrayList<String>();
+        String currentarg = args[args.length - 1].toLowerCase();
+        for (String s : list) {
+            String s1 = s.toLowerCase();
+            if (!s1.startsWith(currentarg)) continue;
+            completerList.add(s);
+        }
+
+        return completerList;
     }
 }

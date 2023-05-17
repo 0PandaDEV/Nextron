@@ -2,16 +2,18 @@ package tk.pandadev.nextron.guis.rankmanager;
 
 import games.negative.framework.gui.GUI;
 import games.negative.framework.util.ItemBuilder;
+import net.wesjd.anvilgui.AnvilGUI;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.configuration.file.FileConfiguration;
-import org.bukkit.event.player.AsyncPlayerChatEvent;
+import org.bukkit.inventory.ItemStack;
 import tk.pandadev.nextron.Main;
-import tk.pandadev.nextron.listeners.InputListener;
 import tk.pandadev.nextron.utils.LanguageLoader;
 import tk.pandadev.nextron.utils.RankAPI;
 import tk.pandadev.nextron.utils.Utils;
+
+import java.util.Collections;
 
 public class RankSettingsGui extends GUI {
 
@@ -21,34 +23,36 @@ public class RankSettingsGui extends GUI {
         super("§7" + rank, 3);
 
         setItemClickEvent(12, player -> new ItemBuilder(Material.ARROW).setName("§fChange Prefix").build(), ((player, event) -> {
-            player.closeInventory();
-            player.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("rank_setprefix_request"));
-            InputListener.listen(player.getUniqueId(), new InputListener.InputListenerResponse() {
-                @Override
-                public void handle(AsyncPlayerChatEvent event) {
-                    event.setCancelled(true);
-                    mainConfig.set("Ranks." + rank.toLowerCase() + ".prefix", ChatColor.translateAlternateColorCodes('&', event.getMessage()));
-                    Main.getInstance().saveConfig();
-                    player.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("rank_setprefix_success").replace("%r", rank).replace("%p", ChatColor.translateAlternateColorCodes('&', event.getMessage())));
-                    Main.getInstance().getTablistManager().setAllPlayerTeams();
-                }
-            });
+            new AnvilGUI.Builder()
+                    .onComplete((completion) -> {
+                        RankAPI.setPrefix(player, rank.toLowerCase(),
+                                ChatColor.translateAlternateColorCodes('&', " " + completion.getText()));
+                        return Collections.singletonList(AnvilGUI.ResponseAction.close());
+                    })
+                    .text(Main.getInstance().getConfig().getString("Ranks." + rank.toLowerCase() + ".prefix"))
+                    .itemLeft(new ItemStack(Material.NAME_TAG))
+                    .title("Enter the prefix")
+                    .plugin(Main.getInstance())
+                    .open(player);
         }));
 
         setItemClickEvent(13, player -> new ItemBuilder(Material.YELLOW_DYE).setName("§eRename").build(), ((player, event) -> {
-            player.closeInventory();
-            player.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("rank_rename_request").replace("%r", rank));
-            InputListener.listen(player.getUniqueId(), new InputListener.InputListenerResponse() {
-                @Override
-                public void handle(AsyncPlayerChatEvent event) {
-                    event.setCancelled(true);
-                    mainConfig.set("Ranks." + event.getMessage().toLowerCase() + ".prefix", mainConfig.get("Ranks." + rank.toLowerCase() + ".prefix"));
-                    mainConfig.set("Ranks." + event.getMessage().toLowerCase() + ".players", mainConfig.get("Ranks." + rank.toLowerCase() + ".players"));
-                    mainConfig.set("Ranks." + rank.toLowerCase(), null);
-                    Main.getInstance().saveConfig();
-                    player.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("rank_rename_success").replace("%r", rank.toLowerCase()).replace("%n", event.getMessage().toLowerCase()));
-                }
-            });
+            new AnvilGUI.Builder()
+                    .onComplete((completion) -> {
+                        if (Utils.countWords(completion.getText()) > 1) {
+                            player.playSound(player.getLocation(), Sound.ENTITY_PILLAGER_AMBIENT, 100, 0.5f);
+                            return Collections.singletonList(AnvilGUI.ResponseAction
+                                    .replaceInputText(LanguageLoader.translationMap.get("anvil_gui_one_word")));
+                        }
+                        RankAPI.rename(player, rank.toLowerCase(),
+                                ChatColor.translateAlternateColorCodes('&', " " + completion.getText()));
+                        return Collections.singletonList(AnvilGUI.ResponseAction.close());
+                    })
+                    .text(rank.toLowerCase())
+                    .itemLeft(new ItemStack(Material.NAME_TAG))
+                    .title("Enter the name")
+                    .plugin(Main.getInstance())
+                    .open(player);
         }));
 
         setItemClickEvent(14, player -> new ItemBuilder(Material.RED_DYE).setName("§cDelete").build(), ((player, event) -> {
