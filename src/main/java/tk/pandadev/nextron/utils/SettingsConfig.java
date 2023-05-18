@@ -12,6 +12,8 @@ public class SettingsConfig {
             setSettings(player);
         } else if (!Configs.settings.getConfigurationSection(String.valueOf(player.getUniqueId())).getKeys(false).contains("allowtpas")){
             setSettings(player);
+        } else if (!Configs.settings.getConfigurationSection(String.valueOf(player.getUniqueId())).getKeys(false).contains("nick")){
+            setSettings(player);
         }
 
     }
@@ -20,6 +22,7 @@ public class SettingsConfig {
         Configs.settings.set(player.getUniqueId() + ".vanish." + "message", true);
         Configs.settings.set(player.getUniqueId() + ".feedback", true);
         Configs.settings.set(player.getUniqueId() + ".allowtpas", true);
+        Configs.settings.set(player.getUniqueId() + ".nick", player.getName());
         Configs.saveSettingsConfig();
     }
 

@@ -20,7 +20,7 @@ public class ChatEditor implements Listener {
 
         if (Configs.feature.getBoolean("rank_system")) {
             for (String rank : ranks.getKeys(false)){
-                if (ranks.getStringList(rank + ".players").contains(player.getUniqueId().toString())) player.setDisplayName(ranks.getString(rank + ".prefix") + ChatColor.WHITE + player.getName());
+                if (ranks.getStringList(rank + ".players").contains(player.getUniqueId().toString())) player.setDisplayName(ranks.getString(rank + ".prefix") + ChatColor.WHITE + Configs.settings.getString(player.getUniqueId() + ".nick"));
             }
         } else {
             player.setDisplayName(player.getName());
