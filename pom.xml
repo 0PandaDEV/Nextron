@@ -117,5 +117,10 @@
             <artifactId>triumph-gui</artifactId>
             <version>3.1.4</version>
         </dependency>
+        <dependency>
+            <groupId>com.github.0PandaDEV</groupId>
+            <artifactId>Languify</artifactId>
+            <version>8238425600</version>
+        </dependency>
     </dependencies>
 </project>
