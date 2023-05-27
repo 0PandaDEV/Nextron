@@ -1,5 +1,6 @@
 package tk.pandadev.nextron.commands;
 
+import ch.hekates.languify.language.Text;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -8,7 +9,6 @@ import org.bukkit.command.TabCompleter;
 import org.bukkit.entity.Player;
 import tk.pandadev.nextron.Main;
 import tk.pandadev.nextron.utils.Configs;
-import tk.pandadev.nextron.utils.LanguageLoader;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,7 +16,7 @@ import java.util.Objects;
 
 public class TphereCommand extends CommandBase implements CommandExecutor, TabCompleter {
 
-    public TphereCommand(){
+    public TphereCommand() {
         super("tphere", "Teleports a player to you", "/tphere <player>", "/tph", "nextron.tphere");
     }
 
@@ -29,21 +29,22 @@ public class TphereCommand extends CommandBase implements CommandExecutor, TabCo
 
         Player player = (Player) (sender);
 
-        if (label.equalsIgnoreCase("tphere") || label.equalsIgnoreCase("tph") && args.length == 1){
-            if (player.hasPermission("nextron.tphere")){
+        if (label.equalsIgnoreCase("tphere") || label.equalsIgnoreCase("tph") && args.length == 1) {
+            if (player.hasPermission("nextron.tphere")) {
                 Player target = Bukkit.getPlayer(args[0]);
 
-                if (target != null){
+                if (target != null) {
 
                     if (!Objects.equals(target.getName(), player.getName())) {
                         target.teleport(player.getLocation());
 
-                        if (Configs.settings.getBoolean(player.getUniqueId() + ".feedback")){
-                            player.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("tphere_success").replace("%t", target.getName()));
+                        if (Configs.settings.getBoolean(player.getUniqueId() + ".feedback")) {
+                            player.sendMessage(
+                                    Main.getPrefix() + Text.get("tphere.success").replace("%t", target.getName()));
                         }
 
                     } else {
-                        player.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("tphere_error"));
+                        player.sendMessage(Main.getPrefix() + Text.get("tphere.error"));
                     }
                 } else {
                     player.sendMessage(Main.getInvalidPlayer());
@@ -59,7 +60,7 @@ public class TphereCommand extends CommandBase implements CommandExecutor, TabCo
 
         ArrayList<String> list = new ArrayList<String>();
 
-        if (args.length == 1){
+        if (args.length == 1) {
             for (Player player : Bukkit.getOnlinePlayers()) {
                 list.add(player.getName());
             }
@@ -69,7 +70,8 @@ public class TphereCommand extends CommandBase implements CommandExecutor, TabCo
         String currentarg = args[args.length - 1].toLowerCase();
         for (String s : list) {
             String s1 = s.toLowerCase();
-            if (!s1.startsWith(currentarg)) continue;
+            if (!s1.startsWith(currentarg))
+                continue;
             completerList.add(s);
         }
 

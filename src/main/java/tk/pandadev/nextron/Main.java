@@ -1,5 +1,8 @@
 package tk.pandadev.nextron;
 
+import ch.hekates.languify.Languify;
+import ch.hekates.languify.language.LangLoader;
+import ch.hekates.languify.language.Text;
 import games.negative.framework.BasePlugin;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
@@ -31,6 +34,9 @@ public final class Main extends BasePlugin {
         instance = this;
         tablistManager = new TablistManager();
 
+        Languify.setup(this, this.getDataFolder().toString());
+        LangLoader.loadLanguage(getConfig().getString("language"));
+
         Bukkit.getScheduler().runTaskAsynchronously(this, () -> {
             updateChecker = new UpdateChecker(this, "0pandadev/nextron");
             updateChecker.checkForUpdates();
@@ -53,13 +59,12 @@ public final class Main extends BasePlugin {
         }
 
         vanishAPI = new VanishAPI(this);
-        new LanguageLoader(this);
 
-        NoPerm = Prefix + LanguageLoader.translationMap.get("no_perms");
-        InvalidPlayer = Prefix + LanguageLoader.translationMap.get("invalid_player");
-        CommandInstance = Prefix + LanguageLoader.translationMap.get("command_instance_error");
+        NoPerm = Prefix + Text.get("no.perms");
+        InvalidPlayer = Prefix + Text.get("invalid.player");
+        CommandInstance = Prefix + Text.get("command.instance.error");
 
-        Bukkit.getConsoleSender().sendMessage(Prefix + LanguageLoader.translationMap.get("activate_message"));
+        Bukkit.getConsoleSender().sendMessage(Prefix + Text.get("console.activate"));
 
         registerListeners();
         registerCommands();
@@ -67,6 +72,7 @@ public final class Main extends BasePlugin {
 
     @Override
     public void onDisable() {
+        Bukkit.getConsoleSender().sendMessage(Prefix + Text.get("console.disabled"));
         for (Player player : Bukkit.getOnlinePlayers()) {
             if (Main.getInstance().getConfig().getConfigurationSection("Ranks") == null) {
                 break;
@@ -85,7 +91,6 @@ public final class Main extends BasePlugin {
         }
 
         instance = null;
-        Bukkit.getConsoleSender().sendMessage(Prefix + LanguageLoader.translationMap.get("disabled_message"));
     }
 
     private void registerCommands() {
@@ -117,7 +122,6 @@ public final class Main extends BasePlugin {
         getCommand("nightvision").setExecutor(new NightVisionCommand());
     }
 
-
     private void registerListeners() {
         PluginManager pluginManager = Bukkit.getPluginManager();
         pluginManager.registerEvents(new JoinListener(), this);
@@ -143,7 +147,6 @@ public final class Main extends BasePlugin {
     public static String getNoPerm() {
         return NoPerm;
     }
-
 
     public TablistManager getTablistManager() {
         return tablistManager;

@@ -1,5 +1,6 @@
 package tk.pandadev.nextron.commands;
 
+import ch.hekates.languify.language.Text;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.command.Command;
@@ -12,14 +13,13 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.SkullMeta;
 import tk.pandadev.nextron.Main;
 import tk.pandadev.nextron.utils.Configs;
-import tk.pandadev.nextron.utils.LanguageLoader;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class HeadCommand extends CommandBase implements CommandExecutor, TabCompleter {
 
-    public HeadCommand(){
+    public HeadCommand() {
         super("head", "Gives you the head of any player", "/head <player>", "", "nextron.head");
     }
 
@@ -32,8 +32,14 @@ public class HeadCommand extends CommandBase implements CommandExecutor, TabComp
 
         Player player = (Player) (sender);
 
-        if (args.length != 1){ player.sendMessage(Main.getPrefix() + "§c/head <player>"); return; }
-        if (!player.hasPermission("nextron.head")){ player.sendMessage(Main.getNoPerm()); return; }
+        if (args.length != 1) {
+            player.sendMessage(Main.getPrefix() + "§c/head <player>");
+            return;
+        }
+        if (!player.hasPermission("nextron.head")) {
+            player.sendMessage(Main.getNoPerm());
+            return;
+        }
 
         ItemStack item = new ItemStack(Material.PLAYER_HEAD, 1, (short) 3);
         SkullMeta meta = (SkullMeta) item.getItemMeta();
@@ -42,13 +48,14 @@ public class HeadCommand extends CommandBase implements CommandExecutor, TabComp
         item.setItemMeta(meta);
         Inventory inventory = player.getInventory();
         inventory.addItem(item);
-        if (Configs.settings.getBoolean(player.getUniqueId() + ".feedback")) player.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("head_success").replace("%t", args[0]));
+        if (Configs.settings.getBoolean(player.getUniqueId() + ".feedback"))
+            player.sendMessage(Main.getPrefix() + Text.get("head.success").replace("%t", args[0]));
     }
 
     @Override
     public List<String> onTabComplete(CommandSender sender, Command command, String label, String[] args) {
         ArrayList<String> list = new ArrayList<String>();
-        if (args.length == 1){
+        if (args.length == 1) {
             for (Player player : Bukkit.getOnlinePlayers()) {
                 list.add(player.getName());
             }
@@ -58,7 +65,8 @@ public class HeadCommand extends CommandBase implements CommandExecutor, TabComp
         String currentarg = args[args.length - 1].toLowerCase();
         for (String s : list) {
             String s1 = s.toLowerCase();
-            if (!s1.startsWith(currentarg)) continue;
+            if (!s1.startsWith(currentarg))
+                continue;
             completerList.add(s);
         }
 

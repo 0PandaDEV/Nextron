@@ -1,5 +1,6 @@
 package tk.pandadev.nextron.commands;
 
+import ch.hekates.languify.language.Text;
 import net.wesjd.anvilgui.AnvilGUI;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -13,7 +14,6 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import tk.pandadev.nextron.Main;
 import tk.pandadev.nextron.guis.CreateRankGUIs;
-import tk.pandadev.nextron.utils.LanguageLoader;
 import tk.pandadev.nextron.utils.RankAPI;
 import tk.pandadev.nextron.utils.Utils;
 
@@ -67,7 +67,7 @@ public class RankCommand extends CommandBase implements CommandExecutor, TabComp
             RankAPI.checkRank(target);
 
             sender.sendMessage(Main.getPrefix()
-                    + LanguageLoader.translationMap.get("rank_remove_success").replace("%t", target.getName()));
+                    + Text.get("rank.remove.success").replace("%t", target.getName()));
 
         } else if (args.length == 0 && label.equalsIgnoreCase("createrank")) {
 
@@ -134,7 +134,7 @@ public class RankCommand extends CommandBase implements CommandExecutor, TabComp
                         if (Utils.countWords(completion.getText()) > 1) {
                             player.playSound(player.getLocation(), Sound.ENTITY_PILLAGER_AMBIENT, 100, 0.5f);
                             return Collections.singletonList(AnvilGUI.ResponseAction
-                                    .replaceInputText(LanguageLoader.translationMap.get("anvil_gui_one_word")));
+                                    .replaceInputText(Text.get("anvil.gui.one.word")));
                         }
                         RankAPI.rename((Player) sender, args[1].toLowerCase(),
                                 ChatColor.translateAlternateColorCodes('&', " " + completion.getText()));
@@ -148,7 +148,7 @@ public class RankCommand extends CommandBase implements CommandExecutor, TabComp
 
         } else {
             sender.sendMessage(Main.getPrefix() +
-                            "§c/rank <player> <rank>",
+                    "§c/rank <player> <rank>",
                     "§c/removerank <player>",
                     "§c/createrank",
                     "§c/deleterank <rankname>",

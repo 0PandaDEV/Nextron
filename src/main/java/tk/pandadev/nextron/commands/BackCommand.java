@@ -1,5 +1,6 @@
 package tk.pandadev.nextron.commands;
 
+import ch.hekates.languify.language.Text;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.command.Command;
@@ -8,7 +9,6 @@ import org.bukkit.command.TabCompleter;
 import org.bukkit.entity.Player;
 import tk.pandadev.nextron.Main;
 import tk.pandadev.nextron.utils.Configs;
-import tk.pandadev.nextron.utils.LanguageLoader;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,7 +16,8 @@ import java.util.List;
 public class BackCommand extends CommandBase implements TabCompleter {
 
     public BackCommand() {
-        super("back", "Teleports the player back to the last (death, tpa, home, warp) position.", "/back", "", "nextron.back");
+        super("back", "Teleports the player back to the last (death, tpa, home, warp) position.", "/back", "",
+                "nextron.back");
     }
 
     @Override
@@ -42,7 +43,7 @@ public class BackCommand extends CommandBase implements TabCompleter {
             Configs.settings.set(target.getUniqueId() + ".isback", true);
             Configs.saveSettingsConfig();
             target.teleport((Location) Configs.settings.get(target.getUniqueId() + ".lastpos"));
-            player.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("back_other_success").replace("%p", target.getName()));
+            player.sendMessage(Main.getPrefix() + Text.get("back.other.success").replace("%p", target.getName()));
             return;
         }
 
@@ -53,9 +54,9 @@ public class BackCommand extends CommandBase implements TabCompleter {
     @Override
     public List<String> onTabComplete(CommandSender sender, Command command, String label, String[] args) {
         ArrayList<String> list = new ArrayList<String>();
-        Player playert = (Player)(sender);
+        Player playert = (Player) (sender);
 
-        if (args.length == 1){
+        if (args.length == 1) {
             for (Player player : Bukkit.getOnlinePlayers()) {
                 list.add(player.getName());
             }
@@ -65,7 +66,8 @@ public class BackCommand extends CommandBase implements TabCompleter {
         String currentarg = args[args.length - 1].toLowerCase();
         for (String s : list) {
             String s1 = s.toLowerCase();
-            if (!s1.startsWith(currentarg)) continue;
+            if (!s1.startsWith(currentarg))
+                continue;
             completerList.add(s);
         }
 

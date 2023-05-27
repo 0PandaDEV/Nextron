@@ -1,12 +1,12 @@
 package tk.pandadev.nextron.commands;
 
+import ch.hekates.languify.language.Text;
 import org.bukkit.Sound;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabCompleter;
 import org.bukkit.entity.Player;
 import tk.pandadev.nextron.Main;
-import tk.pandadev.nextron.utils.LanguageLoader;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,17 +30,17 @@ public class TpdenyCommand extends CommandBase implements TabCompleter {
 
             Player target = Main.tpa.get(player);
 
-            if (target != null){
+            if (target != null) {
                 Main.tpa.remove(player);
                 Main.tpa.remove(target);
 
-                player.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("tpdeny_player").replace("%p", target.getName()));
-                target.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("tpdeny_target").replace("%p", player.getName()));
+                player.sendMessage(Main.getPrefix() + Text.get("tpdeny.player").replace("%p", target.getName()));
+                target.sendMessage(Main.getPrefix() + Text.get("tpdeny.target").replace("%p", player.getName()));
 
                 target.playSound(target.getLocation(), Sound.ENTITY_PILLAGER_AMBIENT, 100, 0.5f);
 
             } else {
-                player.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("tpaccept_error"));
+                player.sendMessage(Main.getPrefix() + Text.get("tpaccept.error"));
             }
         }
 
@@ -51,12 +51,12 @@ public class TpdenyCommand extends CommandBase implements TabCompleter {
         ArrayList<String> list = new ArrayList<String>();
         Player playert = (Player) (sender);
 
-
         ArrayList<String> completerList = new ArrayList<String>();
         String currentarg = args[args.length - 1].toLowerCase();
         for (String s : list) {
             String s1 = s.toLowerCase();
-            if (!s1.startsWith(currentarg)) continue;
+            if (!s1.startsWith(currentarg))
+                continue;
             completerList.add(s);
         }
 

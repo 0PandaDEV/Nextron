@@ -1,5 +1,6 @@
 package tk.pandadev.nextron.commands;
 
+import ch.hekates.languify.language.Text;
 import net.md_5.bungee.api.ChatMessageType;
 import net.md_5.bungee.api.chat.ClickEvent;
 import net.md_5.bungee.api.chat.ComponentBuilder;
@@ -17,7 +18,6 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import tk.pandadev.nextron.Main;
 import tk.pandadev.nextron.utils.Configs;
-import tk.pandadev.nextron.utils.LanguageLoader;
 import tk.pandadev.nextron.utils.Utils;
 
 import java.util.ArrayList;
@@ -27,7 +27,7 @@ import java.util.Objects;
 
 public class HomeCommands extends CommandBase implements CommandExecutor, TabCompleter {
 
-    public HomeCommands(){
+    public HomeCommands() {
         super("home", "Teleports you instant to a player set position", "/home <home>", "/h <home>", "nextron.home");
     }
 
@@ -45,12 +45,15 @@ public class HomeCommands extends CommandBase implements CommandExecutor, TabCom
             if (Configs.home.getString("Homes." + player.getUniqueId() + "." + args[0].toLowerCase()) == null) {
                 Configs.home.set("Homes." + player.getUniqueId() + "." + args[0].toLowerCase(), player.getLocation());
                 Configs.saveHomeConfig();
-                player.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("sethome_success").replace("%h", args[0].toLowerCase()));
+                player.sendMessage(Main.getPrefix() + Text.get("sethome.success").replace("%h", args[0].toLowerCase()));
             } else {
                 TextComponent yes = new TextComponent("§aYes");
-                yes.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/aisdvja4f89dfjvwe4p9r8jdfvjw34r8q0dvj34-" + args[0].toLowerCase()));
-                yes.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ComponentBuilder("§7Click to reset the position for §a" + args[0].toLowerCase()).create()));
-                TextComponent message = new TextComponent(Main.getPrefix() + LanguageLoader.translationMap.get("home_reset_confirm").replace("%r", "§8["));
+                yes.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND,
+                        "/aisdvja4f89dfjvwe4p9r8jdfvjw34r8q0dvj34-" + args[0].toLowerCase()));
+                yes.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT,
+                        new ComponentBuilder("§7Click to reset the position for §a" + args[0].toLowerCase()).create()));
+                TextComponent message = new TextComponent(
+                        Main.getPrefix() + Text.get("home.reset.confirm").replace("%r", "§8["));
                 message.addExtra(yes);
                 message.addExtra("§8]");
                 player.spigot().sendMessage(ChatMessageType.SYSTEM, message);
@@ -60,16 +63,16 @@ public class HomeCommands extends CommandBase implements CommandExecutor, TabCom
 
             Configs.home.set("Homes." + player.getUniqueId() + ".default", player.getLocation());
             Configs.saveHomeConfig();
-            player.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("sethome_default_success"));
+            player.sendMessage(Main.getPrefix() + Text.get("sethome.default.success"));
 
         } else if (label.equalsIgnoreCase("delhome") && args.length == 1) {
 
             if (Configs.home.getString("Homes." + player.getUniqueId() + "." + args[0].toLowerCase()) != null) {
                 Configs.home.set("Homes." + player.getUniqueId() + "." + args[0].toLowerCase(), null);
                 Configs.saveHomeConfig();
-                player.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("delhome_success").replace("%h", args[0].toLowerCase()));
+                player.sendMessage(Main.getPrefix() + Text.get("delhome.success").replace("%h", args[0].toLowerCase()));
             } else {
-                player.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("delhome_error").replace("%h", args[0].toLowerCase()));
+                player.sendMessage(Main.getPrefix() + Text.get("delhome.error").replace("%h", args[0].toLowerCase()));
             }
 
         } else if (label.equalsIgnoreCase("home") && args.length == 0) {
@@ -77,37 +80,41 @@ public class HomeCommands extends CommandBase implements CommandExecutor, TabCom
             if (Configs.home.getString("Homes." + player.getUniqueId() + ".default") != null) {
                 player.teleport((Location) Configs.home.get("Homes." + player.getUniqueId() + ".default"));
                 player.playSound(player.getLocation(), Sound.ENTITY_ENDERMAN_TELEPORT, 100, 1);
-                player.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("home_default_success"));
+                player.sendMessage(Main.getPrefix() + Text.get("home.default.success"));
             } else {
-                player.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("home_default_error"));
+                player.sendMessage(Main.getPrefix() + Text.get("home.default.error"));
             }
         } else if (label.equalsIgnoreCase("home") || label.equalsIgnoreCase("h") && args.length == 1) {
 
             if (Configs.home.getString("Homes." + player.getUniqueId() + "." + args[0].toLowerCase()) != null) {
-                player.teleport((Location) Configs.home.get("Homes." + player.getUniqueId() + "." + args[0].toLowerCase()));
+                player.teleport(
+                        (Location) Configs.home.get("Homes." + player.getUniqueId() + "." + args[0].toLowerCase()));
                 player.playSound(player.getLocation(), Sound.ENTITY_ENDERMAN_TELEPORT, 100, 1);
-                player.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("home_success").replace("%h", args[0].toLowerCase()));
+                player.sendMessage(Main.getPrefix() + Text.get("home.success").replace("%h", args[0].toLowerCase()));
             } else {
-                player.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("home_error").replace("%h", args[0].toLowerCase()));
+                player.sendMessage(Main.getPrefix() + Text.get("home.error").replace("%h", args[0].toLowerCase()));
             }
 
         } else if (label.equalsIgnoreCase("renamehome") && args.length == 1) {
 
             if (Configs.home.getString("Homes." + player.getUniqueId() + "." + args[0].toLowerCase()) == null) {
-                player.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("home_error").replace("%h", args[0].toLowerCase()));
+                player.sendMessage(Main.getPrefix() + Text.get("home.error").replace("%h", args[0].toLowerCase()));
                 return;
             }
 
             new AnvilGUI.Builder()
                     .onComplete((completion) -> {
-                        if(Utils.countWords(completion.getText()) > 1) {
+                        if (Utils.countWords(completion.getText()) > 1) {
                             player.playSound(player.getLocation(), Sound.ENTITY_PILLAGER_AMBIENT, 100, 0.5f);
-                            return Collections.singletonList(AnvilGUI.ResponseAction.replaceInputText(LanguageLoader.translationMap.get("anvil_gui_one_word")));
+                            return Collections.singletonList(
+                                    AnvilGUI.ResponseAction.replaceInputText(Text.get("anvil_gui_one_word")));
                         }
-                        Configs.home.set("Homes." + player.getUniqueId() + "." + completion.getText(), Configs.home.get("Homes." + player.getUniqueId() + "." + args[0]));
+                        Configs.home.set("Homes." + player.getUniqueId() + "." + completion.getText(),
+                                Configs.home.get("Homes." + player.getUniqueId() + "." + args[0]));
                         Configs.home.set("Homes." + player.getUniqueId() + "." + args[0], null);
                         Configs.saveHomeConfig();
-                        player.sendMessage(Main.getPrefix() + LanguageLoader.translationMap.get("home_rename_success").replace("%h", args[0]).replace("%n", completion.getText()));
+                        player.sendMessage(Main.getPrefix() + Text.get("home.rename.success").replace("%h", args[0])
+                                .replace("%n", completion.getText()));
                         return Collections.singletonList(AnvilGUI.ResponseAction.close());
                     })
                     .text(args[0])
@@ -126,17 +133,21 @@ public class HomeCommands extends CommandBase implements CommandExecutor, TabCom
         ArrayList<String> list = new ArrayList<String>();
         Player playert = (Player) (sender);
 
-        if (Configs.home.getConfigurationSection("Homes") == null || Configs.home.getConfigurationSection("Homes").getKeys(false).isEmpty()) {
+        if (Configs.home.getConfigurationSection("Homes") == null
+                || Configs.home.getConfigurationSection("Homes").getKeys(false).isEmpty()) {
             return null;
-        } else if (args.length == 1 && label.equalsIgnoreCase("home") || label.equalsIgnoreCase("delhome") || label.equalsIgnoreCase("h") || label.equalsIgnoreCase("renamehome")) {
-            list.addAll(Objects.requireNonNull(Configs.home.getConfigurationSection("Homes." + playert.getUniqueId())).getKeys(false));
+        } else if (args.length == 1 && label.equalsIgnoreCase("home") || label.equalsIgnoreCase("delhome")
+                || label.equalsIgnoreCase("h") || label.equalsIgnoreCase("renamehome")) {
+            list.addAll(Objects.requireNonNull(Configs.home.getConfigurationSection("Homes." + playert.getUniqueId()))
+                    .getKeys(false));
         }
 
         ArrayList<String> completerList = new ArrayList<String>();
         String currentarg = args[args.length - 1].toLowerCase();
         for (String s : list) {
             String s1 = s.toLowerCase();
-            if (!s1.startsWith(currentarg)) continue;
+            if (!s1.startsWith(currentarg))
+                continue;
             completerList.add(s);
         }
 

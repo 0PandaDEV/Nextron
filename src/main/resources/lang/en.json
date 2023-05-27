@@ -1,0 +1,163 @@
+{
+  "language" : "en",
+  "console.activate": "§aSuccessfully enabled",
+  "console.disabled": "§aSuccessfully disabled",
+
+  "command.instance.error": "§6This command can only be run by a player!",
+  "no.perms": "§cYou do not have permission to do this",
+  "invalid.player": "§cThis player is not online",
+
+  "homegui.leftclick": "§aLeft-click §c>> §7Opens home settings",
+  "homegui.rightclick": "§aRight-click §c>> §7Teleports to Home",
+
+  "warpgui.leftclick": "§aLeft-click §c>> §7Opens warp settings",
+  "warpgui.rightclick": "§aRight-click §c>> §7Teleports to Warp",
+
+  "homesettings.gui.feature": "§cThis feature is not yet available",
+
+
+  "maingui.vanish.lore.1": "§8Controls whether a fake join/quit",
+  "maingui.vanish.lore.2": "§8message will be sent",
+  "maingui.vanish.lore.3": "§8when you enter or leave the vanish.",
+  "maingui.vanish.lore.4": "§aLeft-click §c>> §7Toggle",
+
+
+  "maingui.tpa.lore.1": "§8Controls whether other players",
+  "maingui.tpa.lore.2": "§8can send you a tpa requests or not.",
+
+
+  "maingui.feedback.lore.1": "§8Controls whether a message should",
+  "maingui.feedback.lore.2": "§8be sent after a command gets executed",
+  "maingui.feedback.lore.3": "§8for example 'Gamemode set to creative'.",
+  "maingui.feedback.lore.4": "§8Errors and important messages",
+  "maingui.feedback.lore.5": "§8will still be displayed.",
+  "maingui.feedback.lore.6": "§aLeft-click §c>> §7Toggle",
+
+
+  "maingui.no.homes": "§cYou don't have any homes",
+  "maingui.no.warps": "§cThere are no warps",
+  "maingui.no.ranks": "§cThere are no ranks",
+
+
+  "fly.other.on": "§7Enabled flight for §a%t",
+  "fly.other.off": "§7Disabled flight for §a%t",
+  "fly.on": "§7Flight enabled",
+  "fly.off": "§7Flight disabled",
+
+
+  "heal.success": "§7You have been healed",
+  "heal.error": "§cYou are already at max health or have full hunger pillars",
+  "heal.other.success": "§a%p §7has healed you",
+  "heal.other.error": "§cThe player §6%t §c is already at max health or has full hunger pillars",
+
+  "gamemode.success": "§7Gamemode set to §a%g",
+  "gamemode.error": "§cYou are already in gamemode §6%g",
+  "gamemode.other.success": "§7Set §a%t's §7gamemode to §a%g",
+  "gamemode.other.error": "§cThe player §6%t §cis already in gamemode §6%g",
+  "gamemode.invalid": "§cThis gamemode does not exist",
+
+  "head.success": "§7You have been given §a%t's §7head",
+
+  "sethome.success": "§7You have created the home §a%h",
+  "sethome.error": "§cA home with the name §6%h §cexists already",
+  "sethome.default.success": "§7You have set your §aDefault §7Home",
+  "delhome.success": "§7You have deleted the home §a%h",
+  "delhome.error": "§cA home with the name §6%h §cdon't exists",
+  "home.success": "§7You have been teleported to §a%h",
+  "home.error": "§cA home named §6%h §cdon't exists",
+  "home.default.success": "§7You have been teleported to your §adefault §7home",
+  "home.default.error": "§cYou have never set your §6default §chome",
+  "home.rename.request": "§7Write a new name for the home §a%h §7in the chat",
+  "home.rename.success": "§7The name of the home §a%h §7was changed to §a%n",
+  "home.reset.confirm": "§7Are you sure you want to overwrite the old home %r",
+  "home.reset.success": "§7The position for the home §a%h §7has been moved successfully",
+  
+  "invsee.error": "§cYou cannot run this command on yourself",
+  
+  
+  "rank.remove.success": "§7All ranks removed from §a%t",
+  "rank.set.success": "§a%p §7has been given the rank §a%r",
+  "rank.set.error": "§cThe player §6%p §calready has this rank",
+  "rank.create.success": "§7A rank named §a%r §7was created",
+  "rank.delete.success": "§7A rank named §a%r §7was deleted",
+  "rank.setprefix.success": "§7The prefix of the rank §a%r §7has changed to §a%p",
+  "rank.setprefix.request": "§7Write a new §aprefix §7in the chat",
+  "rank.rename.request": "§7Write a new name for the rank §a%r §7in the chat",
+  "rank.rename.success": "§7The name of the rank §a%r §7was changed to §a%n",
+  
+  "rank.dontexists": "§cA rank with this name don't exists",
+  "rank.exists": "§cA rank with this name already exists",
+  
+  
+  "speed.error": "§cValue may not exceed 10",
+  "speed.fly.success": "§7Flyspeed set to §a%s",
+  "speed.wark.success": "§7Walkspeed set to §a%s",
+  "speed.reset": "§7Your speed has been reset to the default value",
+  "speed.error.digit": "§cThe value must be a number",
+
+  "sudo.success": "§a%t §7was forced to run §a/%b",
+
+  "tpaccept.player.success": "§7You got teleported to §a%p",
+  "tpaccept.target.success": "§a%t §7got teleported to you",
+  "tpaccept.error": "§cYou don't have any pending tpa's",
+
+  "tpa.sender.success": "§7Tpa was sent to §a%t",
+  "tpa.target.success.1": "§a%p §7has requested to teleport to you",
+  "tpa.target.success.2": "§7Type §a/tpaccept §7to accept their request or click here §c",
+  "tpa.error": "§cYou cannot tpa yourself",
+  "tpa.allow": "§cYou cannot send a tpa request to this player because he disabled it",
+
+  "tphere.success": "§a%t §7has teleported to you",
+  "tphere.error": "§cYou cannot teleport to yourself",
+
+  "vanish": "§7You are now in vanish",
+  "unvanish": "§7You are no longer in vanish",
+  "vanish.other": "§a%t §7is now vanished",
+  "unvanish.other": "§a%t §7is no longer vanished",
+
+  "setwarp.success": "§7Created warp named §a%w",
+  "setwarp.error": "§cA warp named §6%w §calready exists",
+  "delwarp.success": "§7Removed warp §a%w",
+  "delwarp.error": "§cThere is no warp named §6%w",
+  "warp.success": "§7You have been teleported to §a%w",
+  "warp.error": "§cA warp named §6%w §cdon't exists",
+  "warp.rename.request": "§7Write a new name for the warp §a%w §7in the chat",
+  "warp.rename.success": "§7The name of the warp §a%w §7was changed to §a%n",
+
+  "featuregui.rank.off": "§8The rank system is ready to be used by everyone!",
+  "featuregui.rank.on": "§8The rank system can't be used by normal players now!",
+  "featuregui.warp.off": "§8The warp system is ready to be used by everyone!",
+  "featuregui.warp.on": "§8The warp system can't be used by normal players now!",
+  "featuregui.home.off": "§8The home system is ready to be used by everyone!",
+  "featuregui.home.on": "§8The home system can't be used by normal players now!",
+  "featuregui.tpa.off": "§8The tpa system is ready to be used by everyone!",
+  "featuregui.tpa.on": "§8The tpa system can't be used by normal players now!",
+  "leftclick": "§aLeft-click §c>> §7Toggle",
+
+  "feature.validvalues": "§cThe second argument should be one of these §4[warp.system, home.system, rank.system, tpa.system]",
+  "feature.enable": "§7The §a%n system §7has been enabled",
+  "feature.disable": "§7The §a%n system §7has been disabled",
+
+  "rename.error": "§cThere is no item in your main hand",
+
+  "anvil.gui.one.word": "Only one word",
+
+  "rank.gui.not.ready": "§7Not ready to create the rank",
+  "rank.gui.ready": "§aReady to create the rank",
+
+  "god.on": "§7You're now in god mode",
+  "god.off": "§7You're no longer in god mode",
+
+  "god.on.other": "§a%p §7is now in god mode",
+  "god.off.other": "§a%p §7is no longer in god mode",
+
+  "time.success": "§7Time has been set to §a%d",
+
+  "tpdeny.player": "§7You denied the tpa request from §a%p",
+  "tpdeny.target": "§a%p §7denied your tpa request",
+
+  "back.other.success": "§a%p §7was teleported back to the last position",
+
+  "night.vision.add": "§7Night vision was given to §a%p",
+  "night.vision.remove": "§7Night vision was taken from §a%p"
+}
