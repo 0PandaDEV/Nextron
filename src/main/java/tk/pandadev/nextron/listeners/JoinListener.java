@@ -27,7 +27,7 @@ public class JoinListener implements Listener {
             event.setJoinMessage(event.getJoinMessage() + " §8• §x§6§2§0§0§f§fNextron Plugin Creator");
         }
         RankAPI.createPlayerTeam(player);
-        RankAPI.checkRank(player);
+        RankAPI.checkRank(player, false);
         Main.getInstance().getTablistManager().setAllPlayerTeams();
     }
 

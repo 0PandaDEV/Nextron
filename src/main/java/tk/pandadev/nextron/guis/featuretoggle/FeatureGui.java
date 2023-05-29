@@ -44,7 +44,7 @@ public class FeatureGui extends GUI {
 
                     // rank system activate and deactivate
                     for (Player onlineplayer : Bukkit.getOnlinePlayers()) {
-                        RankAPI.checkRank(onlineplayer);
+                        RankAPI.checkRank(onlineplayer, false);
                     }
                     player.playSound(player.getLocation(),
                             Configs.feature.getBoolean("rank_system") ? Sound.BLOCK_BEACON_ACTIVATE
