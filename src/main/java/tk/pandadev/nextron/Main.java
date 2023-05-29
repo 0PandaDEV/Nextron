@@ -50,12 +50,15 @@ public final class Main extends BasePlugin {
         Configs.saveHomeConfig();
         Configs.saveWarpConfig();
         Configs.saveFeatureConfig();
-        getTablistManager().setAllPlayerTeams();
+
+        for (Player player : Bukkit.getOnlinePlayers()) {
+            player.setDisplayName(Configs.settings.getString(player.getUniqueId() + ".nick"));
+        }
 
         for (Player player : Bukkit.getOnlinePlayers()) {
             SettingsConfig.checkSettings(player);
             RankAPI.createPlayerTeam(player);
-            RankAPI.checkRank(player);
+            RankAPI.checkRank(player, false);
         }
 
         vanishAPI = new VanishAPI(this);
@@ -73,15 +76,22 @@ public final class Main extends BasePlugin {
     @Override
     public void onDisable() {
         Bukkit.getConsoleSender().sendMessage(Prefix + Text.get("console.disabled"));
+
         for (Player player : Bukkit.getOnlinePlayers()) {
             if (Main.getInstance().getConfig().getConfigurationSection("Ranks") == null) {
                 break;
             }
             for (String rank : getConfig().getConfigurationSection("Ranks").getKeys(false)) {
+                for (Team team : player.getScoreboard().getTeams()){
+                    for (String entry : team.getEntries()){
+                        team.removeEntry(entry);
+                    }
+                    System.out.println(team.getEntries());
+                }
                 player.getScoreboard().getTeam("010" + rank).removeEntry(player.getName());
             }
             player.getScoreboard().getTeam("010player").removeEntry(player.getName());
-            RankAPI.checkRank(player);
+            RankAPI.checkRank(player, true);
 
             for (String rank : Main.getInstance().getConfig().getConfigurationSection("Ranks").getKeys(false)) {
                 Team finalrank = player.getScoreboard().getTeam("010" + rank.toLowerCase());
@@ -120,6 +130,7 @@ public final class Main extends BasePlugin {
         getCommand("rl").setExecutor(new ReloadCommand());
         getCommand("tpdeny").setExecutor(new TpdenyCommand());
         getCommand("nightvision").setExecutor(new NightVisionCommand());
+        getCommand("nick").setExecutor(new NickCommand());
     }
 
     private void registerListeners() {
