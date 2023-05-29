@@ -12,6 +12,7 @@ import tk.pandadev.nextron.Main;
 
 import java.util.ArrayList;
 import java.util.List;
+
 public class GamemodeCommand extends CommandBase implements CommandExecutor, TabCompleter {
 
     public GamemodeCommand() {
@@ -142,7 +143,6 @@ public class GamemodeCommand extends CommandBase implements CommandExecutor, Tab
             } else if (args[0].equalsIgnoreCase("sp")) {
                 gamemode = GameMode.SPECTATOR;
             } else {
-                System.out.println("asdad");
                 sender.sendMessage(Main.getPrefix() + Text.get("gamemode.invalid"));
                 return;
             }

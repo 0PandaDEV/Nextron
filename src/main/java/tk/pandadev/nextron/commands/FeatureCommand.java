@@ -56,7 +56,7 @@ public class FeatureCommand extends CommandBase implements TabCompleter {
                     onlineplayer.addAttachment(Main.getInstance()).setPermission(
                             "nextron." + args[1].replace("_system", ""), Configs.feature.getBoolean(args[1]));
                     if (args[1].replace("_system", "").equalsIgnoreCase("rank")) {
-                        RankAPI.checkRank(onlineplayer);
+                        RankAPI.checkRank(onlineplayer, false);
                     }
                 }
                 if (sender instanceof Player) {
@@ -67,7 +67,6 @@ public class FeatureCommand extends CommandBase implements TabCompleter {
                         Main.getPrefix() + Text.get("feature.enable").replace("%n", args[1].replace("_system", "")));
             }
             if (args[0].equalsIgnoreCase("disable")) {
-                System.out.println("enable");
                 Configs.feature.set(args[1], false);
                 Configs.saveFeatureConfig();
                 for (Player onlineplayer : Bukkit.getOnlinePlayers()) {
@@ -78,7 +77,7 @@ public class FeatureCommand extends CommandBase implements TabCompleter {
                     onlineplayer.addAttachment(Main.getInstance()).setPermission(
                             "nextron." + args[1].replace("_system", ""), Configs.feature.getBoolean(args[1]));
                     if (args[1].replace("_system", "").equalsIgnoreCase("rank")) {
-                        RankAPI.checkRank(onlineplayer);
+                        RankAPI.checkRank(onlineplayer, false);
                     }
                 }
                 if (sender instanceof Player) {

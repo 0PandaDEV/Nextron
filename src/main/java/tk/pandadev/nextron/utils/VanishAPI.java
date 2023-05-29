@@ -12,19 +12,19 @@ public class VanishAPI {
     public VanishAPI(Plugin plugin) {
         this.plugin = plugin;
     }
+
     public void setVanish(Player player, Boolean state) {
         Main.getInstance().getConfig().set("Vanished." + player.getUniqueId(), state);
         Main.getInstance().saveConfig();
         executeVanish(player);
     }
 
-    public static boolean isVanish(Player player){
+    public static boolean isVanish(Player player) {
         return Main.getInstance().getConfig().getBoolean("Vanished." + player.getUniqueId());
     }
 
-    private void executeVanish(Player player){
-        for (Player onlinePlayer : Bukkit.getOnlinePlayers()){
-            System.out.println(isVanish(player));
+    private void executeVanish(Player player) {
+        for (Player onlinePlayer : Bukkit.getOnlinePlayers()) {
             if (isVanish(player)) {
                 onlinePlayer.hidePlayer(this.plugin, player);
                 continue;
