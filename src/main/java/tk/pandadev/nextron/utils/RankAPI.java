@@ -61,7 +61,7 @@ public class RankAPI {
             mainConfig.set("Ranks." + rank.toLowerCase() + ".players", list);
             Main.getInstance().saveConfig();
         }
-        checkRank(player);
+        checkRank(player, false);
         Main.getInstance().getTablistManager().setAllPlayerTeams();
     }
 
@@ -87,7 +87,7 @@ public class RankAPI {
         Main.getInstance().saveConfig();
         player.sendMessage(Main.getPrefix() + Text.get("rank.delete.success").replace("%r", rank.toLowerCase()));
         for (Player onlineplayer : Bukkit.getOnlinePlayers()) {
-            checkRank(onlineplayer);
+            checkRank(onlineplayer, false);
         }
     }
 
@@ -126,11 +126,13 @@ public class RankAPI {
         return "player";
     }
 
-    public static void checkRank(Player player) {
+    public static void checkRank(Player player, boolean disabeling) {
         if (Main.getInstance().getConfig().getConfigurationSection("Ranks") == null) {
             return;
         }
-        createPlayerTeam(player);
+        if (!disabeling) {
+            createPlayerTeam(player);
+        }
         if (Objects.equals(getRank(player), "player")) {
             Scoreboard scoreboard = player.getScoreboard();
             Team finalrank = scoreboard.getTeam("010player");
@@ -141,7 +143,9 @@ public class RankAPI {
                 player.setDisplayName(player.getName());
             }
         }
-        Main.getInstance().getTablistManager().setAllPlayerTeams();
+        if (!disabeling) {
+            Main.getInstance().getTablistManager().setAllPlayerTeams();
+        }
     }
 
 }

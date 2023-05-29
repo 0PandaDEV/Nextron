@@ -11,37 +11,31 @@ import tk.pandadev.nextron.utils.Configs;
 
 public class TablistManager {
 
-    public void setAllPlayerTeams(){
+    public void setAllPlayerTeams() {
         Bukkit.getOnlinePlayers().forEach(this::setPlayerTeams);
     }
 
-    public void setPlayerTeams(Player player){
+    public void setPlayerTeams(Player player) {
         Scoreboard scoreboard = player.getScoreboard();
-
         ConfigurationSection ranks = Main.getInstance().getConfig().getConfigurationSection("Ranks");
 
-        if (Main.getInstance().getConfig().getConfigurationSection("Ranks") == null) {
-            return;
-        }
-        for (String rank : ranks.getKeys(false)){
-            Team finalrank = scoreboard.getTeam("010" + rank.toLowerCase());
-            if (finalrank == null){
-                finalrank = scoreboard.registerNewTeam("010" + rank.toLowerCase());
-            }
-            if (Configs.feature.getBoolean("rank_system")) {
-                finalrank.setPrefix(ranks.getString(rank + ".prefix"));
-            } else {
-                finalrank.setPrefix("");
-                player.setDisplayName(player.getName());
-            }
-            finalrank.setColor(ChatColor.GRAY);
-            for (Player target : Bukkit.getOnlinePlayers()){
-                if (ranks.getStringList(rank + ".players").contains(String.valueOf(target.getUniqueId()))) {
-                    finalrank.addEntry(target.getName());
+        if (ranks == null) return;
+
+        for (String rank : ranks.getKeys(false)) {
+            if (!Configs.feature.getBoolean("rank_system")) return;
+
+            Team playerRank = scoreboard.getTeam("010" + rank.toLowerCase());
+            if (playerRank == null) playerRank = scoreboard.registerNewTeam("010" + rank.toLowerCase());
+
+            playerRank.setColor(ChatColor.GRAY);
+            playerRank.setPrefix(ranks.getString(rank + ".prefix"));
+
+            for (Player player1 : Bukkit.getOnlinePlayers()) {
+                if (ranks.getStringList(rank + ".players").contains(String.valueOf(player1.getUniqueId()))) {
+                    playerRank.addEntry(player1.getName());
+                    System.out.println(playerRank.getEntries());
                 }
             }
         }
-
     }
-
 }
