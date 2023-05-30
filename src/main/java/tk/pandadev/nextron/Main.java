@@ -82,11 +82,10 @@ public final class Main extends BasePlugin {
                 break;
             }
             for (String rank : getConfig().getConfigurationSection("Ranks").getKeys(false)) {
-                for (Team team : player.getScoreboard().getTeams()){
-                    for (String entry : team.getEntries()){
+                for (Team team : player.getScoreboard().getTeams()) {
+                    for (String entry : team.getEntries()) {
                         team.removeEntry(entry);
                     }
-                    System.out.println(team.getEntries());
                 }
                 player.getScoreboard().getTeam("010" + rank).removeEntry(player.getName());
             }
