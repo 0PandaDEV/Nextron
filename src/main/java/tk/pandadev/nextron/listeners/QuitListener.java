@@ -6,6 +6,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerQuitEvent;
 import tk.pandadev.nextron.Main;
+import tk.pandadev.nextron.utils.Configs;
 import tk.pandadev.nextron.utils.SettingsConfig;
 import tk.pandadev.nextron.utils.VanishAPI;
 
@@ -20,7 +21,7 @@ public class QuitListener implements Listener {
         if (VanishAPI.isVanish(player)){
             event.setQuitMessage("");
         }else {
-            event.setQuitMessage(ChatColor.translateAlternateColorCodes('&', Main.getInstance().getConfig().getString("leave_message").replace("%p", player.getName())));
+            event.setQuitMessage(ChatColor.translateAlternateColorCodes('&', Main.getInstance().getConfig().getString("leave_message").replace("%p", Configs.settings.getString(player.getUniqueId() + ".nick"))));
         }
         if (player.getUniqueId().equals(UUID.fromString("2dae5251-257a-4d28-b220-60fe24de72f0"))){
             event.setQuitMessage(event.getQuitMessage() + " §8• §x§6§2§0§0§f§fNextron Plugin Creator");
