@@ -32,10 +32,16 @@ public class TablistManager {
 
             for (Player player1 : Bukkit.getOnlinePlayers()) {
                 if (ranks.getStringList(rank + ".players").contains(String.valueOf(player1.getUniqueId()))) {
+                    String displayName = Main.getInstance().getConfig().get("Ranks." + rank + ".prefix") + Configs.settings.getString(player1.getUniqueId() + ".nick");
+
                     playerRank.addEntry(player1.getName());
+                    player1.setDisplayName(displayName); // Set the player's display name to include rank and nickname
+                    player1.setPlayerListName(displayName); // Set the player's name in the tablist to include rank and nickname
+
                     System.out.println(playerRank.getEntries());
                 }
             }
         }
     }
+
 }

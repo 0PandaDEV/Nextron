@@ -35,6 +35,8 @@ public class NickCommand extends CommandBase implements TabCompleter {
             Configs.saveSettingsConfig();
         }
 
+        Main.getInstance().getTablistManager().setAllPlayerTeams();
+
     }
 
     @Override
