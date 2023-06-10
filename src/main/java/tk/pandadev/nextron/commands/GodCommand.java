@@ -27,7 +27,7 @@ public class GodCommand extends CommandBase implements CommandExecutor, TabCompl
             }
             Player player = (Player) (sender);
 
-            if (player.hasPermission("nextron.god")) {
+            if (!player.hasPermission("nextron.god")) {
                 player.sendMessage(Main.getNoPerm());
                 return;
             }
@@ -39,7 +39,7 @@ public class GodCommand extends CommandBase implements CommandExecutor, TabCompl
                 player.sendMessage(Main.getPrefix() + Text.get("god.off"));
 
         } else if (args.length == 1) {
-            if (sender.hasPermission("nextron.god.other")) {
+            if (!sender.hasPermission("nextron.god.other")) {
                 sender.sendMessage(Main.getNoPerm());
                 return;
             }
