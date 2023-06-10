@@ -7,6 +7,7 @@ import tk.pandadev.nextron.Main;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Objects;
 
 public abstract class CommandBase implements CommandExecutor {
     private final String command;
@@ -40,7 +41,7 @@ public abstract class CommandBase implements CommandExecutor {
     @Override
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
         if (!cmd.getName().equalsIgnoreCase(command)) return false;
-        if (permission != null && !sender.hasPermission(permission)) {
+        if (!Objects.equals(permission, "") && !sender.hasPermission(permission)) {
             sender.sendMessage(Main.getNoPerm());
             return true;
         }
