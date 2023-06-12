@@ -130,6 +130,7 @@ public final class Main extends BasePlugin {
         getCommand("tpdeny").setExecutor(new TpdenyCommand());
         getCommand("nightvision").setExecutor(new NightVisionCommand());
         getCommand("nick").setExecutor(new NickCommand());
+        getCommand("language").setExecutor(new LanguageCommand());
     }
 
     private void registerListeners() {

@@ -93,3 +93,5 @@ commands:
     permission: nextron.nick
     aliases:
       - resetnick
+  language:
+    permission: nextron.lanugage

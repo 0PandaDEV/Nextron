@@ -6,7 +6,7 @@
 
     <groupId>tk.pandadev</groupId>
     <artifactId>Nextron</artifactId>
-    <version>1.3.1</version>
+    <version>1.4.0</version>
     <packaging>jar</packaging>
 
     <name>Nextron</name>
@@ -24,8 +24,8 @@
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.8.1</version>
                 <configuration>
-                    <source>${java.version}</source>
-                    <target>${java.version}</target>
+                    <source>16</source>
+                    <target>16</target>
                 </configuration>
             </plugin>
             <plugin>
@@ -120,7 +120,7 @@
         <dependency>
             <groupId>com.github.0PandaDEV</groupId>
             <artifactId>Languify</artifactId>
-            <version>8238425600</version>
+            <version>beta-1.0</version>
         </dependency>
     </dependencies>
 </project>
