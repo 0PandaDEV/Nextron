@@ -34,7 +34,6 @@ public class LanguageCommand extends CommandBase implements TabCompleter {
             for (File lanugage : dataFolder){
                 languages.add(lanugage.getName().replace(".json", ""));
             }
-            System.out.println(languages);
             if (!languages.contains(args[0])) {player.sendMessage(Main.getPrefix() + Text.get("language.set.error").replace("%l", languages.toString().replace("[", "").replace("]", ""))); return;}
 
             Main.getInstance().getConfig().set("language", args[0]);

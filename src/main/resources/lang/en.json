@@ -161,6 +161,6 @@
   "night.vision.add": "§7Night vision was given to §a%p",
   "night.vision.remove": "§7Night vision was taken from §a%p",
 
-  "language.set.success": "§7Language was successfully set to §a%l",
+  "language.set.success": "§7Language was successfully set to §a%l\nto see the changes you have to §a/rl §7the server",
   "language.set.error": "§cOnly §6%l §c are available at the moment"
 }

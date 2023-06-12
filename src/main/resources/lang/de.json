@@ -156,6 +156,6 @@
   "night.vision.add": "§7Night vision wurde §a%p §7gegeben",
   "night.vision.remove": "§7Night vision wurde §a%p §7weggenommen",
 
-  "language.set.success": "§7Sprache wurde erfolgreich auf §a%l §7geändert",
+  "language.set.success": "§7Sprache wurde erfolgreich auf §a%l §7geändert\num die änderungen zu sehen musst du den server §a/rl",
   "language.set.error": "§cNur die sprachen §6%l §csind im moment verfügbar"
 }
