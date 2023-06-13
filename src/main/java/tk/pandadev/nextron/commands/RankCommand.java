@@ -33,7 +33,7 @@ public class RankCommand extends CommandBase implements CommandExecutor, TabComp
         if (sender instanceof Player) {
             Player player = (Player) (sender);
             RankAPI.createPlayerTeam(player);
-            RankAPI.checkRank(player, false);
+            RankAPI.checkRank(player);
         }
 
         if (args.length == 2 && label.equalsIgnoreCase("rank")) {
@@ -48,7 +48,7 @@ public class RankCommand extends CommandBase implements CommandExecutor, TabComp
                 return;
             }
             RankAPI.setRank(sender, target, args[1]);
-            RankAPI.checkRank(target, false);
+            RankAPI.checkRank(target);
 
         } else if (args.length == 1 && label.equalsIgnoreCase("removerank")) {
 
@@ -64,7 +64,7 @@ public class RankCommand extends CommandBase implements CommandExecutor, TabComp
             }
 
             RankAPI.removeRanks(target);
-            RankAPI.checkRank(target, false);
+            RankAPI.checkRank(target);
 
             sender.sendMessage(Main.getPrefix()
                     + Text.get("rank.remove.success").replace("%t", target.getName()));

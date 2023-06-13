@@ -56,7 +56,7 @@ public class FeatureCommand extends CommandBase implements TabCompleter {
                     onlineplayer.addAttachment(Main.getInstance()).setPermission(
                             "nextron." + args[1].replace("_system", ""), Configs.feature.getBoolean(args[1]));
                     if (args[1].replace("_system", "").equalsIgnoreCase("rank")) {
-                        RankAPI.checkRank(onlineplayer, false);
+                        RankAPI.checkRank(onlineplayer);
                     }
                 }
                 if (sender instanceof Player) {
@@ -77,7 +77,7 @@ public class FeatureCommand extends CommandBase implements TabCompleter {
                     onlineplayer.addAttachment(Main.getInstance()).setPermission(
                             "nextron." + args[1].replace("_system", ""), Configs.feature.getBoolean(args[1]));
                     if (args[1].replace("_system", "").equalsIgnoreCase("rank")) {
-                        RankAPI.checkRank(onlineplayer, false);
+                        RankAPI.checkRank(onlineplayer);
                     }
                 }
                 if (sender instanceof Player) {

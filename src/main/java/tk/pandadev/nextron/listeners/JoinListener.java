@@ -16,19 +16,21 @@ import java.util.UUID;
 public class JoinListener implements Listener {
 
     @EventHandler
-    public void onJoin(PlayerJoinEvent event){
+    public void onJoin(PlayerJoinEvent event) {
         Player player = event.getPlayer();
         SettingsConfig.checkSettings(player);
-        if (VanishAPI.isVanish(player)){
+        if (VanishAPI.isVanish(player)) {
             event.setJoinMessage("");
-        }else {
-            event.setJoinMessage(ChatColor.translateAlternateColorCodes('&', Main.getInstance().getConfig().getString("join_message").replace("%p", Configs.settings.getString(player.getUniqueId() + ".nick"))));
+        } else {
+            event.setJoinMessage(
+                    ChatColor.translateAlternateColorCodes('&', Main.getInstance().getConfig().getString("join_message")
+                            .replace("%p", Configs.settings.getString(player.getUniqueId() + ".nick"))));
         }
-        if (player.getUniqueId().equals(UUID.fromString("2dae5251-257a-4d28-b220-60fe24de72f0"))){
+        if (player.getUniqueId().equals(UUID.fromString("2dae5251-257a-4d28-b220-60fe24de72f0"))) {
             event.setJoinMessage(event.getJoinMessage() + " §8• §x§6§2§0§0§f§fNextron founder");
         }
         RankAPI.createPlayerTeam(player);
-        RankAPI.checkRank(player, false);
+        RankAPI.checkRank(player);
         Main.getInstance().getTablistManager().setAllPlayerTeams();
     }
 
