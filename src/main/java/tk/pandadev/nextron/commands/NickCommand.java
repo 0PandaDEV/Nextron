@@ -33,6 +33,8 @@ public class NickCommand extends CommandBase implements TabCompleter {
             player.setDisplayName(player.getName());
             Configs.settings.set(player.getUniqueId() + ".nick", player.getName());
             Configs.saveSettingsConfig();
+        } else {
+            player.sendMessage(Main.getPrefix() + "§c/nick <name>");
         }
 
         Main.getInstance().getTablistManager().setAllPlayerTeams();
