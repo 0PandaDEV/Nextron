@@ -23,7 +23,7 @@ public class ChatEditor implements Listener {
                 if (ranks.getStringList(rank + ".players").contains(player.getUniqueId().toString())) player.setDisplayName(ranks.getString(rank + ".prefix") + ChatColor.WHITE + Configs.settings.getString(player.getUniqueId() + ".nick"));
             }
         } else {
-            player.setDisplayName(player.getName());
+            player.setDisplayName(Configs.settings.getString(player.getUniqueId() + ".nick"));
         }
         event.setFormat(player.getDisplayName() + " §8» §f" + ChatColor.translateAlternateColorCodes('&', message));
     }
