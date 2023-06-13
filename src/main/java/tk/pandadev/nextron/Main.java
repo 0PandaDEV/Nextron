@@ -35,6 +35,7 @@ public final class Main extends BasePlugin {
         tablistManager = new TablistManager();
 
         Languify.setup(this, this.getDataFolder().toString());
+        LangLoader.saveLanguages(getName(), "-" + getDescription().getVersion());
         LangLoader.loadLanguage(getConfig().getString("language"));
 
         Bukkit.getScheduler().runTaskAsynchronously(this, () -> {
@@ -58,9 +59,10 @@ public final class Main extends BasePlugin {
         for (Player player : Bukkit.getOnlinePlayers()) {
             SettingsConfig.checkSettings(player);
             RankAPI.createPlayerTeam(player);
-            RankAPI.checkRank(player, false);
+            RankAPI.checkRank(player);
         }
 
+        tablistManager.setAllPlayerTeams();
         vanishAPI = new VanishAPI(this);
 
         NoPerm = Prefix + Text.get("no.perms");
@@ -75,6 +77,9 @@ public final class Main extends BasePlugin {
 
     @Override
     public void onDisable() {
+        LangLoader.saveLanguages(getName(), "-" + getDescription().getVersion());
+        LangLoader.loadLanguage(getConfig().getString("language"));
+
         Bukkit.getConsoleSender().sendMessage(Prefix + Text.get("console.disabled"));
 
         for (Player player : Bukkit.getOnlinePlayers()) {
@@ -90,7 +95,7 @@ public final class Main extends BasePlugin {
                 player.getScoreboard().getTeam("010" + rank).removeEntry(player.getName());
             }
             player.getScoreboard().getTeam("010player").removeEntry(player.getName());
-            RankAPI.checkRank(player, true);
+            RankAPI.checkRank(player);
 
             for (String rank : Main.getInstance().getConfig().getConfigurationSection("Ranks").getKeys(false)) {
                 Team finalrank = player.getScoreboard().getTeam("010" + rank.toLowerCase());
