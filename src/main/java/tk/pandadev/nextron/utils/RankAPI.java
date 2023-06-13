@@ -61,7 +61,7 @@ public class RankAPI {
             mainConfig.set("Ranks." + rank.toLowerCase() + ".players", list);
             Main.getInstance().saveConfig();
         }
-        checkRank(player, false);
+        checkRank(player);
         Main.getInstance().getTablistManager().setAllPlayerTeams();
     }
 
@@ -87,7 +87,7 @@ public class RankAPI {
         Main.getInstance().saveConfig();
         player.sendMessage(Main.getPrefix() + Text.get("rank.delete.success").replace("%r", rank.toLowerCase()));
         for (Player onlineplayer : Bukkit.getOnlinePlayers()) {
-            checkRank(onlineplayer, false);
+            checkRank(onlineplayer);
         }
     }
 
@@ -126,26 +126,26 @@ public class RankAPI {
         return "player";
     }
 
-    public static void checkRank(Player player, boolean disabeling) {
+    public static void checkRank(Player player) {
         if (Main.getInstance().getConfig().getConfigurationSection("Ranks") == null) {
             return;
         }
-        if (!disabeling) {
-            createPlayerTeam(player);
-        }
+        System.out.println(getRank(player));
+        createPlayerTeam(player);
         if (Objects.equals(getRank(player), "player")) {
             Scoreboard scoreboard = player.getScoreboard();
             Team finalrank = scoreboard.getTeam("010player");
             finalrank.addEntry(player.getName());
             if (Configs.feature.getBoolean("rank_system")) {
-                player.setDisplayName("§6Player §8• §f" + player.getName());
+                String displayName = "§6Player §8• §f" + Configs.settings.getString(player.getUniqueId() + ".nick");
+                player.setDisplayName(displayName);
+                player.setPlayerListName(displayName);
             } else {
-                player.setDisplayName(player.getName());
+                player.setDisplayName(Configs.settings.getString(player.getUniqueId() + ".nick"));
+                player.setPlayerListName(Configs.settings.getString(player.getUniqueId() + ".nick"));
             }
         }
-        if (!disabeling) {
-            Main.getInstance().getTablistManager().setAllPlayerTeams();
-        }
+        Main.getInstance().getTablistManager().setAllPlayerTeams();
     }
 
 }
