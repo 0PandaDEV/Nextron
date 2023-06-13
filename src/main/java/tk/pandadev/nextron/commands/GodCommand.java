@@ -53,9 +53,9 @@ public class GodCommand extends CommandBase implements CommandExecutor, TabCompl
 
             target.setInvulnerable(!target.isInvulnerable());
             if (target.isInvulnerable())
-                sender.sendMessage(Main.getPrefix() + Text.get("god.on.other"));
+                sender.sendMessage(Main.getPrefix() + Text.get("god.on.other").replace("%p", target.getName()));
             else
-                sender.sendMessage(Main.getPrefix() + Text.get("god.off.other"));
+                sender.sendMessage(Main.getPrefix() + Text.get("god.off.other").replace("%p", target.getName()));
         }
     }
 
@@ -66,7 +66,7 @@ public class GodCommand extends CommandBase implements CommandExecutor, TabCompl
 
         if (args.length == 1) {
             for (Player player : Bukkit.getOnlinePlayers()) {
-                list.add(String.valueOf(player));
+                list.add(player.getName());
             }
         }
 
