@@ -1,7 +1,5 @@
 <img src="https://cdn.discordapp.com/attachments/903181864116826112/1085873702295588874/Nextron_Banner.png" />
 
-<br>
-<br>
 
 **IMPORTANT: This plugin is renamed to Nextron and was EssentialsP before!**
 
@@ -20,17 +18,11 @@
 
 <img src="https://cdn.discordapp.com/attachments/903181864116826112/1043082635221684295/About_purple.png" height="54px"/>
 
-<br>
-<br>
-
 Nextron is a powerful Minecraft plugin which is meant to replace any other plugins you use at the moment. It has beautiful GUI's that simplifies the process to many users because you don't have to use complicated commands. 
 
 ***
 
 <img src="https://cdn.discordapp.com/attachments/903181864116826112/1043087096182734859/Requirements_purple.png" height="54px"/>
-
-<br>
-<br>
 
 - A permission plugin is highly recommended, for example [LuckPerms](https://luckperms.net/), as it can manage all permissions.
 - Nextron runs on Bukkit, Spigot, Paper and [Purpur (recommended)](https://purpurmc.org/).
@@ -40,20 +32,14 @@ Nextron is a powerful Minecraft plugin which is meant to replace any other plugi
 
 <img src="https://cdn.discordapp.com/attachments/903181864116826112/1043082636240900147/Issue_purple.png" height="54px"/>
 
-<br>
-<br>
-
 If you have any issues or find a bug, please remember to report it here [GitHub](https://github.com/0PandaDEV/Nextron/issues)
 
 ***
 
 <img src="https://cdn.discordapp.com/attachments/903181864116826112/1043082635771134002/Credits_purple.png" height="54px"/>
 
-<br>
-<br>
-
-[Negative Games](https://github.com/Negative-Games/Framework) Dependency by NegativeDev, seailz and joeecodes
-[triumph-gui](https://github.com/TriumphTeam/triumph-gui) by triumph team
+[Negative Games](https://github.com/Negative-Games/Framework) Dependency by NegativeDev, seailz and joeecodes <br>
+[triumph-gui](https://github.com/TriumphTeam/triumph-gui) by triumph team <br>
 [languify](https://github.com/Hekates/Languify) by Hekates
 
 ***
