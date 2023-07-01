@@ -126,7 +126,6 @@ public class RankAPI {
         if (Main.getInstance().getConfig().getConfigurationSection("Ranks") == null) {
             return;
         }
-        System.out.println(getRank(player));
         createPlayerTeam(player);
         if (Objects.equals(getRank(player), "player")) {
             Scoreboard scoreboard = player.getScoreboard();
