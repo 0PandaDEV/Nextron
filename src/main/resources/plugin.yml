@@ -95,3 +95,5 @@ commands:
       - resetnick
   language:
     permission: nextron.lanugage
+  world:
+    permission: nextron.world

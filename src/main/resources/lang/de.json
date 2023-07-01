@@ -157,5 +157,8 @@
   "night.vision.remove": "§7Night vision wurde §a%p §7weggenommen",
 
   "language.set.success": "§7Sprache wurde erfolgreich auf §a%l §7geändert\num die änderungen zu sehen musst du den server §a/rl",
-  "language.set.error": "§cNur die sprachen §6%l §csind im moment verfügbar"
+  "language.set.error": "§cNur die sprachen §6%l §csind im moment verfügbar",
+
+  "world.success": "§7Du wurdest in die welt §a%w §7teleportiert",
+  "world.error": "§cDiese Welt existiert nicht"
 }

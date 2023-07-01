@@ -136,6 +136,7 @@ public final class Main extends BasePlugin {
         getCommand("nightvision").setExecutor(new NightVisionCommand());
         getCommand("nick").setExecutor(new NickCommand());
         getCommand("language").setExecutor(new LanguageCommand());
+        getCommand("world").setExecutor(new WorldCommand());
     }
 
     private void registerListeners() {
