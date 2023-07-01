@@ -17,8 +17,6 @@ import java.util.Objects;
 public class RankAPI {
     private static final FileConfiguration mainConfig = Main.getInstance().getConfig();
 
-    //////////////////////////////////////////////
-
     public static void createPlayerTeam(Player player) {
         Scoreboard scoreboard = player.getScoreboard();
         Team finalrank = scoreboard.getTeam("010player");
@@ -31,8 +29,6 @@ public class RankAPI {
         }
         finalrank.setColor(ChatColor.GRAY);
     }
-
-    //////////////////////////////////////////////
 
     public static void setRank(CommandSender sender, Player player, String rank) {
         if (mainConfig.get("Ranks." + rank.toLowerCase()) == null) {

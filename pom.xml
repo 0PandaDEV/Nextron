@@ -6,7 +6,7 @@
 
     <groupId>tk.pandadev</groupId>
     <artifactId>Nextron</artifactId>
-    <version>1.4.0</version>
+    <version>1.4.1</version>
     <packaging>jar</packaging>
 
     <name>Nextron</name>
@@ -49,7 +49,7 @@
                 <artifactId>maven-jar-plugin</artifactId>
                 <version>2.3.1</version>
                 <configuration>
-                    <outputDirectory>server/plugins</outputDirectory>
+                    <outputDirectory>/Users/pandadev/Developer/Minecraft Plugins/Manhunt/server/plugins</outputDirectory>
                 </configuration>
             </plugin>
         </plugins>
@@ -92,7 +92,7 @@
         <dependency>
             <groupId>org.spigotmc</groupId>
             <artifactId>spigot-api</artifactId>
-            <version>1.20-R0.1-SNAPSHOT</version>
+            <version>1.20.1-R0.1-SNAPSHOT</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
@@ -118,9 +118,9 @@
             <version>3.1.4</version>
         </dependency>
         <dependency>
-            <groupId>com.github.0PandaDEV</groupId>
+            <groupId>com.github.Hekates</groupId>
             <artifactId>Languify</artifactId>
-            <version>beta-1.0</version>
+            <version>11f866cd78</version>
         </dependency>
     </dependencies>
 </project>

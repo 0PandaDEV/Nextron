@@ -5,3 +5,5 @@ language: "en"
 # for a full color pallet open cmd and type 'color ?'
 join_message: "&2[&a+&2] &7%p"
 leave_message: "&4[&c-&4] &7%p"
+
+Ranks:
