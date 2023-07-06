@@ -28,7 +28,7 @@ public class FlyCommand extends CommandBase implements CommandExecutor, TabCompl
             }
 
             Player target = Bukkit.getPlayer(args[0]);
-            if (target != null) {
+            if (target == null) {
                 sender.sendMessage(Main.getInvalidPlayer());
                 return;
             }
