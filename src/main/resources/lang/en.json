@@ -91,7 +91,7 @@
   
   "speed.error": "§cValue may not exceed 10",
   "speed.fly.success": "§7Flyspeed set to §a%s",
-  "speed.wark.success": "§7Walkspeed set to §a%s",
+  "speed.walk.success": "§7Walkspeed set to §a%s",
   "speed.reset": "§7Your speed has been reset to the default value",
   "speed.error.digit": "§cThe value must be a number",
 
