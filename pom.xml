@@ -6,7 +6,7 @@
 
     <groupId>tk.pandadev</groupId>
     <artifactId>Nextron</artifactId>
-    <version>1.4.1</version>
+    <version>1.4.2</version>
     <packaging>jar</packaging>
 
     <name>Nextron</name>
@@ -49,7 +49,7 @@
                 <artifactId>maven-jar-plugin</artifactId>
                 <version>2.3.1</version>
                 <configuration>
-                    <outputDirectory>/Users/pandadev/Developer/Minecraft Plugins/Manhunt/server/plugins</outputDirectory>
+                    <outputDirectory>server/plugins</outputDirectory>
                 </configuration>
             </plugin>
         </plugins>
