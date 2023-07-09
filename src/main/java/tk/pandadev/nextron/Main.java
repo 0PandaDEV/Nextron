@@ -130,13 +130,13 @@ public final class Main extends BasePlugin {
         getCommand("rename").setExecutor(new RenameCommand());
         getCommand("god").setExecutor(new GodCommand());
         getCommand("help").setExecutor(new HelpCommand());
-        getCommand("day").setExecutor(new TimeCommand());
         getCommand("rl").setExecutor(new ReloadCommand());
         getCommand("tpdeny").setExecutor(new TpdenyCommand());
         getCommand("nightvision").setExecutor(new NightVisionCommand());
         getCommand("nick").setExecutor(new NickCommand());
         getCommand("language").setExecutor(new LanguageCommand());
         getCommand("world").setExecutor(new WorldCommand());
+        getCommand("day").setExecutor(new TimeCommand());
     }
 
     private void registerListeners() {

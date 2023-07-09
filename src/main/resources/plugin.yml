@@ -75,12 +75,6 @@ commands:
   help:
   god:
     permission: nextron.god
-  day:
-    permission: nextron.time
-    aliases:
-      - night
-      - noon
-      - midnight
   rl:
     permission: nextron.reload
   tpdeny:
@@ -94,6 +88,12 @@ commands:
     aliases:
       - resetnick
   language:
-    permission: nextron.lanugage
+    permission: nextron.language
   world:
     permission: nextron.world
+  day:
+    permission: nextron.time
+    aliases:
+      - night
+      - noon
+      - midnight
