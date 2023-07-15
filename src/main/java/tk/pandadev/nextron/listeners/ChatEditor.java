@@ -19,6 +19,11 @@ public class ChatEditor implements Listener {
         ConfigurationSection ranks = Main.getInstance().getConfig().getConfigurationSection("Ranks");
 
         if (Configs.feature.getBoolean("rank_system")) {
+            if (ranks == null){
+                player.setDisplayName("§9Player §8• §f" + ChatColor.WHITE + Configs.settings.getString(player.getUniqueId() + ".nick"));
+                event.setFormat(player.getDisplayName() + " §8» §f" + ChatColor.translateAlternateColorCodes('&', message));
+                return;
+            }
             for (String rank : ranks.getKeys(false)){
                 if (ranks.getStringList(rank + ".players").contains(player.getUniqueId().toString())) player.setDisplayName(ranks.getString(rank + ".prefix") + ChatColor.WHITE + Configs.settings.getString(player.getUniqueId() + ".nick"));
             }

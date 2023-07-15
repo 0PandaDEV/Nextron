@@ -12,7 +12,6 @@ import tk.pandadev.nextron.Main;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 public class RankAPI {
     private static final FileConfiguration mainConfig = Main.getInstance().getConfig();
@@ -123,11 +122,8 @@ public class RankAPI {
     }
 
     public static void checkRank(Player player) {
-        if (Main.getInstance().getConfig().getConfigurationSection("Ranks") == null) {
-            return;
-        }
         createPlayerTeam(player);
-        if (Objects.equals(getRank(player), "player")) {
+        if (Main.getInstance().getConfig().getConfigurationSection("Ranks") == null) {
             Scoreboard scoreboard = player.getScoreboard();
             Team finalrank = scoreboard.getTeam("010player");
             finalrank.addEntry(player.getName());
@@ -139,6 +135,7 @@ public class RankAPI {
                 player.setDisplayName(Configs.settings.getString(player.getUniqueId() + ".nick"));
                 player.setPlayerListName(Configs.settings.getString(player.getUniqueId() + ".nick"));
             }
+            return;
         }
         Main.getInstance().getTablistManager().setAllPlayerTeams();
     }
