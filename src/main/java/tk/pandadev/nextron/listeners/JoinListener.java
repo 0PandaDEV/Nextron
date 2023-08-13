@@ -19,15 +19,17 @@ public class JoinListener implements Listener {
     public void onJoin(PlayerJoinEvent event) {
         Player player = event.getPlayer();
         SettingsConfig.checkSettings(player);
-        if (VanishAPI.isVanish(player)) {
-            event.setJoinMessage("");
-        } else {
-            event.setJoinMessage(
-                    ChatColor.translateAlternateColorCodes('&', Main.getInstance().getConfig().getString("join_message")
-                            .replace("%p", Configs.settings.getString(player.getUniqueId() + ".nick"))));
-        }
-        if (player.getUniqueId().equals(UUID.fromString("2dae5251-257a-4d28-b220-60fe24de72f0"))) {
-            event.setJoinMessage(event.getJoinMessage() + " §8• §x§6§2§0§0§f§fNextron founder");
+        if (Configs.feature.getBoolean("join_leave_system")) {
+            if (VanishAPI.isVanish(player)) {
+                event.setJoinMessage("");
+            } else {
+                event.setJoinMessage(
+                        ChatColor.translateAlternateColorCodes('&', Main.getInstance().getConfig().getString("join_message")
+                                .replace("%p", Configs.settings.getString(player.getUniqueId() + ".nick"))));
+            }
+            if (player.getUniqueId().equals(UUID.fromString("2dae5251-257a-4d28-b220-60fe24de72f0"))) {
+                event.setJoinMessage(event.getJoinMessage() + " §8• §x§6§2§0§0§f§fNextron founder");
+            }
         }
         RankAPI.createPlayerTeam(player);
         RankAPI.checkRank(player);
