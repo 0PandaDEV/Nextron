@@ -28,7 +28,6 @@ public class LanguageCommand extends CommandBase implements TabCompleter {
         Player player = (Player) (sender);
 
         if (args.length == 1){
-
             List<File> dataFolder = Arrays.stream(new File(Main.getInstance().getDataFolder() + "/lang").listFiles()).toList();
             List<String> languages = new ArrayList<>();
             for (File lanugage : dataFolder){
