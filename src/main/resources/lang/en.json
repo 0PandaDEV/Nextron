@@ -132,9 +132,11 @@
     "featuregui.home.on": "§8The home system can't be used by normal players now!",
     "featuregui.tpa.off": "§8The tpa system is ready to be used by everyone!",
     "featuregui.tpa.on": "§8The tpa system can't be used by normal players now!",
+    "featuregui.join.leave.on": "§8The join/leave messages can now be seen in the chat",
+    "featuregui.join.leave.off": "§8The join/leave messages can now no longer be seen in the chat",
     "leftclick": "§aLeft-click §c>> §7Toggle",
 
-    "feature.validvalues": "§cThe second argument should be one of these §4[warp.system, home.system, rank.system, tpa.system]",
+    "feature.validvalues": "§cThe second argument should be one of these §4[warp_system, home_system, rank_system, tpa_system, join_leave_system]",
     "feature.enable": "§7The §a%n system §7has been enabled",
     "feature.disable": "§7The §a%n system §7has been disabled",
 
@@ -161,7 +163,7 @@
     "night.vision.add": "§7Night vision was given to §a%p",
     "night.vision.remove": "§7Night vision was removed from §a%p",
 
-    "language.set.success": "§7Language was successfully set to §a%l\nto see the changes you have to §a/rl §7the server",
+    "language.set.success": "§7Language was successfully set to §a%l\n§7to see the changes you have to §a/rl §7the server",
     "language.set.error": "§cOnly §6%l §c are available at the moment",
 
     "world.success": "§7You got teleported to §a%w",
