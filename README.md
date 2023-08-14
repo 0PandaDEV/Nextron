@@ -3,7 +3,7 @@
 
 **IMPORTANT: This plugin is renamed to Nextron and was EssentialsP before!**
 
-**Thanks so much for 300 downloads. ♥♥♥**
+**Thanks so much for 400 downloads. ♥♥♥**
 
 [Website >](https://essentialsp.tk/)
 
