@@ -100,17 +100,17 @@ public class WarpCommands extends CommandBase implements CommandExecutor, TabCom
             }
 
             new AnvilGUI.Builder()
-                    .onComplete((completion) -> {
-                        if (Utils.countWords(completion.getText()) > 1) {
+                    .onClick((state, text) -> {
+                        if (Utils.countWords(text.getText()) > 1) {
                             player.playSound(player.getLocation(), Sound.ENTITY_PILLAGER_AMBIENT, 100, 0.5f);
                             return Collections.singletonList(
                                     AnvilGUI.ResponseAction.replaceInputText(Text.get("anvil_gui_one_word")));
                         }
-                        Configs.warp.set("Warps." + completion.getText(), Configs.warp.get("Warps." + args[0]));
+                        Configs.warp.set("Warps." + text.getText(), Configs.warp.get("Warps." + args[0]));
                         Configs.warp.set("Warps." + args[0], null);
                         Configs.saveHomeConfig();
                         sender.sendMessage(Main.getPrefix() + Text.get("warp.rename.success").replace("%h", args[0])
-                                .replace("%n", completion.getText()));
+                                .replace("%n", text.getText()));
                         return Collections.singletonList(AnvilGUI.ResponseAction.close());
                     })
                     .text(Configs.warp.getString("Warps." + args[0]))

@@ -103,18 +103,18 @@ public class HomeCommands extends CommandBase implements CommandExecutor, TabCom
             }
 
             new AnvilGUI.Builder()
-                    .onComplete((completion) -> {
-                        if (Utils.countWords(completion.getText()) > 1) {
+                    .onClick((state, text) -> {
+                        if (Utils.countWords(text.getText()) > 1) {
                             player.playSound(player.getLocation(), Sound.ENTITY_PILLAGER_AMBIENT, 100, 0.5f);
                             return Collections.singletonList(
                                     AnvilGUI.ResponseAction.replaceInputText(Text.get("anvil_gui_one_word")));
                         }
-                        Configs.home.set("Homes." + player.getUniqueId() + "." + completion.getText(),
+                        Configs.home.set("Homes." + player.getUniqueId() + "." + text.getText(),
                                 Configs.home.get("Homes." + player.getUniqueId() + "." + args[0]));
                         Configs.home.set("Homes." + player.getUniqueId() + "." + args[0], null);
                         Configs.saveHomeConfig();
                         player.sendMessage(Main.getPrefix() + Text.get("home.rename.success").replace("%h", args[0])
-                                .replace("%n", completion.getText()));
+                                .replace("%n", text.getText()));
                         return Collections.singletonList(AnvilGUI.ResponseAction.close());
                     })
                     .text(args[0])

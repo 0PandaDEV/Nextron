@@ -13,7 +13,7 @@ import org.bukkit.command.TabCompleter;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import tk.pandadev.nextron.Main;
-import tk.pandadev.nextron.guis.CreateRankGUIs;
+import tk.pandadev.nextron.guis.features.RankGUIs;
 import tk.pandadev.nextron.utils.RankAPI;
 import tk.pandadev.nextron.utils.Utils;
 
@@ -78,7 +78,7 @@ public class RankCommand extends CommandBase implements CommandExecutor, TabComp
 
             Player player = (Player) (sender);
 
-            CreateRankGUIs.templateRanks(player);
+            RankGUIs.templateRanks(player);
 
         } else if (args.length == 1 && label.equalsIgnoreCase("deleterank")) {
 
@@ -104,9 +104,9 @@ public class RankCommand extends CommandBase implements CommandExecutor, TabComp
             }
 
             new AnvilGUI.Builder()
-                    .onComplete((completion) -> {
+                    .onClick((state, text) -> {
                         RankAPI.setPrefix((Player) sender, args[1].toLowerCase(),
-                                ChatColor.translateAlternateColorCodes('&', " " + completion.getText()));
+                                ChatColor.translateAlternateColorCodes('&', " " + text.getText()));
                         return Collections.singletonList(AnvilGUI.ResponseAction.close());
                     })
                     .text(Main.getInstance().getConfig().getString("Ranks." + args[1].toLowerCase() + ".prefix"))
@@ -130,14 +130,14 @@ public class RankCommand extends CommandBase implements CommandExecutor, TabComp
             }
 
             new AnvilGUI.Builder()
-                    .onComplete((completion) -> {
-                        if (Utils.countWords(completion.getText()) > 1) {
+                    .onClick((state, text) -> {
+                        if (Utils.countWords(text.getText()) > 1) {
                             player.playSound(player.getLocation(), Sound.ENTITY_PILLAGER_AMBIENT, 100, 0.5f);
                             return Collections.singletonList(AnvilGUI.ResponseAction
                                     .replaceInputText(Text.get("anvil.gui.one.word")));
                         }
                         RankAPI.rename((Player) sender, args[1].toLowerCase(),
-                                ChatColor.translateAlternateColorCodes('&', " " + completion.getText()));
+                                ChatColor.translateAlternateColorCodes('&', " " + text.getText()));
                         return Collections.singletonList(AnvilGUI.ResponseAction.close());
                     })
                     .text(args[1].toLowerCase())

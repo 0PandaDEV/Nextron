@@ -7,7 +7,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabCompleter;
 import org.bukkit.entity.Player;
 import tk.pandadev.nextron.Main;
-import tk.pandadev.nextron.guis.MainGui;
+import tk.pandadev.nextron.guis.GUIs;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,7 +28,7 @@ public class MenuCommand extends CommandBase implements CommandExecutor, TabComp
         Player player = (Player) (sender);
 
         if (label.equalsIgnoreCase("menu") || label.equalsIgnoreCase("m") && args.length == 0){
-            new MainGui(player).open(player);
+            GUIs.mainGui(player);
             player.playSound(player.getLocation(), Sound.BLOCK_BARREL_OPEN, 100, 1);
         } else {
             player.sendMessage(Main.getPrefix() + "§c/menu");

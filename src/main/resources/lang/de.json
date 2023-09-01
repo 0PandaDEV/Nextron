@@ -3,7 +3,7 @@
     "activate.message": "§aErfolgreich aktiviert",
     "deactivate.message": "§aErfolgreich deaktiviert",
 
-    "command.instance.error": "§6Du musst diesen Command als Spieler ausführen!",
+    "command.instance.error": "§6Du musst diesen Befehl als Spieler ausführen!",
     "no.perms": "§cDazu hast du keine Berechtigung",
     "invalid.player": "§cDieser Spieler ist nicht Online",
 

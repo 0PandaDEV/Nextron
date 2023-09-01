@@ -3,10 +3,10 @@ package tk.pandadev.nextron;
 import ch.hekates.languify.Languify;
 import ch.hekates.languify.language.LangLoader;
 import ch.hekates.languify.language.Text;
-import games.negative.framework.BasePlugin;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.PluginManager;
+import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scoreboard.Team;
 import tk.pandadev.nextron.commands.*;
 import tk.pandadev.nextron.listeners.*;
@@ -15,7 +15,7 @@ import tk.pandadev.nextron.utils.*;
 
 import java.util.HashMap;
 
-public final class Main extends BasePlugin {
+public final class Main extends JavaPlugin {
 
     private static Main instance;
     private static final String Prefix = "§x§b§1§8§0§f§f§lNextron §8» ";
@@ -30,7 +30,6 @@ public final class Main extends BasePlugin {
 
     @Override
     public void onEnable() {
-        super.onEnable();
         instance = this;
         tablistManager = new TablistManager();
 

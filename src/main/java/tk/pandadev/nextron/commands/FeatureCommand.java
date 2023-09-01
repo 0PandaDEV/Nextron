@@ -8,7 +8,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabCompleter;
 import org.bukkit.entity.Player;
 import tk.pandadev.nextron.Main;
-import tk.pandadev.nextron.guis.featuretoggle.FeatureGui;
+import tk.pandadev.nextron.guis.GUIs;
 import tk.pandadev.nextron.utils.Configs;
 import tk.pandadev.nextron.utils.RankAPI;
 
@@ -38,7 +38,7 @@ public class FeatureCommand extends CommandBase implements TabCompleter {
                 player.sendMessage(Main.getNoPerm());
                 return;
             }
-            new FeatureGui().open(player);
+            GUIs.featureGui(player);
             player.playSound(player.getLocation(), Sound.BLOCK_BARREL_OPEN, 100, 1);
         } else if (args.length == 2) {
             if (!validValues.contains(args[1])) {

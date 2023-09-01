@@ -84,6 +84,7 @@ public class RankAPI {
         for (Player onlineplayer : Bukkit.getOnlinePlayers()) {
             checkRank(onlineplayer);
         }
+        Main.getInstance().getTablistManager().setAllPlayerTeams();
     }
 
     public static void setPrefix(Player player, String rank, String prefix) {
