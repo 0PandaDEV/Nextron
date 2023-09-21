@@ -122,9 +122,17 @@ public class RankAPI {
         return "player";
     }
 
+    public static boolean hasRank(Player player) {
+        for (String rank : mainConfig.getConfigurationSection("Ranks").getKeys(false)) {
+            if (mainConfig.getStringList("Ranks." + rank + ".players").contains(String.valueOf(player.getUniqueId())))
+                return true;
+        }
+        return false;
+    }
+
     public static void checkRank(Player player) {
         createPlayerTeam(player);
-        if (Main.getInstance().getConfig().getConfigurationSection("Ranks") == null) {
+        if (Main.getInstance().getConfig().getConfigurationSection("Ranks") == null || !hasRank(player)) {
             Scoreboard scoreboard = player.getScoreboard();
             Team finalrank = scoreboard.getTeam("010player");
             finalrank.addEntry(player.getName());
