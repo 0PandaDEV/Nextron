@@ -23,6 +23,7 @@
 
     "maingui.tpa.lore.1": "§8Steuert ob andere spieler dir",
     "maingui.tpa.lore.2": "§8einen tpa anfrage senden k\u00f6nnen",
+    "maingui.tpa.lore.3": "§aLinksklick §c>> §7Toggle",
 
 
     "maingui.feedback.lore.1": "§8Steuert ob eine Nachricht als ergebnis",
@@ -162,5 +163,10 @@
     "language.set.error": "§cNur die sprachen §6%l §csind im moment verfügbar",
 
     "world.success": "§7Du wurdest in die welt §a%w §7teleportiert",
-    "world.error": "§cDiese Welt existiert nicht"
+    "world.error": "§cDiese Welt existiert nicht",
+
+    "setspawn.success": "§7Der spawn wurde erfolgreich and deiner position gesetzt",
+    "setspawn.error": "§cEs befindet sich kein spawn in der config setze einen mit §7/setspawn",
+    "spawn.teleport": "§7Du wurdest zum spawn teleportiert",
+    "spawn.teleport.other": "§a%p §7wurde zum spawn teleportiert"
 }

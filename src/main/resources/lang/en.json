@@ -24,6 +24,7 @@
 
     "maingui.tpa.lore.1": "§8Controls whether other players",
     "maingui.tpa.lore.2": "§8can send you a tpa requests or not.",
+    "maingui.tpa.lore.3": "§aLeft-click §c>> §7Toggle",
 
 
     "maingui.feedback.lore.1": "§8Controls whether a message should",
@@ -167,5 +168,10 @@
     "language.set.error": "§cOnly §6%l §c are available at the moment",
 
     "world.success": "§7You got teleported to §a%w",
-    "world.error": "§cThis world doesn't exist"
+    "world.error": "§cThis world doesn't exist",
+
+    "setspawn.success": "§7Successfully set spawn at your position",
+    "setspawn.error": "§cThere is no spawn in the config set one with §6/setspawn",
+    "spawn.teleport": "§7You got teleported to the spawn",
+    "spawn.teleport.other": "§a%p §7got teleported to the spawn"
 }

@@ -58,11 +58,6 @@ commands:
     permission: nextron.head
   rank:
     permission: nextron.rank
-    aliases:
-      - removerank
-      - createrank
-      - deleterank
-      - modifyrank
   menu:
     aliases:
       - m
@@ -97,3 +92,7 @@ commands:
       - night
       - noon
       - midnight
+  spawn:
+    permission: nextron.spawn
+    aliases:
+      - setspawn
