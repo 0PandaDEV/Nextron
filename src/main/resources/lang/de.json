@@ -164,6 +164,11 @@
 
     "world.success": "§7Du wurdest in die welt §a%w §7teleportiert",
     "world.error": "§cDiese Welt existiert nicht",
+    "world.create.start": "§7Eine Welt mit dem name §a%w wird erstellt",
+    "world.create.finished": "§7Die Welt mit dem name §a%w §7wurde erstellt",
+    "world.delete.start": "§7Die Welt mit dem namen §a%w §7wird gelöscht",
+    "world.delete.finished": "§7Die Welt mit dem namen §a%w §7wurde erfolgriche gelöscht",
+    "world.delete.error": "§7Keine Welt gefunden mit dem namen §a%w",
 
     "setspawn.success": "§7Der spawn wurde erfolgreich and deiner position gesetzt",
     "setspawn.error": "§cEs befindet sich kein spawn in der config setze einen mit §7/setspawn",

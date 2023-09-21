@@ -169,6 +169,11 @@
 
     "world.success": "§7You got teleported to §a%w",
     "world.error": "§cThis world doesn't exist",
+    "world.create.start": "§7World with the name §a%w §7is being created",
+    "world.create.finished": "§7Successfully created world with the name §a%w",
+    "world.delete.start": "§7Started deletion of thw world §a%w",
+    "world.delete.finished": "§7Successfully deleted world with the name §a%w",
+    "world.delete.error": "§7No world found with the name §a%w",
 
     "setspawn.success": "§7Successfully set spawn at your position",
     "setspawn.error": "§cThere is no spawn in the config set one with §6/setspawn",
