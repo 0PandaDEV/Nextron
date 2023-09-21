@@ -239,7 +239,7 @@ public class GUIs {
                         Text.get("leftclick"))
                 .build();
 
-        gui.setItem(3, 2, ItemBuilder.from(Configs.feature.getBoolean("rank_system") ? on_rank : off_rank).asGuiItem(inventoryClickEvent -> {
+        gui.setItem(4, 3, ItemBuilder.from(Configs.feature.getBoolean("rank_system") ? on_rank : off_rank).asGuiItem(inventoryClickEvent -> {
             Configs.feature.set("rank_system", !Configs.feature.getBoolean("rank_system"));
             Configs.saveFeatureConfig();
 
@@ -270,7 +270,7 @@ public class GUIs {
                         Text.get("leftclick"))
                 .build();
 
-        gui.setItem(3, 4, ItemBuilder.from(Configs.feature.getBoolean("warp_system") ? on_warp : off_warp).asGuiItem(inventoryClickEvent -> {
+        gui.setItem(4, 5, ItemBuilder.from(Configs.feature.getBoolean("warp_system") ? on_warp : off_warp).asGuiItem(inventoryClickEvent -> {
             Configs.feature.set("warp_system", !Configs.feature.getBoolean("warp_system"));
             Configs.saveFeatureConfig();
             for (Player onlineplayer : Bukkit.getOnlinePlayers()) {
@@ -298,7 +298,7 @@ public class GUIs {
                         Text.get("leftclick"))
                 .build();
 
-        gui.setItem(3, 6, ItemBuilder.from(Configs.feature.getBoolean("home_system") ? on_home : off_home).asGuiItem(inventoryClickEvent -> {
+        gui.setItem(4, 7, ItemBuilder.from(Configs.feature.getBoolean("home_system") ? on_home : off_home).asGuiItem(inventoryClickEvent -> {
             Configs.feature.set("home_system", !Configs.feature.getBoolean("home_system"));
             Configs.saveFeatureConfig();
             for (Player onlineplayer : Bukkit.getOnlinePlayers()) {
@@ -326,7 +326,7 @@ public class GUIs {
                         Text.get("leftclick"))
                 .build();
 
-        gui.setItem(3, 8, ItemBuilder.from(Configs.feature.getBoolean("tpa_system") ? on_tpa : off_tpa).asGuiItem(inventoryClickEvent -> {
+        gui.setItem(2, 4, ItemBuilder.from(Configs.feature.getBoolean("tpa_system") ? on_tpa : off_tpa).asGuiItem(inventoryClickEvent -> {
             Configs.feature.set("tpa_system", !Configs.feature.getBoolean("tpa_system"));
             Configs.saveFeatureConfig();
             for (Player onlineplayer : Bukkit.getOnlinePlayers()) {
@@ -334,6 +334,37 @@ public class GUIs {
                 onlineplayer.addAttachment(Main.getInstance()).setPermission("nextron.tpaccept", Configs.feature.getBoolean("tpa_system"));
             }
             player.playSound(player.getLocation(), Configs.feature.getBoolean("tpa_system") ? Sound.BLOCK_BEACON_ACTIVATE : Sound.BLOCK_BEACON_DEACTIVATE, 100, 1);
+            featureGui(player);
+        }));
+
+        //////////////////////////////////////////////////////////////////
+
+        /////////////////////// Join/Leave Message ///////////////////////
+
+        ItemStack on_join_leave = new tk.pandadev.nextron.utils.ItemBuilder(Material.BELL)
+                .setName("§a✔ §8• §7Join/Leave Messages")
+                .setLore("",
+                        Text.get("featuregui.join.leave.off"),
+                        "",
+                        Text.get("leftclick"))
+                .build();
+
+        ItemStack off_join_leave = new tk.pandadev.nextron.utils.ItemBuilder(Material.BELL)
+                .setName("§c❌ §8• §7Join/Leave Messages")
+                .setLore("",
+                        Text.get("featuregui.join.leave.on"),
+                        "",
+                        Text.get("leftclick"))
+                .build();
+
+        gui.setItem(2, 6, ItemBuilder.from(Configs.feature.getBoolean("join_leave_system") ? on_join_leave : off_join_leave).asGuiItem(inventoryClickEvent -> {
+            Configs.feature.set("join_leave_system", !Configs.feature.getBoolean("join_leave_system"));
+            Configs.saveFeatureConfig();
+            player.playSound(player.getLocation(),
+                    Configs.feature.getBoolean("join_leave_system")
+                            ? Sound.BLOCK_BEACON_ACTIVATE
+                            : Sound.BLOCK_BEACON_DEACTIVATE,
+                    100, 1);
             featureGui(player);
         }));
 

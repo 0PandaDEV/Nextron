@@ -136,7 +136,7 @@
     "featuregui.join.leave.off": "§8The join/leave messages can now no longer be seen in the chat",
     "leftclick": "§aLeft-click §c>> §7Toggle",
 
-    "feature.validvalues": "§cThe second argument should be one of these §4[warp_system, home_system, rank_system, tpa_system, join_leave_system]",
+    "feature.validvalues": "§cThe second argument should be one of these §6[warp_system, home_system, rank_system, tpa_system, join_leave_system]",
     "feature.enable": "§7The §a%n system §7has been enabled",
     "feature.disable": "§7The §a%n system §7has been disabled",
 

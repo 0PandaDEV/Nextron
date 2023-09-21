@@ -105,6 +105,7 @@ public class FeatureCommand extends CommandBase implements TabCompleter {
             list.add("home_system");
             list.add("rank_system");
             list.add("tpa_system");
+            list.add("join_leave_system");
         }
 
         ArrayList<String> completerList = new ArrayList<String>();

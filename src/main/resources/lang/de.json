@@ -131,7 +131,7 @@
     "featuregui.join.leave.off": "§8Die join/leave nachrichten können jetzt von niemandem gesehen werden",
     "leftclick": "§aLinksklick §c>> §7Toggle",
 
-    "feature.validvalues": "§cDas zweite Argument sollte eines dieser sein §4[warp_system, home_system, rank_system, tpa_system, join_leave_system]",
+    "feature.validvalues": "§cDas zweite Argument sollte eines dieser sein §6[warp_system, home_system, rank_system, tpa_system, join_leave_system]",
     "feature.enable": "§7Das §a%n System §7wurde deaktiviert",
     "feature.disable": "§7Das §a%n System §7wurde aktiviert",
 
