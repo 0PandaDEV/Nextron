@@ -1,18 +1,7 @@
 <img src="https://cdn.discordapp.com/attachments/903181864116826112/1085873702295588874/Nextron_Banner.png" />
 
 
-**IMPORTANT: This plugin is renamed to Nextron and was EssentialsP before!**
-
-**Thanks so much for 400 downloads. ♥♥♥**
-
 [Website >](https://essentialsp.tk/)
-
-<details>
-<summary>
-🛠️ Testing
-</summary>
-<span>If you want to help me test my plugin, join the <a href="https://discord.gg/Y7SbYphVw9" >discord.</a></span>
-</details>
 
 ***
 
