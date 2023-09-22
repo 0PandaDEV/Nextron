@@ -18,20 +18,20 @@
 
     "maingui.vanish.lore.1": "§8Controls whether a fake join/quit",
     "maingui.vanish.lore.2": "§8message will be sent",
-    "maingui.vanish.lore.3": "§8when you enter or leave the vanish.",
+    "maingui.vanish.lore.3": "§8when you enter or leave the vanish",
     "maingui.vanish.lore.4": "§aLeft-click §c>> §7Toggle",
 
 
     "maingui.tpa.lore.1": "§8Controls whether other players",
-    "maingui.tpa.lore.2": "§8can send you a tpa requests or not.",
+    "maingui.tpa.lore.2": "§8can send you a tpa requests or not",
     "maingui.tpa.lore.3": "§aLeft-click §c>> §7Toggle",
 
 
     "maingui.feedback.lore.1": "§8Controls whether a message should",
     "maingui.feedback.lore.2": "§8be sent after a command gets executed",
-    "maingui.feedback.lore.3": "§8for example 'Gamemode set to creative'.",
+    "maingui.feedback.lore.3": "§8for example 'Gamemode set to creative'",
     "maingui.feedback.lore.4": "§8Errors and important messages",
-    "maingui.feedback.lore.5": "§8will still be displayed.",
+    "maingui.feedback.lore.5": "§8will still be displayed",
     "maingui.feedback.lore.6": "§aLeft-click §c>> §7Toggle",
 
 
@@ -171,9 +171,18 @@
     "world.error": "§cThis world doesn't exist",
     "world.create.start": "§7World with the name §a%w §7is being created",
     "world.create.finished": "§7Successfully created world with the name §a%w",
-    "world.delete.start": "§7Started deletion of thw world §a%w",
+    "world.delete.start": "§7Started deletion of the world §a%w",
     "world.delete.finished": "§7Successfully deleted world with the name §a%w",
     "world.delete.error": "§7No world found with the name §a%w",
+    "world.load.start": "§7Starting to load world §a%w",
+    "world.load.success": "§7World §a%w §7has been successfully loaded",
+    "world.load.error": "§cWorld §6%w §ccould not be loaded It may already be loaded or does not exist",
+    "world.load.notexist": "§cWorld §6%w §cdoes not exist",
+    "world.unload.start": "§7Starting to unload world §a%w",
+    "world.unload.success": "§7World §a%w §7has been successfully unloaded",
+    "world.unload.error": "§cWorld §6%w §ccould not be unloaded It may not be loaded or does not exist",
+    "world.delete.default.error": "§cThe default world 'world' cannot be deleted",
+    "world.unload.default.error": "§cThe default world 'world' cannot be unloaded",
 
     "setspawn.success": "§7Successfully set spawn at your position",
     "setspawn.error": "§cThere is no spawn in the config set one with §6/setspawn",
