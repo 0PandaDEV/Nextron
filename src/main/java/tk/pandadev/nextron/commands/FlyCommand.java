@@ -39,7 +39,12 @@ public class FlyCommand extends CommandBase implements CommandExecutor, TabCompl
                 sender.sendMessage(Main.getPrefix() + Text.get("fly.other.on").replace("%t", target.getName()));
             }
 
-            target.setAllowFlight(!target.getAllowFlight());
+            if (target.getAllowFlight()){
+                target.setAllowFlight(false);
+            } else {
+                target.setAllowFlight(false);
+            }
+
             target.setFallDistance(0.0f);
 
         } else if (args.length == 0) {
@@ -66,7 +71,12 @@ public class FlyCommand extends CommandBase implements CommandExecutor, TabCompl
                 }
             }
 
-            player.setAllowFlight(!player.getAllowFlight());
+            if (player.getAllowFlight()){
+                player.setAllowFlight(false);
+            } else {
+                player.setAllowFlight(false);
+            }
+
             player.setFallDistance(0.0f);
         } else {
             sender.sendMessage(Main.getPrefix() + "§c/fly [player]");
