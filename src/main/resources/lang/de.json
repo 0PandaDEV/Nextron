@@ -166,6 +166,7 @@
     "world.error": "§cDiese Welt existiert nicht",
     "world.create.start": "§7Eine Welt mit dem name §a%w wird erstellt",
     "world.create.finished": "§7Die Welt mit dem name §a%w §7wurde erstellt",
+    "world.create.seed.error": "§cDer seed muss eine Zahl sein",
     "world.delete.start": "§7Die Welt mit dem namen §a%w §7wird gelöscht",
     "world.delete.finished": "§7Die Welt mit dem namen §a%w §7wurde erfolgriche gelöscht",
     "world.delete.error": "§7Keine Welt gefunden mit dem namen §a%w",

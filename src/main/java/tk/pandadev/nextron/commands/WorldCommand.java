@@ -62,8 +62,14 @@ public class WorldCommand extends CommandBase implements TabCompleter {
             wc.type(WorldType.NORMAL);
 
             if (args.length == 3) {
-                String seed = args[2];
-                wc.seed(seed.hashCode());
+                Long seed;
+                try {
+                    seed = Long.parseLong(args[2]);
+                } catch (NumberFormatException e) {
+                    player.sendMessage(Main.getPrefix() + Text.get("world.create.seed.error"));
+                    return;
+                }
+                wc.seed(seed);
             }
 
             player.sendMessage(Main.getPrefix() + Text.get("world.create.start").replace("%w", args[1]));

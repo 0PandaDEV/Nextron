@@ -171,6 +171,7 @@
     "world.error": "§cThis world doesn't exist",
     "world.create.start": "§7World with the name §a%w §7is being created",
     "world.create.finished": "§7Successfully created world with the name §a%w",
+    "world.create.seed.error": "§cThe seed must be numeric",
     "world.delete.start": "§7Started deletion of the world §a%w",
     "world.delete.finished": "§7Successfully deleted world with the name §a%w",
     "world.delete.error": "§7No world found with the name §a%w",
