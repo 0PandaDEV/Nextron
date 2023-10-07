@@ -55,7 +55,7 @@
     "gamemode.error": "§cYou're already in gamemode §6%g",
     "gamemode.other.success": "§7Set §a%t's §7gamemode to §a%g",
     "gamemode.other.error": "§cThe player §6%t §cis already in gamemode §6%g",
-    "gamemode.invalid": "§cThis gamemode doesn't exist",
+    "gamemode.invalid": "§cThat gamemode doesn't exist",
 
     "head.success": "§7You have been given §a%t's §7head",
 
