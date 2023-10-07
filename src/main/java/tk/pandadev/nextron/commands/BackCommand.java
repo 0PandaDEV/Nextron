@@ -39,6 +39,7 @@ public class BackCommand extends CommandBase implements TabCompleter {
 
         if (args.length == 1) {
             Player target = Bukkit.getPlayer(args[0]);
+            if (target == null){player.sendMessage(Main.getInvalidPlayer()); return;}
             Configs.settings.set(target.getUniqueId() + ".lastback", player.getLocation());
             Configs.settings.set(target.getUniqueId() + ".isback", true);
             Configs.saveSettingsConfig();
