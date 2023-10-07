@@ -55,9 +55,7 @@ public class WorldCommand extends CommandBase implements TabCompleter {
                     player.sendMessage(Main.getPrefix() + Text.get("world.success").replace("%w", world.getName()));
                 }
             }
-        }
-
-        if (args.length >= 2 && args[0].equalsIgnoreCase("create")) {
+        }else if (args.length >= 2 && args[0].equalsIgnoreCase("create")) {
             WorldCreator wc = new WorldCreator(args[1]);
 
             wc.environment(World.Environment.NORMAL);
@@ -73,9 +71,7 @@ public class WorldCommand extends CommandBase implements TabCompleter {
                 wc.createWorld();
                 player.sendMessage(Main.getPrefix() + Text.get("world.create.finished").replace("%w", args[1]));
             });
-        }
-
-        if (args.length == 2 && args[0].equalsIgnoreCase("delete")) {
+        }else if (args.length == 2 && args[0].equalsIgnoreCase("delete")) {
             String worldName = args[1];
             if (worldName.equals("world")) {
                 player.sendMessage(Main.getPrefix() + Text.get("world.delete.default.error"));
@@ -105,9 +101,7 @@ public class WorldCommand extends CommandBase implements TabCompleter {
             } else {
                 player.sendMessage(Main.getPrefix() + Text.get("world.delete.error").replace("%w", worldName));
             }
-        }
-
-        if (args.length == 2 && args[0].equalsIgnoreCase("load")) {
+        }else if (args.length == 2 && args[0].equalsIgnoreCase("load")) {
             String worldName = args[1];
             File worldFolder = new File(Bukkit.getServer().getWorldContainer().getAbsolutePath(), worldName);
             if (!worldFolder.exists()) {
@@ -123,9 +117,7 @@ public class WorldCommand extends CommandBase implements TabCompleter {
             } else {
                 player.sendMessage(Main.getPrefix() + Text.get("world.load.error").replace("%w", worldName));
             }
-        }
-
-        if (args.length == 2 && args[0].equalsIgnoreCase("unload")) {
+        }else if (args.length == 2 && args[0].equalsIgnoreCase("unload")) {
             String worldName = args[1];
             if (worldName.equals("world")) {
                 player.sendMessage(Main.getPrefix() + Text.get("world.unload.default.error"));
@@ -154,6 +146,8 @@ public class WorldCommand extends CommandBase implements TabCompleter {
             } else {
                 player.sendMessage(Main.getPrefix() + Text.get("world.unload.error").replace("%w", worldName));
             }
+        } else {
+            player.sendMessage(Main.getPrefix() + "§c/world tp <world>\n/world create <name>\n/world delete <world>\n/world load <world>\n/world unload <world>\n");
         }
     }
 

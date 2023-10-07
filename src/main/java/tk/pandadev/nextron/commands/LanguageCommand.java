@@ -38,8 +38,9 @@ public class LanguageCommand extends CommandBase implements TabCompleter {
             Main.getInstance().getConfig().set("language", args[0]);
             Main.getInstance().saveConfig();
             player.sendMessage(Main.getPrefix() + Text.get("language.set.success").replace("%l", args[0]));
+        } else {
+            player.sendMessage(Main.getPrefix() + "§c/language <language>");
         }
-
     }
 
     @Override
