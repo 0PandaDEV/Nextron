@@ -30,7 +30,7 @@ public class RankGUIs {
 
         for (String rank : mainConfig.getConfigurationSection("Ranks").getKeys(false)){
             gui.addItem(ItemBuilder.from(Material.NAME_TAG)
-                    .name(Component.text("§x§e§6§c§7§8§c" + rank))
+                    .name(Component.text("§f" + rank))
                     .setLore("",
                             "§8Prefix: " + mainConfig.get("Ranks." + rank + ".prefix") + "§8<player>")
                     .asGuiItem(inventoryClickEvent -> {
