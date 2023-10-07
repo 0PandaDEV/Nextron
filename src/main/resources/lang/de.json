@@ -182,5 +182,7 @@
     "setspawn.success": "§7Der spawn wurde erfolgreich and deiner position gesetzt",
     "setspawn.error": "§cEs befindet sich kein spawn in der config setze einen mit §7/setspawn",
     "spawn.teleport": "§7Du wurdest zum spawn teleportiert",
-    "spawn.teleport.other": "§a%p §7wurde zum spawn teleportiert"
+    "spawn.teleport.other": "§a%p §7wurde zum spawn teleportiert",
+
+    "help.command.error": "§cDieser Befehl existert nicht"
 }

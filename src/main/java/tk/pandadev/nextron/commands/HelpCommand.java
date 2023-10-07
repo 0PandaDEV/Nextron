@@ -1,5 +1,6 @@
 package tk.pandadev.nextron.commands;
 
+import ch.hekates.languify.language.Text;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabCompleter;
@@ -47,6 +48,10 @@ public class HelpCommand extends CommandBase implements TabCompleter {
                     ""
             );
         } else if (args.length == 1){
+            if (!CommandBase.commands.containsKey(args[0])){
+                sender.sendMessage(Main.getPrefix() + Text.get("help.command.error"));
+                return;
+            }
             String usage = "\n";
 
             if (!CommandBase.getUsage(args[0]).isEmpty()){
