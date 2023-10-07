@@ -5,7 +5,7 @@
 
     "command.instance.error": "§6This command can only be run by a player!",
     "no.perms": "§cYou do not have permission to do this",
-    "invalid.player": "§cThis player is not online",
+    "invalid.player": "§cThis player does not exists or is not online",
 
     "homegui.leftclick": "§aLeft-click §c>> §7Opens home settings",
     "homegui.rightclick": "§aRight-click §c>> §7Teleports to Home",

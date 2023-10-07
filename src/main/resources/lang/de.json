@@ -5,7 +5,7 @@
 
     "command.instance.error": "§6Du musst diesen Befehl als Spieler ausführen!",
     "no.perms": "§cDazu hast du keine Berechtigung",
-    "invalid.player": "§cDieser Spieler ist nicht Online",
+    "invalid.player": "§cDieser Spieler existiert nicht oder ist nicht Online",
 
     "homegui.leftclick": "§aLinksklick §c>> §7\u00d6ffnet Home Einstellungen",
     "homegui.rightclick": "§aRechtsklick §c>> §7Teleportiert zum Home",
