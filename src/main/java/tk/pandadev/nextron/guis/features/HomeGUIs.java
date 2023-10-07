@@ -60,7 +60,7 @@ public class HomeGUIs {
                 .create();
 
         gui.setItem(2, 4, ItemBuilder.from(Material.ENDER_PEARL)
-                .name(Component.text("§x§0§1§5§9§5§6Teleport"))
+                .name(Component.text("§3Teleport"))
                 .asGuiItem(inventoryClickEvent -> {
                     player.teleport((Location) Objects
                             .requireNonNull(Configs.home.get("Homes." + player.getUniqueId() + "." + home)));
@@ -102,7 +102,7 @@ public class HomeGUIs {
         }));
 
         gui.setItem(3, 1, ItemBuilder.skull(Utils.createSkull("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYmQ2OWUwNmU1ZGFkZmQ4NGU1ZjNkMWMyMTA2M2YyNTUzYjJmYTk0NWVlMWQ0ZDcxNTJmZGM1NDI1YmMxMmE5In19fQ==")).name(Component.text("§fBack")).asGuiItem(inventoryClickEvent -> {
-            GUIs.mainGui(player);
+            manager(player);
         }));
 
         gui.open(player);
