@@ -226,16 +226,12 @@ public class GUIs {
         ItemStack on_rank = new tk.pandadev.nextron.utils.ItemBuilder(Material.NAME_TAG)
                 .setName("§a✔ §8• §7Rank System")
                 .setLore("",
-                        Text.get("featuregui.rank.off"),
-                        "",
                         Text.get("leftclick"))
                 .build();
 
         ItemStack off_rank = new tk.pandadev.nextron.utils.ItemBuilder(Material.NAME_TAG)
                 .setName("§c❌ §8• §7Rank System")
                 .setLore("",
-                        Text.get("featuregui.rank.on"),
-                        "",
                         Text.get("leftclick"))
                 .build();
 
@@ -257,16 +253,12 @@ public class GUIs {
         ItemStack on_warp = new tk.pandadev.nextron.utils.ItemBuilder(Material.RECOVERY_COMPASS)
                 .setName("§a✔ §8• §7Warp System")
                 .setLore("",
-                        Text.get("featuregui.warp.off"),
-                        "",
                         Text.get("leftclick"))
                 .build();
 
         ItemStack off_warp = new tk.pandadev.nextron.utils.ItemBuilder(Material.RECOVERY_COMPASS)
                 .setName("§c❌ §8• §7Warp System")
                 .setLore("",
-                        Text.get("featuregui.warp.on"),
-                        "",
                         Text.get("leftclick"))
                 .build();
 
@@ -285,16 +277,12 @@ public class GUIs {
         ItemStack on_home = new tk.pandadev.nextron.utils.ItemBuilder(Material.COMPASS)
                 .setName("§a✔ §8• §7Home System")
                 .setLore("",
-                        Text.get("featuregui.home.off"),
-                        "",
                         Text.get("leftclick"))
                 .build();
 
         ItemStack off_home = new tk.pandadev.nextron.utils.ItemBuilder(Material.COMPASS)
                 .setName("§c❌ §8• §7Home System")
                 .setLore("",
-                        Text.get("featuregui.home.on"),
-                        "",
                         Text.get("leftclick"))
                 .build();
 
@@ -313,16 +301,12 @@ public class GUIs {
         ItemStack on_tpa = new tk.pandadev.nextron.utils.ItemBuilder(Material.BEACON)
                 .setName("§a✔ §8• §7Tpa System")
                 .setLore("",
-                        Text.get("featuregui.tpa.on"),
-                        "",
                         Text.get("leftclick"))
                 .build();
 
         ItemStack off_tpa = new tk.pandadev.nextron.utils.ItemBuilder(Material.BEACON)
                 .setName("§c❌ §8• §7Tpa System")
                 .setLore("",
-                        Text.get("featuregui.tpa.on"),
-                        "",
                         Text.get("leftclick"))
                 .build();
 
@@ -344,16 +328,12 @@ public class GUIs {
         ItemStack on_join_leave = new tk.pandadev.nextron.utils.ItemBuilder(Material.BELL)
                 .setName("§a✔ §8• §7Join/Leave Messages")
                 .setLore("",
-                        Text.get("featuregui.join.leave.off"),
-                        "",
                         Text.get("leftclick"))
                 .build();
 
         ItemStack off_join_leave = new tk.pandadev.nextron.utils.ItemBuilder(Material.BELL)
                 .setName("§c❌ §8• §7Join/Leave Messages")
                 .setLore("",
-                        Text.get("featuregui.join.leave.on"),
-                        "",
                         Text.get("leftclick"))
                 .build();
 
