@@ -88,7 +88,7 @@ public class FeatureCommand extends CommandBase implements TabCompleter {
                         Main.getPrefix() + Text.get("feature.disable").replace("%n", args[1].replace("_system", "")));
             }
         } else {
-            sender.sendMessage(Main.getPrefix() + "§c/features");
+            sender.sendMessage(Main.getPrefix() + "§c/features [enable/disable] [feature]");
         }
     }
 
