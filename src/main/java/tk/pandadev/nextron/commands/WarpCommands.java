@@ -121,7 +121,7 @@ public class WarpCommands extends CommandBase implements CommandExecutor, TabCom
                     .open(player);
 
         } else {
-            sender.sendMessage(Main.getPrefix() + "§c/warp|setwarp|delwarp <NAME>");
+            sender.sendMessage(Main.getPrefix() + "§c/warp | setwarp | delwarp <NAME>");
         }
     }
 
