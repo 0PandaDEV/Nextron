@@ -43,6 +43,14 @@ public class RankCommand extends CommandBase implements CommandExecutor, TabComp
                 return;
             }
 
+            Player player = (Player) (sender);
+            if (Main.getInstance().getConfig().getConfigurationSection("Ranks") == null || Main
+                    .getInstance().getConfig().getConfigurationSection("Ranks").getKeys(false).isEmpty()) {
+                player.sendMessage(Main.getPrefix() + Text.get("maingui.no.ranks"));
+                player.playSound(player.getLocation(), Sound.ENTITY_PILLAGER_AMBIENT, 100, 0.5f);
+                return;
+            }
+
             RankGUIs.manager(((Player) (sender)).getPlayer());
 
         } else if (args.length == 3 && args[0].equalsIgnoreCase("set")) {
