@@ -190,5 +190,8 @@
     "spawn.teleport": "§7You have been teleported to the spawn",
     "spawn.teleport.other": "§a%p §7got teleported to the spawn",
 
-    "help.command.error": "§cThis command does not exist"
+    "help.command.error": "§cThis command does not exist",
+
+    "getpos.success": "§7The Cords of §a%p§7 are",
+    "getpos.hover": "§7Click to teleport to "
 }

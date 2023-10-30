@@ -185,5 +185,8 @@
     "spawn.teleport": "§7Du wurdest zum spawn teleportiert",
     "spawn.teleport.other": "§a%p §7wurde zum spawn teleportiert",
 
-    "help.command.error": "§cDieser Befehl existert nicht"
+    "help.command.error": "§cDieser Befehl existert nicht",
+
+    "getpos.success": "§7Die Koordinaten von §a%p§7 sind",
+    "getpos.hover": "§7Klicke zum teleportieren "
 }

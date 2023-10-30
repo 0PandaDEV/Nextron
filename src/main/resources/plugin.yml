@@ -96,3 +96,7 @@ commands:
     permission: nextron.spawn
     aliases:
       - setspawn
+  getposition:
+    permission: nextron.getposition
+    aliases:
+      - getpos

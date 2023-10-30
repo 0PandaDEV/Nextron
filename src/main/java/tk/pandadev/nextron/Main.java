@@ -137,6 +137,7 @@ public final class Main extends JavaPlugin {
         getCommand("world").setExecutor(new WorldCommand());
         getCommand("day").setExecutor(new TimeCommand());
         getCommand("spawn").setExecutor(new SpawnCommand());
+        getCommand("getposition").setExecutor(new GetPosCommand());
     }
 
     private void registerListeners() {
