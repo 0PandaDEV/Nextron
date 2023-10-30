@@ -34,6 +34,7 @@ public class JoinListener implements Listener {
         RankAPI.createPlayerTeam(player);
         RankAPI.checkRank(player);
         Main.getInstance().getTablistManager().setAllPlayerTeams();
+        VanishAPI.executeVanish(player);
     }
 
 }

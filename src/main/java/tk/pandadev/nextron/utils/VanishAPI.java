@@ -23,13 +23,13 @@ public class VanishAPI {
         return Main.getInstance().getConfig().getBoolean("Vanished." + player.getUniqueId());
     }
 
-    private void executeVanish(Player player) {
+    public static void executeVanish(Player player) {
         for (Player onlinePlayer : Bukkit.getOnlinePlayers()) {
             if (isVanish(player)) {
-                onlinePlayer.hidePlayer(this.plugin, player);
+                onlinePlayer.hidePlayer(Main.getInstance(), player);
                 continue;
             }
-            onlinePlayer.showPlayer(this.plugin, player);
+            onlinePlayer.showPlayer(Main.getInstance(), player);
         }
     }
 
