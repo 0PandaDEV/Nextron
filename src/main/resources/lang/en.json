@@ -70,7 +70,7 @@
     "home.default.error": "§cYou have never set your §6default §chome",
     "home.rename.request": "§7Type the new name for the hom §a%h §7in the chat",
     "home.rename.success": "§7The name of the home §a%h §7has been changed to §a%n",
-    "home.reset.confirm": "§7Are you sure you want to reset the position of the home §a%r",
+    "home.reset.confirm": "§7Are you sure you want to reset the position of the home ",
     "home.reset.success": "§7The position for the home §a%h §7has been moved successfully",
 
     "invsee.error": "§cYou cannot run this command on yourself",

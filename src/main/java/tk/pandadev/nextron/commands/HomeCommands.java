@@ -47,16 +47,11 @@ public class HomeCommands extends CommandBase implements CommandExecutor, TabCom
                 Configs.saveHomeConfig();
                 player.sendMessage(Main.getPrefix() + Text.get("sethome.success").replace("%h", args[0].toLowerCase()));
             } else {
-                TextComponent yes = new TextComponent("§aYes");
-                yes.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND,
-                        "/aisdvja4f89dfjvwe4p9r8jdfvjw34r8q0dvj34-" + args[0].toLowerCase()));
-                yes.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT,
-                        new ComponentBuilder("§7Click to reset the position for §a" + args[0].toLowerCase()).create()));
-                TextComponent message = new TextComponent(
-                        Main.getPrefix() + Text.get("home.reset.confirm").replace("%r", "§8["));
-                message.addExtra(yes);
-                message.addExtra("§8]");
-                player.spigot().sendMessage(ChatMessageType.SYSTEM, message);
+                TextComponent yes = new TextComponent("§2[§aYes§2]");
+                yes.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/aisdvja4f89dfjvwe4p9r8jdfvjw34r8q0dvj34-" + args[0].toLowerCase()));
+                yes.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ComponentBuilder("§7Click to reset the position for §a" + args[0].toLowerCase()).create()));
+                player.sendMessage(Main.getPrefix() + Text.get("home.reset.confirm"));
+                player.spigot().sendMessage(ChatMessageType.SYSTEM, yes);
             }
 
         } else if (label.equalsIgnoreCase("sethome") && args.length == 0) {

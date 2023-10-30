@@ -67,7 +67,7 @@
     "home.default.error": "§cDu hat noch nie deinen §6default §cHome gesetzt",
     "home.rename.request": "§7Schreibe einen neuen Namen für den home §a%h §7in den Chat",
     "home.rename.success": "§7Der Name des homes §a%h §7wurde auf §a%n §7geändert",
-    "home.reset.confirm": "§7Bist du sicher das du den alten Home neu setzen willst %r",
+    "home.reset.confirm": "§7Bist du sicher das du den alten Home neu setzen willst ",
     "home.reset.success": "§7Die Position des Homes §a%h §7wurde erfolgreich umgesetzt",
 
     "invsee.error": "§cDu kannst nicht dein eigenes Inventar anschauen",
