@@ -28,7 +28,7 @@ public class HomeGUIs {
 
         for (String home : Configs.home.getConfigurationSection("Homes." + player.getUniqueId()).getKeys(false)) {
             gui.addItem(ItemBuilder.from(Utils.createSkull("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNjNkMDJjZGMwNzViYjFjYzVmNmZlM2M3NzExYWU0OTc3ZTM4YjkxMGQ1MGVkNjAyM2RmNzM5MTNlNWU3ZmNmZiJ9fX0="))
-                    .name(Component.text(home))
+                    .name(Component.text("§f" + home))
                     .setLore("",
                             Text.get("homegui.leftclick"),
                             Text.get("homegui.rightclick"))
