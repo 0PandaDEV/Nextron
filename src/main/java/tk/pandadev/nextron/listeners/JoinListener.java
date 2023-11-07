@@ -1,5 +1,6 @@
 package tk.pandadev.nextron.listeners;
 
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -34,7 +35,9 @@ public class JoinListener implements Listener {
         RankAPI.createPlayerTeam(player);
         RankAPI.checkRank(player);
         Main.getInstance().getTablistManager().setAllPlayerTeams();
-        VanishAPI.executeVanish(player);
+        for (Player onlinePlayer : Bukkit.getOnlinePlayers()) {
+            VanishAPI.executeVanish(onlinePlayer);
+        }
     }
 
 }

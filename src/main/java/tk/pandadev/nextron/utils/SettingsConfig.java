@@ -20,6 +20,7 @@ public class SettingsConfig {
 
     private static void setSettings(Player player){
         Configs.settings.set(player.getUniqueId() + ".vanish." + "message", true);
+        Configs.settings.set(player.getUniqueId() + ".vanish." + "vanished", false);
         Configs.settings.set(player.getUniqueId() + ".feedback", true);
         Configs.settings.set(player.getUniqueId() + ".allowtpas", true);
         Configs.settings.set(player.getUniqueId() + ".nick", player.getName());
