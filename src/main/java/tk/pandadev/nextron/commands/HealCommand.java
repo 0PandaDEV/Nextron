@@ -66,6 +66,7 @@ public class HealCommand extends CommandBase implements CommandExecutor, TabComp
                 target.sendMessage(Main.getPrefix() + Text.get("heal.other.success").replace("%p",
                         sender instanceof Player ? sender.getName() : "Console"));
                 target.playSound(target.getLocation(), Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 1.0f, 1.0f);
+                return;
             }
             sender.sendMessage(Main.getPrefix() + Text.get("heal.other.error").replace("%t", target.getName()));
 
