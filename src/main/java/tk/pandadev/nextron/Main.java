@@ -148,6 +148,7 @@ public final class Main extends JavaPlugin {
         pluginManager.registerEvents(new InputListener(), this);
         pluginManager.registerEvents(new ClickableMessages(), this);
         pluginManager.registerEvents(new BackCommandListener(), this);
+        pluginManager.registerEvents(new VanishListeners(), this);
     }
 
     public static Main getInstance() {
