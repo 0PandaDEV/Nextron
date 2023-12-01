@@ -14,13 +14,13 @@ public class VanishAPI {
     }
 
     public void setVanish(Player player, Boolean state) {
-        Main.getInstance().getConfig().set("Vanished." + player.getUniqueId(), state);
-        Main.getInstance().saveConfig();
+        Configs.settings.set(player.getUniqueId() + ".vanish.vanished", state);
+        Configs.saveSettingsConfig();
         executeVanish(player);
     }
 
     public static boolean isVanish(Player player) {
-        return Main.getInstance().getConfig().getBoolean("Vanished." + player.getUniqueId());
+        return Configs.settings.getBoolean(player.getUniqueId() + ".vanish.vanished");
     }
 
     public static void executeVanish(Player player) {
