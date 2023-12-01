@@ -1,6 +1,5 @@
 package tk.pandadev.nextron.listeners;
 
-import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -20,9 +19,11 @@ public class JoinListener implements Listener {
     public void onJoin(PlayerJoinEvent event) {
         Player player = event.getPlayer();
         SettingsConfig.checkSettings(player);
+        VanishAPI.executeVanish(player);
         if (Configs.feature.getBoolean("join_leave_system")) {
             if (VanishAPI.isVanish(player)) {
-                event.setJoinMessage("");
+                event.setJoinMessage(null);
+                return;
             } else {
                 event.setJoinMessage(
                         ChatColor.translateAlternateColorCodes('&', Main.getInstance().getConfig().getString("join_message")
@@ -38,9 +39,7 @@ public class JoinListener implements Listener {
         RankAPI.createPlayerTeam(player);
         RankAPI.checkRank(player);
         Main.getInstance().getTablistManager().setAllPlayerTeams();
-        for (Player onlinePlayer : Bukkit.getOnlinePlayers()) {
-            VanishAPI.executeVanish(onlinePlayer);
-        }
+
     }
 
 }
