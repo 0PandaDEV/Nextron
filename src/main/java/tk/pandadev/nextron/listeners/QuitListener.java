@@ -20,8 +20,7 @@ public class QuitListener implements Listener {
         SettingsConfig.checkSettings(player);
         if (Configs.feature.getBoolean("join_leave_system")) {
             if (VanishAPI.isVanish(player)) {
-                event.setQuitMessage(null);
-                return;
+                event.setQuitMessage("");
             } else {
                 event.setQuitMessage(ChatColor.translateAlternateColorCodes('&', Main.getInstance().getConfig().getString("leave_message").replace("%p", Configs.settings.getString(player.getUniqueId() + ".nick"))));
             }

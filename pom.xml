@@ -6,7 +6,7 @@
 
     <groupId>tk.pandadev</groupId>
     <artifactId>Nextron</artifactId>
-    <version>1.5.2</version>
+    <version>1.5.1</version>
     <packaging>jar</packaging>
 
     <name>Nextron</name>
