@@ -1,6 +1,6 @@
 name: '${project.artifactId}'
 version: '${project.version}'
-main: tk.pandadev.nextron.Main
+main: net.pandadev.nextron.Main
 api-version: 1.13
 authors: [ PandaDEV ]
 description: '${project.description}'

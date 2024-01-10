@@ -116,3 +116,4 @@ server
 .vscode
 .gitignore
 .github/
+/move.sh

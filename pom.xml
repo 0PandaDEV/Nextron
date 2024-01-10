@@ -4,9 +4,9 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>tk.pandadev</groupId>
+    <groupId>net.pandadev</groupId>
     <artifactId>Nextron</artifactId>
-    <version>1.5.1</version>
+    <version>1.5.3</version>
     <packaging>jar</packaging>
 
     <name>Nextron</name>
@@ -49,7 +49,7 @@
                 <artifactId>maven-jar-plugin</artifactId>
                 <version>2.3.1</version>
                 <configuration>
-                    <outputDirectory>server/plugins</outputDirectory>
+                    <outputDirectory>S:\home\pandadev\Servers\network\plugintest\plugins</outputDirectory>
                 </configuration>
             </plugin>
         </plugins>
