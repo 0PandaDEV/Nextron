@@ -1,16 +1,16 @@
 package net.pandadev.nextron.commands;
 
 import ch.hekates.languify.language.Text;
+import net.pandadev.nextron.Main;
+import net.pandadev.nextron.guis.GUIs;
+import net.pandadev.nextron.utils.Configs;
+import net.pandadev.nextron.utils.RankAPI;
 import org.bukkit.Bukkit;
 import org.bukkit.Sound;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabCompleter;
 import org.bukkit.entity.Player;
-import net.pandadev.nextron.Main;
-import net.pandadev.nextron.guis.GUIs;
-import net.pandadev.nextron.utils.Configs;
-import net.pandadev.nextron.utils.RankAPI;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -94,7 +94,6 @@ public class FeatureCommand extends CommandBase implements TabCompleter {
 
     @Override
     public List<String> onTabComplete(CommandSender sender, Command command, String label, String[] args) {
-        Player playert = (Player) (sender);
         ArrayList<String> list = new ArrayList<String>();
 
         if (args.length == 1) {

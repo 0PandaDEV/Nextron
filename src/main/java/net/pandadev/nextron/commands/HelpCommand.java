@@ -1,24 +1,23 @@
 package net.pandadev.nextron.commands;
 
 import ch.hekates.languify.language.Text;
+import net.pandadev.nextron.Main;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabCompleter;
-import org.bukkit.entity.Player;
-import net.pandadev.nextron.Main;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class HelpCommand extends CommandBase implements TabCompleter {
 
-    public HelpCommand(){
+    public HelpCommand() {
         super("help", "Gives you a list of all commands with a short description", "/help", "", "nextron.help");
     }
 
     @Override
     protected void execute(CommandSender sender, String label, String[] args) {
-        if (args.length == 0){
+        if (args.length == 0) {
             sender.sendMessage(
                     "",
                     "§7Help menu for §x§b§1§8§0§f§f§lNextron §7with all commands",
@@ -47,24 +46,30 @@ public class HelpCommand extends CommandBase implements TabCompleter {
                     "§7For detailed help/explanation type §a/help [command]",
                     ""
             );
-        } else if (args.length == 1){
-            if (!CommandBase.commands.containsKey(args[0])){
+        } else if (args.length == 1) {
+            if (!CommandBase.commands.containsKey(args[0])) {
                 sender.sendMessage(Main.getPrefix() + Text.get("help.command.error"));
                 return;
             }
             String usage = "\n";
 
-            if (!CommandBase.getUsage(args[0]).isEmpty()){
-                if (!CommandBase.getUsage(args[0]).contains("\n")) {usage = "§7Usage: §a" + CommandBase.getUsage(args[0]);}
-                else {usage = "§7Usage: \n§a" + CommandBase.getUsage(args[0]);}
+            if (!CommandBase.getUsage(args[0]).isEmpty()) {
+                if (!CommandBase.getUsage(args[0]).contains("\n")) {
+                    usage = "§7Usage: §a" + CommandBase.getUsage(args[0]);
+                } else {
+                    usage = "§7Usage: \n§a" + CommandBase.getUsage(args[0]);
+                }
             }
 
 
             String aliases = "\n";
 
-            if (!CommandBase.getAliases(args[0]).isEmpty()){
-                if (!CommandBase.getAliases(args[0]).contains("\n")) {aliases = "§7Aliases: §a" + CommandBase.getAliases(args[0]) + "\n ";}
-                else {aliases = "§7Aliases: \n§a" + CommandBase.getAliases(args[0]) + "\n ";}
+            if (!CommandBase.getAliases(args[0]).isEmpty()) {
+                if (!CommandBase.getAliases(args[0]).contains("\n")) {
+                    aliases = "§7Aliases: §a" + CommandBase.getAliases(args[0]) + "\n ";
+                } else {
+                    aliases = "§7Aliases: \n§a" + CommandBase.getAliases(args[0]) + "\n ";
+                }
             }
 
             sender.sendMessage(
@@ -84,9 +89,8 @@ public class HelpCommand extends CommandBase implements TabCompleter {
     @Override
     public List<String> onTabComplete(CommandSender sender, Command command, String label, String[] args) {
         ArrayList<String> list = new ArrayList<String>();
-        Player playert = (Player) (sender);
 
-        if (args.length == 1){
+        if (args.length == 1) {
             CommandBase.commands.forEach((name, description) -> {
                 list.add(name);
             });

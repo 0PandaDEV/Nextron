@@ -1,6 +1,7 @@
 package net.pandadev.nextron.commands;
 
 import ch.hekates.languify.language.Text;
+import net.pandadev.nextron.Main;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.command.Command;
@@ -8,7 +9,6 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabCompleter;
 import org.bukkit.entity.Player;
-import net.pandadev.nextron.Main;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -163,9 +163,9 @@ public class GamemodeCommand extends CommandBase implements CommandExecutor, Tab
 
     @Override
     public List<String> onTabComplete(CommandSender sender, Command command, String label, String[] args) {
-        Player playert = (Player) (sender);
         ArrayList<String> list = new ArrayList<String>();
-        if (args.length == 1 && playert.hasPermission("nextron.gamemode")) {
+
+        if (args.length == 1 && sender.hasPermission("nextron.gamemode")) {
             list.add("0");
             list.add("1");
             list.add("2");
@@ -178,7 +178,7 @@ public class GamemodeCommand extends CommandBase implements CommandExecutor, Tab
             list.add("c");
             list.add("a");
             list.add("sp");
-        } else if (args.length == 2 && playert.hasPermission("nextron.gamemode.other")) {
+        } else if (args.length == 2 && sender.hasPermission("nextron.gamemode.other")) {
             for (Player player : Bukkit.getOnlinePlayers()) {
                 list.add(player.getName());
             }

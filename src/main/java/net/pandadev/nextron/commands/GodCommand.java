@@ -1,13 +1,13 @@
 package net.pandadev.nextron.commands;
 
 import ch.hekates.languify.language.Text;
+import net.pandadev.nextron.Main;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabCompleter;
 import org.bukkit.entity.Player;
-import net.pandadev.nextron.Main;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -62,7 +62,6 @@ public class GodCommand extends CommandBase implements CommandExecutor, TabCompl
     @Override
     public List<String> onTabComplete(CommandSender sender, Command command, String label, String[] args) {
         ArrayList<String> list = new ArrayList<String>();
-        Player playert = (Player) (sender);
 
         if (args.length == 1) {
             for (Player player : Bukkit.getOnlinePlayers()) {

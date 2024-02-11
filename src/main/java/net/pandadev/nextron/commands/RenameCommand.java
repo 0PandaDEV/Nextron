@@ -1,19 +1,14 @@
 package net.pandadev.nextron.commands;
 
 import ch.hekates.languify.language.Text;
+import net.pandadev.nextron.Main;
 import org.bukkit.ChatColor;
-import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
-import org.bukkit.command.TabCompleter;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.meta.ItemMeta;
-import net.pandadev.nextron.Main;
 
-import java.util.ArrayList;
-import java.util.List;
-
-public class RenameCommand extends CommandBase implements CommandExecutor, TabCompleter {
+public class RenameCommand extends CommandBase implements CommandExecutor {
 
     public RenameCommand() {
         super("rename", "Renames the item you are currently holding", "/rename <name>", "", "nextron.rename");
@@ -48,21 +43,5 @@ public class RenameCommand extends CommandBase implements CommandExecutor, TabCo
         }
     }
 
-    @Override
-    public List<String> onTabComplete(CommandSender sender, Command command, String label, String[] args) {
-        ArrayList<String> list = new ArrayList<String>();
-        Player playert = (Player) (sender);
-
-        ArrayList<String> completerList = new ArrayList<String>();
-        String currentarg = args[args.length - 1].toLowerCase();
-        for (String s : list) {
-            String s1 = s.toLowerCase();
-            if (!s1.startsWith(currentarg))
-                continue;
-            completerList.add(s);
-        }
-
-        return completerList;
-    }
 
 }

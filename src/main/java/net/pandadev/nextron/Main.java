@@ -91,6 +91,10 @@ public final class Main extends JavaPlugin {
         LangLoader.saveLanguages(getName(), "-" + getDescription().getVersion());
         LangLoader.loadLanguage(getConfig().getString("language"));
 
+        Configs.saveHomeConfig();
+        Configs.saveWarpConfig();
+        Configs.saveFeatureConfig();
+
         Bukkit.getConsoleSender().sendMessage(Prefix + Text.get("console.disabled"));
 
         for (Player player : Bukkit.getOnlinePlayers()) {
@@ -167,12 +171,13 @@ public final class Main extends JavaPlugin {
         if (Files.exists(worldsFile)) {
             try {
                 List<String> worldNames = Files.readAllLines(worldsFile);
-                List<String> validWorldNames = worldNames.stream()
-                        .filter(this::worldExists)
-                        .collect(Collectors.toList());
+                // Filter out non-existent worlds and collect valid ones
+                List<String> validWorldNames = worldNames.stream().filter(this::worldExists).collect(Collectors.toList());
+                // Load valid worlds
                 for (String worldName : validWorldNames) {
                     Bukkit.createWorld(new WorldCreator(worldName));
                 }
+                // Update worlds.txt to only include valid worlds
                 Files.write(worldsFile, validWorldNames);
             } catch (IOException e) {
                 e.printStackTrace();

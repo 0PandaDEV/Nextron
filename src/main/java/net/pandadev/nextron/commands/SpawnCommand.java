@@ -1,6 +1,7 @@
 package net.pandadev.nextron.commands;
 
 import ch.hekates.languify.language.Text;
+import net.pandadev.nextron.Main;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Sound;
@@ -8,7 +9,6 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabCompleter;
 import org.bukkit.entity.Player;
-import net.pandadev.nextron.Main;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,12 +28,12 @@ public class SpawnCommand extends CommandBase implements TabCompleter {
         }
         Player player = (Player) (sender);
 
-        if (args.length == 0 && label.equalsIgnoreCase("setspawn")){
+        if (args.length == 0 && label.equalsIgnoreCase("setspawn")) {
             Main.getInstance().getConfig().set("spawn", player.getLocation());
             Main.getInstance().saveConfig();
             player.sendMessage(Main.getPrefix() + Text.get("setspawn.success"));
-        } else if (args.length == 0){
-            if (Main.getInstance().getConfig().get("spawn") == null){
+        } else if (args.length == 0) {
+            if (Main.getInstance().getConfig().get("spawn") == null) {
                 player.sendMessage(Main.getPrefix() + Text.get("setspawn.error"));
                 return;
             }
@@ -41,15 +41,18 @@ public class SpawnCommand extends CommandBase implements TabCompleter {
             player.playSound(player.getLocation(), Sound.ENTITY_ENDERMAN_TELEPORT, 100, 1);
             player.sendMessage(Main.getPrefix() + Text.get("spawn.teleport"));
 
-        } else if (args.length == 1){
-            if (Main.getInstance().getConfig().get("spawn") == null){
+        } else if (args.length == 1) {
+            if (Main.getInstance().getConfig().get("spawn") == null) {
                 player.sendMessage(Main.getPrefix() + Text.get("setspawn.error"));
                 return;
             }
 
             Player target = Bukkit.getPlayer(args[0]);
 
-            if (target == null){player.sendMessage(Main.getInvalidPlayer()); return;}
+            if (target == null) {
+                player.sendMessage(Main.getInvalidPlayer());
+                return;
+            }
 
             target.teleport((Location) Main.getInstance().getConfig().get("spawn"));
             player.playSound(player.getLocation(), Sound.ENTITY_ENDERMAN_TELEPORT, 100, 1);
@@ -62,9 +65,9 @@ public class SpawnCommand extends CommandBase implements TabCompleter {
     @Override
     public List<String> onTabComplete(CommandSender sender, Command command, String label, String[] args) {
         ArrayList<String> list = new ArrayList<String>();
-        Player playert = (Player) (sender);
 
-        if (args.length == 1 && !label.equalsIgnoreCase("setspawn")) for (Player player : Bukkit.getOnlinePlayers()) list.add(player.getName());
+        if (args.length == 1 && !label.equalsIgnoreCase("setspawn"))
+            for (Player player : Bukkit.getOnlinePlayers()) list.add(player.getName());
 
         ArrayList<String> completerList = new ArrayList<String>();
         String currentarg = args[args.length - 1].toLowerCase();

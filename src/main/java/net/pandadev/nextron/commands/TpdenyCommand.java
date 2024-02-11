@@ -1,17 +1,12 @@
 package net.pandadev.nextron.commands;
 
 import ch.hekates.languify.language.Text;
-import org.bukkit.Sound;
-import org.bukkit.command.Command;
-import org.bukkit.command.CommandSender;
-import org.bukkit.command.TabCompleter;
-import org.bukkit.entity.Player;
 import net.pandadev.nextron.Main;
+import org.bukkit.Sound;
+import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
 
-import java.util.ArrayList;
-import java.util.List;
-
-public class TpdenyCommand extends CommandBase implements TabCompleter {
+public class TpdenyCommand extends CommandBase {
 
     public TpdenyCommand() {
         super("tpdeny", "Denys an incoming tpa request", "/tpdeny", "/tpd", "nextron.tpdeny");
@@ -44,23 +39,6 @@ public class TpdenyCommand extends CommandBase implements TabCompleter {
             }
         }
 
-    }
-
-    @Override
-    public List<String> onTabComplete(CommandSender sender, Command command, String label, String[] args) {
-        ArrayList<String> list = new ArrayList<String>();
-        Player playert = (Player) (sender);
-
-        ArrayList<String> completerList = new ArrayList<String>();
-        String currentarg = args[args.length - 1].toLowerCase();
-        for (String s : list) {
-            String s1 = s.toLowerCase();
-            if (!s1.startsWith(currentarg))
-                continue;
-            completerList.add(s);
-        }
-
-        return completerList;
     }
 
 }

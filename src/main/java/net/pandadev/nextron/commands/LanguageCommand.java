@@ -1,11 +1,11 @@
 package net.pandadev.nextron.commands;
 
 import ch.hekates.languify.language.Text;
+import net.pandadev.nextron.Main;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabCompleter;
 import org.bukkit.entity.Player;
-import net.pandadev.nextron.Main;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -27,13 +27,16 @@ public class LanguageCommand extends CommandBase implements TabCompleter {
         }
         Player player = (Player) (sender);
 
-        if (args.length == 1){
+        if (args.length == 1) {
             List<File> dataFolder = Arrays.stream(new File(Main.getInstance().getDataFolder() + "/lang").listFiles()).toList();
             List<String> languages = new ArrayList<>();
-            for (File lanugage : dataFolder){
+            for (File lanugage : dataFolder) {
                 languages.add(lanugage.getName().replace(".json", ""));
             }
-            if (!languages.contains(args[0])) {player.sendMessage(Main.getPrefix() + Text.get("language.set.error").replace("%l", languages.toString().replace("[", "").replace("]", ""))); return;}
+            if (!languages.contains(args[0])) {
+                player.sendMessage(Main.getPrefix() + Text.get("language.set.error").replace("%l", languages.toString().replace("[", "").replace("]", "")));
+                return;
+            }
 
             Main.getInstance().getConfig().set("language", args[0]);
             Main.getInstance().saveConfig();
@@ -46,11 +49,10 @@ public class LanguageCommand extends CommandBase implements TabCompleter {
     @Override
     public List<String> onTabComplete(CommandSender sender, Command command, String label, String[] args) {
         ArrayList<String> list = new ArrayList<String>();
-        Player playert = (Player) (sender);
 
-        if (args.length == 1){
+        if (args.length == 1) {
             File dataFolder = new File(Main.getInstance().getDataFolder() + "/lang");
-            for (File language : Arrays.stream(dataFolder.listFiles()).toList()){
+            for (File language : Arrays.stream(dataFolder.listFiles()).toList()) {
                 list.add(language.getName().replace(".json", ""));
             }
         }

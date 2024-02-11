@@ -1,14 +1,14 @@
 package net.pandadev.nextron.commands;
 
 import ch.hekates.languify.language.Text;
+import net.pandadev.nextron.Main;
+import net.pandadev.nextron.utils.Configs;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabCompleter;
 import org.bukkit.entity.Player;
-import net.pandadev.nextron.Main;
-import net.pandadev.nextron.utils.Configs;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,7 +39,7 @@ public class FlyCommand extends CommandBase implements CommandExecutor, TabCompl
                 sender.sendMessage(Main.getPrefix() + Text.get("fly.other.on").replace("%t", target.getName()));
             }
 
-            if (target.getAllowFlight()){
+            if (target.getAllowFlight()) {
                 target.setAllowFlight(false);
             } else {
                 target.setAllowFlight(false);
@@ -71,7 +71,7 @@ public class FlyCommand extends CommandBase implements CommandExecutor, TabCompl
                 }
             }
 
-            if (player.getAllowFlight()){
+            if (player.getAllowFlight()) {
                 player.setAllowFlight(false);
             } else {
                 player.setAllowFlight(false);
@@ -85,10 +85,9 @@ public class FlyCommand extends CommandBase implements CommandExecutor, TabCompl
 
     @Override
     public List<String> onTabComplete(CommandSender sender, Command command, String label, String[] args) {
-
-        Player playert = (Player) (sender);
         ArrayList<String> list = new ArrayList<String>();
-        if (args.length == 1 && playert.hasPermission("nextron.fly.other")) {
+
+        if (args.length == 1 && sender.hasPermission("nextron.fly.other")) {
             for (Player player : Bukkit.getOnlinePlayers()) {
                 list.add(player.getName());
             }

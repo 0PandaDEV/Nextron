@@ -1,9 +1,9 @@
 package net.pandadev.nextron.utils;
 
+import net.pandadev.nextron.Main;
 import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
-import net.pandadev.nextron.Main;
 
 import java.io.File;
 import java.io.IOException;
@@ -36,7 +36,7 @@ public class Configs {
     }
 
     public static void saveSettingsConfig() {
-        try{
+        try {
             settings.save(settingsConfig);
         } catch (IOException e) {
             throw new RuntimeException(e);
@@ -59,7 +59,7 @@ public class Configs {
     }
 
     public static void saveHomeConfig() {
-        try{
+        try {
             home.save(homeConfig);
         } catch (IOException e) {
             throw new RuntimeException(e);
@@ -82,7 +82,7 @@ public class Configs {
     }
 
     public static void saveWarpConfig() {
-        try{
+        try {
             warp.save(warpConfig);
         } catch (IOException e) {
             throw new RuntimeException(e);
@@ -105,11 +105,11 @@ public class Configs {
     }
 
     public static void saveFeatureConfig() {
-        try{
+        try {
             feature.save(featureConfig);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
-            
+
 }

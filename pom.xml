@@ -6,7 +6,7 @@
 
     <groupId>net.pandadev</groupId>
     <artifactId>Nextron</artifactId>
-    <version>1.5.3</version>
+    <version>1.5.4</version>
     <packaging>jar</packaging>
 
     <name>Nextron</name>
@@ -15,7 +15,7 @@
         <java.version>1.8</java.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
-    <url>https://essentialsp.tk/</url>
+    <url>https://nextron.pandadev.net/</url>
 
     <build>
         <plugins>
@@ -49,7 +49,7 @@
                 <artifactId>maven-jar-plugin</artifactId>
                 <version>2.3.1</version>
                 <configuration>
-                    <outputDirectory>S:\home\pandadev\Servers\network\plugintest\plugins</outputDirectory>
+                    <outputDirectory>server/plugins</outputDirectory>
                 </configuration>
             </plugin>
         </plugins>
@@ -88,7 +88,7 @@
         <dependency>
             <groupId>org.spigotmc</groupId>
             <artifactId>spigot-api</artifactId>
-            <version>1.20.2-R0.1-SNAPSHOT</version>
+            <version>1.20.4-R0.1-SNAPSHOT</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
