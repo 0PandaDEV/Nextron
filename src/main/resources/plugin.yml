@@ -13,6 +13,10 @@ commands:
       - gmc
       - gma
       - gmsp
+      - creative
+      - survival
+      - adventure
+      - spectator
     permission: nextron.gamemode
   enderchest:
     permission: nextron.enderchest

@@ -43,6 +43,14 @@ public class GamemodeCommand extends CommandBase implements CommandExecutor, Tab
                 gamemode = GameMode.ADVENTURE;
             } else if (label.equalsIgnoreCase("gmsp")) {
                 gamemode = GameMode.SPECTATOR;
+            } else if (label.equalsIgnoreCase("survival")) {
+                gamemode = GameMode.SURVIVAL;
+            } else if (label.equalsIgnoreCase("creative")) {
+                gamemode = GameMode.CREATIVE;
+            } else if (label.equalsIgnoreCase("adventure")) {
+                gamemode = GameMode.ADVENTURE;
+            } else if (label.equalsIgnoreCase("spectator")) {
+                gamemode = GameMode.SPECTATOR;
             } else {
                 sender.sendMessage(Main.getPrefix() + Text.get("gamemode.invalid"));
                 return;
@@ -55,7 +63,7 @@ public class GamemodeCommand extends CommandBase implements CommandExecutor, Tab
 
             player.setGameMode(gamemode);
             player.sendMessage(Main.getPrefix() + Text.get("gamemode.success").replace("%g", gamemode.toString().toLowerCase()));
-        } else if (args.length == 1 && label.equalsIgnoreCase("gmc") || args.length == 1 && label.equalsIgnoreCase("gms") || args.length == 1 && label.equalsIgnoreCase("gma") || args.length == 1 && label.equalsIgnoreCase("gmsp")) {
+        } else if (args.length == 1 && label.equalsIgnoreCase("gmc") || args.length == 1 && label.equalsIgnoreCase("gms") || args.length == 1 && label.equalsIgnoreCase("gma") || args.length == 1 && label.equalsIgnoreCase("gmsp") || args.length == 1 && label.equalsIgnoreCase("creative") || args.length == 1 && label.equalsIgnoreCase("survival") || args.length == 1 && label.equalsIgnoreCase("adventure") || args.length == 1 && label.equalsIgnoreCase("spectator")) {
 
             if (!sender.hasPermission("nextron.gamemode.other")) {
                 sender.sendMessage(Main.getNoPerm());
@@ -72,6 +80,14 @@ public class GamemodeCommand extends CommandBase implements CommandExecutor, Tab
             } else if (label.equalsIgnoreCase("gma")) {
                 gamemode = GameMode.ADVENTURE;
             } else if (label.equalsIgnoreCase("gmsp")) {
+                gamemode = GameMode.SPECTATOR;
+            } else if (label.equalsIgnoreCase("survival")) {
+                gamemode = GameMode.SURVIVAL;
+            } else if (label.equalsIgnoreCase("creative")) {
+                gamemode = GameMode.CREATIVE;
+            } else if (label.equalsIgnoreCase("adventure")) {
+                gamemode = GameMode.ADVENTURE;
+            } else if (label.equalsIgnoreCase("spectator")) {
                 gamemode = GameMode.SPECTATOR;
             } else {
                 sender.sendMessage(Main.getPrefix() + Text.get("gamemode.invalid"));
@@ -189,7 +205,7 @@ public class GamemodeCommand extends CommandBase implements CommandExecutor, Tab
     public List<String> onTabComplete(CommandSender sender, Command command, String label, String[] args) {
         ArrayList<String> list = new ArrayList<String>();
 
-        if (args.length == 1 && label.equalsIgnoreCase("gmc") || args.length == 1 && label.equalsIgnoreCase("gms") || args.length == 1 && label.equalsIgnoreCase("gma") || args.length == 1 && label.equalsIgnoreCase("gmsp")) {
+        if (args.length == 1 && label.equalsIgnoreCase("gmc") || args.length == 1 && label.equalsIgnoreCase("gms") || args.length == 1 && label.equalsIgnoreCase("gma") || args.length == 1 && label.equalsIgnoreCase("gmsp") || args.length == 1 && label.equalsIgnoreCase("creative") || args.length == 1 && label.equalsIgnoreCase("survival") || args.length == 1 && label.equalsIgnoreCase("adventure") || args.length == 1 && label.equalsIgnoreCase("spectator")) {
             for (Player player : Bukkit.getOnlinePlayers()) {
                 list.add(player.getName());
             }
