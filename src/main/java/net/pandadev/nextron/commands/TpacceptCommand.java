@@ -1,17 +1,17 @@
 package net.pandadev.nextron.commands;
 
 import ch.hekates.languify.language.Text;
+import net.pandadev.nextron.Main;
+import net.pandadev.nextron.utils.Configs;
 import org.bukkit.Sound;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import net.pandadev.nextron.Main;
-import net.pandadev.nextron.utils.Configs;
 
 public class TpacceptCommand extends CommandBase implements CommandExecutor {
 
     public TpacceptCommand() {
-        super("tpaccept", "Accepts an incoming tpa request", "/tpaccept", "", "nextron.tpaccept");
+        super("tpaccept", "Accepts an incoming tpa request", "/tpaccept", "nextron.tpaccept");
     }
 
     @Override

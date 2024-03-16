@@ -17,7 +17,7 @@ import java.util.List;
 public class HealCommand extends CommandBase implements CommandExecutor, TabCompleter {
 
     public HealCommand() {
-        super("heal", "Fills up your hunger and hearts", "/heal [player]", "", "nextron.heal");
+        super("heal", "Fills up your hunger and hearts", "/heal [player]", "nextron.heal");
     }
 
     @Override

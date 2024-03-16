@@ -24,7 +24,7 @@ import java.util.List;
 public class WorldCommand extends CommandBase implements TabCompleter {
 
     public WorldCommand() {
-        super("world", "Allows you to change the world you're in", "/world <world>", "", "nextron.world");
+        super("world", "Allows you to manage your worlds on a server", "/world tp <world>\n/world create <name>\n/world delete <world\n/world load <world>\n/world unload <world>", "nextron.world");
     }
 
     @Override

@@ -1,27 +1,30 @@
 package net.pandadev.nextron.commands;
 
 import ch.hekates.languify.language.Text;
+import net.pandadev.nextron.Main;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
-import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabCompleter;
 import org.bukkit.entity.Player;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
-import net.pandadev.nextron.Main;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class NightVisionCommand implements CommandExecutor, TabCompleter {
+public class NightVisionCommand extends CommandBase implements TabCompleter {
+
+    public NightVisionCommand() {
+        super("nightvision", "Allows you to toggle nightivision", "/nightvision [player]\n/nv [player]", "nextron.nightvision");
+    }
 
     @Override
-    public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
+    protected void execute(CommandSender sender, String label, String[] args) {
 
         if (!(sender instanceof Player)) {
             sender.sendMessage("§6This command can only be run by a player!");
-            return false;
+            return;
         }
         Player player = (Player) (sender);
 
@@ -29,7 +32,7 @@ public class NightVisionCommand implements CommandExecutor, TabCompleter {
 
             if (!player.hasPotionEffect(PotionEffectType.NIGHT_VISION)) {
                 player.addPotionEffect(
-                        new PotionEffect(PotionEffectType.NIGHT_VISION, Integer.MAX_VALUE, 255, false, false, false));
+                        new PotionEffect(PotionEffectType.NIGHT_VISION, PotionEffect.INFINITE_DURATION, 255, false, false, false));
             } else {
                 player.removePotionEffect(PotionEffectType.NIGHT_VISION);
             }
@@ -40,12 +43,12 @@ public class NightVisionCommand implements CommandExecutor, TabCompleter {
 
             if (target == null) {
                 player.sendMessage(Main.getInvalidPlayer());
-                return false;
+                return;
             }
 
             if (!target.hasPotionEffect(PotionEffectType.NIGHT_VISION)) {
                 target.addPotionEffect(
-                        new PotionEffect(PotionEffectType.NIGHT_VISION, Integer.MAX_VALUE, 255, false, false, false));
+                        new PotionEffect(PotionEffectType.NIGHT_VISION, PotionEffect.INFINITE_DURATION, 255, false, false, false));
                 player.sendMessage(Main.getPrefix() + Text.get("night.vision.add").replace("%p", target.getName()));
             } else {
                 target.removePotionEffect(PotionEffectType.NIGHT_VISION);
@@ -55,8 +58,6 @@ public class NightVisionCommand implements CommandExecutor, TabCompleter {
         } else {
             player.sendMessage(Main.getPrefix() + "§c/nightvision [player]");
         }
-
-        return false;
     }
 
     @Override

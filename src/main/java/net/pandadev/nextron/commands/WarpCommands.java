@@ -1,6 +1,9 @@
 package net.pandadev.nextron.commands;
 
 import ch.hekates.languify.language.Text;
+import net.pandadev.nextron.Main;
+import net.pandadev.nextron.utils.Configs;
+import net.pandadev.nextron.utils.Utils;
 import net.wesjd.anvilgui.AnvilGUI;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -11,9 +14,6 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabCompleter;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
-import net.pandadev.nextron.Main;
-import net.pandadev.nextron.utils.Configs;
-import net.pandadev.nextron.utils.Utils;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -23,7 +23,7 @@ import java.util.Objects;
 public class WarpCommands extends CommandBase implements CommandExecutor, TabCompleter {
 
     public WarpCommands() {
-        super("warp", "Teleports you to public available positions", "/warp <warp>", "/w <warp>", "nextron.warp");
+        super("warp", "Teleports you to public available positions", "/warp <warp>\n/w <warp>", "nextron.warp");
     }
 
     @Override

@@ -6,6 +6,8 @@ import net.md_5.bungee.api.chat.ClickEvent;
 import net.md_5.bungee.api.chat.ComponentBuilder;
 import net.md_5.bungee.api.chat.HoverEvent;
 import net.md_5.bungee.api.chat.TextComponent;
+import net.pandadev.nextron.Main;
+import net.pandadev.nextron.utils.Configs;
 import org.bukkit.Bukkit;
 import org.bukkit.Sound;
 import org.bukkit.command.Command;
@@ -13,8 +15,6 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabCompleter;
 import org.bukkit.entity.Player;
-import net.pandadev.nextron.Main;
-import net.pandadev.nextron.utils.Configs;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,7 +22,7 @@ import java.util.List;
 public class TpaCommand extends CommandBase implements CommandExecutor, TabCompleter {
 
     public TpaCommand() {
-        super("tpa", "Sends a tpa request to a player", "/tpa <player>", "", "nextron.tpa");
+        super("tpa", "Sends a tpa request to a player", "/tpa <player>", "nextron.tpa");
     }
 
     @Override

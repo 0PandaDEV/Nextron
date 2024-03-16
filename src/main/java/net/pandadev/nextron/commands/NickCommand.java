@@ -8,7 +8,7 @@ import org.bukkit.entity.Player;
 public class NickCommand extends CommandBase {
 
     public NickCommand() {
-        super("nick", "Set your nickname", "/nick", "/resetnick", "nextron.nick");
+        super("nick", "Set your nickname", "/nick\n/resetnick", "nextron.nick");
     }
 
     @Override

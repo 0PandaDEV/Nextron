@@ -11,7 +11,7 @@ import org.bukkit.inventory.meta.ItemMeta;
 public class RenameCommand extends CommandBase implements CommandExecutor {
 
     public RenameCommand() {
-        super("rename", "Renames the item you are currently holding", "/rename <name>", "", "nextron.rename");
+        super("rename", "Renames the item you are currently holding", "/rename <name>", "nextron.rename");
     }
 
     @Override

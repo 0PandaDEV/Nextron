@@ -6,6 +6,9 @@ import net.md_5.bungee.api.chat.ClickEvent;
 import net.md_5.bungee.api.chat.ComponentBuilder;
 import net.md_5.bungee.api.chat.HoverEvent;
 import net.md_5.bungee.api.chat.TextComponent;
+import net.pandadev.nextron.Main;
+import net.pandadev.nextron.utils.Configs;
+import net.pandadev.nextron.utils.Utils;
 import net.wesjd.anvilgui.AnvilGUI;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -16,9 +19,6 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabCompleter;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
-import net.pandadev.nextron.Main;
-import net.pandadev.nextron.utils.Configs;
-import net.pandadev.nextron.utils.Utils;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -28,7 +28,7 @@ import java.util.Objects;
 public class HomeCommands extends CommandBase implements CommandExecutor, TabCompleter {
 
     public HomeCommands() {
-        super("home", "Teleports you instant to a player set position", "/home <home>", "/h <home>", "nextron.home");
+        super("home", "Teleports you instant to a player set position", "/home <home>\n/h <home>", "nextron.home");
     }
 
     @Override

@@ -1,6 +1,10 @@
 package net.pandadev.nextron.commands;
 
 import ch.hekates.languify.language.Text;
+import net.pandadev.nextron.Main;
+import net.pandadev.nextron.guis.features.RankGUIs;
+import net.pandadev.nextron.utils.RankAPI;
+import net.pandadev.nextron.utils.Utils;
 import net.wesjd.anvilgui.AnvilGUI;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -12,10 +16,6 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabCompleter;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
-import net.pandadev.nextron.Main;
-import net.pandadev.nextron.guis.features.RankGUIs;
-import net.pandadev.nextron.utils.RankAPI;
-import net.pandadev.nextron.utils.Utils;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -24,8 +24,7 @@ import java.util.List;
 public class RankCommand extends CommandBase implements CommandExecutor, TabCompleter {
 
     public RankCommand() {
-        super("rank", "Allows you to create ranks with prefixes to group players", "/rank <player> <rank>", "",
-                "nextron.rank");
+        super("rank", "Allows you to create ranks with prefixes to group players", "/rank <player> <rank>", "nextron.rank");
     }
 
     @Override
@@ -175,7 +174,7 @@ public class RankCommand extends CommandBase implements CommandExecutor, TabComp
     public List<String> onTabComplete(CommandSender sender, Command command, String label, String[] args) {
         ArrayList<String> list = new ArrayList<String>();
 
-        if (args.length == 1){
+        if (args.length == 1) {
             list.add("set");
             list.add("remove");
             list.add("create");
@@ -194,18 +193,18 @@ public class RankCommand extends CommandBase implements CommandExecutor, TabComp
         }
 
         // rank remove
-        if (args[0].equalsIgnoreCase("remove")){
+        if (args[0].equalsIgnoreCase("remove")) {
             if (args.length == 2) for (Player player : Bukkit.getOnlinePlayers()) list.add(player.getName());
         }
 
         // rank delete
-        if (args[0].equalsIgnoreCase("delete")){
+        if (args[0].equalsIgnoreCase("delete")) {
             if (args.length == 2) if (Main.getInstance().getConfig().getConfigurationSection("Ranks") != null)
                 list.addAll(Main.getInstance().getConfig().getConfigurationSection("Ranks").getKeys(false));
         }
 
         // rank rename
-        if (args[0].equalsIgnoreCase("prefix") || args[0].equalsIgnoreCase("name")){
+        if (args[0].equalsIgnoreCase("prefix") || args[0].equalsIgnoreCase("name")) {
             if (args.length == 2) if (Main.getInstance().getConfig().getConfigurationSection("Ranks") != null)
                 list.addAll(Main.getInstance().getConfig().getConfigurationSection("Ranks").getKeys(false));
         }

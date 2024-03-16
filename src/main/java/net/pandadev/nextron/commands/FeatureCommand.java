@@ -21,7 +21,7 @@ public class FeatureCommand extends CommandBase implements TabCompleter {
 
     public FeatureCommand() {
         super("features", "Opens a GUI where you can enable/disable all the systems in the plugin",
-                "/features [enable/disable] [feature]", "", "nextron.features");
+                "/features [enable/disable] [feature]", "nextron.features");
     }
 
     @Override

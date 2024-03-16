@@ -10,7 +10,7 @@ import org.bukkit.entity.Player;
 public class MenuCommand extends CommandBase implements CommandExecutor {
 
     public MenuCommand() {
-        super("menu", "Opens the menu where you can simply do everything", "/menu", "/m", "");
+        super("menu", "Opens the menu where you can simply do everything", "/menu\n/m", "");
     }
 
     @Override

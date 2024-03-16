@@ -16,7 +16,7 @@ import java.util.List;
 public class SpawnCommand extends CommandBase implements TabCompleter {
 
     public SpawnCommand() {
-        super("spawn", "Allows you to set a spawn point accessible with /spawn", "/spawn [player]", "/sp", "nextron.spawn");
+        super("spawn", "Allows you to set a spawn point accessible with /spawn", "/spawn [player]\n/sp", "nextron.spawn");
     }
 
     @Override

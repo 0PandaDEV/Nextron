@@ -78,6 +78,8 @@ commands:
       - tpd
   nightvision:
     permission: nextron.nightvision
+    aliases:
+      - nv
   nick:
     permission: nextron.nick
     aliases:

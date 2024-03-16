@@ -1,17 +1,17 @@
 package net.pandadev.nextron.commands;
 
 import ch.hekates.languify.language.Text;
+import net.pandadev.nextron.Main;
+import net.pandadev.nextron.utils.Configs;
 import org.apache.commons.lang3.math.NumberUtils;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import net.pandadev.nextron.Main;
-import net.pandadev.nextron.utils.Configs;
 
 public class SpeedCommand extends CommandBase implements CommandExecutor {
 
     public SpeedCommand() {
-        super("speed", "Allows you to set your fly/walk speed", "/speed [speed]", "", "nextron.speed");
+        super("speed", "Allows you to set your fly/walk speed", "/speed [speed]", "nextron.speed");
     }
 
     @Override

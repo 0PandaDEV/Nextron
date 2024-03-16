@@ -15,7 +15,7 @@ import java.util.List;
 public class LanguageCommand extends CommandBase implements TabCompleter {
 
     public LanguageCommand() {
-        super("language", "Allows you to change the plugins language", "/language <lanugage>", "", "nextron.language");
+        super("language", "Allows you to change the plugins language", "/language <lanugage>", "nextron.language");
     }
 
     @Override

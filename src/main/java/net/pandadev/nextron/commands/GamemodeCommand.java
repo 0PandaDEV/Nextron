@@ -16,8 +16,7 @@ import java.util.List;
 public class GamemodeCommand extends CommandBase implements CommandExecutor, TabCompleter {
 
     public GamemodeCommand() {
-        super("gamemode", "Changes the gamemode", "/gamemode <gamemode> [player]",
-                "/gm <gamemode> [player]\n/gms\n/gmc\n/gma\n/gmsp", "nextron.gamemode");
+        super("gamemode", "Changes the gamemode", "/gamemode <gamemode> [player]\n/gm <gamemode> [player]\n/gms\n/gmc\n/gma\n/gmsp", "nextron.gamemode");
     }
 
     @Override

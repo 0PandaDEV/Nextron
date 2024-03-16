@@ -1,14 +1,14 @@
 package net.pandadev.nextron.commands;
 
 import ch.hekates.languify.language.Text;
+import net.pandadev.nextron.Main;
+import net.pandadev.nextron.utils.Configs;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabCompleter;
 import org.bukkit.entity.Player;
-import net.pandadev.nextron.Main;
-import net.pandadev.nextron.utils.Configs;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,7 +17,7 @@ import java.util.Objects;
 public class TphereCommand extends CommandBase implements CommandExecutor, TabCompleter {
 
     public TphereCommand() {
-        super("tphere", "Teleports a player to you", "/tphere <player>", "/tph", "nextron.tphere");
+        super("tphere", "Teleports a player to you", "/tphere <player>\n/tph <player>", "nextron.tphere");
     }
 
     @Override

@@ -15,7 +15,7 @@ import java.util.List;
 public class SudoCommand extends CommandBase implements CommandExecutor, TabCompleter {
 
     public SudoCommand() {
-        super("sudo", "Forces a player to execute a command", "/sudo <player> <command>", "", "nextron.sudo");
+        super("sudo", "Forces a player to execute a command", "/sudo <player> <command>", "nextron.sudo");
     }
 
     @Override

@@ -15,20 +15,17 @@ public abstract class CommandBase implements CommandExecutor {
     private final String permission;
     private final String description;
     private final String usage;
-    private final String aliasses;
 
     public static HashMap<String, ArrayList<String>> commands = new HashMap<>();
 
-    protected CommandBase(String command, String description, String usage, String aliasses, String permission) {
+    protected CommandBase(String command, String description, String usage, String permission) {
         this.command = command;
         this.description = description;
         this.usage = usage;
         this.permission = permission;
-        this.aliasses = aliasses;
         ArrayList<String> commandInfo = new ArrayList();
         commandInfo.add(0, usage);
         commandInfo.add(1, description);
-        commandInfo.add(2, aliasses);
         commands.put(command, commandInfo);
     }
 
@@ -71,13 +68,6 @@ public abstract class CommandBase implements CommandExecutor {
         String usage = localCommandInfo.get(0);
         usage = usage.replace("\\n", "\n");
         return usage;
-    }
-
-    public static String getAliases(String name) {
-        ArrayList<String> localCommandInfo = commands.get(name);
-        String aliasses = localCommandInfo.get(2);
-        aliasses = aliasses.replace("\\n", "\n");
-        return aliasses;
     }
 
 }
