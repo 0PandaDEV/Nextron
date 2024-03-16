@@ -1,9 +1,9 @@
 package net.pandadev.nextron.commands;
 
+import net.pandadev.nextron.Main;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
-import net.pandadev.nextron.Main;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -14,11 +14,11 @@ public abstract class CommandBase implements CommandExecutor {
     private final String command;
     private final String permission;
     private final String description;
-
     private final String usage;
     private final String aliasses;
 
     public static HashMap<String, ArrayList<String>> commands = new HashMap<>();
+
     protected CommandBase(String command, String description, String usage, String aliasses, String permission) {
         this.command = command;
         this.description = description;
@@ -31,12 +31,15 @@ public abstract class CommandBase implements CommandExecutor {
         commandInfo.add(2, aliasses);
         commands.put(command, commandInfo);
     }
+
     public String getCommandName() {
-         return command;
+        return command;
     }
+
     public String getPermission() {
-         return permission;
+        return permission;
     }
+
     protected abstract void execute(CommandSender sender, String label, String[] args) throws IOException;
 
     @Override
@@ -54,23 +57,23 @@ public abstract class CommandBase implements CommandExecutor {
         return true;
     }
 
-    public static String getName(String name){
+    public static String getName(String name) {
         return name;
     }
 
-    public static String getDescription(String name){
+    public static String getDescription(String name) {
         ArrayList<String> localCommandInfo = commands.get(name);
         return localCommandInfo.get(1);
     }
 
-    public static String getUsage(String name){
+    public static String getUsage(String name) {
         ArrayList<String> localCommandInfo = commands.get(name);
         String usage = localCommandInfo.get(0);
         usage = usage.replace("\\n", "\n");
         return usage;
     }
 
-    public static String getAliases(String name){
+    public static String getAliases(String name) {
         ArrayList<String> localCommandInfo = commands.get(name);
         String aliasses = localCommandInfo.get(2);
         aliasses = aliasses.replace("\\n", "\n");

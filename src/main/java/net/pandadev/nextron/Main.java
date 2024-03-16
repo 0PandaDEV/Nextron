@@ -154,6 +154,7 @@ public final class Main extends JavaPlugin {
         getCommand("day").setExecutor(new TimeCommand());
         getCommand("spawn").setExecutor(new SpawnCommand());
         getCommand("getposition").setExecutor(new GetPosCommand());
+        getCommand("hat").setExecutor(new HatCommand());
     }
 
     private void registerListeners() {
