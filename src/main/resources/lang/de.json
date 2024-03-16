@@ -147,5 +147,7 @@
   "help.command.error": "§cDieser Befehl existert nicht",
   "getpos.success": "§7Die Koordinaten von §a%p§7 sind",
   "getpos.hover": "§7Klicke zum teleportieren ",
-  "hat.success": "§7Der block in deiner hand wurde erfolgreich als hut gesetzt"
+  "hat.success": "§7Der block in deiner hand wurde erfolgreich als hut gesetzt",
+  "top.success": "§7Du wurdes zum höchsten block über dir teleportiert",
+  "top.no_blocks_above": "§cEs gibt keine blöcke über dir"
 }

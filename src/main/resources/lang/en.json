@@ -146,5 +146,7 @@
   "help.command.error": "§cThis command does not exist",
   "getpos.success": "§7The Cords of §a%p§7 are",
   "getpos.hover": "§7Click to teleport to ",
-  "hat.success": "§7Successfully set block in your hand as hat"
+  "hat.success": "§7Successfully set block in your hand as hat",
+  "top.success": "§7You got teleported to the highest block above you",
+  "top.no_blocks_above": "§cThere are no blocks above you"
 }

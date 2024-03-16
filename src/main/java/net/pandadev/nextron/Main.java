@@ -83,7 +83,7 @@ public final class Main extends JavaPlugin {
         registerCommands();
 
         int pluginId = 20704;
-        Metrics metrics = new Metrics(this, pluginId);
+        new Metrics(this, pluginId);
     }
 
     @Override
@@ -155,6 +155,7 @@ public final class Main extends JavaPlugin {
         getCommand("spawn").setExecutor(new SpawnCommand());
         getCommand("getposition").setExecutor(new GetPosCommand());
         getCommand("hat").setExecutor(new HatCommand());
+        getCommand("top").setExecutor(new TopCommand());
     }
 
     private void registerListeners() {
@@ -172,13 +173,10 @@ public final class Main extends JavaPlugin {
         if (Files.exists(worldsFile)) {
             try {
                 List<String> worldNames = Files.readAllLines(worldsFile);
-                // Filter out non-existent worlds and collect valid ones
                 List<String> validWorldNames = worldNames.stream().filter(this::worldExists).collect(Collectors.toList());
-                // Load valid worlds
                 for (String worldName : validWorldNames) {
                     Bukkit.createWorld(new WorldCreator(worldName));
                 }
-                // Update worlds.txt to only include valid worlds
                 Files.write(worldsFile, validWorldNames);
             } catch (IOException e) {
                 e.printStackTrace();

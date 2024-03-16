@@ -104,3 +104,5 @@ commands:
       - getpos
   hat:
     permission: nextron.hat
+  top:
+    permission: nextron.top
