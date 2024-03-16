@@ -100,17 +100,17 @@
         <dependency>
             <groupId>net.wesjd</groupId>
             <artifactId>anvilgui</artifactId>
-            <version>1.9.0-SNAPSHOT</version>
+            <version>1.9.2-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>dev.triumphteam</groupId>
             <artifactId>triumph-gui</artifactId>
-            <version>3.1.4</version>
+            <version>3.1.7</version>
         </dependency>
         <dependency>
             <groupId>com.github.Hekates</groupId>
             <artifactId>Languify</artifactId>
-            <version>11f866cd78</version>
+            <version>v1.2-beta</version>
         </dependency>
     </dependencies>
 </project>

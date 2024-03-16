@@ -1,6 +1,6 @@
 <img src="https://i.imgur.com/sD9eYmh.png" />
 
-[Website >](https://essentialsp.tk?q=modrinth)
+[Website >](https://nextron.pandadev.net?q=modrinth)
 
 ***
 
