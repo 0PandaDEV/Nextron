@@ -4,6 +4,7 @@ import ch.hekates.languify.language.Text;
 import dev.triumphteam.gui.builder.item.ItemBuilder;
 import dev.triumphteam.gui.guis.Gui;
 import net.kyori.adventure.text.Component;
+import net.pandadev.nextron.Main;
 import net.pandadev.nextron.guis.features.HomeGUIs;
 import net.pandadev.nextron.guis.features.RankGUIs;
 import net.pandadev.nextron.guis.features.WarpGUIs;
@@ -15,7 +16,6 @@ import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
-import net.pandadev.nextron.Main;
 
 public class GUIs {
 
@@ -31,6 +31,10 @@ public class GUIs {
         }));
 
         gui.setItem(2, 5, ItemBuilder.from(Material.COMPASS).name(Component.text("§7Home Manager")).asGuiItem(inventoryClickEvent -> {
+            if (!Configs.feature.getBoolean("home_system")) {
+                player.sendMessage(Main.getPrefix() + Text.get("maingui.disabled.homes"));
+                return;
+            }
             if (Configs.home.getConfigurationSection("Homes." + player.getUniqueId()) == null || Configs.home
                     .getConfigurationSection("Homes." + player.getUniqueId()).getKeys(false).isEmpty()) {
                 player.sendMessage(Main.getPrefix() + Text.get("maingui.no.homes"));
@@ -41,6 +45,10 @@ public class GUIs {
         }));
 
         gui.setItem(4, 5, ItemBuilder.from(Material.RECOVERY_COMPASS).name(Component.text("§x§2§9§d§f§e§bWarp Manager")).asGuiItem(inventoryClickEvent -> {
+            if (!Configs.feature.getBoolean("warp_system")) {
+                player.sendMessage(Main.getPrefix() + Text.get("maingui.disabled.warps"));
+                return;
+            }
             if (Configs.warp.getConfigurationSection("Warps") == null || Configs.warp.getConfigurationSection("Warps").getKeys(false).isEmpty()) {
                 player.sendMessage(Main.getPrefix() + Text.get("maingui.no.warps"));
                 player.playSound(player.getLocation(), Sound.ENTITY_PILLAGER_AMBIENT, 100, 0.5f);
@@ -51,6 +59,10 @@ public class GUIs {
 
         if (player.hasPermission("nextron.rank")) {
             gui.setItem(3, 7, ItemBuilder.from(Material.NAME_TAG).name(Component.text("§x§2§9§d§f§e§bRank Manager")).asGuiItem(inventoryClickEvent -> {
+                if (!Configs.feature.getBoolean("rank_system")) {
+                    player.sendMessage(Main.getPrefix() + Text.get("maingui.disabled.ranks"));
+                    return;
+                }
                 if (Main.getInstance().getConfig().getConfigurationSection("Ranks") == null || Main
                         .getInstance().getConfig().getConfigurationSection("Ranks").getKeys(false).isEmpty()) {
                     player.sendMessage(Main.getPrefix() + Text.get("maingui.no.ranks"));
