@@ -26,7 +26,7 @@ public class FeatureCommand extends CommandBase implements TabCompleter {
 
     @Override
     protected void execute(CommandSender sender, String label, String[] args) {
-        List<String> validValues = Arrays.asList("warp.system", "home.system", "rank.system", "tpa.system");
+        List<String> validValues = Arrays.asList("warp_system", "home_system", "rank_system", "tpa_system", "join_leave_system");
 
         if (args.length == 0) {
             if (!(sender instanceof Player)) {
