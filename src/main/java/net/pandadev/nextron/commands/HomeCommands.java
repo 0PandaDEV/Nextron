@@ -70,7 +70,7 @@ public class HomeCommands extends CommandBase implements CommandExecutor, TabCom
                 player.sendMessage(Main.getPrefix() + Text.get("home.notfound").replace("%h", args[0].toLowerCase()));
             }
 
-        } else if (label.equalsIgnoreCase("home") && args.length == 0) {
+        } else if (label.equalsIgnoreCase("home") && args.length == 0 || label.equalsIgnoreCase("h") && args.length == 0) {
 
             if (Configs.home.getString("Homes." + player.getUniqueId() + ".default") != null) {
                 player.teleport((Location) Configs.home.get("Homes." + player.getUniqueId() + ".default"));
