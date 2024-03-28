@@ -124,7 +124,7 @@
   "night.vision.add": "§7Night vision was given to §a%p",
   "night.vision.remove": "§7Night vision was removed from §a%p",
   "language.set.success": "§7Language was successfully set to §a%l\n§7to see the changes you have to §a/rl §7the server",
-  "language.set.error": "§cOnly §6%l §c are available at the moment",
+  "language.set.error": "§cOnly §6%l §care available at the moment",
   "world.success": "§7You got teleported to §a%w",
   "world.error": "§cThis world doesn't exist",
   "world.create.start": "§7World with the name §a%w §7is being created",

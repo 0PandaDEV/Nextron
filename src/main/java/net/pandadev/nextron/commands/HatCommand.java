@@ -2,33 +2,23 @@ package net.pandadev.nextron.commands;
 
 import ch.hekates.languify.language.Text;
 import net.pandadev.nextron.Main;
-import org.bukkit.command.CommandSender;
+import net.pandadev.nextron.utils.commandapi.Command;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
-public class HatCommand extends CommandBase {
+public class HatCommand extends HelpBase {
 
     public HatCommand() {
-        super("hat", "War the current item in your hand", "/hat\n/wear", "nextron.hat");
+        super("hat", "War the current item in your hand", "/hat\n/wear");
     }
 
-    @Override
-    protected void execute(CommandSender sender, String label, String[] args) {
+    @Command(names = {"hat", "wear"}, permission = "nextron.hat", playerOnly = true)
+    public void hatCommand(Player player) {
+        ItemStack itemStack = player.getInventory().getItemInMainHand();
 
-        if (!(sender instanceof Player)) {
-            sender.sendMessage(Main.getCommandInstance());
-            return;
-        }
-        Player player = (Player) (sender);
+        player.getInventory().setHelmet(itemStack);
 
-        if (args.length == 0) {
-            ItemStack itemStack = player.getInventory().getItemInMainHand();
-
-            player.getInventory().setHelmet(itemStack);
-
-            player.sendMessage(Main.getPrefix() + Text.get("hat.success"));
-        }
-
+        player.sendMessage(Main.getPrefix() + Text.get("hat.success"));
     }
 
 }

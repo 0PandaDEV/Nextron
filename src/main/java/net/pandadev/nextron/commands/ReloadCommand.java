@@ -1,24 +1,22 @@
 package net.pandadev.nextron.commands;
 
 import net.pandadev.nextron.Main;
+import net.pandadev.nextron.utils.commandapi.Command;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 
-public class ReloadCommand extends CommandBase {
+public class ReloadCommand extends HelpBase {
 
     public ReloadCommand() {
-        super("rl", "Reloads the server", "/rl", "nextron.reload");
+        super("rl", "Reloads the server", "/rl");
     }
 
-    @Override
-    protected void execute(CommandSender sender, String label, String[] args) {
-        if (args.length == 0) {
-            Bukkit.broadcastMessage(Main.getPrefix() + "§cReloading server");
-            Bukkit.getServer().reload();
-            Bukkit.broadcastMessage(Main.getPrefix() + "§aReload complete!");
-        } else {
-            sender.sendMessage(Main.getPrefix() + "§c/rl");
-        }
+
+    @Command(names = {"reload", "rl"}, permission = "nextron.reload")
+    public void reloadCommand(CommandSender sender) {
+        Bukkit.broadcastMessage(Main.getPrefix() + "§cReloading server");
+        Bukkit.getServer().reload();
+        Bukkit.broadcastMessage(Main.getPrefix() + "§aReload complete!");
     }
 
 }
