@@ -11,7 +11,7 @@ import net.pandadev.nextron.utils.Configs;
 import net.pandadev.nextron.utils.Utils;
 import net.pandadev.nextron.utils.commandapi.Command;
 import net.pandadev.nextron.utils.commandapi.paramter.Param;
-import net.pandadev.nextron.utils.commandapi.processors.HomeInfo;
+import net.pandadev.nextron.utils.commandapi.processors.Home;
 import net.wesjd.anvilgui.AnvilGUI;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -29,7 +29,7 @@ public class HomeCommands extends HelpBase {
     }
 
     @Command(names = {"home", "h"}, permission = "nextron.home", playerOnly = true)
-    public void home(Player player, @Param(name = "home", required = false) HomeInfo home) {
+    public void home(Player player, @Param(name = "home", required = false) Home home) {
         if (home == null) {
             if (Configs.home.getString("Homes." + player.getUniqueId() + ".default") != null) {
                 player.teleport((Location) Objects.requireNonNull(Configs.home.get("Homes." + player.getUniqueId() + ".default")));
@@ -74,7 +74,7 @@ public class HomeCommands extends HelpBase {
     }
 
     @Command(names = {"delhome"}, permission = "nextron.delhome", playerOnly = true)
-    public void delHome(Player player, @Param(name = "home") HomeInfo home) {
+    public void delHome(Player player, @Param(name = "home") Home home) {
         if (Configs.home.getString("Homes." + player.getUniqueId() + "." + home.getName().toLowerCase()) != null) {
             Configs.home.set("Homes." + player.getUniqueId() + "." + home.getName().toLowerCase(), null);
             Configs.saveHomeConfig();
@@ -85,7 +85,7 @@ public class HomeCommands extends HelpBase {
     }
 
     @Command(names = {"renamehome"}, permission = "nextron.renamehome", playerOnly = true)
-    public void renameHome(Player player, @Param(name = "home") HomeInfo home) {
+    public void renameHome(Player player, @Param(name = "home") Home home) {
         if (Configs.home.getString("Homes." + player.getUniqueId() + "." + home.getName().toLowerCase()) == null) {
             player.sendMessage(Main.getPrefix() + Text.get("home.notfound").replace("%h", home.getName().toLowerCase()));
             return;

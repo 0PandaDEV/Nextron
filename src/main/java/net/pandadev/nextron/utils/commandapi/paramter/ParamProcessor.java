@@ -81,9 +81,10 @@ public class ParamProcessor {
         processors.put(Duration.class, new DurationProcessor());
         processors.put(GameMode.class, new GamemodeProcessor());
         processors.put(HelpCommandInfo.class, new HelpProcessor());
-        processors.put(HomeInfo.class, new HomeProcessor());
+        processors.put(Home.class, new HomeProcessor());
         processors.put(Language.class, new LanguageProcessor());
         processors.put(Rank.class, new RankProcessor());
         processors.put(Feature.class, new FeatureProcessor());
+        processors.put(Warp.class, new WarpProcessor());
     }
 }
