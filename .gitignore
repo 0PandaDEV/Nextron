@@ -114,6 +114,6 @@ run/
 
 server
 .vscode
-.gitignore
 .github/
 /move.sh
+/.stignore
