@@ -3,10 +3,10 @@ package net.pandadev.nextron;
 import ch.hekates.languify.Languify;
 import ch.hekates.languify.language.LangLoader;
 import ch.hekates.languify.language.Text;
-import net.pandadev.nextron.commands.*;
 import net.pandadev.nextron.listeners.*;
 import net.pandadev.nextron.tablist.TablistManager;
 import net.pandadev.nextron.utils.*;
+import net.pandadev.nextron.utils.commandapi.CommandHandler;
 import org.bukkit.Bukkit;
 import org.bukkit.WorldCreator;
 import org.bukkit.entity.Player;
@@ -80,7 +80,9 @@ public final class Main extends JavaPlugin {
         Bukkit.getConsoleSender().sendMessage(Prefix + Text.get("console.activate"));
 
         registerListeners();
-        registerCommands();
+//        registerCommands();
+
+        CommandHandler.registerCommands("net.pandadev.nextron.commands", this);
 
         int pluginId = 20704;
         new Metrics(this, pluginId);
@@ -122,41 +124,40 @@ public final class Main extends JavaPlugin {
         instance = null;
     }
 
-    private void registerCommands() {
-        getCommand("gamemode").setExecutor(new GamemodeCommand());
-        getCommand("enderchest").setExecutor(new GamemodeCommand());
-        getCommand("home").setExecutor(new HomeCommands());
-        getCommand("invsee").setExecutor(new InvseeCommand());
-        getCommand("vanish").setExecutor(new VanishCommand());
-        getCommand("enderchest").setExecutor(new EnderchestCommand());
-        getCommand("tpa").setExecutor(new TpaCommand());
-        getCommand("tpaccept").setExecutor(new TpacceptCommand());
-        getCommand("warp").setExecutor(new WarpCommands());
-        getCommand("heal").setExecutor(new HealCommand());
-        getCommand("tphere").setExecutor(new TphereCommand());
-        getCommand("speed").setExecutor(new SpeedCommand());
-        getCommand("fly").setExecutor(new FlyCommand());
-        getCommand("sudo").setExecutor(new SudoCommand());
-        getCommand("head").setExecutor(new HeadCommand());
-        getCommand("rank").setExecutor(new RankCommand());
-        getCommand("menu").setExecutor(new MenuCommand());
-        getCommand("features").setExecutor(new FeatureCommand());
-        getCommand("back").setExecutor(new BackCommand());
-        getCommand("rename").setExecutor(new RenameCommand());
-        getCommand("god").setExecutor(new GodCommand());
-        getCommand("help").setExecutor(new HelpCommand());
-        getCommand("rl").setExecutor(new ReloadCommand());
-        getCommand("tpdeny").setExecutor(new TpdenyCommand());
-        getCommand("nightvision").setExecutor(new NightVisionCommand());
-        getCommand("nick").setExecutor(new NickCommand());
-        getCommand("language").setExecutor(new LanguageCommand());
-        getCommand("world").setExecutor(new WorldCommand());
-        getCommand("day").setExecutor(new TimeCommand());
-        getCommand("spawn").setExecutor(new SpawnCommand());
-        getCommand("getposition").setExecutor(new GetPosCommand());
-        getCommand("hat").setExecutor(new HatCommand());
-        getCommand("top").setExecutor(new TopCommand());
-    }
+//    private void registerCommands() {
+//        getCommand("gamemode").setExecutor(new GamemodeCommand());
+//        getCommand("enderchest").setExecutor(new GamemodeCommand());
+//        getCommand("home").setExecutor(new HomeCommands());
+//        getCommand("invsee").setExecutor(new InvseeCommand());
+//        getCommand("vanish").setExecutor(new VanishCommand());
+//        getCommand("enderchest").setExecutor(new EnderchestCommand());
+//        getCommand("tpa").setExecutor(new TpaCommand());
+//        getCommand("tpaccept").setExecutor(new TpacceptCommand());
+//        getCommand("warp").setExecutor(new WarpCommands());
+//        getCommand("heal").setExecutor(new HealCommand());
+//        getCommand("tphere").setExecutor(new TphereCommand());
+//        getCommand("speed").setExecutor(new SpeedCommand());
+//        getCommand("fly").setExecutor(new FlyCommand());
+//        getCommand("sudo").setExecutor(new SudoCommand());
+//        getCommand("head").setExecutor(new HeadCommand());
+//        getCommand("rank").setExecutor(new RankCommand());
+//        getCommand("menu").setExecutor(new MenuCommand());
+//        getCommand("features").setExecutor(new FeatureCommand());
+//        getCommand("rename").setExecutor(new RenameCommand());
+//        getCommand("god").setExecutor(new GodCommand());
+//        getCommand("help").setExecutor(new HelpCommand());
+//        getCommand("rl").setExecutor(new ReloadCommand());
+//        getCommand("tpdeny").setExecutor(new TpdenyCommand());
+//        getCommand("nightvision").setExecutor(new NightVisionCommand());
+//        getCommand("nick").setExecutor(new NickCommand());
+//        getCommand("language").setExecutor(new LanguageCommand());
+//        getCommand("world").setExecutor(new WorldCommand());
+//        getCommand("day").setExecutor(new TimeCommand());
+//        getCommand("spawn").setExecutor(new SpawnCommand());
+//        getCommand("getposition").setExecutor(new GetPosCommand());
+//        getCommand("hat").setExecutor(new HatCommand());
+//        getCommand("top").setExecutor(new TopCommand());
+//    }
 
     private void registerListeners() {
         PluginManager pluginManager = Bukkit.getPluginManager();
