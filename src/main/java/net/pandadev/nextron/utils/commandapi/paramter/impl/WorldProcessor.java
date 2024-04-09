@@ -12,6 +12,10 @@ import java.util.stream.Collectors;
 public class WorldProcessor extends Processor<World> {
     @Override
     public World process(CommandSender sender, String supplied) {
+        if (supplied == null || supplied.isEmpty()) {
+            return null;
+        }
+
         World world = Bukkit.getWorld(supplied);
 
         if (world == null) {

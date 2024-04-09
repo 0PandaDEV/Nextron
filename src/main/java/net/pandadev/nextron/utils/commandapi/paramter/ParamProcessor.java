@@ -73,6 +73,7 @@ public class ParamProcessor {
         processors.put(long.class, new LongProcessor());
         processors.put(double.class, new DoubleProcessor());
         processors.put(boolean.class, new BooleanProcessor());
+        processors.put(String.class, new StringProcessor());
 
         processors.put(ChatColor.class, new ChatColorProcessor());
         processors.put(Player.class, new PlayerProcessor());
@@ -86,5 +87,6 @@ public class ParamProcessor {
         processors.put(Rank.class, new RankProcessor());
         processors.put(Feature.class, new FeatureProcessor());
         processors.put(Warp.class, new WarpProcessor());
+        processors.put(Seed.class, new SeedProcessor());
     }
 }

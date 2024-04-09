@@ -102,9 +102,7 @@ public class CommandNode {
                 if (args.length >= i) nameLabel.append(args[i - 1]).append(" ");
 
             if (name.equalsIgnoreCase(nameLabel.toString().trim())) {
-                int requiredParameters = (int) this.parameters.stream()
-                        .filter(ArgumentNode::isRequired)
-                        .count();
+                int requiredParameters = (int) this.parameters.stream().filter(ArgumentNode::isRequired).count();
 
                 int actualLength = args.length - (nameLength - 1);
 
@@ -121,28 +119,22 @@ public class CommandNode {
                     }
                 }
 
-                if (!tabbed || splitName.length > 1 || parameters.size() > 0)
-                    probability.addAndGet(50);
+                if (!tabbed || splitName.length > 1 || parameters.size() > 0) probability.addAndGet(50);
 
-                if (actualLength > requiredParameters)
-                    probability.addAndGet(15);
+                if (actualLength > requiredParameters) probability.addAndGet(15);
 
-                if (sender instanceof Player && consoleOnly)
-                    probability.addAndGet(-15);
+                if (sender instanceof Player && consoleOnly) probability.addAndGet(-15);
 
-                if (!(sender instanceof Player) && playerOnly)
-                    probability.addAndGet(-15);
+                if (!(sender instanceof Player) && playerOnly) probability.addAndGet(-15);
 
-                if (!permission.equals("") && !sender.hasPermission(permission))
-                    probability.addAndGet(-15);
+                if (!permission.equals("") && !sender.hasPermission(permission)) probability.addAndGet(-15);
 
                 return;
             }
 
             String[] labelSplit = nameLabel.toString().split(" ");
             for (int i = 0; i < nameLength && i < labelSplit.length; i++)
-                if (splitName[i].equalsIgnoreCase(labelSplit[i]))
-                    probability.addAndGet(5);
+                if (splitName[i].equalsIgnoreCase(labelSplit[i])) probability.addAndGet(5);
         });
 
         return probability.get();
@@ -220,88 +212,64 @@ public class CommandNode {
         int nameArgs = (names.get(0).split(" ").length - 1);
 
         List<Object> objects = new ArrayList<>(Collections.singletonList(sender));
-        for (int i = 0; i < args.length - nameArgs; i++) {
-            if (parameters.size() <= i) break;
+        for (int i = 0; i < parameters.size(); i++) {
             ArgumentNode node = parameters.get(i);
+            String suppliedArgument = i < args.length - nameArgs ? args[i + nameArgs] : null;
 
-            // Checks if the node is concated
-            if (node.isConcated()) {
-                StringBuilder stringBuilder = new StringBuilder();
-                for (int x = i; x < args.length - nameArgs; x++) {
-                    stringBuilder.append(args[x + nameArgs]).append(" ");
-                }
-                objects.add(stringBuilder.substring(0, stringBuilder.toString().length() - 1));
-                break;
+            // If the argument is not supplied and it's required, send usage message
+            if (suppliedArgument == null && node.isRequired()) {
+                sendUsageMessage(sender);
+                return;
             }
 
-            String suppliedArgument = args[i + nameArgs];
-            Object object = new ParamProcessor(node, suppliedArgument, sender).get();
+            // If the argument is not supplied and it's optional, use the default value if present
+            if (suppliedArgument == null) {
+                if (!node.isRequired() && !node.getDefaultValue().isEmpty()) {
+                    suppliedArgument = node.getDefaultValue();
+                } else {
+                    // Optional parameter not provided and no default value, skip adding to objects
+                    continue;
+                }
+            }
 
+            Object object = new ParamProcessor(node, suppliedArgument, sender).get();
             // If the object is returning null then that means there was a problem parsing
             if (object == null) return;
             objects.add(object);
         }
 
-        if (args.length < requiredArgumentsLength()) {
-            sendUsageMessage(sender);
-            return;
-        }
-
-        int difference = (parameters.size() - requiredArgumentsLength()) - ((args.length - nameArgs) - requiredArgumentsLength());
-        for (int i = 0; i < difference; i++) {
-            int indexToAccess = requiredArgumentsLength() + i;
-            if (indexToAccess >= 0 && indexToAccess < parameters.size()) {
-                ArgumentNode argumentNode = parameters.get(indexToAccess);
-
-                if (argumentNode.getDefaultValue() == null) {
-                    objects.add(null);
-                    continue;
-                }
-
-                objects.add(new ParamProcessor(argumentNode, argumentNode.getDefaultValue(), sender).get());
-            } else {
-                sender.sendMessage(ChatColor.RED + "An error occurred processing your command.");
-                return;
-            }
-        }
-
+        // Adjust the method invocation to match the dynamic size of objects
+        Object[] methodArgs = convertParameters(method, objects);
         if (async) {
             Bukkit.getScheduler().runTaskAsynchronously(CommandHandler.getPlugin(), () -> {
                 try {
-                    method.invoke(parentClass, convertParameters(method, objects));
+                    method.invoke(parentClass, methodArgs);
                 } catch (Exception exception) {
                     exception.printStackTrace();
                 }
             });
-            return;
+        } else {
+            method.invoke(parentClass, methodArgs);
         }
-
-        method.invoke(parentClass, convertParameters(method, objects));
     }
 
     private Object[] convertParameters(Method method, List<Object> originalParams) {
         Class<?>[] parameterTypes = method.getParameterTypes();
-        Object[] convertedParams = new Object[originalParams.size()];
+        Object[] convertedParams = new Object[parameterTypes.length];
+        AtomicInteger index = new AtomicInteger(0);
 
+        // Iterate over the expected parameter types of the method
         for (int i = 0; i < parameterTypes.length; i++) {
-            if (i < originalParams.size()) {
-                Object param = originalParams.get(i);
-                if (parameterTypes[i].isInstance(param)) {
-                    convertedParams[i] = param;
-                } else if (parameterTypes[i] == int.class && param instanceof Number) {
-                    convertedParams[i] = ((Number) param).intValue();
-                } else if (parameterTypes[i] == double.class && param instanceof Number) {
-                    convertedParams[i] = ((Number) param).doubleValue();
-                } else if (parameterTypes[i] == float.class && param instanceof Number) {
-                    convertedParams[i] = ((Number) param).floatValue();
-                } else if (parameterTypes[i] == long.class && param instanceof Number) {
-                    convertedParams[i] = ((Number) param).longValue();
-                } else {
-                    // Handle other types as needed
-                }
+            // If there's a corresponding original parameter, use it
+            if (i < originalParams.size() && originalParams.get(i) != null) {
+                convertedParams[i] = originalParams.get(i);
+            } else {
+                // For missing or null original parameters, check if a default value is needed
+                // For simplicity, we're just using null here
+                convertedParams[i] = null;
             }
         }
-
         return convertedParams;
     }
+
 }
