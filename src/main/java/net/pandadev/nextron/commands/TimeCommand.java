@@ -8,7 +8,7 @@ import org.bukkit.entity.Player;
 public class TimeCommand extends HelpBase {
 
     public TimeCommand() {
-        super("day", "Allows you to set the time", "/day\n/night\n/midnight\n/noon");
+        super("time", "Allows you to set the time", "/day\n/night\n/midnight\n/noon");
     }
 
 

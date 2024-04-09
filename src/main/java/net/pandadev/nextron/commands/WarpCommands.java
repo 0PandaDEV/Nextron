@@ -21,7 +21,7 @@ import java.util.Objects;
 public class WarpCommands extends HelpBase {
 
     public WarpCommands() {
-        super("warp", "Teleports you to public available positions", "/warp <warp>\n/w <warp>");
+        super("warp", "Teleports you to public available positions", "/warp <warp>\n/w <warp>\n/setwarp <name>\n/delwarp <warp>\n/renamewarp <warp> <name>");
     }
 
     @Command(names = {"warp", "w"}, permission = "nextron.warp", playerOnly = true)

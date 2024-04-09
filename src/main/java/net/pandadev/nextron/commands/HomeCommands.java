@@ -25,7 +25,7 @@ import java.util.Objects;
 public class HomeCommands extends HelpBase {
 
     public HomeCommands() {
-        super("home", "Teleports you instant to a player set position", "/home <home>\n/h <home>");
+        super("home", "Teleports you instant to a player set position", "/home <home>\n/h <home>\n/sethome [name]\n/delhome <home>\n/renamehome <home> <name>");
     }
 
     @Command(names = {"home", "h"}, permission = "nextron.home", playerOnly = true)

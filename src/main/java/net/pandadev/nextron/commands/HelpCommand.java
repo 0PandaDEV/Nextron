@@ -15,7 +15,7 @@ public class HelpCommand extends HelpBase {
     }
 
     @Command(names = {"help"}, permission = "nextron.help")
-    public void helpCommand(CommandSender sender, @Param(name = "command") HelpCommandInfo commandName) {
+    public void helpCommand(CommandSender sender, @Param(name = "command", required = false) HelpCommandInfo commandName) {
         if (commandName == null) {
             displayAllCommands(sender);
         } else {
@@ -33,7 +33,7 @@ public class HelpCommand extends HelpBase {
             sender.sendMessage("§7/" + command);
         }
         sender.sendMessage("");
-        sender.sendMessage("§7For details type  §a/help <command>");
+        sender.sendMessage("§7For details type §a/help <command>");
         sender.sendMessage("");
     }
 

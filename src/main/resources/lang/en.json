@@ -36,7 +36,7 @@
   "heal.success": "§7You have been healed",
   "heal.error": "§cYou're already at max health",
   "heal.other.success": "§a%p §7has healed you",
-  "heal.other.error": "§6%t §c is already at max health",
+  "heal.other.error": "§6%t §cis already at max health",
   "gamemode.success": "§7Gamemode set to §a%g",
   "gamemode.error": "§cYou're already in gamemode §6%g",
   "gamemode.other.success": "§7Set §a%t's §7gamemode to §a%g",

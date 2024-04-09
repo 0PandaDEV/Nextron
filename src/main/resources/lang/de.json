@@ -36,7 +36,7 @@
   "heal.success": "§7Du hast dich geheilt",
   "heal.error": "§cDu bist bereits geheilt oder hast volle Hungerkäulen",
   "heal.other.success": "§7Du wurdest von §a%p §7 geheilt",
-  "heal.other.error": "§cDer Spieler §6%t §c ist bereits geheilt oder hat volle Hungerkäulen",
+  "heal.other.error": "§cDer Spieler §6%t §cist bereits geheilt oder hat volle Hungerkäulen",
   "gamemode.success": "§7Du hast dich in den Gamemode §a%g §7gesetzt",
   "gamemode.error": "§cDu bist bereits im Gamemode §6%g",
   "gamemode.other.success": "§7Du hast den Spieler §a%t §7in den Gamemode §a%g §7gesetzt",
