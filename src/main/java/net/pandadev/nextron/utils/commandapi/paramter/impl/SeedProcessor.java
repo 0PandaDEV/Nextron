@@ -10,8 +10,7 @@ public class SeedProcessor extends Processor<Seed> {
 
     public Seed process(CommandSender sender, String supplied) {
         if (supplied == null || supplied.isEmpty()) {
-            // Return a default Seed object to avoid null
-            return new Seed(0); // You can choose a different default value if needed
+            return null;
         }
 
         long seed;
@@ -19,7 +18,7 @@ public class SeedProcessor extends Processor<Seed> {
             seed = Long.parseLong(supplied);
         } catch (NumberFormatException e) {
             sender.sendMessage(Main.getPrefix() + Text.get("world.create.seed.error"));
-            return new Seed(0); // Return a default Seed object in case of format error
+            return null;
         }
 
         return new Seed(seed);

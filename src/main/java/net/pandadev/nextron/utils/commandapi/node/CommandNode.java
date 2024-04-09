@@ -111,7 +111,7 @@ public class CommandNode {
                     return;
                 }
 
-                if (this.parameters.size() > 0) {
+                if (!this.parameters.isEmpty()) {
                     ArgumentNode lastArgument = this.parameters.get(this.parameters.size() - 1);
                     if (lastArgument.isConcated() && actualLength > requiredParameters) {
                         probability.addAndGet(125);
@@ -119,7 +119,7 @@ public class CommandNode {
                     }
                 }
 
-                if (!tabbed || splitName.length > 1 || parameters.size() > 0) probability.addAndGet(50);
+                if (!tabbed || splitName.length > 1 || !parameters.isEmpty()) probability.addAndGet(50);
 
                 if (actualLength > requiredParameters) probability.addAndGet(15);
 
@@ -127,7 +127,7 @@ public class CommandNode {
 
                 if (!(sender instanceof Player) && playerOnly) probability.addAndGet(-15);
 
-                if (!permission.equals("") && !sender.hasPermission(permission)) probability.addAndGet(-15);
+                if (!permission.isEmpty() && !sender.hasPermission(permission)) probability.addAndGet(-15);
 
                 return;
             }
@@ -154,7 +154,7 @@ public class CommandNode {
             return;
         }
 
-        if (!permission.equals("") && !sender.hasPermission(permission)) {
+        if (!permission.isEmpty() && !sender.hasPermission(permission)) {
             sender.sendMessage(ChatColor.RED + "I'm sorry, although you do not have permission to execute this command.");
             return;
         }
@@ -191,7 +191,7 @@ public class CommandNode {
     @SneakyThrows
     public void execute(CommandSender sender, String[] args) {
         // Checks if the player has permission
-        if (!permission.equals("") && !sender.hasPermission(permission)) {
+        if (!permission.isEmpty() && !sender.hasPermission(permission)) {
             sender.sendMessage(ChatColor.RED + "I'm sorry, although you do not have permission to execute this command.");
             return;
         }
@@ -214,28 +214,35 @@ public class CommandNode {
         List<Object> objects = new ArrayList<>(Collections.singletonList(sender));
         for (int i = 0; i < parameters.size(); i++) {
             ArgumentNode node = parameters.get(i);
-            String suppliedArgument = i < args.length - nameArgs ? args[i + nameArgs] : null;
-
-            // If the argument is not supplied and it's required, send usage message
-            if (suppliedArgument == null && node.isRequired()) {
-                sendUsageMessage(sender);
-                return;
-            }
-
-            // If the argument is not supplied and it's optional, use the default value if present
-            if (suppliedArgument == null) {
-                if (!node.isRequired() && !node.getDefaultValue().isEmpty()) {
-                    suppliedArgument = node.getDefaultValue();
-                } else {
-                    // Optional parameter not provided and no default value, skip adding to objects
-                    continue;
+            String suppliedArgument;
+            
+            // Check if the argument is marked as concatenated
+            if (node.isConcated()) {
+                // Join all remaining arguments into a single string
+                suppliedArgument = String.join(" ", Arrays.copyOfRange(args, i + nameArgs, args.length));
+                // Process the concatenated argument
+                Object object = new ParamProcessor(node, suppliedArgument, sender).get();
+                if (object == null) return; // Handle parsing failure
+                objects.add(object);
+                break; // No more arguments to process after a concatenated one
+            } else {
+                // Process a single argument
+                suppliedArgument = i < args.length - nameArgs ? args[i + nameArgs] : null;
+                if (suppliedArgument == null && node.isRequired()) {
+                    sendUsageMessage(sender);
+                    return;
                 }
+                if (suppliedArgument == null) {
+                    if (!node.getDefaultValue().isEmpty()) {
+                        suppliedArgument = node.getDefaultValue();
+                    } else {
+                        continue; // Optional parameter not provided and no default value
+                    }
+                }
+                Object object = new ParamProcessor(node, suppliedArgument, sender).get();
+                if (object == null) return; // Handle parsing failure
+                objects.add(object);
             }
-
-            Object object = new ParamProcessor(node, suppliedArgument, sender).get();
-            // If the object is returning null then that means there was a problem parsing
-            if (object == null) return;
-            objects.add(object);
         }
 
         // Adjust the method invocation to match the dynamic size of objects
