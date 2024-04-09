@@ -1,8 +1,8 @@
 package net.pandadev.nextron.utils.commandapi.paramter.impl;
 
+import net.pandadev.nextron.Main;
 import net.pandadev.nextron.utils.commandapi.paramter.Processor;
 import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
@@ -18,7 +18,7 @@ public class PlayerProcessor extends Processor<Player> {
         Player player = Bukkit.getPlayer(supplied);
 
         if (player == null) {
-            sender.sendMessage(ChatColor.RED + "A player by the name of '" + supplied + "' doesn't exist.");
+            sender.sendMessage(Main.getInvalidPlayer());
             return null;
         }
 

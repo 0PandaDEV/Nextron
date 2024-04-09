@@ -1,5 +1,7 @@
 package net.pandadev.nextron.utils.commandapi.paramter.impl;
 
+import ch.hekates.languify.language.Text;
+import net.pandadev.nextron.Main;
 import net.pandadev.nextron.utils.commandapi.paramter.Processor;
 import org.bukkit.GameMode;
 import org.bukkit.command.CommandSender;
@@ -31,7 +33,7 @@ public class GamemodeProcessor extends Processor<GameMode> {
         try {
             return GameMode.valueOf(supplied.toUpperCase());
         } catch (IllegalArgumentException ex) {
-            sender.sendMessage("§cYou have entered an invalid game mode.");
+            sender.sendMessage(Main.getPrefix() + Text.get("gamemode.invalid"));
             return null;
         }
     }

@@ -1,5 +1,7 @@
 package net.pandadev.nextron.utils.commandapi.paramter.impl;
 
+import ch.hekates.languify.language.Text;
+import net.pandadev.nextron.Main;
 import net.pandadev.nextron.commands.HelpBase;
 import net.pandadev.nextron.utils.commandapi.paramter.Processor;
 import net.pandadev.nextron.utils.commandapi.processors.HelpCommandInfo;
@@ -15,7 +17,7 @@ public class HelpProcessor extends Processor<HelpCommandInfo> {
         if (HelpBase.commands.containsKey(supplied)) {
             return new HelpCommandInfo(supplied, HelpBase.getName(supplied), HelpBase.getDescription(supplied), HelpBase.getUsage(supplied));
         }
-        sender.sendMessage("§cThe command '" + supplied + "' does not exist.");
+        sender.sendMessage(Main.getPrefix() + Text.get("help.command.error"));
         return null;
     }
 

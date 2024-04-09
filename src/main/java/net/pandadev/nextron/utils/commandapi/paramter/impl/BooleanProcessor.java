@@ -1,7 +1,7 @@
 package net.pandadev.nextron.utils.commandapi.paramter.impl;
 
+import net.pandadev.nextron.Main;
 import net.pandadev.nextron.utils.commandapi.paramter.Processor;
-import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 
 import java.util.HashMap;
@@ -29,7 +29,7 @@ public class BooleanProcessor extends Processor<Boolean> {
     public Boolean process(CommandSender sender, String supplied) {
         supplied = supplied.toLowerCase();
         if (!values.containsKey(supplied)) {
-            sender.sendMessage(ChatColor.RED + "You have entered an invalid value.");
+            sender.sendMessage(Main.getPrefix() + "§cYou have entered an invalid value.");
             return null;
         }
 

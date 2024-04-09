@@ -1,8 +1,9 @@
 package net.pandadev.nextron.utils.commandapi.paramter.impl;
 
+import ch.hekates.languify.language.Text;
+import net.pandadev.nextron.Main;
 import net.pandadev.nextron.utils.commandapi.paramter.Processor;
 import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
 import org.bukkit.World;
 import org.bukkit.command.CommandSender;
 
@@ -19,7 +20,7 @@ public class WorldProcessor extends Processor<World> {
         World world = Bukkit.getWorld(supplied);
 
         if (world == null) {
-            sender.sendMessage(ChatColor.RED + "A world by the name of '" + supplied + "' cannot be found.");
+            sender.sendMessage(Main.getPrefix() + Text.get("world.error"));
             return null;
         }
 

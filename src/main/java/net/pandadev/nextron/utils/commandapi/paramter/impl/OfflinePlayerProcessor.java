@@ -1,8 +1,8 @@
 package net.pandadev.nextron.utils.commandapi.paramter.impl;
 
+import net.pandadev.nextron.Main;
 import net.pandadev.nextron.utils.commandapi.paramter.Processor;
 import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.command.CommandSender;
 
@@ -16,7 +16,7 @@ public class OfflinePlayerProcessor extends Processor<OfflinePlayer> {
         OfflinePlayer player = Bukkit.getOfflinePlayer(supplied);
 
         if (player == null) {
-            sender.sendMessage(ChatColor.RED + "A player by the name of '" + supplied + "' cannot be located.");
+            sender.sendMessage(Main.getPrefix() + "§cA player by the name of '" + supplied + "' cannot be located.");
             return null;
         }
 

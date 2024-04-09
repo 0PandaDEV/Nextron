@@ -1,5 +1,7 @@
 package net.pandadev.nextron.utils.commandapi.paramter.impl;
 
+import ch.hekates.languify.language.Text;
+import net.pandadev.nextron.Main;
 import net.pandadev.nextron.utils.Configs;
 import net.pandadev.nextron.utils.commandapi.paramter.Processor;
 import net.pandadev.nextron.utils.commandapi.processors.Home;
@@ -19,7 +21,7 @@ public class HomeProcessor extends Processor<Home> {
             if (section != null && section.getKeys(false).contains(supplied.toLowerCase()) && !supplied.equalsIgnoreCase("default")) {
                 return new Home(supplied);
             }
-            sender.sendMessage("§cThis Home does not exist");
+            sender.sendMessage(Main.getPrefix() + Text.get("home.notfound"));
         }
         return null;
     }

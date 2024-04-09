@@ -1,5 +1,6 @@
 package net.pandadev.nextron.utils.commandapi.paramter.impl;
 
+import ch.hekates.languify.language.Text;
 import net.pandadev.nextron.Main;
 import net.pandadev.nextron.utils.commandapi.paramter.Processor;
 import net.pandadev.nextron.utils.commandapi.processors.Rank;
@@ -16,13 +17,12 @@ public class RankProcessor extends Processor<Rank> {
     public Rank process(CommandSender sender, String supplied) {
         List<String> ranks = getAvailableRanks();
         if (ranks.isEmpty()) {
-            sender.sendMessage("§cNo ranks available.");
             return null;
         }
         if (ranks.contains(supplied.toLowerCase())) {
             return new Rank(supplied);
         }
-        sender.sendMessage("§cThis rank does not exist. Available ranks: " + String.join(", ", ranks));
+        sender.sendMessage(Main.getPrefix() + Text.get("sender.sendMessage(Main.getPrefix() + Text.get(\"help.command.error\"));"));
         return null;
     }
 

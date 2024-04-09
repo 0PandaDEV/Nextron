@@ -1,5 +1,6 @@
 package net.pandadev.nextron.utils.commandapi.paramter.impl;
 
+import ch.hekates.languify.language.Text;
 import net.pandadev.nextron.Main;
 import net.pandadev.nextron.utils.commandapi.paramter.Processor;
 import net.pandadev.nextron.utils.commandapi.processors.Language;
@@ -18,7 +19,7 @@ public class LanguageProcessor extends Processor<Language> {
         if (languages.contains(supplied.toLowerCase())) {
             return new Language(supplied);
         }
-        sender.sendMessage("§cThis language does not exist. Available languages: " + String.join(", ", languages));
+        sender.sendMessage(Main.getPrefix() + Text.get("language.set.error").replace("%l", String.join(", ", languages)));
         return null;
     }
 
