@@ -117,3 +117,4 @@ server
 .gitignore
 .github/
 /move.sh
+.stignore

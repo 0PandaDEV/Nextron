@@ -42,6 +42,11 @@ public class SpawnCommand extends CommandBase implements TabCompleter {
             player.sendMessage(Main.getPrefix() + Text.get("spawn.teleport"));
 
         } else if (args.length == 1) {
+            if (!player.hasPermission("nextron.spawn.other")){
+                player.sendMessage(Main.getNoPerm());
+                return;
+            }
+
             if (Main.getInstance().getConfig().get("spawn") == null) {
                 player.sendMessage(Main.getPrefix() + Text.get("setspawn.error"));
                 return;
