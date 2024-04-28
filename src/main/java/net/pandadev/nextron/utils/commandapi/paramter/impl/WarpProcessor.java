@@ -19,7 +19,7 @@ public class WarpProcessor extends Processor<Warp> {
         if (section != null && section.getKeys(false).contains(supplied.toLowerCase())) {
             return new Warp(supplied);
         }
-        sender.sendMessage(Main.getPrefix() + Text.get("warp.error"));
+        sender.sendMessage(Main.getPrefix() + Text.get("warp.error").replace("%w", supplied));
         return null;
     }
 

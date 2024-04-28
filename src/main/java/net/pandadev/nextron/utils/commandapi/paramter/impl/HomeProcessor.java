@@ -16,12 +16,15 @@ public class HomeProcessor extends Processor<Home> {
 
     @Override
     public Home process(CommandSender sender, String supplied) {
+        if (supplied == null || supplied.isEmpty()) {
+            return null;
+        }
         if (sender instanceof Player player) {
             var section = Configs.home.getConfigurationSection("Homes." + player.getUniqueId());
             if (section != null && section.getKeys(false).contains(supplied.toLowerCase()) && !supplied.equalsIgnoreCase("default")) {
                 return new Home(supplied);
             }
-            sender.sendMessage(Main.getPrefix() + Text.get("home.notfound"));
+            player.sendMessage(Main.getPrefix() + Text.get("home.notfound").replace("%h", supplied));
         }
         return null;
     }

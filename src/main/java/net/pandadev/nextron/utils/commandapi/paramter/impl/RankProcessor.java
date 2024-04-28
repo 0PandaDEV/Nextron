@@ -22,7 +22,7 @@ public class RankProcessor extends Processor<Rank> {
         if (ranks.contains(supplied.toLowerCase())) {
             return new Rank(supplied);
         }
-        sender.sendMessage(Main.getPrefix() + Text.get("sender.sendMessage(Main.getPrefix() + Text.get(\"help.command.error\"));"));
+        sender.sendMessage(Main.getPrefix() + Text.get("rank.dontexists"));
         return null;
     }
 
