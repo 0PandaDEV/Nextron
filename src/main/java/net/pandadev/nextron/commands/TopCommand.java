@@ -10,7 +10,7 @@ import org.bukkit.entity.Player;
 public class TopCommand extends HelpBase {
 
     public TopCommand() {
-        super("top", "Teleports you to the highest block above you", "/top");
+        super("top, Teleports you to the highest block above you, /top");
     }
 
     @Command(names = {"top"}, permission = "nextron.top", playerOnly = true)

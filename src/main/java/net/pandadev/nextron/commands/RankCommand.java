@@ -21,7 +21,7 @@ import java.util.Collections;
 public class RankCommand extends HelpBase {
 
     public RankCommand() {
-        super("rank", "Allows you to create ranks with prefixes to group players", "/rank <player> <rank>");
+        super("rank, Allows you to create ranks with prefixes to group players, /rank create\n/rank delete <rank>\n/rank modify <rank> <name | prefix>\n/rank remove <player>\n/rank set <player> <rank>");
     }
 
     @Command(names = {"rank"}, permission = "nextron.rank", playerOnly = true)

@@ -11,7 +11,7 @@ import org.bukkit.inventory.meta.ItemMeta;
 public class RenameCommand extends HelpBase {
 
     public RenameCommand() {
-        super("rename", "Renames the item you are currently holding", "/rename <name>");
+        super("rename, Renames the item you are currently holding, /rename <name>");
     }
 
     @Command(names = {"rename"}, permission = "nextron.rename", playerOnly = true)

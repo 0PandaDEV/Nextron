@@ -25,7 +25,7 @@ import java.util.List;
 public class WorldCommand extends HelpBase {
 
     public WorldCommand() {
-        super("world", "Allows you to manage your worlds on a server", "/world tp <world>\n/world create <name>\n/world delete <world\n/world load <world>\n/world unload <world>");
+        super("world, Allows you to manage your worlds on a server, /world tp <world>\n/world create <name>\n/world delete <world\n/world load <world>\n/world unload <world>");
     }
 
     @Command(names = {"world tp"}, permission = "nextron.world", playerOnly = true)

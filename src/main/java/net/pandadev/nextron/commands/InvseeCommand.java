@@ -9,7 +9,7 @@ import org.bukkit.entity.Player;
 public class InvseeCommand extends HelpBase {
 
     public InvseeCommand() {
-        super("invsee", "Lets you inspect and control another player's inventory", "/invsee <player>");
+        super("invsee, Lets you inspect and control another player's inventory, /invsee <player>");
     }
 
     @Command(names = {"invsee"}, permission = "nextron.invsee")

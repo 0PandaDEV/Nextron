@@ -11,7 +11,7 @@ import org.bukkit.entity.Player;
 public class SpeedCommand extends HelpBase {
 
     public SpeedCommand() {
-        super("speed", "Allows you to set your fly/walk speed", "/speed [speed]");
+        super("speed, Allows you to set your fly/walk speed, /speed [speed]");
     }
 
     @Command(names = {"speed"}, permission = "nextron.speed", playerOnly = true)

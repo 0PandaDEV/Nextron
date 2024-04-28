@@ -11,11 +11,12 @@ import java.util.Collections;
 public class HelpCommand extends HelpBase {
 
     public HelpCommand() {
-        super("help", "Gives you a list of all commands with a short description", "/help");
+        super("help, Gives you a list of all commands with a short description, /help [command]");
     }
 
     @Command(names = {"help"}, permission = "nextron.help")
-    public void helpCommand(CommandSender sender, @Param(name = "command", required = false) HelpCommandInfo commandName) {
+    public void helpCommand(CommandSender sender,
+                            @Param(name = "command", required = false) HelpCommandInfo commandName) {
         if (commandName == null) {
             displayAllCommands(sender);
         } else {
@@ -55,8 +56,6 @@ public class HelpCommand extends HelpBase {
                 "§7Description: §a" + commandInfo.getDescription(),
                 usage,
                 "",
-                "§8§l-------------" + commandInfo.getCommand().replaceAll("[a-z]", "-") + "----------"
-        );
+                "§8§l-------------" + commandInfo.getCommand().replaceAll("[a-z]", "-") + "----------");
     }
-
 }

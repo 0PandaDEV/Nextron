@@ -10,7 +10,7 @@ import org.bukkit.entity.Player;
 public class TpacceptCommand extends HelpBase {
 
     public TpacceptCommand() {
-        super("tpaccept", "Accepts an incoming tpa request", "/tpaccept");
+        super("tpaccept, Accepts an incoming tpa request, /tpaccept");
     }
 
     @Command(names = {"tpaccept"}, permission = "nextron.tpaccept")

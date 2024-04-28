@@ -25,14 +25,19 @@ import java.util.Objects;
 public class HomeCommands extends HelpBase {
 
     public HomeCommands() {
-        super("home", "Teleports you instant to a player set position", "/home <home>\n/h <home>\n/sethome [name]\n/delhome <home>\n/renamehome <home> <name>");
+        super(
+                "home, Teleports you to a home, /home [home]\n/h [home]",
+                "sethome, Sets a new home, /sethome <name>",
+                "delhome, Deletes a home, /delhome <home>",
+                "renamehome, Renames a home, /renamehome <home>");
     }
 
     @Command(names = {"home", "h"}, permission = "nextron.home", playerOnly = true)
     public void home(Player player, @Param(name = "home", required = false) Home home) {
         if (home == null) {
             if (Configs.home.getString("Homes." + player.getUniqueId() + ".default") != null) {
-                player.teleport((Location) Objects.requireNonNull(Configs.home.get("Homes." + player.getUniqueId() + ".default")));
+                player.teleport((Location) Objects
+                        .requireNonNull(Configs.home.get("Homes." + player.getUniqueId() + ".default")));
                 player.playSound(player.getLocation(), Sound.ENTITY_ENDERMAN_TELEPORT, 100, 1);
                 player.sendMessage(Main.getPrefix() + Text.get("home.default.success"));
             } else {
@@ -43,11 +48,13 @@ public class HomeCommands extends HelpBase {
 
         if (Configs.home.getString("Homes." + player.getUniqueId() + "." + home.getName().toLowerCase()) != null) {
             player.teleport(
-                    (Location) Objects.requireNonNull(Configs.home.get("Homes." + player.getUniqueId() + "." + home.getName().toLowerCase())));
+                    (Location) Objects.requireNonNull(
+                            Configs.home.get("Homes." + player.getUniqueId() + "." + home.getName().toLowerCase())));
             player.playSound(player.getLocation(), Sound.ENTITY_ENDERMAN_TELEPORT, 100, 1);
             player.sendMessage(Main.getPrefix() + Text.get("home.success").replace("%h", home.getName().toLowerCase()));
         } else {
-            player.sendMessage(Main.getPrefix() + Text.get("home.notfound").replace("%h", home.getName().toLowerCase()));
+            player.sendMessage(
+                    Main.getPrefix() + Text.get("home.notfound").replace("%h", home.getName().toLowerCase()));
         }
     }
 
@@ -66,8 +73,10 @@ public class HomeCommands extends HelpBase {
             player.sendMessage(Main.getPrefix() + Text.get("sethome.success").replace("%h", name.toLowerCase()));
         } else {
             TextComponent yes = new TextComponent("§2[§aYes§2]");
-            yes.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/aisdvja4f89dfjvwe4p9r8jdfvjw34r8q0dvj34-" + name.toLowerCase()));
-            yes.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ComponentBuilder("§7Click to reset the position for §a" + name.toLowerCase()).create()));
+            yes.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND,
+                    "/aisdvja4f89dfjvwe4p9r8jdfvjw34r8q0dvj34-" + name.toLowerCase()));
+            yes.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT,
+                    new ComponentBuilder("§7Click to reset the position for §a" + name.toLowerCase()).create()));
             player.sendMessage(Main.getPrefix() + Text.get("home.reset.confirm"));
             player.spigot().sendMessage(ChatMessageType.SYSTEM, yes);
         }
@@ -78,16 +87,19 @@ public class HomeCommands extends HelpBase {
         if (Configs.home.getString("Homes." + player.getUniqueId() + "." + home.getName().toLowerCase()) != null) {
             Configs.home.set("Homes." + player.getUniqueId() + "." + home.getName().toLowerCase(), null);
             Configs.saveHomeConfig();
-            player.sendMessage(Main.getPrefix() + Text.get("delhome.success").replace("%h", home.getName().toLowerCase()));
+            player.sendMessage(
+                    Main.getPrefix() + Text.get("delhome.success").replace("%h", home.getName().toLowerCase()));
         } else {
-            player.sendMessage(Main.getPrefix() + Text.get("home.notfound").replace("%h", home.getName().toLowerCase()));
+            player.sendMessage(
+                    Main.getPrefix() + Text.get("home.notfound").replace("%h", home.getName().toLowerCase()));
         }
     }
 
     @Command(names = {"renamehome"}, permission = "nextron.renamehome", playerOnly = true)
     public void renameHome(Player player, @Param(name = "home") Home home) {
         if (Configs.home.getString("Homes." + player.getUniqueId() + "." + home.getName().toLowerCase()) == null) {
-            player.sendMessage(Main.getPrefix() + Text.get("home.notfound").replace("%h", home.getName().toLowerCase()));
+            player.sendMessage(
+                    Main.getPrefix() + Text.get("home.notfound").replace("%h", home.getName().toLowerCase()));
             return;
         }
 

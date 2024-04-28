@@ -15,7 +15,7 @@ import java.util.stream.Collectors;
 public class LanguageCommand extends HelpBase {
 
     public LanguageCommand() {
-        super("language", "Allows you to change the plugins language", "/language <lanugage>");
+        super("language, Allows you to change the plugins language, /language <lanugage>");
     }
 
     @Command(names = {"language"}, permission = "nextron.language")

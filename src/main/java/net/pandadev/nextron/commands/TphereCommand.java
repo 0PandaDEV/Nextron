@@ -12,7 +12,7 @@ import java.util.Objects;
 public class TphereCommand extends HelpBase {
 
     public TphereCommand() {
-        super("tphere", "Teleports a player to you", "/tphere <player>\n/tph <player>");
+        super("tphere, Teleports a player to you, /tphere <player>\n/tph <player>");
     }
 
     @Command(names = {"tphere", "tph"}, permission = "nextron.tphere")

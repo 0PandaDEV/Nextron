@@ -11,14 +11,14 @@ import org.bukkit.entity.Player;
 public class FlyCommand extends HelpBase {
 
     public FlyCommand() {
-        super("fly", "Enables/disables fly for you or another player", "/fly [player]");
+        super("fly, Enables/disables fly for you or another player, /fly [player]");
     }
 
     @Command(names = {"fly"}, permission = "nextron.fly")
     public void flyCommand(CommandSender sender, @Param(name = "target", required = false) Player target) {
         if (target == null) {
             if (!(sender instanceof Player)) {
-                sender.sendMessage("§6This command can only be run by a player!");
+                sender.sendMessage(Main.getCommandInstance());
                 return;
             }
 

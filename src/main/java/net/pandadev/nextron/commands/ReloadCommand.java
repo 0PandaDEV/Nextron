@@ -8,7 +8,7 @@ import org.bukkit.command.CommandSender;
 public class ReloadCommand extends HelpBase {
 
     public ReloadCommand() {
-        super("rl", "Reloads the server", "/rl");
+        super("rl, Reloads the server, /rl");
     }
 
 

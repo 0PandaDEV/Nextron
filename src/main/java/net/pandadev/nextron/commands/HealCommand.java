@@ -12,7 +12,7 @@ import org.bukkit.entity.Player;
 public class HealCommand extends HelpBase {
 
     public HealCommand() {
-        super("heal", "Fills up your hunger and hearts", "/heal [player]");
+        super("heal, Fills up your hunger and hearts, /heal [player]");
     }
 
     @Command(names = {"heal"}, permission = "nextron.heal")

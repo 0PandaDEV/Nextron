@@ -15,7 +15,7 @@ import org.bukkit.entity.Player;
 public class GetPosCommand extends HelpBase {
 
     public GetPosCommand() {
-        super("getposition", "Gives you the coordinates of a player", "/getposition <player>\n/getpos <player>");
+        super("getposition, Gives you the coordinates of a player, /getposition <player>\n/getpos <player>");
     }
 
     @Command(names = {"getposition", "getpos"}, permission = "nextron.getposition")

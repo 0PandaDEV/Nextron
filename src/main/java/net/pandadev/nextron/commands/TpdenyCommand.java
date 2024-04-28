@@ -9,7 +9,7 @@ import org.bukkit.entity.Player;
 public class TpdenyCommand extends HelpBase {
 
     public TpdenyCommand() {
-        super("tpdeny", "Denys an incoming tpa request", "/tpdeny\n/tpd");
+        super("tpdeny, Denys an incoming tpa request, /tpdeny\n/tpd");
     }
 
     @Command(names = {"tpdeny"}, permission = "nextron.tpdeny")

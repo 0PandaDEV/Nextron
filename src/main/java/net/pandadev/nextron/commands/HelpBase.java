@@ -4,16 +4,25 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public abstract class HelpBase {
-    private final String command;
+    private String command;
 
     public static HashMap<String, ArrayList<String>> commands = new HashMap<>();
 
-    protected HelpBase(String command, String description, String usage) {
-        this.command = command;
-        ArrayList<String> commandInfo = new ArrayList();
-        commandInfo.add(0, usage);
-        commandInfo.add(1, description);
-        commands.put(command, commandInfo);
+    protected HelpBase(String... commandData) {
+        for (String data : commandData) {
+            String[] parts = data.split(",", 3); 
+            if (parts.length < 3)
+                continue; 
+
+            String command = parts[0].trim();
+            String description = parts[1].trim();
+            String usage = parts[2].trim();
+
+            ArrayList<String> commandInfo = new ArrayList<>();
+            commandInfo.add(usage);
+            commandInfo.add(description);
+            commands.put(command, commandInfo);
+        }
     }
 
     public String getCommandName() {
@@ -35,5 +44,4 @@ public abstract class HelpBase {
         usage = usage.replace("\\n", "\n");
         return usage;
     }
-
 }

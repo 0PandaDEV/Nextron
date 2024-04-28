@@ -1,10 +1,10 @@
 package net.pandadev.nextron.commands;
 
 import ch.hekates.languify.language.Text;
-import net.pandadev.nextron.utils.commandapi.Command;
-import net.pandadev.nextron.utils.commandapi.paramter.Param;
 import net.pandadev.nextron.Main;
 import net.pandadev.nextron.utils.Configs;
+import net.pandadev.nextron.utils.commandapi.Command;
+import net.pandadev.nextron.utils.commandapi.paramter.Param;
 import org.bukkit.Location;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -14,7 +14,7 @@ import java.util.Objects;
 public class BackCommand extends HelpBase {
 
     public BackCommand() {
-        super("back", "Teleports the player back to the last (death, tpa, home, warp) position.", "/back");
+        super("back, Teleports the player back to the last (death, tpa, home, warp) position., /back [player]");
     }
 
     @Command(names = {"back"}, permission = "nextron.back")

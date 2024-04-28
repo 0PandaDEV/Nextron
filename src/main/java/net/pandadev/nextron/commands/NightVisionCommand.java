@@ -12,7 +12,7 @@ import org.bukkit.potion.PotionEffectType;
 public class NightVisionCommand extends HelpBase {
 
     public NightVisionCommand() {
-        super("nightvision", "Allows you to toggle nightivision", "/nightvision [player]\n/nv [player]");
+        super("nightvision, Allows you to toggle nightivision, /nightvision [player]\n/nv [player]");
     }
 
     @Command(names = {"nightvision", "nv"}, permission = "nextron.nightvision")

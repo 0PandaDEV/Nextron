@@ -20,8 +20,7 @@ import java.util.Objects;
 public class FeatureCommand extends HelpBase {
 
     public FeatureCommand() {
-        super("features", "Opens a GUI where you can enable/disable all the systems in the plugin",
-                "/features [enable/disable] [feature]");
+        super("features, Opens a GUI where you can enable/disable all the systems in the plugin, /features [enable/disable] [feature]");
     }
 
     @Command(names = {"features"}, permission = "nextron.features", playerOnly = true)

@@ -14,7 +14,7 @@ import org.bukkit.entity.Player;
 public class VanishCommand extends HelpBase {
 
     public VanishCommand() {
-        super("vanish", "Hides you form the tab list and other players can't see you", "/vanish [player]\n/v [player]");
+        super("vanish, Hides you form the tab list and other players can't see you, /vanish [player]\n/v [player]");
     }
 
     @Command(names = {"vanish", "v"}, permission = "nextron.vanish")

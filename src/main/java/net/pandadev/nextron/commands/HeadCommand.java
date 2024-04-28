@@ -14,7 +14,7 @@ import org.bukkit.inventory.meta.SkullMeta;
 public class HeadCommand extends HelpBase {
 
     public HeadCommand() {
-        super("head", "Gives you the head of any player", "/head <player>");
+        super("head, Gives you the head of any player, /head <player>");
     }
 
     @Command(names = {"head"}, permission = "nextron.head", playerOnly = true)

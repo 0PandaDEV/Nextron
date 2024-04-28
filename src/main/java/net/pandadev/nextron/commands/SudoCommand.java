@@ -10,7 +10,7 @@ import org.bukkit.entity.Player;
 public class SudoCommand extends HelpBase {
 
     public SudoCommand() {
-        super("sudo", "Forces a player to execute a command", "/sudo <player> <command>");
+        super("sudo, Forces a player to execute a command, /sudo <player> <command>");
     }
 
     @Command(names = "sudo", permission = "nextron.sudo")

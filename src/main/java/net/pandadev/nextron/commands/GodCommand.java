@@ -10,7 +10,7 @@ import org.bukkit.entity.Player;
 public class GodCommand extends HelpBase {
 
     public GodCommand() {
-        super("god", "Makes you invulnerable", "/god [player]");
+        super("god, Makes a player invulnerable, /god [player]");
     }
 
     @Command(names = {"god"}, permission = "nextron.god")

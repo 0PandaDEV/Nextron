@@ -8,7 +8,8 @@ import org.bukkit.entity.Player;
 public class NickCommand extends HelpBase {
 
     public NickCommand() {
-        super("nick", "Set your nickname", "/nick\n/resetnick");
+        super("nick, Set your nickname, /nick <nickname>",
+                "resetnick, Reset your nickname, /resetnick");
     }
 
     @Command(names = {"nick"}, permission = "nextron.nick")

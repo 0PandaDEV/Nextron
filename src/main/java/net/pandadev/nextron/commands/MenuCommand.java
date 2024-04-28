@@ -8,7 +8,7 @@ import org.bukkit.entity.Player;
 public class MenuCommand extends HelpBase {
 
     public MenuCommand() {
-        super("menu", "Opens the menu where you can simply do everything", "/menu\n/m");
+        super("menu, Opens the menu where you can simply do everything, /menu\n/m");
     }
 
     @Command(names = {"menu", "m"})

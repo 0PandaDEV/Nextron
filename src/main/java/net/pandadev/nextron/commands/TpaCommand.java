@@ -16,7 +16,7 @@ import org.bukkit.entity.Player;
 public class TpaCommand extends HelpBase {
 
     public TpaCommand() {
-        super("tpa", "Sends a tpa request to a player", "/tpa <player>");
+        super("tpa, Sends a tpa request to a player, /tpa <player>");
     }
 
     @Command(names = "tpa", permission = "nextron.tpa", playerOnly = true)

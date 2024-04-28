@@ -11,7 +11,17 @@ import org.bukkit.entity.Player;
 public class GamemodeCommand extends HelpBase {
 
     public GamemodeCommand() {
-        super("gamemode", "Changes the gamemode", "/gamemode <gamemode> [player]\n/gm <gamemode> [player]\n/gms\n/gmc\n/gma\n/gmsp");
+        super(
+                "gamemode, Changes the gamemode, /gamemode <gamemode> [player]\n/gm <gamemode> [player]",
+                "gms, Change the gamemode to survival, /gms [player]",
+                "gmc, Change the gamemode to creative, /gmc [player]",
+                "gma, Change the gamemode to adventure, /gma [player]",
+                "gmsp, Change the gamemode to spectator, /gmsp [player]",
+                "survival, Change the gamemode to survival, /survival [player]",
+                "creative, Change the gamemode to creative, /creative [player]",
+                "adventure, Change the gamemode to adventure, /adventure [player]",
+                "spectator, Change the gamemode to spectator, /spectator [player]"
+        );
     }
 
     @Command(names = {"gmc", "creative"}, permission = "nextron.gamemode.creative")
