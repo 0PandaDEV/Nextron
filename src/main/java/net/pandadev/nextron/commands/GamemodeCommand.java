@@ -72,6 +72,8 @@ public class GamemodeCommand extends CommandBase implements CommandExecutor, Tab
 
             Player target = Bukkit.getPlayer(args[0]);
 
+            if (target == null) {sender.sendMessage(Main.InvalidPlayer()); return;}
+
             GameMode gamemode = null;
             if (label.equalsIgnoreCase("gms")) {
                 gamemode = GameMode.SURVIVAL;
@@ -159,6 +161,9 @@ public class GamemodeCommand extends CommandBase implements CommandExecutor, Tab
             }
 
             Player target = Bukkit.getPlayer(args[1]);
+
+            if (target == null) {sender.sendMessage(Main.InvalidPlayer()); return;}
+            
             GameMode gamemode = null;
             if (args[0].equalsIgnoreCase("0")) {
                 gamemode = GameMode.SURVIVAL;
