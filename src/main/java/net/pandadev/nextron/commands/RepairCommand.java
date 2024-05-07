@@ -18,7 +18,11 @@ public class RepairCommand extends HelpBase {
     @Command(names = {"repair"}, permission = "nextron.repair")
     public void repairCommand(CommandSender sender, @Param(name = "target", required = false) Player target) {
         if (target == null) {
-            Player player = (Player) sender;
+            if (!(sender instanceof Player player)) {
+                sender.sendMessage(Main.getCommandInstance());
+                return;
+            }
+
             ItemStack itemInHand = player.getInventory().getItemInMainHand();
             if (itemInHand.getItemMeta() == null) {
                 player.sendMessage(Main.getPrefix() + Text.get("repair.error"));
