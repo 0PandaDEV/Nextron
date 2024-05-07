@@ -152,5 +152,7 @@
   "getpos.hover": "§7Klicke zum teleportieren ",
   "hat.success": "§7Der block in deiner hand wurde erfolgreich als hut gesetzt",
   "top.success": "§7Du wurdes zum höchsten block über dir teleportiert",
-  "top.no_blocks_above": "§cEs gibt keine blöcke über dir"
+  "top.no_blocks_above": "§cEs gibt keine blöcke über dir",
+  "ping": "§7Dein ping ist §a%pms",
+  "ping.other": "§a%t's §7ping ist %pms"
 }
