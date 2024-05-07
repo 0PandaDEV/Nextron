@@ -20,11 +20,15 @@ public class GamemodeCommand extends HelpBase {
                 "survival, Change the gamemode to survival, /survival [player]",
                 "creative, Change the gamemode to creative, /creative [player]",
                 "adventure, Change the gamemode to adventure, /adventure [player]",
-                "spectator, Change the gamemode to spectator, /spectator [player]"
+                "spectator, Change the gamemode to spectator, /spectator [player]",
+                "gm0, Change the gamemode to survival, /gm0 [player]",
+                "gm1, Change the gamemode to creative, /gm1 [player]",
+                "gm2, Change the gamemode to adventure, /gm2 [player]",
+                "gm3, Change the gamemode to spectator, /gm3 [player]"
         );
     }
 
-    @Command(names = {"gmc", "creative"}, permission = "nextron.gamemode.creative")
+    @Command(names = {"gmc", "creative", "gm1"}, permission = "nextron.gamemode.creative")
     public void creative(CommandSender sender, @Param(name = "target", required = false) Player target) {
         if (target == null) {
             if (!(sender instanceof Player)) {
@@ -42,7 +46,7 @@ public class GamemodeCommand extends HelpBase {
         sender.sendMessage(Main.getPrefix() + Text.get("gamemode.other.success").replace("%t", target.getName()).replace("%g", GameMode.CREATIVE.toString().toLowerCase()));
     }
 
-    @Command(names = {"gms", "survival"}, permission = "nextron.gamemode.survival")
+    @Command(names = {"gms", "survival", "gm0"}, permission = "nextron.gamemode.survival")
     public void survival(CommandSender sender, @Param(name = "target", required = false) Player target) {
         if (target == null) {
             if (!(sender instanceof Player)) {
@@ -60,7 +64,7 @@ public class GamemodeCommand extends HelpBase {
         sender.sendMessage(Main.getPrefix() + Text.get("gamemode.other.success").replace("%t", target.getName()).replace("%g", GameMode.SURVIVAL.toString().toLowerCase()));
     }
 
-    @Command(names = {"gmsp", "spectator"}, permission = "nextron.gamemode.spectator")
+    @Command(names = {"gmsp", "spectator", "gm3"}, permission = "nextron.gamemode.spectator")
     public void spectator(CommandSender sender, @Param(name = "target", required = false) Player target) {
         if (target == null) {
             if (!(sender instanceof Player)) {
@@ -78,7 +82,7 @@ public class GamemodeCommand extends HelpBase {
         sender.sendMessage(Main.getPrefix() + Text.get("gamemode.other.success").replace("%t", target.getName()).replace("%g", GameMode.SPECTATOR.toString().toLowerCase()));
     }
 
-    @Command(names = {"gma", "adventure"}, permission = "nextron.gamemode.adventure")
+    @Command(names = {"gma", "adventure", "gm2"}, permission = "nextron.gamemode.adventure")
     public void adventure(CommandSender sender, @Param(name = "target", required = false) Player target) {
         if (target == null) {
             if (!(sender instanceof Player)) {
