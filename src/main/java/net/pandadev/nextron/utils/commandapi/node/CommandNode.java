@@ -136,7 +136,7 @@ public class CommandNode {
     }
 
 
-    public void sendUsageMessage(CommandSender sender) {
+    public void sendUsageMessage(CommandSender sender, String executedCommand) {
         if (consoleOnly && sender instanceof Player) {
             sender.sendMessage(Main.getPrefix() + "§cThis command can only be executed by console.");
             return;
@@ -152,9 +152,11 @@ public class CommandNode {
             return;
         }
 
-        HashMap<String, ArrayList<String>> commandsList = new HashMap<String, ArrayList<String>>(HelpBase.commands);
-        String commandName = names.get(0);
-        sender.sendMessage(Main.getPrefix() + "§7Usage: \n§a" + commandsList.get(commandName).get(0));
+        System.out.println(names);
+
+        HashMap<String, ArrayList<String>> commandsList = new HashMap<>(HelpBase.commands);
+        assert sender != null;
+        sender.sendMessage(Main.getPrefix() + "§7Usage: \n§a" + commandsList.get(executedCommand).get(0));
     }
 
 
@@ -173,40 +175,38 @@ public class CommandNode {
             return;
         }
 
-
         if (sender instanceof ConsoleCommandSender && playerOnly) {
             sender.sendMessage(Main.getCommandInstance());
             return;
         }
-
 
         if (sender instanceof Player && consoleOnly) {
             sender.sendMessage(Main.getPrefix() + "§cThis command can only be executed by console.");
             return;
         }
 
+        String executedCommand = Arrays.stream(names.toArray(new String[0]))
+                .filter(name -> args.length > 0 && args[0].equalsIgnoreCase(name.split(" ")[0]))
+                .findFirst()
+                .orElse(names.get(0));
 
-        int nameArgs = (names.get(0).split(" ").length - 1);
+        int nameArgs = executedCommand.split(" ").length - 1;
 
         List<Object> objects = new ArrayList<>(Collections.singletonList(sender));
         for (int i = 0; i < parameters.size(); i++) {
             ArgumentNode node = parameters.get(i);
             String suppliedArgument;
 
-
             if (node.isConcated()) {
-
                 suppliedArgument = String.join(" ", Arrays.copyOfRange(args, i + nameArgs, args.length));
-
                 Object object = new ParamProcessor(node, suppliedArgument, sender).get();
                 if (object == null) return;
                 objects.add(object);
                 break;
             } else {
-
                 suppliedArgument = i < args.length - nameArgs ? args[i + nameArgs] : null;
                 if (suppliedArgument == null && node.isRequired()) {
-                    sendUsageMessage(sender);
+                    sendUsageMessage(sender, executedCommand);
                     return;
                 }
                 if (suppliedArgument == null) {
@@ -221,7 +221,6 @@ public class CommandNode {
                 objects.add(object);
             }
         }
-
 
         Object[] methodArgs = convertParameters(method, objects);
         if (async) {
