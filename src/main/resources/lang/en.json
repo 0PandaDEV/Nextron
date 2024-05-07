@@ -153,5 +153,5 @@
   "top.success": "§7You got teleported to the highest block above you",
   "top.no_blocks_above": "§cThere are no blocks above you",
   "ping": "§7Your ping is §a%pms",
-  "ping.other": "§a%t's §7ping is %pms"
+  "ping.other": "§a%t's §7ping is §a%pms"
 }

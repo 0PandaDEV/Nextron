@@ -152,8 +152,6 @@ public class CommandNode {
             return;
         }
 
-        System.out.println(names);
-
         HashMap<String, ArrayList<String>> commandsList = new HashMap<>(HelpBase.commands);
         assert sender != null;
         sender.sendMessage(Main.getPrefix() + "§7Usage: \n§a" + commandsList.get(executedCommand).get(0));
