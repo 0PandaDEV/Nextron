@@ -12,6 +12,6 @@ public class PingCommand extends HelpBase {
 
     @Command(names = {"ping"}, permission = "nextron.ping", playerOnly = true)
     public void pingCommand(Player player) {
-        player.sendMessage(Main.getPrefix() + "§7Your ping is §a" + player.getPing());
+        player.sendMessage(Main.getPrefix() + "§7Your ping is §a" + player.getPing() + "ms");
     }
 }
