@@ -153,5 +153,10 @@
   "top.success": "§7You got teleported to the highest block above you",
   "top.no_blocks_above": "§cThere are no blocks above you",
   "ping": "§7Your ping is §a%pms",
-  "ping.other": "§a%t's §7ping is §a%pms"
+  "ping.other": "§a%t's §7ping is §a%pms",
+  "repair.error": "§cThere is no item in your hand",
+  "repair.error.other": "§cThere is no item in §6%t's §chand",
+  "repair.nodamage": "§cThis item cannot be repaired",
+  "repair.success": "§7Successfully repaired item in your hand",
+  "repair.success.other": "§7Successfully repaired item in §a%t's §7hand"
 }
