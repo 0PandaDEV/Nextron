@@ -11,10 +11,10 @@ import java.util.Collections;
 public class HelpCommand extends HelpBase {
 
     public HelpCommand() {
-        super("help, Gives you a list of all commands with a short description, /help [command]");
+        super("help, Gives you a list of all commands with a short description, /nhelp [command]\n/nextron help [command]");
     }
 
-    @Command(names = {"help"}, permission = "nextron.help")
+    @Command(names = {"nhelp", "nextron help"}, permission = "nextron.help")
     public void helpCommand(CommandSender sender,
                             @Param(name = "command", required = false) HelpCommandInfo commandName) {
         if (commandName == null) {
