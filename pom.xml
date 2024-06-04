@@ -105,7 +105,7 @@
         <dependency>
             <groupId>dev.triumphteam</groupId>
             <artifactId>triumph-gui</artifactId>
-            <version>3.1.7</version>
+            <version>3.1.9</version>
         </dependency>
         <dependency>
             <groupId>com.github.Hekates</groupId>
