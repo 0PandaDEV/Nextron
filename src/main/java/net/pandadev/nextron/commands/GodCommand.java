@@ -15,7 +15,7 @@ import java.util.List;
 public class GodCommand extends CommandBase implements CommandExecutor, TabCompleter {
 
     public GodCommand() {
-        super("god", "Makes you invulnerable", "/god [player]", "nextron.god");
+        super("god", "Toggles invulnerability for a player", "/god [player]", "nextron.god");
     }
 
     @Override

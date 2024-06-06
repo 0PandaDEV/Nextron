@@ -19,7 +19,7 @@ import java.util.List;
 public class GetPosCommand extends CommandBase implements TabCompleter {
 
     public GetPosCommand() {
-        super("getposition", "Gives you the coordinates of a player", "/getposition <player>\n/getpos <player>", "nextron.getposition");
+        super("getposition", "Displays the coordinates of a player", "/getposition <player>\n/getpos <player>", "nextron.getposition");
     }
 
     @Override

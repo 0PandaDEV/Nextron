@@ -16,7 +16,7 @@ import java.util.List;
 public class NightVisionCommand extends CommandBase implements TabCompleter {
 
     public NightVisionCommand() {
-        super("nightvision", "Allows you to toggle nightivision", "/nightvision [player]\n/nv [player]", "nextron.nightvision");
+        super("nightvision", "Toggle the night vision effect for a player", "/nightvision [player]\n/nv [player]", "nextron.nightvision");
     }
 
     @Override
