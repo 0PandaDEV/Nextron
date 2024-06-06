@@ -18,7 +18,7 @@ import java.util.List;
 public class VanishCommand extends CommandBase implements CommandExecutor, TabCompleter {
 
     public VanishCommand() {
-        super("vanish", "Hides you form the tab list and other players can't see you", "/vanish [player]\n/v [player]", "nextron.vanish");
+        super("vanish", "Hides you from the tab list and other players can't see you", "/vanish [player]\n/v [player]", "nextron.vanish");
     }
 
     @Override

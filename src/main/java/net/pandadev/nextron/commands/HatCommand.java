@@ -9,7 +9,7 @@ import org.bukkit.inventory.ItemStack;
 public class HatCommand extends CommandBase {
 
     public HatCommand() {
-        super("hat", "War the current item in your hand", "/hat\n/wear", "nextron.hat");
+        super("hat", "Wear the current item in your hand", "/hat\n/wear", "nextron.hat");
     }
 
     @Override
