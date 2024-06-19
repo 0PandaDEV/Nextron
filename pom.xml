@@ -82,6 +82,10 @@
             <id>codemc-snapshots</id>
             <url>https://repo.codemc.io/repository/maven-snapshots/</url>
         </repository>
+        <repository>
+            <id>panda-repo</id>
+            <url>https://repo.panda-lang.org/releases</url>
+        </repository>
     </repositories>
 
     <dependencies>
@@ -108,15 +112,20 @@
             <version>3.1.7</version>
         </dependency>
         <dependency>
-            <groupId>com.github.Hekates</groupId>
+            <groupId>com.github.0PandaDEV</groupId>
             <artifactId>Languify</artifactId>
-            <version>v1.2-beta</version>
+            <version>4b73e47186</version>
         </dependency>
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
             <version>1.18.30</version>
             <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>dev.rollczi</groupId>
+            <artifactId>litecommands-bukkit</artifactId>
+            <version>3.4.2</version>
         </dependency>
     </dependencies>
 </project>
