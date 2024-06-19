@@ -1,21 +1,26 @@
 package net.pandadev.nextron.commands;
 
 import ch.hekates.languify.language.Text;
+import dev.rollczi.litecommands.annotations.command.Command;
+import dev.rollczi.litecommands.annotations.context.Context;
+import dev.rollczi.litecommands.annotations.execute.Execute;
+import dev.rollczi.litecommands.annotations.join.Join;
+import dev.rollczi.litecommands.annotations.permission.Permission;
 import net.pandadev.nextron.Main;
-import net.pandadev.nextron.utils.commandapi.Command;
-import net.pandadev.nextron.utils.commandapi.paramter.Param;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.meta.ItemMeta;
 
+@Command(name = "rename")
+@Permission("nextron.rename")
 public class RenameCommand extends HelpBase {
 
     public RenameCommand() {
         super("rename, Renames the item you are currently holding, /rename <name>");
     }
 
-    @Command(names = {"rename"}, permission = "nextron.rename", playerOnly = true)
-    public void renameCommand(Player player, @Param(name = "name", concated = true) String name) {
+    @Execute
+    public void renameCommand(@Context Player player, @Join String name) {
         ItemMeta itemMeta = player.getInventory().getItemInMainHand().getItemMeta();
         if (itemMeta == null) {
             player.sendMessage(Main.getPrefix() + Text.get("rename.error"));

@@ -1,22 +1,27 @@
 package net.pandadev.nextron.commands;
 
 import ch.hekates.languify.language.Text;
+import dev.rollczi.litecommands.annotations.command.Command;
+import dev.rollczi.litecommands.annotations.context.Context;
+import dev.rollczi.litecommands.annotations.execute.Execute;
+import dev.rollczi.litecommands.annotations.optional.OptionalArg;
+import dev.rollczi.litecommands.annotations.permission.Permission;
 import net.pandadev.nextron.Main;
-import net.pandadev.nextron.utils.commandapi.Command;
-import net.pandadev.nextron.utils.commandapi.paramter.Param;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
+@Command(name = "nightvision", aliases = {"nv"})
+@Permission("nextron.nightvision")
 public class NightVisionCommand extends HelpBase {
 
     public NightVisionCommand() {
         super("nightvision, Allows you to toggle nightivision, /nightvision [player]\n/nv [player]");
     }
 
-    @Command(names = {"nightvision", "nv"}, permission = "nextron.nightvision")
-    public void nightVisionCommand(CommandSender sender, @Param(name = "target", required = false) Player target) {
+    @Execute
+    public void nightVisionCommand(@Context CommandSender sender, @OptionalArg Player target) {
         if (target == null) {
             if (!(sender instanceof Player)) {
                 sender.sendMessage("§6This command can only be run by a player!");

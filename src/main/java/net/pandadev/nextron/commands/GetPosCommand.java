@@ -1,25 +1,30 @@
 package net.pandadev.nextron.commands;
 
 import ch.hekates.languify.language.Text;
+import dev.rollczi.litecommands.annotations.argument.Arg;
+import dev.rollczi.litecommands.annotations.command.Command;
+import dev.rollczi.litecommands.annotations.context.Context;
+import dev.rollczi.litecommands.annotations.execute.Execute;
+import dev.rollczi.litecommands.annotations.permission.Permission;
 import net.md_5.bungee.api.ChatMessageType;
 import net.md_5.bungee.api.chat.ClickEvent;
 import net.md_5.bungee.api.chat.ComponentBuilder;
 import net.md_5.bungee.api.chat.HoverEvent;
 import net.md_5.bungee.api.chat.TextComponent;
 import net.pandadev.nextron.Main;
-import net.pandadev.nextron.utils.commandapi.Command;
-import net.pandadev.nextron.utils.commandapi.paramter.Param;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
+@Command(name = "getposition", aliases = {"getpos"})
+@Permission("nextron.getposition")
 public class GetPosCommand extends HelpBase {
 
     public GetPosCommand() {
         super("getposition, Gives you the coordinates of a player, /getposition <player>\n/getpos <player>");
     }
 
-    @Command(names = {"getposition", "getpos"}, permission = "nextron.getposition")
-    public void getPositionCommand(CommandSender sender, @Param(name = "target") Player target) {
+    @Execute
+    public void getPositionCommand(@Context CommandSender sender, @Arg Player target) {
         if (sender instanceof Player) {
             Player player = (Player) (sender);
 

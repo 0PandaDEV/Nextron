@@ -1,14 +1,14 @@
 package net.pandadev.nextron.listeners;
 
 import ch.hekates.languify.language.Text;
+import net.pandadev.nextron.Main;
+import net.pandadev.nextron.utils.Configs;
 import org.bukkit.Bukkit;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerCommandPreprocessEvent;
-import net.pandadev.nextron.Main;
-import net.pandadev.nextron.utils.Configs;
 
 public class ClickableMessages implements Listener {
 

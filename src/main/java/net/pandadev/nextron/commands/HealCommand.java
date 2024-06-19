@@ -1,22 +1,27 @@
 package net.pandadev.nextron.commands;
 
 import ch.hekates.languify.language.Text;
+import dev.rollczi.litecommands.annotations.command.Command;
+import dev.rollczi.litecommands.annotations.context.Context;
+import dev.rollczi.litecommands.annotations.execute.Execute;
+import dev.rollczi.litecommands.annotations.optional.OptionalArg;
+import dev.rollczi.litecommands.annotations.permission.Permission;
 import net.pandadev.nextron.Main;
 import net.pandadev.nextron.utils.Configs;
-import net.pandadev.nextron.utils.commandapi.Command;
-import net.pandadev.nextron.utils.commandapi.paramter.Param;
 import org.bukkit.Sound;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
+@Command(name = "heal")
+@Permission("nextron.heal")
 public class HealCommand extends HelpBase {
 
     public HealCommand() {
         super("heal, Fills up your hunger and hearts, /heal [player]");
     }
 
-    @Command(names = {"heal"}, permission = "nextron.heal")
-    public void healCommand(CommandSender sender, @Param(name = "target", required = false) Player target) {
+    @Execute
+    public void healCommand(@Context CommandSender sender, @OptionalArg Player target) {
         if (target == null && sender instanceof Player) {
             Player player = (Player) (sender);
 

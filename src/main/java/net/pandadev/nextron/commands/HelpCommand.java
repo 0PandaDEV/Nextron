@@ -1,22 +1,26 @@
 package net.pandadev.nextron.commands;
 
-import net.pandadev.nextron.utils.commandapi.Command;
-import net.pandadev.nextron.utils.commandapi.paramter.Param;
-import net.pandadev.nextron.utils.commandapi.processors.HelpCommandInfo;
+import dev.rollczi.litecommands.annotations.command.Command;
+import dev.rollczi.litecommands.annotations.context.Context;
+import dev.rollczi.litecommands.annotations.execute.Execute;
+import dev.rollczi.litecommands.annotations.optional.OptionalArg;
+import dev.rollczi.litecommands.annotations.permission.Permission;
+import net.pandadev.nextron.arguments.objects.Help;
 import org.bukkit.command.CommandSender;
 
 import java.util.ArrayList;
 import java.util.Collections;
 
+@Command(name = "nextron", aliases = {"nhelp"})
+@Permission("nextron.help")
 public class HelpCommand extends HelpBase {
 
     public HelpCommand() {
         super("help, Gives you a list of all commands with a short description, /nhelp [command]\n/nextron help [command]");
     }
 
-    @Command(names = {"nhelp", "nextron help"}, permission = "nextron.help")
-    public void helpCommand(CommandSender sender,
-                            @Param(name = "command", required = false) HelpCommandInfo commandName) {
+    @Execute
+    public void helpCommand(@Context CommandSender sender, @OptionalArg Help commandName) {
         if (commandName == null) {
             displayAllCommands(sender);
         } else {
@@ -38,7 +42,7 @@ public class HelpCommand extends HelpBase {
         sender.sendMessage("");
     }
 
-    private void displayCommandDetails(CommandSender sender, HelpCommandInfo commandInfo) {
+    private void displayCommandDetails(CommandSender sender, Help commandInfo) {
         String usage = "\n";
 
         if (!commandInfo.getUsage().isEmpty()) {

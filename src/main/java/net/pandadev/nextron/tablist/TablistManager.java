@@ -1,12 +1,12 @@
 package net.pandadev.nextron.tablist;
 
+import net.pandadev.nextron.Main;
+import net.pandadev.nextron.utils.Configs;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.Player;
 import org.bukkit.scoreboard.Scoreboard;
 import org.bukkit.scoreboard.Team;
-import net.pandadev.nextron.Main;
-import net.pandadev.nextron.utils.Configs;
 
 public class TablistManager {
 
@@ -14,7 +14,7 @@ public class TablistManager {
         Bukkit.getOnlinePlayers().forEach(this::setPlayerTeams);
     }
 
-    public void setPlayerTeams(Player player){
+    public void setPlayerTeams(Player player) {
         Scoreboard scoreboard = player.getScoreboard();
         ConfigurationSection ranks = Main.getInstance().getConfig().getConfigurationSection("Ranks");
 
@@ -24,7 +24,7 @@ public class TablistManager {
             Team teamRank = scoreboard.getTeam("010" + rank);
             if (teamRank == null) teamRank = scoreboard.registerNewTeam("010" + rank);
 
-            if (Configs.feature.getBoolean("rank_system")){
+            if (Configs.feature.getBoolean("rank_system")) {
                 teamRank.setPrefix(ranks.getString(rank + ".prefix"));
             } else {
                 teamRank.setPrefix("");

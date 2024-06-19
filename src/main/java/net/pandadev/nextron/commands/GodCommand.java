@@ -1,20 +1,25 @@
 package net.pandadev.nextron.commands;
 
 import ch.hekates.languify.language.Text;
+import dev.rollczi.litecommands.annotations.command.Command;
+import dev.rollczi.litecommands.annotations.context.Context;
+import dev.rollczi.litecommands.annotations.execute.Execute;
+import dev.rollczi.litecommands.annotations.optional.OptionalArg;
+import dev.rollczi.litecommands.annotations.permission.Permission;
 import net.pandadev.nextron.Main;
-import net.pandadev.nextron.utils.commandapi.Command;
-import net.pandadev.nextron.utils.commandapi.paramter.Param;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
+@Command(name = "god")
+@Permission("nextron.god")
 public class GodCommand extends HelpBase {
 
     public GodCommand() {
         super("god, Makes a player invulnerable, /god [player]");
     }
 
-    @Command(names = {"god"}, permission = "nextron.god")
-    public void godCommand(CommandSender sender, @Param(name = "target", required = false) Player target) {
+    @Execute
+    public void godCommand(@Context CommandSender sender, @OptionalArg Player target) {
         if (target == null) {
             if (!(sender instanceof Player)) {
                 sender.sendMessage(Main.getCommandInstance());

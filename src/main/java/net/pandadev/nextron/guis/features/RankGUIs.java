@@ -4,6 +4,8 @@ import ch.hekates.languify.language.Text;
 import dev.triumphteam.gui.builder.item.ItemBuilder;
 import dev.triumphteam.gui.guis.Gui;
 import net.kyori.adventure.text.Component;
+import net.pandadev.nextron.Main;
+import net.pandadev.nextron.guis.GUIs;
 import net.pandadev.nextron.utils.RankAPI;
 import net.pandadev.nextron.utils.Utils;
 import net.wesjd.anvilgui.AnvilGUI;
@@ -13,22 +15,21 @@ import org.bukkit.Sound;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
-import net.pandadev.nextron.Main;
-import net.pandadev.nextron.guis.GUIs;
 
 import java.util.Collections;
 
 public class RankGUIs {
 
     private static final FileConfiguration mainConfig = Main.getInstance().getConfig();
-    public static void manager(Player player){
+
+    public static void manager(Player player) {
         Gui gui = Gui.gui()
                 .title(Component.text("Rank Manager"))
                 .rows(5)
                 .disableAllInteractions()
                 .create();
 
-        for (String rank : mainConfig.getConfigurationSection("Ranks").getKeys(false)){
+        for (String rank : mainConfig.getConfigurationSection("Ranks").getKeys(false)) {
             gui.addItem(ItemBuilder.from(Material.NAME_TAG)
                     .name(Component.text("§f" + rank))
                     .setLore("",
@@ -46,7 +47,7 @@ public class RankGUIs {
     }
 
 
-    public static void settings(Player player, String rank){
+    public static void settings(Player player, String rank) {
         Gui gui = Gui.gui()
                 .title(Component.text(rank))
                 .rows(3)

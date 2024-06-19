@@ -1,6 +1,7 @@
 package net.pandadev.nextron.utils;
 
 import ch.hekates.languify.language.Text;
+import net.pandadev.nextron.Main;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
@@ -8,7 +9,6 @@ import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.scoreboard.Scoreboard;
 import org.bukkit.scoreboard.Team;
-import net.pandadev.nextron.Main;
 
 import java.util.ArrayList;
 import java.util.List;

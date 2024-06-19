@@ -1,13 +1,16 @@
 package net.pandadev.nextron.commands;
 
 import ch.hekates.languify.language.Text;
+import dev.rollczi.litecommands.annotations.argument.Arg;
+import dev.rollczi.litecommands.annotations.command.RootCommand;
+import dev.rollczi.litecommands.annotations.context.Context;
+import dev.rollczi.litecommands.annotations.execute.Execute;
+import dev.rollczi.litecommands.annotations.permission.Permission;
 import net.pandadev.nextron.Main;
+import net.pandadev.nextron.arguments.objects.Rank;
 import net.pandadev.nextron.guis.features.RankGUIs;
 import net.pandadev.nextron.utils.RankAPI;
 import net.pandadev.nextron.utils.Utils;
-import net.pandadev.nextron.utils.commandapi.Command;
-import net.pandadev.nextron.utils.commandapi.paramter.Param;
-import net.pandadev.nextron.utils.commandapi.processors.Rank;
 import net.wesjd.anvilgui.AnvilGUI;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
@@ -18,14 +21,16 @@ import org.bukkit.inventory.ItemStack;
 
 import java.util.Collections;
 
+@RootCommand
 public class RankCommand extends HelpBase {
 
     public RankCommand() {
         super("rank, Allows you to create ranks with prefixes to group players, /rank create\n/rank delete <rank>\n/rank modify <rank> <name | prefix>\n/rank remove <player>\n/rank set <player> <rank>");
     }
 
-    @Command(names = {"rank"}, permission = "nextron.rank", playerOnly = true)
-    public void rankCommand(Player player) {
+    @Execute(name = "rank")
+    @Permission("nextron.rank")
+    public void rankCommand(@Context Player player) {
         if (Main.getInstance().getConfig().getConfigurationSection("Ranks") == null || Main
                 .getInstance().getConfig().getConfigurationSection("Ranks").getKeys(false).isEmpty()) {
             player.sendMessage(Main.getPrefix() + Text.get("maingui.no.ranks"));
@@ -36,15 +41,17 @@ public class RankCommand extends HelpBase {
         RankGUIs.manager(player);
     }
 
-    @Command(names = {"rank set"}, permission = "nextron.rank.set")
-    public void setRankCommand(CommandSender sender, @Param(name = "target") Player target, @Param(name = "rank") Rank rank) {
+    @Execute(name = "rank set")
+    @Permission("nextron.rank.set")
+    public void setRankCommand(@Context CommandSender sender, @Arg Player target, @Arg Rank rank) {
         System.out.println(rank.getName());
         RankAPI.setRank(sender, target, rank.getName());
         RankAPI.checkRank(target);
     }
 
-    @Command(names = {"rank remove"}, permission = "nextron.rank.remove")
-    public void removeRankCommand(CommandSender sender, @Param(name = "target") Player target) {
+    @Execute(name = "rank remove")
+    @Permission("nextron.rank.remove")
+    public void removeRankCommand(@Context CommandSender sender, @Arg Player target) {
         RankAPI.removeRanks(target);
         RankAPI.checkRank(target);
 
@@ -52,18 +59,21 @@ public class RankCommand extends HelpBase {
                 + Text.get("rank.remove.success").replace("%t", target.getName()));
     }
 
-    @Command(names = {"rank delete"}, permission = "nextron.rank.delete")
-    public void removeRankCommand(CommandSender sender, @Param(name = "rank") Rank rank) {
+    @Execute(name = "rank delete")
+    @Permission("nextron.rank.delete")
+    public void removeRankCommand(@Context CommandSender sender, @Arg Rank rank) {
         RankAPI.deleteRank((Player) sender, rank.getName().toLowerCase());
     }
 
-    @Command(names = {"rank create"}, permission = "nextron.rank.create", playerOnly = true)
-    public void createRankCommand(Player player) {
+    @Execute(name = "rank create")
+    @Permission("nextron.rank.create")
+    public void createRankCommand(@Context Player player) {
         RankGUIs.templateRanks(player);
     }
 
-    @Command(names = {"rank modify prefix"}, permission = "nextron.rank.modify.prefix", playerOnly = true)
-    public void prefixRankCommand(Player player, @Param(name = "rank") Rank rank) {
+    @Execute(name = "rank prefix")
+    @Permission("nextron.rank.prefix")
+    public void prefixRankCommand(@Context Player player, @Arg Rank rank) {
         new AnvilGUI.Builder()
                 .onClick((state, text) -> {
                     RankAPI.setPrefix(player, rank.getName().toLowerCase(),
@@ -77,8 +87,9 @@ public class RankCommand extends HelpBase {
                 .open(player);
     }
 
-    @Command(names = {"rank modify name"}, permission = "nextron.rank.modify.name", playerOnly = true)
-    public void nameRankCommand(Player player, @Param(name = "rank") Rank rank) {
+    @Execute(name = "rank name")
+    @Permission("nextron.rank.name")
+    public void nameRankCommand(@Context Player player, @Arg Rank rank) {
         new AnvilGUI.Builder()
                 .onClick((state, text) -> {
                     if (Utils.countWords(text.getText()) > 1) {

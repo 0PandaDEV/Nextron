@@ -3,12 +3,18 @@ package net.pandadev.nextron;
 import ch.hekates.languify.Languify;
 import ch.hekates.languify.language.LangLoader;
 import ch.hekates.languify.language.Text;
+import dev.rollczi.litecommands.LiteCommands;
+import dev.rollczi.litecommands.bukkit.LiteBukkitFactory;
+import net.pandadev.nextron.arguments.*;
+import net.pandadev.nextron.arguments.objects.*;
+import net.pandadev.nextron.commands.*;
 import net.pandadev.nextron.listeners.*;
 import net.pandadev.nextron.tablist.TablistManager;
 import net.pandadev.nextron.utils.*;
-import net.pandadev.nextron.utils.commandapi.CommandHandler;
 import org.bukkit.Bukkit;
+import org.bukkit.GameMode;
 import org.bukkit.WorldCreator;
+import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -33,6 +39,7 @@ public final class Main extends JavaPlugin {
     public static String InvalidPlayer;
     public static String CommandInstance;
     private UpdateChecker updateChecker;
+    private LiteCommands<CommandSender> liteCommands;
 
     public static HashMap<Player, Player> tpa = new HashMap<>();
 
@@ -80,9 +87,53 @@ public final class Main extends JavaPlugin {
         Bukkit.getConsoleSender().sendMessage(Prefix + Text.get("console.activate"));
 
         registerListeners();
-//        registerCommands();
 
-        CommandHandler.registerCommands("net.pandadev.nextron.commands", this);
+        this.liteCommands = LiteBukkitFactory.builder("nextron", this)
+                .commands(
+                        new BackCommand(),
+                        new EnderchestCommand(),
+                        new FeatureCommand(),
+                        new FlyCommand(),
+                        new GamemodeCommand(),
+                        new GetPosCommand(),
+                        new GodCommand(),
+                        new HatCommand(),
+                        new HeadCommand(),
+                        new HealCommand(),
+                        new HelpCommand(),
+                        new HomeCommands(),
+                        new InvseeCommand(),
+                        new LanguageCommand(),
+                        new MenuCommand(),
+                        new NickCommand(),
+                        new NightVisionCommand(),
+                        new PingCommand(),
+                        new RankCommand(),
+                        new ReloadCommand(),
+                        new RenameCommand(),
+                        new RepairCommand(),
+                        new SpawnCommand(),
+                        new SpeedCommand(),
+                        new SudoCommand(),
+                        new TimeCommand(),
+                        new TopCommand(),
+                        new TpacceptCommand(),
+                        new TpaCommand(),
+                        new TpdenyCommand(),
+                        new TphereCommand(),
+                        new VanishCommand(),
+                        new WarpCommands(),
+                        new WorldCommand()
+                )
+                .argument(Feature.class, new FeatureArgument())
+                .argument(GameMode.class, new GameModeArgument())
+                .argument(Help.class, new HelpArgument())
+                .argument(Home.class, new HomeArgument())
+                .argument(Language.class, new LanguageArgument())
+                .argument(Rank.class, new RankArgument())
+                .argument(Seed.class, new SeedArgument())
+                .argument(Warp.class, new WarpArgument())
+                .build();
 
         int pluginId = 20704;
         new Metrics(this, pluginId);
@@ -90,6 +141,8 @@ public final class Main extends JavaPlugin {
 
     @Override
     public void onDisable() {
+        this.liteCommands.unregister();
+
         LangLoader.saveLanguages(getName(), "-" + getDescription().getVersion());
         LangLoader.loadLanguage(getConfig().getString("language"));
 
@@ -123,41 +176,6 @@ public final class Main extends JavaPlugin {
 
         instance = null;
     }
-
-//    private void registerCommands() {
-//        getCommand("gamemode").setExecutor(new GamemodeCommand());
-//        getCommand("enderchest").setExecutor(new GamemodeCommand());
-//        getCommand("home").setExecutor(new HomeCommands());
-//        getCommand("invsee").setExecutor(new InvseeCommand());
-//        getCommand("vanish").setExecutor(new VanishCommand());
-//        getCommand("enderchest").setExecutor(new EnderchestCommand());
-//        getCommand("tpa").setExecutor(new TpaCommand());
-//        getCommand("tpaccept").setExecutor(new TpacceptCommand());
-//        getCommand("warp").setExecutor(new WarpCommands());
-//        getCommand("heal").setExecutor(new HealCommand());
-//        getCommand("tphere").setExecutor(new TphereCommand());
-//        getCommand("speed").setExecutor(new SpeedCommand());
-//        getCommand("fly").setExecutor(new FlyCommand());
-//        getCommand("sudo").setExecutor(new SudoCommand());
-//        getCommand("head").setExecutor(new HeadCommand());
-//        getCommand("rank").setExecutor(new RankCommand());
-//        getCommand("menu").setExecutor(new MenuCommand());
-//        getCommand("features").setExecutor(new FeatureCommand());
-//        getCommand("rename").setExecutor(new RenameCommand());
-//        getCommand("god").setExecutor(new GodCommand());
-//        getCommand("help").setExecutor(new HelpCommand());
-//        getCommand("rl").setExecutor(new ReloadCommand());
-//        getCommand("tpdeny").setExecutor(new TpdenyCommand());
-//        getCommand("nightvision").setExecutor(new NightVisionCommand());
-//        getCommand("nick").setExecutor(new NickCommand());
-//        getCommand("language").setExecutor(new LanguageCommand());
-//        getCommand("world").setExecutor(new WorldCommand());
-//        getCommand("day").setExecutor(new TimeCommand());
-//        getCommand("spawn").setExecutor(new SpawnCommand());
-//        getCommand("getposition").setExecutor(new GetPosCommand());
-//        getCommand("hat").setExecutor(new HatCommand());
-//        getCommand("top").setExecutor(new TopCommand());
-//    }
 
     private void registerListeners() {
         PluginManager pluginManager = Bukkit.getPluginManager();

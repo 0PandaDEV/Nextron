@@ -1,19 +1,24 @@
 package net.pandadev.nextron.commands;
 
 import ch.hekates.languify.language.Text;
+import dev.rollczi.litecommands.annotations.command.Command;
+import dev.rollczi.litecommands.annotations.context.Context;
+import dev.rollczi.litecommands.annotations.execute.Execute;
+import dev.rollczi.litecommands.annotations.permission.Permission;
 import net.pandadev.nextron.Main;
-import net.pandadev.nextron.utils.commandapi.Command;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 
+@Command(name = "tpdeny")
+@Permission("nextron.tpdeny")
 public class TpdenyCommand extends HelpBase {
 
     public TpdenyCommand() {
         super("tpdeny, Denys an incoming tpa request, /tpdeny\n/tpd");
     }
 
-    @Command(names = {"tpdeny"}, permission = "nextron.tpdeny")
-    public void tpdenyCommand(Player player) {
+    @Execute
+    public void tpdenyCommand(@Context Player player) {
         Player target = Main.tpa.get(player);
 
         if (target != null) {

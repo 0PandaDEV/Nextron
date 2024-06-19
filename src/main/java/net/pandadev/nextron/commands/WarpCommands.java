@@ -1,12 +1,15 @@
 package net.pandadev.nextron.commands;
 
 import ch.hekates.languify.language.Text;
+import dev.rollczi.litecommands.annotations.argument.Arg;
+import dev.rollczi.litecommands.annotations.command.RootCommand;
+import dev.rollczi.litecommands.annotations.context.Context;
+import dev.rollczi.litecommands.annotations.execute.Execute;
+import dev.rollczi.litecommands.annotations.permission.Permission;
 import net.pandadev.nextron.Main;
+import net.pandadev.nextron.arguments.objects.Warp;
 import net.pandadev.nextron.utils.Configs;
 import net.pandadev.nextron.utils.Utils;
-import net.pandadev.nextron.utils.commandapi.Command;
-import net.pandadev.nextron.utils.commandapi.paramter.Param;
-import net.pandadev.nextron.utils.commandapi.processors.Warp;
 import net.wesjd.anvilgui.AnvilGUI;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -18,6 +21,7 @@ import org.bukkit.inventory.ItemStack;
 import java.util.Collections;
 import java.util.Objects;
 
+@RootCommand
 public class WarpCommands extends HelpBase {
 
     public WarpCommands() {
@@ -28,8 +32,9 @@ public class WarpCommands extends HelpBase {
                 "renamewarp, Renames a warp, /renamewarp <warp>");
     }
 
-    @Command(names = {"warp", "w"}, permission = "nextron.warp", playerOnly = true)
-    public void warpCommand(Player player, @Param(name = "warp") Warp warp) {
+    @Execute(name = "warp", aliases = {"w"})
+    @Permission("nextron.warp")
+    public void warpCommand(@Context Player player, @Arg Warp warp) {
         if (Configs.warp.get("Warps." + warp.getName().toLowerCase()) == null) {
             player.sendMessage(Main.getPrefix() + Text.get("warp.error").replace("%w", warp.getName().toLowerCase()));
             return;
@@ -40,8 +45,9 @@ public class WarpCommands extends HelpBase {
         player.playSound(player.getLocation(), Sound.ENTITY_ENDERMAN_TELEPORT, 1.0f, 1.0f);
     }
 
-    @Command(names = {"setwarp"}, permission = "nextron.warp.set", playerOnly = true)
-    public void setWarpCommand(Player player, @Param(name = "name") String name) {
+    @Execute(name = "setwarp")
+    @Permission("nextron.setwarp")
+    public void setWarpCommand(@Context Player player, @Arg String name) {
         if (Configs.warp.get("Warps." + name.toLowerCase()) != null) {
             player.sendMessage(Main.getPrefix() + Text.get("setwarp.error").replace("%w", name.toLowerCase()));
             return;
@@ -51,8 +57,9 @@ public class WarpCommands extends HelpBase {
         player.sendMessage(Main.getPrefix() + Text.get("setwarp.success").replace("%w", name.toLowerCase()));
     }
 
-    @Command(names = {"delwarp"}, permission = "nextron.warp.delete")
-    public void deleteWarpCommand(CommandSender sender, @Param(name = "warp") Warp warp) {
+    @Execute(name = "delwarp")
+    @Permission("nextron.delwarp")
+    public void deleteWarpCommand(@Context CommandSender sender, @Arg Warp warp) {
         if (Configs.warp.get("Warps." + warp.getName().toLowerCase()) == null) {
             sender.sendMessage(Main.getPrefix() + Text.get("delwarp.error").replace("%w", warp.getName().toLowerCase()));
             return;
@@ -62,8 +69,9 @@ public class WarpCommands extends HelpBase {
         sender.sendMessage(Main.getPrefix() + Text.get("delwarp.success").replace("%w", warp.getName().toLowerCase()));
     }
 
-    @Command(names = {"renamewarp"}, permission = "nextron.warp.rename", playerOnly = true)
-    public void renameWarpCommand(Player player, @Param(name = "warp") Warp warp) {
+    @Execute(name = "renamewarp")
+    @Permission("nextron.renamewarp")
+    public void renameWarpCommand(@Context Player player, @Arg Warp warp) {
         if (Configs.warp.get("Warps." + warp.getName().toLowerCase()) == null) {
             player.sendMessage(Main.getPrefix() + Text.get("warp.error").replace("%w", warp.getName().toLowerCase()));
             return;

@@ -1,13 +1,17 @@
 package net.pandadev.nextron.commands;
 
 import ch.hekates.languify.language.Text;
+import dev.rollczi.litecommands.annotations.command.RootCommand;
+import dev.rollczi.litecommands.annotations.context.Context;
+import dev.rollczi.litecommands.annotations.execute.Execute;
+import dev.rollczi.litecommands.annotations.optional.OptionalArg;
+import dev.rollczi.litecommands.annotations.permission.Permission;
 import net.pandadev.nextron.Main;
-import net.pandadev.nextron.utils.commandapi.Command;
-import net.pandadev.nextron.utils.commandapi.paramter.Param;
 import org.bukkit.Location;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 
+@RootCommand
 public class SpawnCommand extends HelpBase {
 
     public SpawnCommand() {
@@ -15,8 +19,9 @@ public class SpawnCommand extends HelpBase {
                 "setspawn, Sets the spawn (teleport to it /spawn), /setspawn");
     }
 
-    @Command(names = {"spawn", "sp"}, permission = "nextron.spawn")
-    public void spawnCommand(Player player, @Param(name = "target") Player target) {
+    @Execute(name = "spawn", aliases = {"sp"})
+    @Permission("nextron.spawn")
+    public void spawnCommand(@Context Player player, @OptionalArg Player target) {
         if (target != null) {
             if (!player.hasPermission("nextron.spawn.other")) {
                 player.sendMessage(Main.getNoPerm());
@@ -44,8 +49,9 @@ public class SpawnCommand extends HelpBase {
         player.sendMessage(Main.getPrefix() + Text.get("spawn.teleport"));
     }
 
-    @Command(names = {"setspawn"}, permission = "nextron.setspawn")
-    public void setSpawnCommand(Player player) {
+    @Execute(name = "setspawn")
+    @Permission("nextron.setspawn")
+    public void setSpawnCommand(@Context Player player) {
         Main.getInstance().getConfig().set("spawn", player.getLocation());
         Main.getInstance().saveConfig();
         player.sendMessage(Main.getPrefix() + Text.get("setspawn.success"));

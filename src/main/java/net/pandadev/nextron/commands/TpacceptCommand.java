@@ -1,20 +1,25 @@
 package net.pandadev.nextron.commands;
 
 import ch.hekates.languify.language.Text;
+import dev.rollczi.litecommands.annotations.command.Command;
+import dev.rollczi.litecommands.annotations.context.Context;
+import dev.rollczi.litecommands.annotations.execute.Execute;
+import dev.rollczi.litecommands.annotations.permission.Permission;
 import net.pandadev.nextron.Main;
 import net.pandadev.nextron.utils.Configs;
-import net.pandadev.nextron.utils.commandapi.Command;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 
+@Command(name = "tpaccept")
+@Permission("nextron.tpaccept")
 public class TpacceptCommand extends HelpBase {
 
     public TpacceptCommand() {
         super("tpaccept, Accepts an incoming tpa request, /tpaccept");
     }
 
-    @Command(names = {"tpaccept"}, permission = "nextron.tpaccept")
-    public void tpacceptCommand(Player player) {
+    @Execute
+    public void tpacceptCommand(@Context Player player) {
         Player target = Main.tpa.get(player);
 
         if (target != null) {

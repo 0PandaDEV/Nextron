@@ -1,24 +1,29 @@
 package net.pandadev.nextron.commands;
 
 import ch.hekates.languify.language.Text;
+import dev.rollczi.litecommands.annotations.argument.Arg;
+import dev.rollczi.litecommands.annotations.command.Command;
+import dev.rollczi.litecommands.annotations.context.Context;
+import dev.rollczi.litecommands.annotations.execute.Execute;
+import dev.rollczi.litecommands.annotations.permission.Permission;
 import net.pandadev.nextron.Main;
 import net.pandadev.nextron.utils.Configs;
-import net.pandadev.nextron.utils.commandapi.Command;
-import net.pandadev.nextron.utils.commandapi.paramter.Param;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.SkullMeta;
 
+@Command(name = "head")
+@Permission("nextron.head")
 public class HeadCommand extends HelpBase {
 
     public HeadCommand() {
         super("head, Gives you the head of any player, /head <player>");
     }
 
-    @Command(names = {"head"}, permission = "nextron.head", playerOnly = true)
-    public void headCommand(Player player, @Param(name = "target") Player target) {
+    @Execute
+    public void headCommand(@Context Player player, @Arg Player target) {
         ItemStack item = new ItemStack(Material.PLAYER_HEAD, 1, (short) 3);
         SkullMeta meta = (SkullMeta) item.getItemMeta();
         meta.setDisplayName(target.getName());

@@ -1,24 +1,29 @@
 package net.pandadev.nextron.commands;
 
 import ch.hekates.languify.language.Text;
+import dev.rollczi.litecommands.annotations.command.Command;
+import dev.rollczi.litecommands.annotations.context.Context;
+import dev.rollczi.litecommands.annotations.execute.Execute;
+import dev.rollczi.litecommands.annotations.optional.OptionalArg;
+import dev.rollczi.litecommands.annotations.permission.Permission;
 import net.pandadev.nextron.Main;
 import net.pandadev.nextron.utils.Configs;
 import net.pandadev.nextron.utils.VanishAPI;
-import net.pandadev.nextron.utils.commandapi.Command;
-import net.pandadev.nextron.utils.commandapi.paramter.Param;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
+@Command(name = "vanish", aliases = {"v"})
+@Permission("nextron.vanish")
 public class VanishCommand extends HelpBase {
 
     public VanishCommand() {
         super("vanish, Hides you form the tab list and other players can't see you, /vanish [player]\n/v [player]");
     }
 
-    @Command(names = {"vanish", "v"}, permission = "nextron.vanish")
-    public void vanishCommand(CommandSender sender, @Param(name = "target", required = false) Player target) {
+    @Execute
+    public void vanishCommand(@Context CommandSender sender, @OptionalArg Player target) {
         if (target != null) {
             if (VanishAPI.isVanish(target)) {
                 Main.getInstance().getVanishAPI().setVanish(target, false);

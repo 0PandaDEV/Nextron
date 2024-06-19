@@ -1,10 +1,13 @@
 package net.pandadev.nextron.commands;
 
 import ch.hekates.languify.language.Text;
+import dev.rollczi.litecommands.annotations.command.RootCommand;
+import dev.rollczi.litecommands.annotations.execute.Execute;
+import dev.rollczi.litecommands.annotations.permission.Permission;
 import net.pandadev.nextron.Main;
-import net.pandadev.nextron.utils.commandapi.Command;
 import org.bukkit.entity.Player;
 
+@RootCommand
 public class TimeCommand extends HelpBase {
 
     public TimeCommand() {
@@ -15,25 +18,29 @@ public class TimeCommand extends HelpBase {
     }
 
 
-    @Command(names = "day", permission = "nextron.time.day")
+    @Execute(name = "day")
+    @Permission("nextron.day")
     public void dayCommand(Player player) {
         player.getLocation().getWorld().setTime(1000);
         player.sendMessage(Main.getPrefix() + Text.get("time.success").replace("%d", "day"));
     }
 
-    @Command(names = "night", permission = "nextron.time.night")
+    @Execute(name = "night")
+    @Permission("nextron.night")
     public void nightCommand(Player player) {
         player.getLocation().getWorld().setTime(13000);
         player.sendMessage(Main.getPrefix() + Text.get("time.success").replace("%d", "night"));
     }
 
-    @Command(names = "midnight", permission = "nextron.time.midnight")
+    @Execute(name = "midnight")
+    @Permission("nextron.midnight")
     public void midnightCommand(Player player) {
         player.getLocation().getWorld().setTime(18000);
         player.sendMessage(Main.getPrefix() + Text.get("time.success").replace("%d", "midnight"));
     }
 
-    @Command(names = "noon", permission = "nextron.time.noon")
+    @Execute(name = "noon")
+    @Permission("nextron.noon")
     public void noonCommand(Player player) {
         player.getLocation().getWorld().setTime(6000);
         player.sendMessage(Main.getPrefix() + Text.get("time.success").replace("%d", "noon"));

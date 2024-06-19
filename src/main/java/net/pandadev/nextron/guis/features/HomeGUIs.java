@@ -4,6 +4,8 @@ import ch.hekates.languify.language.Text;
 import dev.triumphteam.gui.builder.item.ItemBuilder;
 import dev.triumphteam.gui.guis.Gui;
 import net.kyori.adventure.text.Component;
+import net.pandadev.nextron.Main;
+import net.pandadev.nextron.guis.GUIs;
 import net.pandadev.nextron.utils.Configs;
 import net.pandadev.nextron.utils.Utils;
 import net.wesjd.anvilgui.AnvilGUI;
@@ -11,8 +13,6 @@ import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
-import net.pandadev.nextron.Main;
-import net.pandadev.nextron.guis.GUIs;
 
 import java.util.Collections;
 import java.util.Objects;
@@ -33,15 +33,15 @@ public class HomeGUIs {
                             Text.get("homegui.leftclick"),
                             Text.get("homegui.rightclick"))
                     .asGuiItem(inventoryClickEvent -> {
-                if (inventoryClickEvent.getClick().isRightClick()) {
-                    player.teleport((Location) Objects
-                            .requireNonNull(Configs.home.get("Homes." + player.getUniqueId() + "." + home)));
-                    player.playSound(player.getLocation(), Sound.ENTITY_ENDERMAN_TELEPORT, 1.0f, 1.0f);
-                    player.closeInventory();
-                } else if (inventoryClickEvent.getClick().isLeftClick()) {
-                    settings(player, home);
-                }
-            }));
+                        if (inventoryClickEvent.getClick().isRightClick()) {
+                            player.teleport((Location) Objects
+                                    .requireNonNull(Configs.home.get("Homes." + player.getUniqueId() + "." + home)));
+                            player.playSound(player.getLocation(), Sound.ENTITY_ENDERMAN_TELEPORT, 1.0f, 1.0f);
+                            player.closeInventory();
+                        } else if (inventoryClickEvent.getClick().isLeftClick()) {
+                            settings(player, home);
+                        }
+                    }));
 
         }
 
@@ -52,7 +52,7 @@ public class HomeGUIs {
         gui.open(player);
     }
 
-    public static void settings(Player player, String home){
+    public static void settings(Player player, String home) {
         Gui gui = Gui.gui()
                 .title(Component.text("§7" + home))
                 .rows(3)

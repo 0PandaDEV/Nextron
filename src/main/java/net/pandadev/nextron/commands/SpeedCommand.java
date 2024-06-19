@@ -1,21 +1,26 @@
 package net.pandadev.nextron.commands;
 
 import ch.hekates.languify.language.Text;
+import dev.rollczi.litecommands.annotations.command.Command;
+import dev.rollczi.litecommands.annotations.context.Context;
+import dev.rollczi.litecommands.annotations.execute.Execute;
+import dev.rollczi.litecommands.annotations.optional.OptionalArg;
+import dev.rollczi.litecommands.annotations.permission.Permission;
 import net.pandadev.nextron.Main;
 import net.pandadev.nextron.utils.Configs;
-import net.pandadev.nextron.utils.commandapi.Command;
-import net.pandadev.nextron.utils.commandapi.paramter.Param;
 import org.apache.commons.lang3.math.NumberUtils;
 import org.bukkit.entity.Player;
 
+@Command(name = "speed")
+@Permission("nextron.speed")
 public class SpeedCommand extends HelpBase {
 
     public SpeedCommand() {
         super("speed, Allows you to set your fly/walk speed, /speed [speed]");
     }
 
-    @Command(names = {"speed"}, permission = "nextron.speed", playerOnly = true)
-    public void speedCommand(Player player, @Param(name = "speed", required = false) Integer speed) {
+    @Execute
+    public void speedCommand(@Context Player player, @OptionalArg Integer speed) {
         if (speed == null) {
             if (!player.hasPermission("nextron.speed.reset")) {
                 player.sendMessage(Main.getNoPerm());

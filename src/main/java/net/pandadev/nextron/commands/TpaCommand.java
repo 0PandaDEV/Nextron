@@ -1,6 +1,11 @@
 package net.pandadev.nextron.commands;
 
 import ch.hekates.languify.language.Text;
+import dev.rollczi.litecommands.annotations.argument.Arg;
+import dev.rollczi.litecommands.annotations.command.Command;
+import dev.rollczi.litecommands.annotations.context.Context;
+import dev.rollczi.litecommands.annotations.execute.Execute;
+import dev.rollczi.litecommands.annotations.permission.Permission;
 import net.md_5.bungee.api.ChatMessageType;
 import net.md_5.bungee.api.chat.ClickEvent;
 import net.md_5.bungee.api.chat.ComponentBuilder;
@@ -8,19 +13,19 @@ import net.md_5.bungee.api.chat.HoverEvent;
 import net.md_5.bungee.api.chat.TextComponent;
 import net.pandadev.nextron.Main;
 import net.pandadev.nextron.utils.Configs;
-import net.pandadev.nextron.utils.commandapi.Command;
-import net.pandadev.nextron.utils.commandapi.paramter.Param;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 
+@Command(name = "tpa")
+@Permission("nextron.tpa")
 public class TpaCommand extends HelpBase {
 
     public TpaCommand() {
         super("tpa, Sends a tpa request to a player, /tpa <player>");
     }
 
-    @Command(names = "tpa", permission = "nextron.tpa", playerOnly = true)
-    public void tpaCommand(Player player, @Param(name = "target") Player target) {
+    @Execute
+    public void tpaCommand(@Context Player player, @Arg Player target) {
         if (target.equals(player)) {
             player.sendMessage(Main.getPrefix() + Text.get("tpa.error"));
             return;

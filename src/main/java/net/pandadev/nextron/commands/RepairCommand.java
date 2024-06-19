@@ -1,22 +1,27 @@
 package net.pandadev.nextron.commands;
 
 import ch.hekates.languify.language.Text;
+import dev.rollczi.litecommands.annotations.command.Command;
+import dev.rollczi.litecommands.annotations.context.Context;
+import dev.rollczi.litecommands.annotations.execute.Execute;
+import dev.rollczi.litecommands.annotations.optional.OptionalArg;
+import dev.rollczi.litecommands.annotations.permission.Permission;
 import net.pandadev.nextron.Main;
-import net.pandadev.nextron.utils.commandapi.Command;
-import net.pandadev.nextron.utils.commandapi.paramter.Param;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.Damageable;
 
+@Command(name = "repair")
+@Permission("nextron.repair")
 public class RepairCommand extends HelpBase {
 
     public RepairCommand() {
         super("repair, Repairs the current item in a player hand, /repair [player]");
     }
 
-    @Command(names = {"repair"}, permission = "nextron.repair")
-    public void repairCommand(CommandSender sender, @Param(name = "target", required = false) Player target) {
+    @Execute
+    public void repairCommand(@Context CommandSender sender, @OptionalArg Player target) {
         if (target == null) {
             if (!(sender instanceof Player player)) {
                 sender.sendMessage(Main.getCommandInstance());

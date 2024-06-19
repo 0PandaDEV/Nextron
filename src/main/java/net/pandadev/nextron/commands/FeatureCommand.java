@@ -1,30 +1,33 @@
 package net.pandadev.nextron.commands;
 
 import ch.hekates.languify.language.Text;
+import dev.rollczi.litecommands.annotations.argument.Arg;
+import dev.rollczi.litecommands.annotations.command.Command;
+import dev.rollczi.litecommands.annotations.context.Context;
+import dev.rollczi.litecommands.annotations.execute.Execute;
+import dev.rollczi.litecommands.annotations.permission.Permission;
 import net.pandadev.nextron.Main;
+import net.pandadev.nextron.arguments.objects.Feature;
 import net.pandadev.nextron.guis.GUIs;
 import net.pandadev.nextron.utils.Configs;
 import net.pandadev.nextron.utils.RankAPI;
-import net.pandadev.nextron.utils.commandapi.Command;
-import net.pandadev.nextron.utils.commandapi.paramter.Param;
-import net.pandadev.nextron.utils.commandapi.processors.Feature;
 import org.bukkit.Bukkit;
 import org.bukkit.Sound;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-import java.util.Arrays;
-import java.util.List;
 import java.util.Objects;
 
+@Command(name = "features")
+@Permission("nextron.features")
 public class FeatureCommand extends HelpBase {
 
     public FeatureCommand() {
         super("features, Opens a GUI where you can enable/disable all the systems in the plugin, /features [enable/disable] [feature]");
     }
 
-    @Command(names = {"features"}, permission = "nextron.features", playerOnly = true)
-    public void featuresCommand(Player player) {
+    @Execute(name = "features")
+    void featuresCommand(@Context Player player) {
         if (!player.isOp()) {
             player.sendMessage(Main.getNoPerm());
             return;
@@ -33,15 +36,8 @@ public class FeatureCommand extends HelpBase {
         player.playSound(player.getLocation(), Sound.BLOCK_BARREL_OPEN, 100, 1);
     }
 
-    @Command(names = {"features enable"}, permission = "nextron.features.enable")
-    public void enableCommand(CommandSender sender, @Param(name = "system") Feature feature) {
-        List<String> validValues = Arrays.asList("warp_system", "home_system", "rank_system", "tpa_system", "join_leave_system");
-
-        if (!validValues.contains(feature.getName())) {
-            sender.sendMessage(Main.getPrefix() + Text.get("feature.validvalues"));
-            return;
-        }
-
+    @Execute(name = "features enable")
+    void enableCommand(@Context CommandSender sender, @Arg Feature feature) {
         Configs.feature.set(feature.getName(), true);
         Configs.saveFeatureConfig();
         for (Player onlineplayer : Bukkit.getOnlinePlayers()) {
@@ -63,15 +59,8 @@ public class FeatureCommand extends HelpBase {
                 Main.getPrefix() + Text.get("feature.enable").replace("%n", feature.getName().replace("_system", "")));
     }
 
-    @Command(names = {"features disable"}, permission = "nextron.features.disable")
-    public void disableCommand(CommandSender sender, @Param(name = "system") Feature feature) {
-        List<String> validValues = Arrays.asList("warp_system", "home_system", "rank_system", "tpa_system", "join_leave_system");
-
-        if (!validValues.contains(feature.getName())) {
-            sender.sendMessage(Main.getPrefix() + Text.get("feature.validvalues"));
-            return;
-        }
-
+    @Execute(name = "features disable")
+    void disableCommand(@Context CommandSender sender, @Arg Feature feature) {
         Configs.feature.set(feature.getName(), false);
         Configs.saveFeatureConfig();
         for (Player onlineplayer : Bukkit.getOnlinePlayers()) {

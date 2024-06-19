@@ -1,13 +1,18 @@
 package net.pandadev.nextron.commands;
 
 import ch.hekates.languify.language.Text;
+import dev.rollczi.litecommands.annotations.argument.Arg;
+import dev.rollczi.litecommands.annotations.command.RootCommand;
+import dev.rollczi.litecommands.annotations.context.Context;
+import dev.rollczi.litecommands.annotations.execute.Execute;
+import dev.rollczi.litecommands.annotations.optional.OptionalArg;
+import dev.rollczi.litecommands.annotations.permission.Permission;
 import net.pandadev.nextron.Main;
-import net.pandadev.nextron.utils.commandapi.Command;
-import net.pandadev.nextron.utils.commandapi.paramter.Param;
 import org.bukkit.GameMode;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
+@RootCommand
 public class GamemodeCommand extends HelpBase {
 
     public GamemodeCommand() {
@@ -28,8 +33,10 @@ public class GamemodeCommand extends HelpBase {
         );
     }
 
-    @Command(names = {"gmc", "creative", "gm1"}, permission = "nextron.gamemode.creative")
-    public void creative(CommandSender sender, @Param(name = "target", required = false) Player target) {
+
+    @Execute(name = "gmc", aliases = {"creative", "gm1"})
+    @Permission("nextron.gamemode.creative")
+    void creative(@Context CommandSender sender, @OptionalArg Player target) {
         if (target == null) {
             if (!(sender instanceof Player)) {
                 sender.sendMessage("§6This command can only be run by a player!");
@@ -46,8 +53,9 @@ public class GamemodeCommand extends HelpBase {
         sender.sendMessage(Main.getPrefix() + Text.get("gamemode.other.success").replace("%t", target.getName()).replace("%g", GameMode.CREATIVE.toString().toLowerCase()));
     }
 
-    @Command(names = {"gms", "survival", "gm0"}, permission = "nextron.gamemode.survival")
-    public void survival(CommandSender sender, @Param(name = "target", required = false) Player target) {
+    @Execute(name = "gms", aliases = {"survival", "gm0"})
+    @Permission("nextron.gamemode.survival")
+    void survival(@Context CommandSender sender, @OptionalArg Player target) {
         if (target == null) {
             if (!(sender instanceof Player)) {
                 sender.sendMessage("§6This command can only be run by a player!");
@@ -64,8 +72,9 @@ public class GamemodeCommand extends HelpBase {
         sender.sendMessage(Main.getPrefix() + Text.get("gamemode.other.success").replace("%t", target.getName()).replace("%g", GameMode.SURVIVAL.toString().toLowerCase()));
     }
 
-    @Command(names = {"gmsp", "spectator", "gm3"}, permission = "nextron.gamemode.spectator")
-    public void spectator(CommandSender sender, @Param(name = "target", required = false) Player target) {
+    @Execute(name = "gmsp", aliases = {"spectator", "gm3"})
+    @Permission("nextron.gamemode.spectator")
+    void spectator(@Context CommandSender sender, @OptionalArg Player target) {
         if (target == null) {
             if (!(sender instanceof Player)) {
                 sender.sendMessage("§6This command can only be run by a player!");
@@ -82,8 +91,9 @@ public class GamemodeCommand extends HelpBase {
         sender.sendMessage(Main.getPrefix() + Text.get("gamemode.other.success").replace("%t", target.getName()).replace("%g", GameMode.SPECTATOR.toString().toLowerCase()));
     }
 
-    @Command(names = {"gma", "adventure", "gm2"}, permission = "nextron.gamemode.adventure")
-    public void adventure(CommandSender sender, @Param(name = "target", required = false) Player target) {
+    @Execute(name = "gma", aliases = {"adventure", "gm2"})
+    @Permission("nextron.gamemode.adventure")
+    void adventure(@Context CommandSender sender, @OptionalArg Player target) {
         if (target == null) {
             if (!(sender instanceof Player)) {
                 sender.sendMessage("§6This command can only be run by a player!");
@@ -101,8 +111,9 @@ public class GamemodeCommand extends HelpBase {
         sender.sendMessage(Main.getPrefix() + Text.get("gamemode.other.success").replace("%t", target.getName()).replace("%g", GameMode.ADVENTURE.toString().toLowerCase()));
     }
 
-    @Command(names = {"gamemode", "gm"}, permission = "nextron.gamemode")
-    public void gamemodeCommand(CommandSender sender, @Param(name = "gamemode") GameMode gamemode, @Param(name = "target", required = false) Player target) {
+    @Execute(name = "gamemode", aliases = {"gm"})
+    @Permission("nextron.gamemode")
+    void gamemodeCommand(@Context CommandSender sender, @Arg GameMode gamemode, @OptionalArg Player target) {
         if (target == null) {
             if (!(sender instanceof Player)) {
                 sender.sendMessage("§6This command can only be run by a player!");

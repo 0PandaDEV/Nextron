@@ -1,18 +1,23 @@
 package net.pandadev.nextron.commands;
 
+import dev.rollczi.litecommands.annotations.command.Command;
+import dev.rollczi.litecommands.annotations.context.Context;
+import dev.rollczi.litecommands.annotations.execute.Execute;
+import dev.rollczi.litecommands.annotations.optional.OptionalArg;
+import dev.rollczi.litecommands.annotations.permission.Permission;
 import net.pandadev.nextron.Main;
-import net.pandadev.nextron.utils.commandapi.Command;
-import net.pandadev.nextron.utils.commandapi.paramter.Param;
 import org.bukkit.entity.Player;
 
+@Command(name = "enderchest", aliases = "ec")
+@Permission("nextron.enderchest")
 public class EnderchestCommand extends HelpBase {
+
     public EnderchestCommand() {
         super("enderchest, Opens a GUI where the player can access his enderchest., /enderchest [player]\n/ec [player]");
     }
 
-
-    @Command(names = {"enderchest", "ec"}, permission = "nextron.enderchest", playerOnly = true)
-    public void enderchestCommand(Player player, @Param(name = "target", required = false) Player target) {
+    @Execute
+    void enderchestCommand(@Context Player player, @OptionalArg Player target) {
         if (target == null) {
             player.openInventory(player.getEnderChest());
             return;

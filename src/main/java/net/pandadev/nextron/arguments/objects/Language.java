@@ -1,4 +1,4 @@
-package net.pandadev.nextron.utils.commandapi.processors;
+package net.pandadev.nextron.arguments.objects;
 
 import lombok.Getter;
 

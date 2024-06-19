@@ -1,26 +1,29 @@
 package net.pandadev.nextron.commands;
 
 import ch.hekates.languify.language.Text;
+import dev.rollczi.litecommands.annotations.command.Command;
+import dev.rollczi.litecommands.annotations.context.Context;
+import dev.rollczi.litecommands.annotations.execute.Execute;
+import dev.rollczi.litecommands.annotations.optional.OptionalArg;
+import dev.rollczi.litecommands.annotations.permission.Permission;
 import net.pandadev.nextron.Main;
 import net.pandadev.nextron.utils.Configs;
-import net.pandadev.nextron.utils.commandapi.Command;
-import net.pandadev.nextron.utils.commandapi.paramter.Param;
 import org.bukkit.Location;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import java.util.Objects;
 
+@Command(name = "back")
+@Permission("nextron.back")
 public class BackCommand extends HelpBase {
 
     public BackCommand() {
         super("back, Teleports the player back to the last (death, tpa, home, warp) position., /back [player]");
     }
 
-    @Command(names = {"back"}, permission = "nextron.back")
-    public void backCommand(CommandSender sender, @Param(name = "target", required = false) Player target) {
-
-
+    @Execute
+    void backCommand(@Context CommandSender sender, @OptionalArg Player target) {
         Player player = (Player) (sender);
 
         if (target == null) {

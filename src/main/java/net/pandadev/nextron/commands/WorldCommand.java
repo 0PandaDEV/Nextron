@@ -1,10 +1,14 @@
 package net.pandadev.nextron.commands;
 
 import ch.hekates.languify.language.Text;
+import dev.rollczi.litecommands.annotations.argument.Arg;
+import dev.rollczi.litecommands.annotations.command.RootCommand;
+import dev.rollczi.litecommands.annotations.context.Context;
+import dev.rollczi.litecommands.annotations.execute.Execute;
+import dev.rollczi.litecommands.annotations.optional.OptionalArg;
+import dev.rollczi.litecommands.annotations.permission.Permission;
 import net.pandadev.nextron.Main;
-import net.pandadev.nextron.utils.commandapi.Command;
-import net.pandadev.nextron.utils.commandapi.paramter.Param;
-import net.pandadev.nextron.utils.commandapi.processors.Seed;
+import net.pandadev.nextron.arguments.objects.Seed;
 import org.bukkit.Bukkit;
 import org.bukkit.World;
 import org.bukkit.WorldCreator;
@@ -22,14 +26,17 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
+@RootCommand
+@Permission("nextron.world.*")
 public class WorldCommand extends HelpBase {
 
     public WorldCommand() {
         super("world, Allows you to manage your worlds on a server, /world tp <world>\n/world create <name>\n/world delete <world\n/world load <world>\n/world unload <world>");
     }
 
-    @Command(names = {"world tp"}, permission = "nextron.world", playerOnly = true)
-    public void worldCommand(Player player, @Param(name = "world") World world) {
+    @Execute(name = "world tp")
+    @Permission("nextron.world.tp")
+    public void worldCommand(@Context Player player, @Arg World world) {
         List<World> worlds = Bukkit.getWorlds();
         List<String> world_names = new ArrayList<>();
         for (World worldl : worlds) {
@@ -49,8 +56,9 @@ public class WorldCommand extends HelpBase {
         }
     }
 
-    @Command(names = {"world create"}, permission = "nextron.world.create")
-    public void createWorldCommand(CommandSender sender, @Param(name = "name") String name, @Param(name = "seed", required = false, concated = true) Seed seed) {
+    @Execute(name = "world create")
+    @Permission("nextron.world.create")
+    public void createWorldCommand(@Context CommandSender sender, @Arg String name, @OptionalArg Seed seed) {
         sender.sendMessage(Main.getPrefix() + Text.get("world.create.start").replace("%w", name));
 
         Bukkit.getScheduler().runTask(Main.getInstance(), () -> {
@@ -79,8 +87,9 @@ public class WorldCommand extends HelpBase {
         }
     }
 
-    @Command(names = {"world delete"}, permission = "nextron.world.delete")
-    public void deleteWorldCommand(CommandSender sender, @Param(name = "world") World worldName) {
+    @Execute(name = "world delete")
+    @Permission("nextron.world.delete")
+    public void deleteWorldCommand(@Context CommandSender sender, @Arg World worldName) {
         if (worldName.getName().equals("world")) {
             sender.sendMessage(Main.getPrefix() + Text.get("world.delete.default.error"));
             return;
@@ -112,8 +121,9 @@ public class WorldCommand extends HelpBase {
         }
     }
 
-    @Command(names = {"world load"}, permission = "nextron.load")
-    public void loadCommand(CommandSender sender, @Param(name = "world") String worldName) {
+    @Execute(name = "world load")
+    @Permission("nextron.world.load")
+    public void loadCommand(@Context CommandSender sender, @Arg String worldName) {
         File worldFolder = new File(Bukkit.getServer().getWorldContainer().getAbsolutePath(), worldName);
         if (!worldFolder.exists()) {
             sender.sendMessage(Main.getPrefix() + Text.get("world.load.notexist").replace("%w", worldName));
@@ -139,8 +149,9 @@ public class WorldCommand extends HelpBase {
         }
     }
 
-    @Command(names = {"world unload"}, permission = "nextron.unload")
-    public void unloadCommand(CommandSender sender, @Param(name = "world") World worldName) {
+    @Execute(name = "world unload")
+    @Permission("nextron.world.unload")
+    public void unloadCommand(@Context CommandSender sender, @Arg World worldName) {
         if (worldName.getName().equals("world")) {
             sender.sendMessage(Main.getPrefix() + Text.get("world.unload.default.error"));
             return;

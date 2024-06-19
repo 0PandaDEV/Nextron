@@ -1,21 +1,26 @@
 package net.pandadev.nextron.commands;
 
 import ch.hekates.languify.language.Text;
+import dev.rollczi.litecommands.annotations.command.Command;
+import dev.rollczi.litecommands.annotations.context.Context;
+import dev.rollczi.litecommands.annotations.execute.Execute;
+import dev.rollczi.litecommands.annotations.optional.OptionalArg;
+import dev.rollczi.litecommands.annotations.permission.Permission;
 import net.pandadev.nextron.Main;
 import net.pandadev.nextron.utils.Configs;
-import net.pandadev.nextron.utils.commandapi.Command;
-import net.pandadev.nextron.utils.commandapi.paramter.Param;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
+@Command(name = "fly")
+@Permission("nextron.fly")
 public class FlyCommand extends HelpBase {
 
     public FlyCommand() {
         super("fly, Enables/disables fly for you or another player, /fly [player]");
     }
 
-    @Command(names = {"fly"}, permission = "nextron.fly")
-    public void flyCommand(CommandSender sender, @Param(name = "target", required = false) Player target) {
+    @Execute
+    void flyCommand(@Context CommandSender sender, @OptionalArg Player target) {
         if (target == null) {
             if (!(sender instanceof Player)) {
                 sender.sendMessage(Main.getCommandInstance());

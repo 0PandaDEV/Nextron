@@ -1,17 +1,21 @@
 package net.pandadev.nextron.commands;
 
 import ch.hekates.languify.language.Text;
+import dev.rollczi.litecommands.annotations.argument.Arg;
+import dev.rollczi.litecommands.annotations.command.RootCommand;
+import dev.rollczi.litecommands.annotations.context.Context;
+import dev.rollczi.litecommands.annotations.execute.Execute;
+import dev.rollczi.litecommands.annotations.optional.OptionalArg;
+import dev.rollczi.litecommands.annotations.permission.Permission;
 import net.md_5.bungee.api.ChatMessageType;
 import net.md_5.bungee.api.chat.ClickEvent;
 import net.md_5.bungee.api.chat.ComponentBuilder;
 import net.md_5.bungee.api.chat.HoverEvent;
 import net.md_5.bungee.api.chat.TextComponent;
 import net.pandadev.nextron.Main;
+import net.pandadev.nextron.arguments.objects.Home;
 import net.pandadev.nextron.utils.Configs;
 import net.pandadev.nextron.utils.Utils;
-import net.pandadev.nextron.utils.commandapi.Command;
-import net.pandadev.nextron.utils.commandapi.paramter.Param;
-import net.pandadev.nextron.utils.commandapi.processors.Home;
 import net.wesjd.anvilgui.AnvilGUI;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -22,6 +26,7 @@ import org.bukkit.inventory.ItemStack;
 import java.util.Collections;
 import java.util.Objects;
 
+@RootCommand
 public class HomeCommands extends HelpBase {
 
     public HomeCommands() {
@@ -32,8 +37,9 @@ public class HomeCommands extends HelpBase {
                 "renamehome, Renames a home, /renamehome <home>");
     }
 
-    @Command(names = {"home", "h"}, permission = "nextron.home", playerOnly = true)
-    public void home(Player player, @Param(name = "home", required = false) Home home) {
+    @Execute(name = "home", aliases = {"h"})
+    @Permission("nextron.home")
+    public void home(@Context Player player, @OptionalArg Home home) {
         if (home == null) {
             if (Configs.home.getString("Homes." + player.getUniqueId() + ".default") != null) {
                 player.teleport((Location) Objects
@@ -58,8 +64,9 @@ public class HomeCommands extends HelpBase {
         }
     }
 
-    @Command(names = {"sethome"}, permission = "nextron.sethome", playerOnly = true)
-    public void setHome(Player player, @Param(name = "name", required = false) String name) {
+    @Execute(name = "sethome")
+    @Permission("nextron.sethome")
+    public void setHome(@Context Player player, @OptionalArg String name) {
         if (name == null) {
             Configs.home.set("Homes." + player.getUniqueId() + ".default", player.getLocation());
             Configs.saveHomeConfig();
@@ -82,8 +89,9 @@ public class HomeCommands extends HelpBase {
         }
     }
 
-    @Command(names = {"delhome"}, permission = "nextron.delhome", playerOnly = true)
-    public void delHome(Player player, @Param(name = "home") Home home) {
+    @Execute(name = "delhome")
+    @Permission("nextron.delhome")
+    public void delHome(@Context Player player, @Arg Home home) {
         if (Configs.home.getString("Homes." + player.getUniqueId() + "." + home.getName().toLowerCase()) != null) {
             Configs.home.set("Homes." + player.getUniqueId() + "." + home.getName().toLowerCase(), null);
             Configs.saveHomeConfig();
@@ -95,8 +103,9 @@ public class HomeCommands extends HelpBase {
         }
     }
 
-    @Command(names = {"renamehome"}, permission = "nextron.renamehome", playerOnly = true)
-    public void renameHome(Player player, @Param(name = "home") Home home) {
+    @Execute(name = "renamehome")
+    @Permission("nextron.renamehome")
+    public void renameHome(@Context Player player, @Arg Home home) {
         if (Configs.home.getString("Homes." + player.getUniqueId() + "." + home.getName().toLowerCase()) == null) {
             player.sendMessage(
                     Main.getPrefix() + Text.get("home.notfound").replace("%h", home.getName().toLowerCase()));

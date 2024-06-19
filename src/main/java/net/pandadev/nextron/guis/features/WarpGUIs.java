@@ -4,6 +4,8 @@ import ch.hekates.languify.language.Text;
 import dev.triumphteam.gui.builder.item.ItemBuilder;
 import dev.triumphteam.gui.guis.Gui;
 import net.kyori.adventure.text.Component;
+import net.pandadev.nextron.Main;
+import net.pandadev.nextron.guis.GUIs;
 import net.pandadev.nextron.utils.Configs;
 import net.pandadev.nextron.utils.Utils;
 import net.wesjd.anvilgui.AnvilGUI;
@@ -11,8 +13,6 @@ import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
-import net.pandadev.nextron.Main;
-import net.pandadev.nextron.guis.GUIs;
 
 import java.util.Collections;
 import java.util.Objects;
@@ -50,7 +50,7 @@ public class WarpGUIs {
         gui.open(player);
     }
 
-    public static void settings(Player player, String warp){
+    public static void settings(Player player, String warp) {
         Gui gui = Gui.gui()
                 .title(Component.text(warp))
                 .rows(3)
