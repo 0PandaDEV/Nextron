@@ -2,10 +2,13 @@ package net.pandadev.nextron.commands;
 
 import ch.hekates.languify.language.Text;
 import dev.rollczi.litecommands.annotations.command.RootCommand;
+import dev.rollczi.litecommands.annotations.context.Context;
 import dev.rollczi.litecommands.annotations.execute.Execute;
 import dev.rollczi.litecommands.annotations.permission.Permission;
 import net.pandadev.nextron.Main;
 import org.bukkit.entity.Player;
+
+import java.util.Objects;
 
 @RootCommand
 public class TimeCommand extends HelpBase {
@@ -20,29 +23,29 @@ public class TimeCommand extends HelpBase {
 
     @Execute(name = "day")
     @Permission("nextron.day")
-    public void dayCommand(Player player) {
-        player.getLocation().getWorld().setTime(1000);
+    public void dayCommand(@Context Player player) {
+        Objects.requireNonNull(player.getLocation().getWorld()).setTime(1000);
         player.sendMessage(Main.getPrefix() + Text.get("time.success").replace("%d", "day"));
     }
 
     @Execute(name = "night")
     @Permission("nextron.night")
-    public void nightCommand(Player player) {
-        player.getLocation().getWorld().setTime(13000);
+    public void nightCommand(@Context Player player) {
+        Objects.requireNonNull(player.getLocation().getWorld()).setTime(13000);
         player.sendMessage(Main.getPrefix() + Text.get("time.success").replace("%d", "night"));
     }
 
     @Execute(name = "midnight")
     @Permission("nextron.midnight")
-    public void midnightCommand(Player player) {
-        player.getLocation().getWorld().setTime(18000);
+    public void midnightCommand(@Context Player player) {
+        Objects.requireNonNull(player.getLocation().getWorld()).setTime(18000);
         player.sendMessage(Main.getPrefix() + Text.get("time.success").replace("%d", "midnight"));
     }
 
     @Execute(name = "noon")
     @Permission("nextron.noon")
-    public void noonCommand(Player player) {
-        player.getLocation().getWorld().setTime(6000);
+    public void noonCommand(@Context Player player) {
+        Objects.requireNonNull(player.getLocation().getWorld()).setTime(6000);
         player.sendMessage(Main.getPrefix() + Text.get("time.success").replace("%d", "noon"));
     }
 
