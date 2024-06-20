@@ -110,3 +110,5 @@ commands:
     permission: nextron.hat
   top:
     permission: nextron.top
+  tpahere:
+    permission: nextron.tpahere
