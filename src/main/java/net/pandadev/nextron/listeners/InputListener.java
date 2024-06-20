@@ -8,13 +8,15 @@ import org.bukkit.event.player.AsyncPlayerChatEvent;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
+import java.util.concurrent.CompletableFuture;
 
 public class InputListener implements Listener {
+    private static final Map<UUID, CompletableFuture<String>> listenerMap = new HashMap<>();
 
-    private static final Map<UUID, InputListenerResponse> listenerMap = new HashMap<>();
-
-    public static void listen(UUID uuid, InputListenerResponse response) {
-        listenerMap.putIfAbsent(uuid, response);
+    public static CompletableFuture<String> listen(UUID uuid) {
+        CompletableFuture<String> future = new CompletableFuture<>();
+        listenerMap.put(uuid, future);
+        return future;
     }
 
     @EventHandler
@@ -23,16 +25,9 @@ public class InputListener implements Listener {
         UUID uuid = player.getUniqueId();
 
         if (listenerMap.containsKey(uuid)) {
-            InputListenerResponse response = listenerMap.get(uuid);
-            response.handle(event);
-            listenerMap.remove(uuid);
+            event.setCancelled(true);
+            CompletableFuture<String> future = listenerMap.remove(uuid);
+            future.complete(event.getMessage());
         }
     }
-
-
-    public interface InputListenerResponse {
-        void handle(AsyncPlayerChatEvent event);
-
-    }
-
 }

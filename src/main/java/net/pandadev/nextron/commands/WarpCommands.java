@@ -104,7 +104,7 @@ public class WarpCommands extends CommandBase implements CommandExecutor, TabCom
                         if (Utils.countWords(text.getText()) > 1) {
                             player.playSound(player.getLocation(), Sound.ENTITY_PILLAGER_AMBIENT, 100, 0.5f);
                             return Collections.singletonList(
-                                    AnvilGUI.ResponseAction.replaceInputText(Text.get("anvil_gui_one_word")));
+                                    AnvilGUI.ResponseAction.replaceInputText(Text.get("anvil.gui.one.word")));
                         }
                         Configs.warp.set("Warps." + text.getText(), Configs.warp.get("Warps." + args[0]));
                         Configs.warp.set("Warps." + args[0], null);

@@ -110,7 +110,7 @@
   "feature.enable": "§7The §a%n system §7has been enabled",
   "feature.disable": "§7The §a%n system §7has been disabled",
   "rename.error": "§cThere is no item in your main hand",
-  "anvil.gui.one.word": "Only one word",
+  "anvil.gui.one.word": "§cOnly one word",
   "rank.gui.not.ready": "§7Not ready to create the rank",
   "rank.gui.ready": "§aReady to create the rank",
   "god.on": "§7You're now in god mode",

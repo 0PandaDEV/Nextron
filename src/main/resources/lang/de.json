@@ -111,7 +111,7 @@
   "feature.enable": "§7Das §a%n System §7wurde deaktiviert",
   "feature.disable": "§7Das §a%n System §7wurde aktiviert",
   "rename.error": "§cDu hast kein Item in der Hand",
-  "anvil.gui.one.word": "Nur ein Wort",
+  "anvil.gui.one.word": "§cNur ein Wort",
   "rank.gui.not.ready": "§7Nicht bereit einen neuen Rank zu erstellen",
   "rank.gui.ready": "§aBereit einen neuen Rank zu erstellen",
   "god.on": "§7Du bist jetzt im God modus",
