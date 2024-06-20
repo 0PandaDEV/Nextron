@@ -1,8 +1,13 @@
 package net.pandadev.nextron.commands;
 
 import ch.hekates.languify.language.Text;
+import net.md_5.bungee.api.chat.ClickEvent;
+import net.md_5.bungee.api.chat.ComponentBuilder;
+import net.md_5.bungee.api.chat.HoverEvent;
+import net.md_5.bungee.api.chat.TextComponent;
 import net.pandadev.nextron.Main;
 import net.pandadev.nextron.guis.features.RankGUIs;
+import net.pandadev.nextron.listeners.InputListener;
 import net.pandadev.nextron.utils.RankAPI;
 import net.pandadev.nextron.utils.Utils;
 import net.wesjd.anvilgui.AnvilGUI;
@@ -119,17 +124,20 @@ public class RankCommand extends CommandBase implements CommandExecutor, TabComp
                 return;
             }
 
-            new AnvilGUI.Builder()
-                    .onClick((state, text) -> {
-                        RankAPI.setPrefix((Player) sender, args[1].toLowerCase(),
-                                ChatColor.translateAlternateColorCodes('&', " " + text.getText()));
-                        return Collections.singletonList(AnvilGUI.ResponseAction.close());
-                    })
-                    .text(Main.getInstance().getConfig().getString("Ranks." + args[1].toLowerCase() + ".prefix").replace("§", "&"))
-                    .itemLeft(new ItemStack(Material.NAME_TAG))
-                    .title("Enter the new prefix")
-                    .plugin(Main.getInstance())
-                    .open(player);
+
+            player.sendMessage(Main.getPrefix() + "§7Type the new prefix for the rank in to the chat");
+            TextComponent command = new TextComponent("§a[Current Prefix]");
+            command.setClickEvent(new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, Main.getInstance().getConfig().getString("Ranks." + args[1].toLowerCase() + ".prefix").replace("§", "&")));
+            command.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ComponentBuilder("Click to get the current prefix of the rank " + Main.getInstance().getConfig().getString("Ranks." + args[1].toLowerCase() + ".prefix")).create()));
+
+            player.spigot().sendMessage(command);
+
+            player.playSound(player.getLocation(), Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 100, 1f);
+
+            InputListener.listen(player.getUniqueId()).thenAccept(response -> {
+                RankAPI.setPrefix((Player) sender, args[1].toLowerCase(), ChatColor.translateAlternateColorCodes('&', " " + response));
+            });
+
 
         } else if (args.length == 2 && args[0].equalsIgnoreCase("name")) {
             if (!(sender instanceof Player)) {
