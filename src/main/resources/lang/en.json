@@ -151,5 +151,12 @@
   "getpos.hover": "§7Click to teleport to ",
   "hat.success": "§7Successfully set block in your hand as hat",
   "top.success": "§7You got teleported to the highest block above you",
-  "top.no_blocks_above": "§cThere are no blocks above you"
+  "top.no_blocks_above": "§cThere are no blocks above you",
+  "tpahere.sender.success": "§7Tpahere request was sent to §a%t",
+  "tpahere.target.success.1": "§a%p §7has requested to teleport you to them",
+  "tpahere.target.success.2": "§7Type §a/tpaccept §7to accept their request or click here §c",
+  "tpahere.error": "§cYou cannot tpahere yourself",
+  "tpahere.allow": "§cYou cannot send a tpahere request to this player because he disabled them",
+  "tpdenyhere.player": "§7You denied the tpahere request from §a%p",
+  "tpdenyhere.target": "§a%p §7denied your tpahere request"
 }

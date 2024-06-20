@@ -35,6 +35,7 @@ public final class Main extends JavaPlugin {
     private UpdateChecker updateChecker;
 
     public static HashMap<Player, Player> tpa = new HashMap<>();
+    public static HashMap<Player, Player> tpahere = new HashMap<>();
 
     @Override
     public void onEnable() {
@@ -156,6 +157,7 @@ public final class Main extends JavaPlugin {
         getCommand("getposition").setExecutor(new GetPosCommand());
         getCommand("hat").setExecutor(new HatCommand());
         getCommand("top").setExecutor(new TopCommand());
+        getCommand("tpahere").setExecutor(new TpahereCommand());
     }
 
     private void registerListeners() {
