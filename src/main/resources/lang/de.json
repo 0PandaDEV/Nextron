@@ -152,5 +152,12 @@
   "getpos.hover": "§7Klicke zum teleportieren ",
   "hat.success": "§7Der block in deiner hand wurde erfolgreich als hut gesetzt",
   "top.success": "§7Du wurdes zum höchsten block über dir teleportiert",
-  "top.no_blocks_above": "§cEs gibt keine blöcke über dir"
+  "top.no_blocks_above": "§cEs gibt keine blöcke über dir",
+  "tpahere.sender.success": "§7Tpahere anfrage wurde and §a%t §7gesendet",
+  "tpahere.target.success.1": "§a%p §7will dich zu sich teleportieren",
+  "tpahere.target.success.2": "§7Führe §a/tpaccept §7aus um die Anfrage anzunehmen oder clicke auf §c",
+  "tpahere.error": "§cDu kannst nicht dir selbst eine Tpahere schicken",
+  "tpahere.allow": "§cDu kannst diesem spieler keine Tpahere anfrage schicken weil er diese deaktiviert hat",
+  "tpdenyhere.player": "§7Du hast die tpahere anfrage von §a%p §7abgelehnt",
+  "tpdenyhere.target": "§a%p §7hat deine tpahere anfrage abgelehnt"
 }
