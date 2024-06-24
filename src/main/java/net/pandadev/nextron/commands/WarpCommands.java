@@ -2,21 +2,18 @@ package net.pandadev.nextron.commands;
 
 import ch.hekates.languify.language.Text;
 import net.pandadev.nextron.Main;
+import net.pandadev.nextron.listeners.InputListener;
 import net.pandadev.nextron.utils.Configs;
 import net.pandadev.nextron.utils.Utils;
-import net.wesjd.anvilgui.AnvilGUI;
 import org.bukkit.Location;
-import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabCompleter;
 import org.bukkit.entity.Player;
-import org.bukkit.inventory.ItemStack;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
@@ -99,26 +96,21 @@ public class WarpCommands extends CommandBase implements CommandExecutor, TabCom
                 return;
             }
 
-            new AnvilGUI.Builder()
-                    .onClick((state, text) -> {
-                        if (Utils.countWords(text.getText()) > 1) {
-                            player.playSound(player.getLocation(), Sound.ENTITY_PILLAGER_AMBIENT, 100, 0.5f);
-                            return Collections.singletonList(
-                                    AnvilGUI.ResponseAction.replaceInputText(Text.get("anvil.gui.one.word")));
-                        }
-                        Configs.warp.set("Warps." + text.getText(), Configs.warp.get("Warps." + args[0]));
-                        Configs.warp.set("Warps." + args[0], null);
-                        Configs.saveHomeConfig();
-                        sender.sendMessage(Main.getPrefix() + Text.get("warp.rename.success").replace("%h", args[0])
-                                .replace("%n", text.getText()));
-                        return Collections.singletonList(AnvilGUI.ResponseAction.close());
-                    })
-                    .text(Configs.warp.getString("Warps." + args[0]))
-                    .preventClose()
-                    .itemLeft(new ItemStack(Material.NAME_TAG))
-                    .title("Enter a name")
-                    .plugin(Main.getInstance())
-                    .open(player);
+            player.sendMessage(Main.getPrefix() + "§7Type the new name for the warp in to the chat");
+            player.playSound(player.getLocation(), Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 100, 1f);
+
+            InputListener.listen(player.getUniqueId()).thenAccept(response -> {
+                if (Utils.countWords(response) > 1) {
+                    player.playSound(player.getLocation(), Sound.ENTITY_PILLAGER_AMBIENT, 100, 0.5f);
+                    player.sendMessage(Text.get("anvil.gui.one.word"));
+                    return;
+                }
+                Configs.warp.set("Warps." + response, Configs.warp.get("Warps." + args[0]));
+                Configs.warp.set("Warps." + args[0], null);
+                Configs.saveHomeConfig();
+                sender.sendMessage(Main.getPrefix() + Text.get("warp.rename.success").replace("%h", args[0])
+                        .replace("%n", response));
+            });
 
         } else {
             sender.sendMessage(Main.getPrefix() + "§c/warp | setwarp | delwarp <NAME>");

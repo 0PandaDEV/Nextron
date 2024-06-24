@@ -1,24 +1,25 @@
 package net.pandadev.nextron.commands;
 
 import ch.hekates.languify.language.Text;
+import net.md_5.bungee.api.chat.ClickEvent;
+import net.md_5.bungee.api.chat.ComponentBuilder;
+import net.md_5.bungee.api.chat.HoverEvent;
+import net.md_5.bungee.api.chat.TextComponent;
 import net.pandadev.nextron.Main;
 import net.pandadev.nextron.guis.features.RankGUIs;
+import net.pandadev.nextron.listeners.InputListener;
 import net.pandadev.nextron.utils.RankAPI;
 import net.pandadev.nextron.utils.Utils;
-import net.wesjd.anvilgui.AnvilGUI;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
-import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabCompleter;
 import org.bukkit.entity.Player;
-import org.bukkit.inventory.ItemStack;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 public class RankCommand extends CommandBase implements CommandExecutor, TabCompleter {
@@ -119,17 +120,24 @@ public class RankCommand extends CommandBase implements CommandExecutor, TabComp
                 return;
             }
 
-            new AnvilGUI.Builder()
-                    .onClick((state, text) -> {
-                        RankAPI.setPrefix((Player) sender, args[1].toLowerCase(),
-                                ChatColor.translateAlternateColorCodes('&', " " + text.getText()));
-                        return Collections.singletonList(AnvilGUI.ResponseAction.close());
-                    })
-                    .text(Main.getInstance().getConfig().getString("Ranks." + args[1].toLowerCase() + ".prefix").replace("§", "&"))
-                    .itemLeft(new ItemStack(Material.NAME_TAG))
-                    .title("Enter the new prefix")
-                    .plugin(Main.getInstance())
-                    .open(player);
+            if (Main.getInstance().getConfig().get("Ranks." + args[1].toLowerCase()) == null) {
+                player.sendMessage(Main.getPrefix() + Text.get("rank.dontexists"));
+                return;
+            }
+
+            player.sendMessage(Main.getPrefix() + "§7Type the new prefix for the rank in to the chat");
+            TextComponent command = new TextComponent("§a[Current Prefix]");
+            command.setClickEvent(new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, Main.getInstance().getConfig().getString("Ranks." + args[1].toLowerCase() + ".prefix").replace("§", "&")));
+            command.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ComponentBuilder("Click to get the current prefix of the rank " + Main.getInstance().getConfig().getString("Ranks." + args[1].toLowerCase() + ".prefix")).create()));
+
+            player.spigot().sendMessage(command);
+
+            player.playSound(player.getLocation(), Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 100, 1f);
+
+            InputListener.listen(player.getUniqueId()).thenAccept(response -> {
+                RankAPI.setPrefix((Player) sender, args[1].toLowerCase(), ChatColor.translateAlternateColorCodes('&', " " + response));
+            });
+
 
         } else if (args.length == 2 && args[0].equalsIgnoreCase("name")) {
             if (!(sender instanceof Player)) {
@@ -144,22 +152,29 @@ public class RankCommand extends CommandBase implements CommandExecutor, TabComp
                 return;
             }
 
-            new AnvilGUI.Builder()
-                    .onClick((state, text) -> {
-                        if (Utils.countWords(text.getText()) > 1) {
-                            player.playSound(player.getLocation(), Sound.ENTITY_PILLAGER_AMBIENT, 100, 0.5f);
-                            return Collections.singletonList(AnvilGUI.ResponseAction
-                                    .replaceInputText(Text.get("anvil.gui.one.word")));
-                        }
-                        RankAPI.rename((Player) sender, args[1].toLowerCase(),
-                                ChatColor.translateAlternateColorCodes('&', " " + text.getText()));
-                        return Collections.singletonList(AnvilGUI.ResponseAction.close());
-                    })
-                    .text(args[1].toLowerCase())
-                    .itemLeft(new ItemStack(Material.NAME_TAG))
-                    .title("Enter the new name")
-                    .plugin(Main.getInstance())
-                    .open(player);
+            if (Main.getInstance().getConfig().get("Ranks." + args[1].toLowerCase()) == null) {
+                player.sendMessage(Main.getPrefix() + Text.get("rank.dontexists"));
+                return;
+            }
+
+            player.sendMessage(Main.getPrefix() + "§7Type the new name for the rank in to the chat");
+            TextComponent command = new TextComponent("§a[Current Name]");
+            command.setClickEvent(new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, args[1]));
+            command.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ComponentBuilder("Click to get the current name of the rank " + Main.getInstance().getConfig().getString("Ranks." + args[1].toLowerCase() + ".prefix")).create()));
+
+            player.spigot().sendMessage(command);
+
+            player.playSound(player.getLocation(), Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 100, 1f);
+
+            InputListener.listen(player.getUniqueId()).thenAccept(response -> {
+                if (Utils.countWords(response) > 1) {
+                    player.playSound(player.getLocation(), Sound.ENTITY_PILLAGER_AMBIENT, 100, 0.5f);
+                    player.sendMessage(Text.get("anvil.gui.one.word"));
+                    return;
+                }
+                RankAPI.rename((Player) sender, args[1].toLowerCase(), ChatColor.translateAlternateColorCodes('&', " " + response));
+            });
+
         } else {
             sender.sendMessage(Main.getPrefix() +
                             "§c/rank set <player> <rank>",

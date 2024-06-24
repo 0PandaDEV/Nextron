@@ -74,7 +74,7 @@ public class FlyCommand extends CommandBase implements CommandExecutor, TabCompl
             if (player.getAllowFlight()) {
                 player.setAllowFlight(false);
             } else {
-                player.setAllowFlight(false);
+                player.setAllowFlight(true);
             }
 
             player.setFallDistance(0.0f);
