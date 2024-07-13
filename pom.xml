@@ -6,7 +6,7 @@
 
     <groupId>net.pandadev</groupId>
     <artifactId>Nextron</artifactId>
-    <version>1.5.7</version>
+    <version>1.5.8</version>
     <packaging>jar</packaging>
 
     <name>Nextron</name>

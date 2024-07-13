@@ -4,6 +4,8 @@ import ch.hekates.languify.language.Text;
 import dev.triumphteam.gui.builder.item.ItemBuilder;
 import dev.triumphteam.gui.guis.Gui;
 import net.kyori.adventure.text.Component;
+import net.pandadev.nextron.Main;
+import net.pandadev.nextron.guis.GUIs;
 import net.pandadev.nextron.utils.RankAPI;
 import net.pandadev.nextron.utils.Utils;
 import net.wesjd.anvilgui.AnvilGUI;
@@ -13,22 +15,21 @@ import org.bukkit.Sound;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
-import net.pandadev.nextron.Main;
-import net.pandadev.nextron.guis.GUIs;
 
 import java.util.Collections;
 
 public class RankGUIs {
 
     private static final FileConfiguration mainConfig = Main.getInstance().getConfig();
-    public static void manager(Player player){
+
+    public static void manager(Player player) {
         Gui gui = Gui.gui()
                 .title(Component.text("Rank Manager"))
                 .rows(5)
                 .disableAllInteractions()
                 .create();
 
-        for (String rank : mainConfig.getConfigurationSection("Ranks").getKeys(false)){
+        for (String rank : mainConfig.getConfigurationSection("Ranks").getKeys(false)) {
             gui.addItem(ItemBuilder.from(Material.NAME_TAG)
                     .name(Component.text("§f" + rank))
                     .setLore("",
@@ -46,7 +47,7 @@ public class RankGUIs {
     }
 
 
-    public static void settings(Player player, String rank){
+    public static void settings(Player player, String rank) {
         Gui gui = Gui.gui()
                 .title(Component.text(rank))
                 .rows(3)
@@ -122,22 +123,22 @@ public class RankGUIs {
 
         gui.setItem(3, 3, dev.triumphteam.gui.builder.item.ItemBuilder.from(Material.RED_DYE).setName("§cOwner")
                 .asGuiItem(event -> {
-                    manualRankCreation(player, "owner", "§4Owner §8• §f");
+                    manualRankCreation(player, "001owner", "§4Owner §8• §f");
                 }));
 
         gui.setItem(3, 5, dev.triumphteam.gui.builder.item.ItemBuilder.from(Material.ORANGE_DYE)
                 .setName("§x§f§e§a§1§3§1Admin").asGuiItem(event -> {
-                    manualRankCreation(player, "admin", "§x§f§e§a§1§3§1Admin §8• §f");
+                    manualRankCreation(player, "002admin", "§x§f§e§a§1§3§1Admin §8• §f");
                 }));
 
         gui.setItem(3, 7, dev.triumphteam.gui.builder.item.ItemBuilder.from(Material.PURPLE_DYE)
                 .setName("§x§c§d§7§4§f§bDev").asGuiItem(event -> {
-                    manualRankCreation(player, "dev", "§x§c§d§7§4§f§bDev §8• §f");
+                    manualRankCreation(player, "003dev", "§x§c§d§7§4§f§bDev §8• §f");
                 }));
 
         gui.setItem(5, 9, dev.triumphteam.gui.builder.item.ItemBuilder.skull().texture("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvMTliZjMyOTJlMTI2YTEwNWI1NGViYTcxM2FhMWIxNTJkNTQxYTFkODkzODgyOWM1NjM2NGQxNzhlZDIyYmYifX19")
                 .name(Component.text("§fSkip")).asGuiItem(event -> {
-                    manualRankCreation(player, "not set", "not set");
+                    manualRankCreation(player, RankAPI.getHighestNumber() + "name", "prefix §8• §f");
                 }));
 
         gui.open(player);
@@ -180,6 +181,7 @@ public class RankGUIs {
                                 manualRankCreation(player, text.getText().replace(" ", ""), prefix);
                                 return Collections.singletonList(AnvilGUI.ResponseAction.close());
                             })
+                            .text(name)
                             .itemLeft(new ItemStack(Material.NAME_TAG))
                             .title("Enter the name")
                             .plugin(Main.getInstance())
@@ -193,6 +195,7 @@ public class RankGUIs {
                                 manualRankCreation(player, name, text.getText());
                                 return Collections.singletonList(AnvilGUI.ResponseAction.close());
                             })
+                            .text(prefix)
                             .itemLeft(new ItemStack(Material.NAME_TAG))
                             .title("Enter the prefix")
                             .plugin(Main.getInstance())

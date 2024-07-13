@@ -132,6 +132,8 @@ public class WorldCommand extends CommandBase implements TabCompleter {
             if (world == null) {
                 player.sendMessage(Main.getPrefix() + Text.get("world.load.start").replace("%w", worldName));
                 WorldCreator wc = new WorldCreator(worldName);
+                wc.environment(World.Environment.NORMAL);
+                wc.type(WorldType.NORMAL);
                 wc.createWorld();
                 player.sendMessage(Main.getPrefix() + Text.get("world.load.success").replace("%w", worldName));
             } else {

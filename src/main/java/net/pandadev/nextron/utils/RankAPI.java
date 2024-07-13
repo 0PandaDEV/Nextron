@@ -1,6 +1,7 @@
 package net.pandadev.nextron.utils;
 
 import ch.hekates.languify.language.Text;
+import net.pandadev.nextron.Main;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
@@ -8,7 +9,6 @@ import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.scoreboard.Scoreboard;
 import org.bukkit.scoreboard.Team;
-import net.pandadev.nextron.Main;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,9 +18,9 @@ public class RankAPI {
 
     public static void createPlayerTeam(Player player) {
         Scoreboard scoreboard = player.getScoreboard();
-        Team finalrank = scoreboard.getTeam("010player");
+        Team finalrank = scoreboard.getTeam("999player");
         if (finalrank == null)
-            finalrank = scoreboard.registerNewTeam("010player");
+            finalrank = scoreboard.registerNewTeam("999player");
         if (Configs.feature.getBoolean("rank_system")) {
             finalrank.setPrefix("§9Player §8• §7");
         } else {
@@ -134,7 +134,7 @@ public class RankAPI {
         createPlayerTeam(player);
         if (Main.getInstance().getConfig().getConfigurationSection("Ranks") == null || !hasRank(player)) {
             Scoreboard scoreboard = player.getScoreboard();
-            Team finalrank = scoreboard.getTeam("010player");
+            Team finalrank = scoreboard.getTeam("999player");
             finalrank.addEntry(player.getName());
             if (Configs.feature.getBoolean("rank_system")) {
                 String displayName = "§9Player §8• §f" + Configs.settings.getString(player.getUniqueId() + ".nick");
@@ -147,6 +147,21 @@ public class RankAPI {
             return;
         }
         Main.getInstance().getTablistManager().setAllPlayerTeams();
+    }
+
+    public static String getHighestNumber() {
+        int highestNumber = 0;
+        for (String rank : mainConfig.getConfigurationSection("Ranks").getKeys(false)) {
+            String numberPart = rank.substring(0, 3);
+            try {
+                int number = Integer.parseInt(numberPart);
+                if (number > highestNumber && number < 998) {
+                    highestNumber = number;
+                }
+            } catch (NumberFormatException ignored) {
+            }
+        }
+        return String.format("%03d", Math.min(highestNumber + 1, 998));
     }
 
 }
