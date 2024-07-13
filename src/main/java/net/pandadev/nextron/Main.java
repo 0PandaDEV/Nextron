@@ -42,6 +42,8 @@ public final class Main extends JavaPlugin {
         instance = this;
         tablistManager = new TablistManager();
 
+        RankAPI.migration();
+
         Languify.setup(this, this.getDataFolder().toString());
         LangLoader.saveLanguages(getName(), "-" + getDescription().getVersion());
         LangLoader.loadLanguage(getConfig().getString("language"));
