@@ -5,6 +5,7 @@ import ch.hekates.languify.language.LangLoader;
 import ch.hekates.languify.language.Text;
 import dev.rollczi.litecommands.LiteCommands;
 import dev.rollczi.litecommands.bukkit.LiteBukkitFactory;
+import dev.rollczi.litecommands.bukkit.LiteBukkitMessages;
 import net.pandadev.nextron.arguments.*;
 import net.pandadev.nextron.arguments.objects.*;
 import net.pandadev.nextron.commands.*;
@@ -125,6 +126,7 @@ public final class Main extends JavaPlugin {
                         new WarpCommands(),
                         new WorldCommand()
                 )
+
                 .argument(Feature.class, new FeatureArgument())
                 .argument(GameMode.class, new GameModeArgument())
                 .argument(Help.class, new HelpArgument())
@@ -133,6 +135,12 @@ public final class Main extends JavaPlugin {
                 .argument(Rank.class, new RankArgument())
                 .argument(Seed.class, new SeedArgument())
                 .argument(Warp.class, new WarpArgument())
+
+                .message(LiteBukkitMessages.PLAYER_NOT_FOUND, getInvalidPlayer())
+                .message(LiteBukkitMessages.PLAYER_ONLY, getCommandInstance())
+                .message(LiteBukkitMessages.MISSING_PERMISSIONS, getNoPerm())
+                .message(LiteBukkitMessages.INVALID_USAGE, invalidUsage -> getPrefix() + "§cUsage: " + invalidUsage.getSchematic().first())
+
                 .build();
 
         int pluginId = 20704;
