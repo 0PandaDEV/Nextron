@@ -13,7 +13,7 @@ import org.bukkit.command.CommandSender;
 public class ReloadCommand extends HelpBase {
 
     public ReloadCommand() {
-        super("rl, Reloads the server, /rl");
+        super("reload, Reloads the server, /reload\n/rl");
     }
 
 
@@ -21,7 +21,7 @@ public class ReloadCommand extends HelpBase {
     public void reloadCommand(@Context CommandSender sender) {
         Bukkit.broadcastMessage(Main.getPrefix() + "§cReloading server");
         Bukkit.getServer().reload();
-        Bukkit.broadcastMessage(Main.getPrefix() + "§aReload complete!");
+        Bukkit.broadcastMessage(Main.getPrefix() + "§aReload complete");
     }
 
 }

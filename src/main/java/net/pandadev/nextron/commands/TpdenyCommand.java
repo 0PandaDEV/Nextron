@@ -9,7 +9,7 @@ import net.pandadev.nextron.Main;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 
-@Command(name = "tpdeny")
+@Command(name = "tpdeny", aliases = {"tpd"})
 @Permission("nextron.tpdeny")
 public class TpdenyCommand extends HelpBase {
 
