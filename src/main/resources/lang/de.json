@@ -159,7 +159,7 @@
   "repair.error.other": "§cEs befindet sich kein Item in §6%t's §cHand",
   "repair.nodamage": "§cDieses Item kann nicht repariert werden",
   "repair.success": "§7Das Item in deiner hand wurde erfolgreich repariert",
-  "repair.success.other": "§7Das Item in der hand von §a%t §7wurde erfolgreich repariert"
+  "repair.success.other": "§7Das Item in der hand von §a%t §7wurde erfolgreich repariert",
   "tpahere.sender.success": "§7Tpahere anfrage wurde and §a%t §7gesendet",
   "tpahere.target.success.1": "§a%p §7will dich zu sich teleportieren",
   "tpahere.target.success.2": "§7Führe §a/tpaccept §7aus um die Anfrage anzunehmen oder clicke auf §c",

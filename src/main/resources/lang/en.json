@@ -158,7 +158,7 @@
   "repair.error.other": "§cThere is no item in §6%t's §chand",
   "repair.nodamage": "§cThis item cannot be repaired",
   "repair.success": "§7Successfully repaired item in your hand",
-  "repair.success.other": "§7Successfully repaired item in §a%t's §7hand"
+  "repair.success.other": "§7Successfully repaired item in §a%t's §7hand",
   "tpahere.sender.success": "§7Tpahere request was sent to §a%t",
   "tpahere.target.success.1": "§a%p §7has requested to teleport you to them",
   "tpahere.target.success.2": "§7Type §a/tpaccept §7to accept their request or click here §c",
