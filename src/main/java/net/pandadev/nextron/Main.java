@@ -77,7 +77,6 @@ public final class Main extends JavaPlugin {
 
         for (Player player : Bukkit.getOnlinePlayers()) {
             SettingsConfig.checkSettings(player);
-            RankAPI.createPlayerTeam(player);
             RankAPI.checkRank(player);
         }
 
@@ -87,8 +86,6 @@ public final class Main extends JavaPlugin {
         NoPerm = Prefix + Text.get("no.perms");
         InvalidPlayer = Prefix + Text.get("invalid.player");
         CommandInstance = Prefix + Text.get("command.instance.error");
-
-        Bukkit.getConsoleSender().sendMessage(Prefix + Text.get("console.activate"));
 
         registerListeners();
 
@@ -148,6 +145,8 @@ public final class Main extends JavaPlugin {
 
         int pluginId = 20704;
         new Metrics(this, pluginId);
+
+        Bukkit.getConsoleSender().sendMessage(Prefix + Text.get("console.activate"));
     }
 
     @Override
@@ -160,8 +159,6 @@ public final class Main extends JavaPlugin {
         Configs.saveHomeConfig();
         Configs.saveWarpConfig();
         Configs.saveFeatureConfig();
-
-        Bukkit.getConsoleSender().sendMessage(Prefix + Text.get("console.disabled"));
 
         for (Player player : Bukkit.getOnlinePlayers()) {
             if (Main.getInstance().getConfig().getConfigurationSection("Ranks") == null) {
@@ -185,9 +182,10 @@ public final class Main extends JavaPlugin {
             }
         }
 
+        Bukkit.getConsoleSender().sendMessage(Prefix + Text.get("console.disabled"));
         instance = null;
     }
-  
+
     private void registerListeners() {
         PluginManager pluginManager = Bukkit.getPluginManager();
         pluginManager.registerEvents(new JoinListener(), this);

@@ -14,7 +14,7 @@ public class TablistManager {
         Bukkit.getOnlinePlayers().forEach(this::setPlayerTeams);
     }
 
-    public void setPlayerTeams(Player player) {
+    public void setPlayerTeams(Player player){
         Scoreboard scoreboard = player.getScoreboard();
         ConfigurationSection ranks = Main.getInstance().getConfig().getConfigurationSection("Ranks");
 
@@ -24,7 +24,7 @@ public class TablistManager {
             Team teamRank = scoreboard.getTeam(rank);
             if (teamRank == null) teamRank = scoreboard.registerNewTeam(rank);
 
-            if (Configs.feature.getBoolean("rank_system")) {
+            if (Configs.feature.getBoolean("rank_system")){
                 teamRank.setPrefix(ranks.getString(rank + ".prefix"));
             } else {
                 teamRank.setPrefix("");
