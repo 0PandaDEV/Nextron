@@ -10,7 +10,7 @@ import net.pandadev.nextron.guis.features.RankGUIs;
 import net.pandadev.nextron.guis.features.WarpGUIs;
 import net.pandadev.nextron.utils.Configs;
 import net.pandadev.nextron.utils.RankAPI;
-import net.pandadev.nextron.utils.Utils;
+import net.pandadev.nextron.utils.SettingsAPI;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.Sound;
@@ -117,11 +117,10 @@ public class GUIs {
                         Text.get("maingui.feedback.lore.6"))
                 .build();
 
-        if (Configs.settings.getBoolean(player.getUniqueId() + ".feedback")) {
+        if (SettingsAPI.allowsFeedback(player)) {
             gui.setItem(2, 3, ItemBuilder.from(feedback_active).asGuiItem(inventoryClickEvent -> {
                 if (inventoryClickEvent.getClick().isLeftClick()) {
-                    Configs.settings.set(player.getUniqueId() + ".feedback", false);
-                    Configs.saveSettingsConfig();
+                    SettingsAPI.setVanishMessage(player, false);
                     playerSettings(player);
                     player.playSound(player.getLocation(), Sound.BLOCK_BEACON_DEACTIVATE, 100, 1);
                 }
@@ -129,8 +128,7 @@ public class GUIs {
         } else {
             gui.setItem(2, 3, ItemBuilder.from(feedback_inactive).asGuiItem(inventoryClickEvent -> {
                 if (inventoryClickEvent.getClick().isLeftClick()) {
-                    Configs.settings.set(player.getUniqueId() + ".feedback", true);
-                    Configs.saveSettingsConfig();
+                    SettingsAPI.setVanishMessage(player, true);
                     playerSettings(player);
                     player.playSound(player.getLocation(), Sound.BLOCK_BEACON_ACTIVATE, 100, 1);
                 }
@@ -157,11 +155,10 @@ public class GUIs {
                         Text.get("maingui.tpa.lore.3"))
                 .build();
 
-        if (Configs.settings.getBoolean(player.getUniqueId() + ".allowtpas")) {
+        if (SettingsAPI.allowsTPAs(player)) {
             gui.setItem(2, 5, ItemBuilder.from(tpa_active).asGuiItem(inventoryClickEvent -> {
                 if (inventoryClickEvent.getClick().isLeftClick()) {
-                    Configs.settings.set(player.getUniqueId() + ".allowtpas", false);
-                    Configs.saveSettingsConfig();
+                    SettingsAPI.setTPAs(player, false);
                     playerSettings(player);
                     player.playSound(player.getLocation(), Sound.BLOCK_BEACON_DEACTIVATE, 100, 1);
                 }
@@ -169,8 +166,7 @@ public class GUIs {
         } else {
             gui.setItem(2, 5, ItemBuilder.from(tpa_inactive).asGuiItem(inventoryClickEvent -> {
                 if (inventoryClickEvent.getClick().isLeftClick()) {
-                    Configs.settings.set(player.getUniqueId() + ".allowtpas", true);
-                    Configs.saveSettingsConfig();
+                    SettingsAPI.setTPAs(player, true);
                     playerSettings(player);
                     player.playSound(player.getLocation(), Sound.BLOCK_BEACON_ACTIVATE, 100, 1);
                 }
@@ -199,11 +195,10 @@ public class GUIs {
                         Text.get("maingui.vanish.lore.4"))
                 .build();
 
-        if (Configs.settings.getBoolean(player.getUniqueId() + ".vanish." + "message")) {
+        if (SettingsAPI.allowsVanishMessage(player)) {
             gui.setItem(2, 7, ItemBuilder.from(vanish_active).asGuiItem(inventoryClickEvent -> {
                 if (inventoryClickEvent.getClick().isLeftClick()) {
-                    Configs.settings.set(player.getUniqueId() + ".vanish" + ".message", false);
-                    Configs.saveSettingsConfig();
+                    SettingsAPI.setVanishMessage(player, false);
                     playerSettings(player);
                     player.playSound(player.getLocation(), Sound.BLOCK_BEACON_DEACTIVATE, 100, 1);
                 }
@@ -211,8 +206,7 @@ public class GUIs {
         } else {
             gui.setItem(2, 7, ItemBuilder.from(vanish_inactive).asGuiItem(inventoryClickEvent -> {
                 if (inventoryClickEvent.getClick().isLeftClick()) {
-                    Configs.settings.set(player.getUniqueId() + ".vanish" + ".message", true);
-                    Configs.saveSettingsConfig();
+                    SettingsAPI.setVanishMessage(player, true);
                     playerSettings(player);
                     player.playSound(player.getLocation(), Sound.BLOCK_BEACON_ACTIVATE, 100, 1);
                 }

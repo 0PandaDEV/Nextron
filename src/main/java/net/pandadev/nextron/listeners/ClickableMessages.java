@@ -3,6 +3,7 @@ package net.pandadev.nextron.listeners;
 import ch.hekates.languify.language.Text;
 import net.pandadev.nextron.Main;
 import net.pandadev.nextron.utils.Configs;
+import net.pandadev.nextron.utils.SettingsAPI;
 import org.bukkit.Bukkit;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
@@ -62,10 +63,10 @@ public class ClickableMessages implements Listener {
 
             target.teleport(event.getPlayer().getLocation());
 
-            if (Configs.settings.getBoolean(target.getUniqueId() + ".feedback")) {
+            if (SettingsAPI.allowsFeedback(target)) {
                 target.sendMessage(Main.getPrefix() + Text.get("tpaccept.player.success").replace("%p", event.getPlayer().getName()));
             }
-            if (Configs.settings.getBoolean(event.getPlayer().getUniqueId() + ".feedback")) {
+            if (SettingsAPI.allowsFeedback(event.getPlayer())) {
                 event.getPlayer().sendMessage(Main.getPrefix() + Text.get("tpaccept.target.success").replace("%t", target.getName()));
             }
 
@@ -107,11 +108,11 @@ public class ClickableMessages implements Listener {
             }
 
             event.getPlayer().teleport(target.getLocation());
-            
-            if (Configs.settings.getBoolean(target.getUniqueId() + ".feedback")) {
+
+            if (SettingsAPI.allowsFeedback(target)) {
                 target.sendMessage(Main.getPrefix() + Text.get("tpaccept.target.success").replace("%t", event.getPlayer().getName()));
             }
-            if (Configs.settings.getBoolean(event.getPlayer().getUniqueId() + ".feedback")) {
+            if (SettingsAPI.allowsFeedback(event.getPlayer())) {
                 event.getPlayer().sendMessage(Main.getPrefix() + Text.get("tpaccept.player.success").replace("%p", target.getName()));
             }
 

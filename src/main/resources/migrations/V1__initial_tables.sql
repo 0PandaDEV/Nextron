@@ -18,7 +18,9 @@ CREATE TABLE IF NOT EXISTS user_settings (
     vanish_vanished BOOLEAN DEFAULT FALSE,
     feedback BOOLEAN DEFAULT TRUE,
     allowtpas BOOLEAN DEFAULT TRUE,
-    nick VARCHAR(50)
+    nick VARCHAR(50),
+    lastback TEXT,
+    isback BOOLEAN DEFAULT FALSE
 );
 
 -- Create warps table

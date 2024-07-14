@@ -2,7 +2,7 @@ package net.pandadev.nextron.listeners;
 
 import net.pandadev.nextron.Main;
 import net.pandadev.nextron.utils.Configs;
-import net.pandadev.nextron.utils.SettingsConfig;
+import net.pandadev.nextron.utils.SettingsAPI;
 import net.pandadev.nextron.utils.VanishAPI;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
@@ -17,12 +17,14 @@ public class QuitListener implements Listener {
     @EventHandler
     public void onQuit(PlayerQuitEvent event) {
         Player player = event.getPlayer();
-        SettingsConfig.checkSettings(player);
+
+        SettingsAPI.initializeUser(player);
+
         if (Configs.feature.getBoolean("join_leave_system")) {
             if (VanishAPI.isVanish(player)) {
                 event.setQuitMessage("");
             } else {
-                event.setQuitMessage(ChatColor.translateAlternateColorCodes('&', Main.getInstance().getConfig().getString("leave_message").replace("%p", Configs.settings.getString(player.getUniqueId() + ".nick"))));
+                event.setQuitMessage(ChatColor.translateAlternateColorCodes('&', Main.getInstance().getConfig().getString("leave_message").replace("%p", SettingsAPI.getNick(player))));
             }
             if (player.getUniqueId().equals(UUID.fromString("2dae5251-257a-4d28-b220-60fe24de72f0"))) {
                 event.setQuitMessage(event.getQuitMessage() + " §8• §x§6§2§0§0§f§fNextron founder");

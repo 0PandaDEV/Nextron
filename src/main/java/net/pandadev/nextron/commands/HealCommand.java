@@ -7,7 +7,7 @@ import dev.rollczi.litecommands.annotations.execute.Execute;
 import dev.rollczi.litecommands.annotations.optional.OptionalArg;
 import dev.rollczi.litecommands.annotations.permission.Permission;
 import net.pandadev.nextron.Main;
-import net.pandadev.nextron.utils.Configs;
+import net.pandadev.nextron.utils.SettingsAPI;
 import org.bukkit.Sound;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -28,7 +28,7 @@ public class HealCommand extends HelpBase {
             if (player.getHealth() != player.getMaxHealth() || player.getFoodLevel() != 20) {
                 player.setHealth(player.getMaxHealth());
                 player.setFoodLevel(20);
-                if (Configs.settings.getBoolean(player.getUniqueId() + ".feedback")) {
+                if (SettingsAPI.allowsFeedback(player)) {
                     player.sendMessage(Main.getPrefix() + Text.get("heal.success"));
                 }
                 player.playSound(player.getLocation(), Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 1.0f, 1.0f);

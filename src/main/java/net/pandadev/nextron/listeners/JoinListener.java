@@ -3,7 +3,7 @@ package net.pandadev.nextron.listeners;
 import net.pandadev.nextron.Main;
 import net.pandadev.nextron.utils.Configs;
 import net.pandadev.nextron.utils.RankAPI;
-import net.pandadev.nextron.utils.SettingsConfig;
+import net.pandadev.nextron.utils.SettingsAPI;
 import net.pandadev.nextron.utils.VanishAPI;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -19,14 +19,16 @@ public class JoinListener implements Listener {
     @EventHandler
     public void onJoin(PlayerJoinEvent event) {
         Player player = event.getPlayer();
-        SettingsConfig.checkSettings(player);
+
+        SettingsAPI.initializeUser(player);
+
         if (Configs.feature.getBoolean("join_leave_system")) {
             if (VanishAPI.isVanish(player)) {
                 event.setJoinMessage("");
             } else {
                 event.setJoinMessage(
                         ChatColor.translateAlternateColorCodes('&', Main.getInstance().getConfig().getString("join_message")
-                                .replace("%p", Configs.settings.getString(player.getUniqueId() + ".nick"))));
+                                .replace("%p", SettingsAPI.getNick(player))));
             }
             if (player.getUniqueId().equals(UUID.fromString("2dae5251-257a-4d28-b220-60fe24de72f0"))) {
                 event.setJoinMessage(event.getJoinMessage() + " §8• §x§6§2§0§0§f§fNextron founder");
@@ -38,9 +40,11 @@ public class JoinListener implements Listener {
                 event.setJoinMessage(event.getJoinMessage() + " §8• §r§cWarrradu");
             }
         }
+
         RankAPI.createPlayerTeam(player);
         RankAPI.checkRank(player);
         Main.getInstance().getTablistManager().setAllPlayerTeams();
+
         for (Player onlinePlayer : Bukkit.getOnlinePlayers()) {
             VanishAPI.executeVanish(onlinePlayer);
         }

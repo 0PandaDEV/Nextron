@@ -2,6 +2,8 @@ package net.pandadev.nextron.tablist;
 
 import net.pandadev.nextron.Main;
 import net.pandadev.nextron.utils.Configs;
+import net.pandadev.nextron.utils.SettingsAPI;
+
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.Player;
@@ -28,13 +30,13 @@ public class TablistManager {
                 teamRank.setPrefix(ranks.getString(rank + ".prefix"));
             } else {
                 teamRank.setPrefix("");
-                player.setPlayerListName(Configs.settings.getString(player.getUniqueId() + ".nick"));
+                player.setPlayerListName(SettingsAPI.getNick(player));
                 return;
             }
 
             for (Player player1 : Bukkit.getOnlinePlayers()) {
                 if (ranks.getStringList(rank + ".players").contains(String.valueOf(player1.getUniqueId()))) {
-                    String displayName = ranks.get(rank + ".prefix") + Configs.settings.getString(player1.getUniqueId() + ".nick");
+                    String displayName = ranks.get(rank + ".prefix") + SettingsAPI.getNick(player1);
 
                     teamRank.addEntry(player1.getName());
                     player1.setPlayerListName(displayName);

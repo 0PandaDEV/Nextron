@@ -7,7 +7,7 @@ import dev.rollczi.litecommands.annotations.execute.Execute;
 import dev.rollczi.litecommands.annotations.optional.OptionalArg;
 import dev.rollczi.litecommands.annotations.permission.Permission;
 import net.pandadev.nextron.Main;
-import net.pandadev.nextron.utils.Configs;
+import net.pandadev.nextron.utils.SettingsAPI;
 import org.apache.commons.lang3.math.NumberUtils;
 import org.bukkit.entity.Player;
 
@@ -42,13 +42,13 @@ public class SpeedCommand extends HelpBase {
                     player.setAllowFlight(true);
                     player.setFlying(true);
                     player.setFlySpeed(parsedSpeed);
-                    if (Configs.settings.getBoolean(player.getUniqueId() + ".feedback")) {
+                    if (SettingsAPI.allowsFeedback(player)) {
                         player.sendMessage(
                                 Main.getPrefix() + Text.get("speed.fly.success").replace("%s", speed.toString()));
                     }
                 } else if (player.isOnGround()) {
                     player.setWalkSpeed(parsedSpeed);
-                    if (Configs.settings.getBoolean(player.getUniqueId() + ".feedback")) {
+                    if (SettingsAPI.allowsFeedback(player)) {
                         player.sendMessage(
                                 Main.getPrefix() + Text.get("speed.walk.success").replace("%s", speed.toString()));
                     }

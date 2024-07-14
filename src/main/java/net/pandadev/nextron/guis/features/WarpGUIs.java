@@ -7,7 +7,6 @@ import net.kyori.adventure.text.Component;
 import net.pandadev.nextron.Main;
 import net.pandadev.nextron.guis.GUIs;
 import net.pandadev.nextron.utils.Configs;
-import net.pandadev.nextron.utils.Utils;
 import net.wesjd.anvilgui.AnvilGUI;
 import org.bukkit.Location;
 import org.bukkit.Material;

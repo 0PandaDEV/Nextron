@@ -6,7 +6,7 @@ import dev.rollczi.litecommands.annotations.context.Context;
 import dev.rollczi.litecommands.annotations.execute.Execute;
 import dev.rollczi.litecommands.annotations.permission.Permission;
 import net.pandadev.nextron.Main;
-import net.pandadev.nextron.utils.Configs;
+import net.pandadev.nextron.utils.SettingsAPI;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 
@@ -28,7 +28,7 @@ public class TopCommand extends HelpBase {
         }
         location.setY(highestY + 1.0);
         player.teleport(location);
-        if (Configs.settings.getBoolean(player.getUniqueId() + ".feedback"))
+        if (SettingsAPI.allowsFeedback(player))
             player.sendMessage(Main.getPrefix() + Text.get("top.success"));
     }
 

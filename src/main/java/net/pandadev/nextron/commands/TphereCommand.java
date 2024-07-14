@@ -7,7 +7,7 @@ import dev.rollczi.litecommands.annotations.context.Context;
 import dev.rollczi.litecommands.annotations.execute.Execute;
 import dev.rollczi.litecommands.annotations.permission.Permission;
 import net.pandadev.nextron.Main;
-import net.pandadev.nextron.utils.Configs;
+import net.pandadev.nextron.utils.SettingsAPI;
 import org.bukkit.entity.Player;
 
 import java.util.Objects;
@@ -25,7 +25,7 @@ public class TphereCommand extends HelpBase {
         if (!Objects.equals(target.getName(), player.getName())) {
             target.teleport(player.getLocation());
 
-            if (Configs.settings.getBoolean(player.getUniqueId() + ".feedback")) {
+            if (SettingsAPI.allowsFeedback(player)) {
                 player.sendMessage(
                         Main.getPrefix() + Text.get("tphere.success").replace("%t", target.getName()));
             }

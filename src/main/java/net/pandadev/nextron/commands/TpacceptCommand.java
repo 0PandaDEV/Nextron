@@ -6,7 +6,7 @@ import dev.rollczi.litecommands.annotations.context.Context;
 import dev.rollczi.litecommands.annotations.execute.Execute;
 import dev.rollczi.litecommands.annotations.permission.Permission;
 import net.pandadev.nextron.Main;
-import net.pandadev.nextron.utils.Configs;
+import net.pandadev.nextron.utils.SettingsAPI;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 
@@ -26,11 +26,11 @@ public class TpacceptCommand extends HelpBase {
 
             target.teleport(player.getLocation());
 
-            if (Configs.settings.getBoolean(target.getUniqueId() + ".feedback")) {
+            if (SettingsAPI.allowsFeedback(target)) {
                 target.sendMessage(
                         Main.getPrefix() + Text.get("tpaccept.player.success").replace("%p", player.getName()));
             }
-            if (Configs.settings.getBoolean(player.getUniqueId() + ".feedback")) {
+            if (SettingsAPI.allowsFeedback(player)) {
                 player.sendMessage(
                         Main.getPrefix() + Text.get("tpaccept.target.success").replace("%t", target.getName()));
             }

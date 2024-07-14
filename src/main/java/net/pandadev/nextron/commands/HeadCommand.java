@@ -7,7 +7,7 @@ import dev.rollczi.litecommands.annotations.context.Context;
 import dev.rollczi.litecommands.annotations.execute.Execute;
 import dev.rollczi.litecommands.annotations.permission.Permission;
 import net.pandadev.nextron.Main;
-import net.pandadev.nextron.utils.Configs;
+import net.pandadev.nextron.utils.SettingsAPI;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
@@ -31,7 +31,7 @@ public class HeadCommand extends HelpBase {
         item.setItemMeta(meta);
         Inventory inventory = player.getInventory();
         inventory.addItem(item);
-        if (Configs.settings.getBoolean(player.getUniqueId() + ".feedback"))
+        if (SettingsAPI.allowsFeedback(player))
             player.sendMessage(Main.getPrefix() + Text.get("head.success").replace("%t", target.getName()));
     }
 }

@@ -9,6 +9,7 @@ import dev.rollczi.litecommands.annotations.permission.Permission;
 import net.pandadev.nextron.Main;
 import net.pandadev.nextron.arguments.objects.Warp;
 import net.pandadev.nextron.utils.Configs;
+import net.pandadev.nextron.utils.SettingsAPI;
 import net.pandadev.nextron.utils.Utils;
 import net.wesjd.anvilgui.AnvilGUI;
 import org.bukkit.Location;
@@ -40,7 +41,7 @@ public class WarpCommands extends HelpBase {
             return;
         }
         player.teleport((Location) Objects.requireNonNull(Configs.warp.get("Warps." + warp.getName().toLowerCase())));
-        if (Configs.settings.getBoolean(player.getUniqueId() + ".feedback"))
+        if (SettingsAPI.allowsFeedback(player))
             player.sendMessage(Main.getPrefix() + Text.get("warp.success").replace("%w", warp.getName().toLowerCase()));
         player.playSound(player.getLocation(), Sound.ENTITY_ENDERMAN_TELEPORT, 1.0f, 1.0f);
     }

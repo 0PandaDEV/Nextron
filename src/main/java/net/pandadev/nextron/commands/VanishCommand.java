@@ -7,7 +7,7 @@ import dev.rollczi.litecommands.annotations.execute.Execute;
 import dev.rollczi.litecommands.annotations.optional.OptionalArg;
 import dev.rollczi.litecommands.annotations.permission.Permission;
 import net.pandadev.nextron.Main;
-import net.pandadev.nextron.utils.Configs;
+import net.pandadev.nextron.utils.SettingsAPI;
 import net.pandadev.nextron.utils.VanishAPI;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -29,14 +29,14 @@ public class VanishCommand extends HelpBase {
                 Main.getInstance().getVanishAPI().setVanish(target, false);
                 sender.sendMessage(
                         Main.getPrefix() + Text.get("unvanish.other").replace("%t", target.getName()));
-                if (Configs.settings.getBoolean(target.getUniqueId() + ".vanish." + "message")) {
+                if (SettingsAPI.allowsVanishMessage(target)) {
                     Bukkit.broadcastMessage(ChatColor.translateAlternateColorCodes('&', Main.getInstance()
                             .getConfig().getString("join_message").replace("%p", target.getName())));
                 }
             } else {
                 Main.getInstance().getVanishAPI().setVanish(target, true);
                 sender.sendMessage(Main.getPrefix() + Text.get("vanish.other").replace("%t", target.getName()));
-                if (Configs.settings.getBoolean(target.getUniqueId() + ".vanish." + "message")) {
+                if (SettingsAPI.allowsVanishMessage(target)) {
                     Bukkit.broadcastMessage(ChatColor.translateAlternateColorCodes('&', Main.getInstance()
                             .getConfig().getString("leave_message").replace("%p", target.getName())));
                 }
@@ -54,14 +54,14 @@ public class VanishCommand extends HelpBase {
         if (VanishAPI.isVanish(player)) {
             Main.getInstance().getVanishAPI().setVanish(player, false);
             player.sendMessage(Main.getPrefix() + Text.get("unvanish"));
-            if (Configs.settings.getBoolean(player.getUniqueId() + ".vanish." + "message")) {
+            if (SettingsAPI.allowsVanishMessage(player)) {
                 Bukkit.broadcastMessage(ChatColor.translateAlternateColorCodes('&', Main.getInstance()
                         .getConfig().getString("join_message").replace("%p", player.getName())));
             }
         } else {
             Main.getInstance().getVanishAPI().setVanish(player, true);
             player.sendMessage(Main.getPrefix() + Text.get("vanish"));
-            if (Configs.settings.getBoolean(player.getUniqueId() + ".vanish." + "message")) {
+            if (SettingsAPI.allowsVanishMessage(player)) {
                 Bukkit.broadcastMessage(ChatColor.translateAlternateColorCodes('&', Main.getInstance()
                         .getConfig().getString("leave_message").replace("%p", player.getName())));
             }

@@ -8,6 +8,8 @@ import dev.rollczi.litecommands.annotations.optional.OptionalArg;
 import dev.rollczi.litecommands.annotations.permission.Permission;
 import net.pandadev.nextron.Main;
 import net.pandadev.nextron.utils.Configs;
+import net.pandadev.nextron.utils.SettingsAPI;
+
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
@@ -31,12 +33,12 @@ public class FlyCommand extends HelpBase {
 
             if (player.getAllowFlight()) {
                 player.setAllowFlight(false);
-                if (Configs.settings.getBoolean(player.getUniqueId() + ".feedback")) {
+                if (SettingsAPI.allowsFeedback(player)) {
                     player.sendMessage(Main.getPrefix() + Text.get("fly.off"));
                 }
             } else {
                 player.setAllowFlight(true);
-                if (Configs.settings.getBoolean(player.getUniqueId() + ".feedback")) {
+                if (SettingsAPI.allowsFeedback(player)) {
                     player.sendMessage(Main.getPrefix() + Text.get("fly.on"));
                 }
             }

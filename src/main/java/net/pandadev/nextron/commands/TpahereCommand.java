@@ -10,7 +10,7 @@ import net.md_5.bungee.api.chat.ComponentBuilder;
 import net.md_5.bungee.api.chat.HoverEvent;
 import net.md_5.bungee.api.chat.TextComponent;
 import net.pandadev.nextron.Main;
-import net.pandadev.nextron.utils.Configs;
+import net.pandadev.nextron.utils.SettingsAPI;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 
@@ -26,7 +26,7 @@ public class TpahereCommand extends HelpBase {
             player.sendMessage(Main.getPrefix() + Text.get("tpahere.error"));
             return;
         }
-        if (!Configs.settings.getBoolean(target.getUniqueId() + ".allowtpas")) {
+        if (SettingsAPI.allowsTPAs(target)) {
             player.sendMessage(Main.getPrefix() + Text.get("tpahere.allow"));
             return;
         }

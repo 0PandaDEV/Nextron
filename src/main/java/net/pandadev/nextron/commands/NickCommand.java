@@ -6,6 +6,8 @@ import dev.rollczi.litecommands.annotations.context.Context;
 import dev.rollczi.litecommands.annotations.execute.Execute;
 import dev.rollczi.litecommands.annotations.permission.Permission;
 import net.pandadev.nextron.utils.Configs;
+import net.pandadev.nextron.utils.SettingsAPI;
+
 import org.bukkit.entity.Player;
 
 @RootCommand
@@ -20,15 +22,13 @@ public class NickCommand extends HelpBase {
     @Permission("nextron.nick")
     public void nickCommand(@Context Player player, @Arg String nick) {
         player.setDisplayName(nick);
-        Configs.settings.set(player.getUniqueId() + ".nick", nick);
-        Configs.saveSettingsConfig();
+        SettingsAPI.setNick(player, nick);
     }
 
     @Execute(name = "resetnick")
     @Permission("nextron.resetnick")
     public void resetnickCommand(@Context Player player) {
         player.setDisplayName(player.getName());
-        Configs.settings.set(player.getUniqueId() + ".nick", player.getName());
-        Configs.saveSettingsConfig();
+        SettingsAPI.setNick(player, player.getName());
     }
 }

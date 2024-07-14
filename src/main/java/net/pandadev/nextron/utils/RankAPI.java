@@ -132,12 +132,12 @@ public class RankAPI {
             Team finalrank = scoreboard.getTeam("999player");
             finalrank.addEntry(player.getName());
             if (Configs.feature.getBoolean("rank_system")) {
-                String displayName = "§9Player §8• §f" + Configs.settings.getString(player.getUniqueId() + ".nick");
+                String displayName = "§9Player §8• §f" + SettingsAPI.getNick(player);
                 player.setDisplayName(displayName);
                 player.setPlayerListName(displayName);
             } else {
-                player.setDisplayName(Configs.settings.getString(player.getUniqueId() + ".nick"));
-                player.setPlayerListName(Configs.settings.getString(player.getUniqueId() + ".nick"));
+                player.setDisplayName(SettingsAPI.getNick(player));
+                player.setPlayerListName(SettingsAPI.getNick(player));
             }
             return;
         }
