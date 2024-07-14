@@ -10,7 +10,7 @@ import net.md_5.bungee.api.chat.ComponentBuilder;
 import net.md_5.bungee.api.chat.HoverEvent;
 import net.md_5.bungee.api.chat.TextComponent;
 import net.pandadev.nextron.Main;
-import net.pandadev.nextron.utils.SettingsAPI;
+import net.pandadev.nextron.apis.SettingsAPI;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 

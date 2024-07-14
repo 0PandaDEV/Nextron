@@ -5,12 +5,12 @@ import dev.triumphteam.gui.builder.item.ItemBuilder;
 import dev.triumphteam.gui.guis.Gui;
 import net.kyori.adventure.text.Component;
 import net.pandadev.nextron.Main;
+import net.pandadev.nextron.apis.RankAPI;
+import net.pandadev.nextron.apis.SettingsAPI;
 import net.pandadev.nextron.guis.features.HomeGUIs;
 import net.pandadev.nextron.guis.features.RankGUIs;
 import net.pandadev.nextron.guis.features.WarpGUIs;
 import net.pandadev.nextron.utils.Configs;
-import net.pandadev.nextron.utils.RankAPI;
-import net.pandadev.nextron.utils.SettingsAPI;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.Sound;
@@ -121,16 +121,16 @@ public class GUIs {
             gui.setItem(2, 3, ItemBuilder.from(feedback_active).asGuiItem(inventoryClickEvent -> {
                 if (inventoryClickEvent.getClick().isLeftClick()) {
                     SettingsAPI.setFeedback(player, false);
-                    playerSettings(player);
                     player.playSound(player.getLocation(), Sound.BLOCK_BEACON_DEACTIVATE, 100, 1);
+                    playerSettings(player);
                 }
             }));
         } else {
             gui.setItem(2, 3, ItemBuilder.from(feedback_inactive).asGuiItem(inventoryClickEvent -> {
                 if (inventoryClickEvent.getClick().isLeftClick()) {
                     SettingsAPI.setFeedback(player, true);
-                    playerSettings(player);
                     player.playSound(player.getLocation(), Sound.BLOCK_BEACON_ACTIVATE, 100, 1);
+                    playerSettings(player);
                 }
             }));
         }
@@ -159,16 +159,16 @@ public class GUIs {
             gui.setItem(2, 5, ItemBuilder.from(tpa_active).asGuiItem(inventoryClickEvent -> {
                 if (inventoryClickEvent.getClick().isLeftClick()) {
                     SettingsAPI.setTPAs(player, false);
-                    playerSettings(player);
                     player.playSound(player.getLocation(), Sound.BLOCK_BEACON_DEACTIVATE, 100, 1);
+                    playerSettings(player);
                 }
             }));
         } else {
             gui.setItem(2, 5, ItemBuilder.from(tpa_inactive).asGuiItem(inventoryClickEvent -> {
                 if (inventoryClickEvent.getClick().isLeftClick()) {
                     SettingsAPI.setTPAs(player, true);
-                    playerSettings(player);
                     player.playSound(player.getLocation(), Sound.BLOCK_BEACON_ACTIVATE, 100, 1);
+                    playerSettings(player);
                 }
             }));
         }
@@ -199,16 +199,16 @@ public class GUIs {
             gui.setItem(2, 7, ItemBuilder.from(vanish_active).asGuiItem(inventoryClickEvent -> {
                 if (inventoryClickEvent.getClick().isLeftClick()) {
                     SettingsAPI.setVanishMessage(player, false);
-                    playerSettings(player);
                     player.playSound(player.getLocation(), Sound.BLOCK_BEACON_DEACTIVATE, 100, 1);
+                    playerSettings(player);
                 }
             }));
         } else {
             gui.setItem(2, 7, ItemBuilder.from(vanish_inactive).asGuiItem(inventoryClickEvent -> {
                 if (inventoryClickEvent.getClick().isLeftClick()) {
                     SettingsAPI.setVanishMessage(player, true);
-                    playerSettings(player);
                     player.playSound(player.getLocation(), Sound.BLOCK_BEACON_ACTIVATE, 100, 1);
+                    playerSettings(player);
                 }
             }));
         }

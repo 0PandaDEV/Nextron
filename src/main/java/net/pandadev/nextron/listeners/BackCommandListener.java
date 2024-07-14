@@ -1,7 +1,6 @@
 package net.pandadev.nextron.listeners;
 
-import net.pandadev.nextron.utils.Configs;
-import net.pandadev.nextron.utils.SettingsAPI;
+import net.pandadev.nextron.apis.SettingsAPI;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -19,7 +18,7 @@ public class BackCommandListener implements Listener {
     @EventHandler
     public void onTeleport(PlayerTeleportEvent event) {
         Player player = event.getPlayer();
-        if (SettingsAPI.isBack(player)) {
+        if (SettingsAPI.getBack(player)) {
             SettingsAPI.setBack(player, false);
             return;
         }

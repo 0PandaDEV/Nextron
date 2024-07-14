@@ -2,8 +2,8 @@ package net.pandadev.nextron.listeners;
 
 import ch.hekates.languify.language.Text;
 import net.pandadev.nextron.Main;
+import net.pandadev.nextron.apis.SettingsAPI;
 import net.pandadev.nextron.utils.Configs;
-import net.pandadev.nextron.utils.SettingsAPI;
 import org.bukkit.Bukkit;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;

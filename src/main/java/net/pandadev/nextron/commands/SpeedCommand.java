@@ -7,7 +7,7 @@ import dev.rollczi.litecommands.annotations.execute.Execute;
 import dev.rollczi.litecommands.annotations.optional.OptionalArg;
 import dev.rollczi.litecommands.annotations.permission.Permission;
 import net.pandadev.nextron.Main;
-import net.pandadev.nextron.utils.SettingsAPI;
+import net.pandadev.nextron.apis.SettingsAPI;
 import org.apache.commons.lang3.math.NumberUtils;
 import org.bukkit.entity.Player;
 

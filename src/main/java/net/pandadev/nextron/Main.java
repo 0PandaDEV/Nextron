@@ -7,13 +7,19 @@ import dev.rollczi.litecommands.LiteCommands;
 import dev.rollczi.litecommands.bukkit.LiteBukkitFactory;
 import dev.rollczi.litecommands.bukkit.LiteBukkitMessages;
 import lombok.Getter;
+import net.pandadev.nextron.apis.RankAPI;
+import net.pandadev.nextron.apis.SettingsAPI;
+import net.pandadev.nextron.apis.VanishAPI;
 import net.pandadev.nextron.arguments.*;
 import net.pandadev.nextron.arguments.objects.*;
 import net.pandadev.nextron.commands.*;
+import net.pandadev.nextron.config.Config;
 import net.pandadev.nextron.config.Migrations;
 import net.pandadev.nextron.listeners.*;
 import net.pandadev.nextron.tablist.TablistManager;
-import net.pandadev.nextron.utils.*;
+import net.pandadev.nextron.utils.Configs;
+import net.pandadev.nextron.utils.Metrics;
+import net.pandadev.nextron.utils.UpdateChecker;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.WorldCreator;
@@ -93,7 +99,6 @@ public final class Main extends JavaPlugin {
         }
 
         tablistManager.setAllPlayerTeams();
-        vanishAPI = new VanishAPI(this);
 
         NoPerm = Prefix + Text.get("no.perms");
         InvalidPlayer = Prefix + Text.get("invalid.player");
@@ -125,6 +130,8 @@ public final class Main extends JavaPlugin {
         Configs.saveHomeConfig();
         Configs.saveWarpConfig();
         Configs.saveFeatureConfig();
+
+        Config.closeConnection();
 
         for (Team team : Objects.requireNonNull(Bukkit.getScoreboardManager()).getMainScoreboard().getTeams()) {
             team.unregister();

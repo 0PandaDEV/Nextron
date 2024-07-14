@@ -1,26 +1,18 @@
-package net.pandadev.nextron.utils;
+package net.pandadev.nextron.apis;
 
 import net.pandadev.nextron.Main;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
-import org.bukkit.plugin.Plugin;
 
 public class VanishAPI {
 
-    private final Plugin plugin;
-
-    public VanishAPI(Plugin plugin) {
-        this.plugin = plugin;
-    }
-
-    public void setVanish(Player player, Boolean state) {
-        Main.getInstance().getConfig().set("Vanished." + player.getUniqueId(), state);
-        Main.getInstance().saveConfig();
+    public static void setVanish(Player player, Boolean state) {
+        SettingsAPI.setVanished(player, state);
         executeVanish(player);
     }
 
     public static boolean isVanish(Player player) {
-        return Main.getInstance().getConfig().getBoolean("Vanished." + player.getUniqueId());
+        return SettingsAPI.getVanished(player);
     }
 
     public static void executeVanish(Player player) {

@@ -1,9 +1,8 @@
 package net.pandadev.nextron.listeners;
 
 import net.pandadev.nextron.Main;
+import net.pandadev.nextron.apis.SettingsAPI;
 import net.pandadev.nextron.utils.Configs;
-import net.pandadev.nextron.utils.SettingsAPI;
-
 import org.bukkit.ChatColor;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.Player;

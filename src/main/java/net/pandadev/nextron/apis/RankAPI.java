@@ -1,7 +1,8 @@
-package net.pandadev.nextron.utils;
+package net.pandadev.nextron.apis;
 
 import ch.hekates.languify.language.Text;
 import net.pandadev.nextron.Main;
+import net.pandadev.nextron.utils.Configs;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
