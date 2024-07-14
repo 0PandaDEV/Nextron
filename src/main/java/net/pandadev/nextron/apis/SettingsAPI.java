@@ -92,7 +92,7 @@ public class SettingsAPI {
                 location.getZ(),
                 location.getYaw(),
                 location.getPitch());
-        String sql = "UPDATE user_settings SET lastback = '" + locationString + "', isback = 1 WHERE uuid = '"
+        String sql = "UPDATE user_settings SET lastback = '" + locationString + "' WHERE uuid = '"
                 + player.getUniqueId() + "'";
         try {
             Config.executeUpdate(sql);

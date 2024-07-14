@@ -24,13 +24,12 @@ public class BackCommand extends HelpBase {
         Player player = (Player) (sender);
 
         if (target == null) {
-            SettingsAPI.setLastPosition(player, player.getLocation());
-            System.out.println(SettingsAPI.getLastPosition(player));
+            SettingsAPI.setBack(player, true);
             player.teleport(SettingsAPI.getLastPosition(player));
             return;
         }
 
-        SettingsAPI.setLastPosition(target, target.getLocation());
+        SettingsAPI.setBack(target, true);
         target.teleport(SettingsAPI.getLastPosition(target));
         player.sendMessage(Main.getPrefix() + Text.get("back.other.success").replace("%p", target.getName()));
     }
