@@ -1,33 +1,22 @@
 package net.pandadev.nextron.commands;
 
-import net.pandadev.nextron.Main;
+import dev.rollczi.litecommands.annotations.command.Command;
+import dev.rollczi.litecommands.annotations.context.Context;
+import dev.rollczi.litecommands.annotations.execute.Execute;
 import net.pandadev.nextron.guis.GUIs;
 import org.bukkit.Sound;
-import org.bukkit.command.CommandExecutor;
-import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-public class MenuCommand extends CommandBase implements CommandExecutor {
+@Command(name = "menu", aliases = {"m"})
+public class MenuCommand extends HelpBase {
 
     public MenuCommand() {
-        super("menu", "Opens the menu where you can simply do everything", "/menu\n/m", "");
+        super("menu, Opens the menu where you can simply do everything, /menu\n/m");
     }
 
-    @Override
-    protected void execute(CommandSender sender, String label, String[] args) {
-        if (!(sender instanceof Player)) {
-            sender.sendMessage(Main.getCommandInstance());
-            return;
-        }
-
-        Player player = (Player) (sender);
-
-        if (label.equalsIgnoreCase("menu") || label.equalsIgnoreCase("m") && args.length == 0) {
-            GUIs.mainGui(player);
-            player.playSound(player.getLocation(), Sound.BLOCK_BARREL_OPEN, 100, 1);
-        } else {
-            player.sendMessage(Main.getPrefix() + "§c/menu");
-        }
+    @Execute
+    public void menuCommand(@Context Player player) {
+        GUIs.mainGui(player);
+        player.playSound(player.getLocation(), Sound.BLOCK_BARREL_OPEN, 100, 1);
     }
-
 }

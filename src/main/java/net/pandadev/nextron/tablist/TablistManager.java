@@ -1,12 +1,12 @@
 package net.pandadev.nextron.tablist;
 
+import net.pandadev.nextron.Main;
+import net.pandadev.nextron.utils.Configs;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.Player;
 import org.bukkit.scoreboard.Scoreboard;
 import org.bukkit.scoreboard.Team;
-import net.pandadev.nextron.Main;
-import net.pandadev.nextron.utils.Configs;
 
 public class TablistManager {
 

@@ -1,34 +1,29 @@
 package net.pandadev.nextron.commands;
 
 import ch.hekates.languify.language.Text;
+import dev.rollczi.litecommands.annotations.command.Command;
+import dev.rollczi.litecommands.annotations.context.Context;
+import dev.rollczi.litecommands.annotations.execute.Execute;
+import dev.rollczi.litecommands.annotations.permission.Permission;
 import net.pandadev.nextron.Main;
-import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
-public class HatCommand extends CommandBase {
+@Command(name = "hat", aliases = {"wear"})
+@Permission("nextron.hat")
+public class HatCommand extends HelpBase {
 
     public HatCommand() {
-        super("hat", "Wear the current item in your hand", "/hat\n/wear", "nextron.hat");
+        super("hat, Wear the current item in your hand, /hat\n/wear");
     }
 
-    @Override
-    protected void execute(CommandSender sender, String label, String[] args) {
+    @Execute
+    public void hatCommand(@Context Player player) {
+        ItemStack itemStack = player.getInventory().getItemInMainHand();
 
-        if (!(sender instanceof Player)) {
-            sender.sendMessage(Main.getCommandInstance());
-            return;
-        }
-        Player player = (Player) (sender);
+        player.getInventory().setHelmet(itemStack);
 
-        if (args.length == 0) {
-            ItemStack itemStack = player.getInventory().getItemInMainHand();
-
-            player.getInventory().setHelmet(itemStack);
-
-            player.sendMessage(Main.getPrefix() + Text.get("hat.success"));
-        }
-
+        player.sendMessage(Main.getPrefix() + Text.get("hat.success"));
     }
 
 }

@@ -1,71 +1,48 @@
 package net.pandadev.nextron.commands;
 
 import ch.hekates.languify.language.Text;
+import dev.rollczi.litecommands.annotations.argument.Arg;
+import dev.rollczi.litecommands.annotations.command.Command;
+import dev.rollczi.litecommands.annotations.context.Context;
+import dev.rollczi.litecommands.annotations.execute.Execute;
+import dev.rollczi.litecommands.annotations.permission.Permission;
 import net.pandadev.nextron.Main;
-import org.bukkit.command.Command;
+import net.pandadev.nextron.arguments.objects.Language;
 import org.bukkit.command.CommandSender;
-import org.bukkit.command.TabCompleter;
-import org.bukkit.entity.Player;
 
 import java.io.File;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
-public class LanguageCommand extends CommandBase implements TabCompleter {
+@Command(name = "language")
+@Permission("nextron.language")
+public class LanguageCommand extends HelpBase {
 
     public LanguageCommand() {
-        super("language", "Allows you to change the plugins language", "/language <lanugage>", "nextron.language");
+        super("language, Allows you to change the plugins language, /language <lanugage>");
     }
 
-    @Override
-    protected void execute(CommandSender sender, String label, String[] args) {
-
-        if (!(sender instanceof Player)) {
-            sender.sendMessage(Main.getCommandInstance());
+    @Execute
+    public void languageCommand(@Context CommandSender sender, @Arg Language language) {
+        File[] files = new File(Main.getInstance().getDataFolder(), "/lang").listFiles();
+        if (files == null) {
+            sender.sendMessage(Main.getPrefix() + "Error: Language directory not found or inaccessible.");
             return;
         }
-        Player player = (Player) (sender);
 
-        if (args.length == 1) {
-            List<File> dataFolder = Arrays.stream(new File(Main.getInstance().getDataFolder() + "/lang").listFiles()).toList();
-            List<String> languages = new ArrayList<>();
-            for (File lanugage : dataFolder) {
-                languages.add(lanugage.getName().replace(".json", ""));
-            }
-            if (!languages.contains(args[0])) {
-                player.sendMessage(Main.getPrefix() + Text.get("language.set.error").replace("%l", languages.toString().replace("[", "").replace("]", "")));
-                return;
-            }
+        List<String> languages = Arrays.stream(files)
+                .map(file -> file.getName().replace(".json", ""))
+                .collect(Collectors.toList());
 
-            Main.getInstance().getConfig().set("language", args[0]);
-            Main.getInstance().saveConfig();
-            player.sendMessage(Main.getPrefix() + Text.get("language.set.success").replace("%l", args[0]));
-        } else {
-            player.sendMessage(Main.getPrefix() + "§c/language <language>");
-        }
-    }
-
-    @Override
-    public List<String> onTabComplete(CommandSender sender, Command command, String label, String[] args) {
-        ArrayList<String> list = new ArrayList<String>();
-
-        if (args.length == 1) {
-            File dataFolder = new File(Main.getInstance().getDataFolder() + "/lang");
-            for (File language : Arrays.stream(dataFolder.listFiles()).toList()) {
-                list.add(language.getName().replace(".json", ""));
-            }
+        if (!languages.contains(language.getName().toLowerCase())) {
+            sender.sendMessage(Main.getPrefix() + Text.get("language.set.error").replace("%l", String.join(", ", languages)));
+            return;
         }
 
-        ArrayList<String> completerList = new ArrayList<String>();
-        String currentarg = args[args.length - 1].toLowerCase();
-        for (String s : list) {
-            String s1 = s.toLowerCase();
-            if (!s1.startsWith(currentarg)) continue;
-            completerList.add(s);
-        }
-
-        return completerList;
+        Main.getInstance().getConfig().set("language", language.getName());
+        Main.getInstance().saveConfig();
+        sender.sendMessage(Main.getPrefix() + Text.get("language.set.success").replace("%l", language.getName()));
     }
 
 }

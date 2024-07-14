@@ -1,78 +1,26 @@
 package net.pandadev.nextron.commands;
 
 import ch.hekates.languify.language.Text;
+import dev.rollczi.litecommands.annotations.argument.Arg;
+import dev.rollczi.litecommands.annotations.command.Command;
+import dev.rollczi.litecommands.annotations.context.Context;
+import dev.rollczi.litecommands.annotations.permission.Permission;
 import net.pandadev.nextron.Main;
-import org.bukkit.Bukkit;
-import org.bukkit.command.Command;
-import org.bukkit.command.CommandExecutor;
-import org.bukkit.command.CommandSender;
-import org.bukkit.command.TabCompleter;
 import org.bukkit.entity.Player;
 
-import java.util.ArrayList;
-import java.util.List;
-
-public class InvseeCommand extends CommandBase implements CommandExecutor, TabCompleter {
+@Command(name = "invsee")
+@Permission("nextron.invsee")
+public class InvseeCommand extends HelpBase {
 
     public InvseeCommand() {
-        super("invsee", "Lets you inspect and control another player's inventory", "/invsee <player>", "nextron.invsee");
+        super("invsee, Lets you inspect and control another player's inventory, /invsee <player>");
     }
 
-    @Override
-    protected void execute(CommandSender sender, String label, String[] args) {
-        if (!(sender instanceof Player)) {
-            sender.sendMessage(Main.getCommandInstance());
-            return;
-        }
-
-        Player player = (Player) (sender);
-
-        if (args.length == 1) {
-
-            if (player.hasPermission("nextron.invsee")) {
-
-                Player target = Bukkit.getPlayer(args[0]);
-
-                if (target != null) {
-
-                    if (target != player) {
-                        player.openInventory(target.getInventory());
-                    } else {
-                        player.sendMessage(Main.getPrefix() + Text.get("invsee.error"));
-                    }
-
-                } else {
-                    player.sendMessage(Main.getInvalidPlayer());
-                }
-
-            } else {
-                player.sendMessage(Main.getNoPerm());
-            }
-
+    public void invseeCommand(@Context Player player, @Arg Player target) {
+        if (target != player) {
+            player.openInventory(target.getInventory());
         } else {
-            player.sendMessage(Main.getPrefix() + "§c/invsee <player>");
+            player.sendMessage(Main.getPrefix() + Text.get("invsee.error"));
         }
-    }
-
-    @Override
-    public List<String> onTabComplete(CommandSender sender, Command command, String label, String[] args) {
-        ArrayList<String> list = new ArrayList<String>();
-
-        if (args.length == 1 && sender.hasPermission("nextron.invsee")) {
-            for (Player player : Bukkit.getOnlinePlayers()) {
-                list.add(player.getName());
-            }
-        }
-
-        ArrayList<String> completerList = new ArrayList<String>();
-        String currentarg = args[args.length - 1].toLowerCase();
-        for (String s : list) {
-            String s1 = s.toLowerCase();
-            if (!s1.startsWith(currentarg))
-                continue;
-            completerList.add(s);
-        }
-
-        return completerList;
     }
 }

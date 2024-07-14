@@ -1,56 +1,48 @@
 package net.pandadev.nextron.commands;
 
 import ch.hekates.languify.language.Text;
+import dev.rollczi.litecommands.annotations.command.Command;
+import dev.rollczi.litecommands.annotations.context.Context;
+import dev.rollczi.litecommands.annotations.execute.Execute;
+import dev.rollczi.litecommands.annotations.permission.Permission;
 import net.pandadev.nextron.Main;
 import net.pandadev.nextron.utils.Configs;
 import org.bukkit.Sound;
-import org.bukkit.command.CommandExecutor;
-import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-public class TpacceptCommand extends CommandBase implements CommandExecutor {
+@Command(name = "tpaccept")
+@Permission("nextron.tpaccept")
+public class TpacceptCommand extends HelpBase {
 
     public TpacceptCommand() {
-        super("tpaccept", "Accepts an incoming tpa request", "/tpaccept", "nextron.tpaccept");
+        super("tpaccept, Accepts an incoming tpa request, /tpaccept");
     }
 
-    @Override
-    protected void execute(CommandSender sender, String label, String[] args) {
-        if (!(sender instanceof Player)) {
-            sender.sendMessage(Main.getCommandInstance());
-            return;
-        }
+    @Execute
+    public void tpacceptCommand(@Context Player player) {
+        Player target = Main.tpa.get(player);
 
-        Player player = (Player) (sender);
+        if (target != null) {
 
-        if (args.length == 0) {
+            target.teleport(player.getLocation());
 
-            Player target = Main.tpa.get(player);
-
-            if (target != null) {
-
-                target.teleport(player.getLocation());
-
-                if (Configs.settings.getBoolean(target.getUniqueId() + ".feedback")) {
-                    target.sendMessage(
-                            Main.getPrefix() + Text.get("tpaccept.player.success").replace("%p", player.getName()));
-                }
-                if (Configs.settings.getBoolean(player.getUniqueId() + ".feedback")) {
-                    player.sendMessage(
-                            Main.getPrefix() + Text.get("tpaccept.target.success").replace("%t", target.getName()));
-                }
-
-                target.playSound(player.getLocation(), Sound.ENTITY_ENDERMAN_TELEPORT, 1.0f, 1.0f);
-
-                Main.tpa.remove(player);
-                Main.tpa.remove(target);
-
-            } else {
-                player.sendMessage(Main.getPrefix() + Text.get("tpaccept.error"));
+            if (Configs.settings.getBoolean(target.getUniqueId() + ".feedback")) {
+                target.sendMessage(
+                        Main.getPrefix() + Text.get("tpaccept.player.success").replace("%p", player.getName()));
+            }
+            if (Configs.settings.getBoolean(player.getUniqueId() + ".feedback")) {
+                player.sendMessage(
+                        Main.getPrefix() + Text.get("tpaccept.target.success").replace("%t", target.getName()));
             }
 
+            target.playSound(player.getLocation(), Sound.ENTITY_ENDERMAN_TELEPORT, 1.0f, 1.0f);
+
+            Main.tpa.remove(player);
+            Main.tpa.remove(target);
+
         } else {
-            player.sendMessage(Main.getPrefix() + "§c/tpaccept");
+            player.sendMessage(Main.getPrefix() + Text.get("tpaccept.error"));
         }
     }
+
 }

@@ -1,28 +1,49 @@
 package net.pandadev.nextron.commands;
 
 import ch.hekates.languify.language.Text;
+import dev.rollczi.litecommands.annotations.command.Command;
+import dev.rollczi.litecommands.annotations.context.Context;
+import dev.rollczi.litecommands.annotations.execute.Execute;
+import dev.rollczi.litecommands.annotations.optional.OptionalArg;
+import dev.rollczi.litecommands.annotations.permission.Permission;
 import net.pandadev.nextron.Main;
 import net.pandadev.nextron.utils.Configs;
 import net.pandadev.nextron.utils.VanishAPI;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
-import org.bukkit.command.Command;
-import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
-import org.bukkit.command.TabCompleter;
 import org.bukkit.entity.Player;
 
-import java.util.ArrayList;
-import java.util.List;
-
-public class VanishCommand extends CommandBase implements CommandExecutor, TabCompleter {
+@Command(name = "vanish", aliases = {"v"})
+@Permission("nextron.vanish")
+public class VanishCommand extends HelpBase {
 
     public VanishCommand() {
-        super("vanish", "Hides you from the tab list and other players can't see you", "/vanish [player]\n/v [player]", "nextron.vanish");
+        super("vanish, Hides you form the tab list and other players can't see you, /vanish [player]\n/v [player]");
     }
 
-    @Override
-    protected void execute(CommandSender sender, String label, String[] args) {
+    @Execute
+    public void vanishCommand(@Context CommandSender sender, @OptionalArg Player target) {
+        if (target != null) {
+            if (VanishAPI.isVanish(target)) {
+                Main.getInstance().getVanishAPI().setVanish(target, false);
+                sender.sendMessage(
+                        Main.getPrefix() + Text.get("unvanish.other").replace("%t", target.getName()));
+                if (Configs.settings.getBoolean(target.getUniqueId() + ".vanish." + "message")) {
+                    Bukkit.broadcastMessage(ChatColor.translateAlternateColorCodes('&', Main.getInstance()
+                            .getConfig().getString("join_message").replace("%p", target.getName())));
+                }
+            } else {
+                Main.getInstance().getVanishAPI().setVanish(target, true);
+                sender.sendMessage(Main.getPrefix() + Text.get("vanish.other").replace("%t", target.getName()));
+                if (Configs.settings.getBoolean(target.getUniqueId() + ".vanish." + "message")) {
+                    Bukkit.broadcastMessage(ChatColor.translateAlternateColorCodes('&', Main.getInstance()
+                            .getConfig().getString("leave_message").replace("%p", target.getName())));
+                }
+            }
+            return;
+        }
+
         if (!(sender instanceof Player)) {
             sender.sendMessage(Main.getCommandInstance());
             return;
@@ -30,85 +51,20 @@ public class VanishCommand extends CommandBase implements CommandExecutor, TabCo
 
         Player player = (Player) (sender);
 
-        if (args.length == 1) {
-
-            if (player.hasPermission("nextron.vanish.other")) {
-
-                Player target = Bukkit.getPlayer(args[0]);
-
-                if (target != null) {
-                    if (VanishAPI.isVanish(target)) {
-                        Main.getInstance().getVanishAPI().setVanish(target, false);
-                        player.sendMessage(
-                                Main.getPrefix() + Text.get("unvanish.other").replace("%t", target.getName()));
-                        if (Configs.settings.getBoolean(target.getUniqueId() + ".vanish." + "message")) {
-                            Bukkit.broadcastMessage(ChatColor.translateAlternateColorCodes('&', Main.getInstance()
-                                    .getConfig().getString("join_message").replace("%p", target.getName())));
-                        }
-                    } else {
-                        Main.getInstance().getVanishAPI().setVanish(target, true);
-                        player.sendMessage(Main.getPrefix() + Text.get("vanish.other").replace("%t", target.getName()));
-                        if (Configs.settings.getBoolean(target.getUniqueId() + ".vanish." + "message")) {
-                            Bukkit.broadcastMessage(ChatColor.translateAlternateColorCodes('&', Main.getInstance()
-                                    .getConfig().getString("leave_message").replace("%p", target.getName())));
-                        }
-                    }
-                } else {
-                    player.sendMessage(Main.getInvalidPlayer());
-                }
-
-            } else {
-                player.sendMessage(Main.getNoPerm());
+        if (VanishAPI.isVanish(player)) {
+            Main.getInstance().getVanishAPI().setVanish(player, false);
+            player.sendMessage(Main.getPrefix() + Text.get("unvanish"));
+            if (Configs.settings.getBoolean(player.getUniqueId() + ".vanish." + "message")) {
+                Bukkit.broadcastMessage(ChatColor.translateAlternateColorCodes('&', Main.getInstance()
+                        .getConfig().getString("join_message").replace("%p", player.getName())));
             }
-
-        } else if (args.length == 0) {
-
-            if (player.hasPermission("nextron.vanish")) {
-
-                if (VanishAPI.isVanish(player)) {
-                    Main.getInstance().getVanishAPI().setVanish(player, false);
-                    player.sendMessage(Main.getPrefix() + Text.get("unvanish"));
-                    if (Configs.settings.getBoolean(player.getUniqueId() + ".vanish." + "message")) {
-                        Bukkit.broadcastMessage(ChatColor.translateAlternateColorCodes('&', Main.getInstance()
-                                .getConfig().getString("join_message").replace("%p", player.getName())));
-                    }
-                } else {
-                    Main.getInstance().getVanishAPI().setVanish(player, true);
-                    player.sendMessage(Main.getPrefix() + Text.get("vanish"));
-                    if (Configs.settings.getBoolean(player.getUniqueId() + ".vanish." + "message")) {
-                        Bukkit.broadcastMessage(ChatColor.translateAlternateColorCodes('&', Main.getInstance()
-                                .getConfig().getString("leave_message").replace("%p", player.getName())));
-                    }
-                }
-
-            } else {
-                player.sendMessage(Main.getNoPerm());
-            }
-
         } else {
-            player.sendMessage(Main.getPrefix() + "§c/vanish <player>");
-        }
-    }
-
-    @Override
-    public List<String> onTabComplete(CommandSender sender, Command command, String label, String[] args) {
-        ArrayList<String> list = new ArrayList<String>();
-
-        if (args.length == 1 && sender.hasPermission("nextron.vanish.other")) {
-            for (Player player : Bukkit.getOnlinePlayers()) {
-                list.add(player.getName());
+            Main.getInstance().getVanishAPI().setVanish(player, true);
+            player.sendMessage(Main.getPrefix() + Text.get("vanish"));
+            if (Configs.settings.getBoolean(player.getUniqueId() + ".vanish." + "message")) {
+                Bukkit.broadcastMessage(ChatColor.translateAlternateColorCodes('&', Main.getInstance()
+                        .getConfig().getString("leave_message").replace("%p", player.getName())));
             }
         }
-
-        ArrayList<String> completerList = new ArrayList<String>();
-        String currentarg = args[args.length - 1].toLowerCase();
-        for (String s : list) {
-            String s1 = s.toLowerCase();
-            if (!s1.startsWith(currentarg))
-                continue;
-            completerList.add(s);
-        }
-
-        return completerList;
     }
 }

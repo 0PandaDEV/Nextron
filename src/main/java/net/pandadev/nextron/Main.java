@@ -3,12 +3,20 @@ package net.pandadev.nextron;
 import ch.hekates.languify.Languify;
 import ch.hekates.languify.language.LangLoader;
 import ch.hekates.languify.language.Text;
+import dev.rollczi.litecommands.LiteCommands;
+import dev.rollczi.litecommands.bukkit.LiteBukkitFactory;
+import dev.rollczi.litecommands.bukkit.LiteBukkitMessages;
+import lombok.Getter;
+import net.pandadev.nextron.arguments.*;
+import net.pandadev.nextron.arguments.objects.*;
 import net.pandadev.nextron.commands.*;
 import net.pandadev.nextron.listeners.*;
 import net.pandadev.nextron.tablist.TablistManager;
 import net.pandadev.nextron.utils.*;
 import org.bukkit.Bukkit;
+import org.bukkit.GameMode;
 import org.bukkit.WorldCreator;
+import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -21,18 +29,27 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 public final class Main extends JavaPlugin {
 
+    @Getter
     private static Main instance;
+    @Getter
     private static final String Prefix = "§x§b§1§8§0§f§f§lNextron §8» ";
+    @Getter
     private VanishAPI vanishAPI;
+    @Getter
     private TablistManager tablistManager;
+    @Getter
     public static String NoPerm;
+    @Getter
     public static String InvalidPlayer;
+    @Getter
     public static String CommandInstance;
     private UpdateChecker updateChecker;
+    private LiteCommands<CommandSender> liteCommands;
 
     public static HashMap<Player, Player> tpa = new HashMap<>();
     public static HashMap<Player, Player> tpahere = new HashMap<>();
@@ -55,6 +72,7 @@ public final class Main extends JavaPlugin {
 
         loadWorlds();
         saveDefaultConfig();
+        reloadConfig();
         Configs.createSettingsConfig();
         Configs.createHomeConfig();
         Configs.createWarpConfig();
@@ -69,7 +87,6 @@ public final class Main extends JavaPlugin {
 
         for (Player player : Bukkit.getOnlinePlayers()) {
             SettingsConfig.checkSettings(player);
-            RankAPI.createPlayerTeam(player);
             RankAPI.checkRank(player);
         }
 
@@ -80,17 +97,26 @@ public final class Main extends JavaPlugin {
         InvalidPlayer = Prefix + Text.get("invalid.player");
         CommandInstance = Prefix + Text.get("command.instance.error");
 
-        Bukkit.getConsoleSender().sendMessage(Prefix + Text.get("console.activate"));
-
         registerListeners();
-        registerCommands();
+
+        this.liteCommands = LiteBukkitFactory.builder("nextron", this).commands(new BackCommand(), new EnderchestCommand(), new FeatureCommand(), new FlyCommand(), new GamemodeCommand(), new GetPosCommand(), new GodCommand(), new HatCommand(), new HeadCommand(), new HealCommand(), new HelpCommand(), new HomeCommands(), new InvseeCommand(), new LanguageCommand(), new MenuCommand(), new NickCommand(), new NightVisionCommand(), new PingCommand(), new RankCommand(), new ReloadCommand(), new RenameCommand(), new RepairCommand(), new SpawnCommand(), new SpeedCommand(), new SudoCommand(), new TimeCommand(), new TopCommand(), new TpacceptCommand(), new TpaCommand(), new TpdenyCommand(), new TphereCommand(), new VanishCommand(), new WarpCommands(), new WorldCommand())
+
+                .argument(Feature.class, new FeatureArgument()).argument(GameMode.class, new GameModeArgument()).argument(Help.class, new HelpArgument()).argument(Home.class, new HomeArgument()).argument(Language.class, new LanguageArgument()).argument(Rank.class, new RankArgument()).argument(Seed.class, new SeedArgument()).argument(Warp.class, new WarpArgument())
+
+                .message(LiteBukkitMessages.PLAYER_NOT_FOUND, getInvalidPlayer()).message(LiteBukkitMessages.PLAYER_ONLY, getCommandInstance()).message(LiteBukkitMessages.MISSING_PERMISSIONS, getNoPerm()).message(LiteBukkitMessages.INVALID_USAGE, invalidUsage -> getPrefix() + "§cUsage: " + invalidUsage.getSchematic().first())
+
+                .build();
 
         int pluginId = 20704;
         new Metrics(this, pluginId);
+
+        Bukkit.getConsoleSender().sendMessage(Prefix + Text.get("console.activate"));
     }
 
     @Override
     public void onDisable() {
+        this.liteCommands.unregister();
+
         LangLoader.saveLanguages(getName(), "-" + getDescription().getVersion());
         LangLoader.loadLanguage(getConfig().getString("language"));
 
@@ -98,68 +124,12 @@ public final class Main extends JavaPlugin {
         Configs.saveWarpConfig();
         Configs.saveFeatureConfig();
 
-        Bukkit.getConsoleSender().sendMessage(Prefix + Text.get("console.disabled"));
-
-        for (Player player : Bukkit.getOnlinePlayers()) {
-            if (Main.getInstance().getConfig().getConfigurationSection("Ranks") == null) {
-                break;
-            }
-            for (String rank : getConfig().getConfigurationSection("Ranks").getKeys(false)) {
-                for (Team team : player.getScoreboard().getTeams()) {
-                    for (String entry : team.getEntries()) {
-                        team.removeEntry(entry);
-                    }
-                }
-                player.getScoreboard().getTeam(rank).removeEntry(player.getName());
-            }
-            player.getScoreboard().getTeam("999player").removeEntry(player.getName());
-            RankAPI.checkRank(player);
-
-            for (String rank : Main.getInstance().getConfig().getConfigurationSection("Ranks").getKeys(false)) {
-                Team finalrank = player.getScoreboard().getTeam(rank.toLowerCase());
-                finalrank.setPrefix("");
-                player.setDisplayName(player.getName());
-            }
+        for (Team team : Objects.requireNonNull(Bukkit.getScoreboardManager()).getMainScoreboard().getTeams()) {
+            team.unregister();
         }
 
+        Bukkit.getConsoleSender().sendMessage(Prefix + Text.get("console.disabled"));
         instance = null;
-    }
-
-    private void registerCommands() {
-        getCommand("gamemode").setExecutor(new GamemodeCommand());
-        getCommand("enderchest").setExecutor(new GamemodeCommand());
-        getCommand("home").setExecutor(new HomeCommands());
-        getCommand("invsee").setExecutor(new InvseeCommand());
-        getCommand("vanish").setExecutor(new VanishCommand());
-        getCommand("enderchest").setExecutor(new EnderchestCommand());
-        getCommand("tpa").setExecutor(new TpaCommand());
-        getCommand("tpaccept").setExecutor(new TpacceptCommand());
-        getCommand("warp").setExecutor(new WarpCommands());
-        getCommand("heal").setExecutor(new HealCommand());
-        getCommand("tphere").setExecutor(new TphereCommand());
-        getCommand("speed").setExecutor(new SpeedCommand());
-        getCommand("fly").setExecutor(new FlyCommand());
-        getCommand("sudo").setExecutor(new SudoCommand());
-        getCommand("head").setExecutor(new HeadCommand());
-        getCommand("rank").setExecutor(new RankCommand());
-        getCommand("menu").setExecutor(new MenuCommand());
-        getCommand("features").setExecutor(new FeatureCommand());
-        getCommand("back").setExecutor(new BackCommand());
-        getCommand("rename").setExecutor(new RenameCommand());
-        getCommand("god").setExecutor(new GodCommand());
-        getCommand("help").setExecutor(new HelpCommand());
-        getCommand("rl").setExecutor(new ReloadCommand());
-        getCommand("tpdeny").setExecutor(new TpdenyCommand());
-        getCommand("nightvision").setExecutor(new NightVisionCommand());
-        getCommand("nick").setExecutor(new NickCommand());
-        getCommand("language").setExecutor(new LanguageCommand());
-        getCommand("world").setExecutor(new WorldCommand());
-        getCommand("day").setExecutor(new TimeCommand());
-        getCommand("spawn").setExecutor(new SpawnCommand());
-        getCommand("getposition").setExecutor(new GetPosCommand());
-        getCommand("hat").setExecutor(new HatCommand());
-        getCommand("top").setExecutor(new TopCommand());
-        getCommand("tpahere").setExecutor(new TpahereCommand());
     }
 
     private void registerListeners() {
@@ -193,31 +163,4 @@ public final class Main extends JavaPlugin {
         return worldFolder.exists();
     }
 
-    public static Main getInstance() {
-        return instance;
-    }
-
-    public static String getPrefix() {
-        return Prefix;
-    }
-
-    public static String getInvalidPlayer() {
-        return InvalidPlayer;
-    }
-
-    public static String getNoPerm() {
-        return NoPerm;
-    }
-
-    public TablistManager getTablistManager() {
-        return tablistManager;
-    }
-
-    public VanishAPI getVanishAPI() {
-        return vanishAPI;
-    }
-
-    public static String getCommandInstance() {
-        return CommandInstance;
-    }
 }

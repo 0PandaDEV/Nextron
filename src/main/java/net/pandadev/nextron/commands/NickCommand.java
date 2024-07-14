@@ -1,38 +1,34 @@
 package net.pandadev.nextron.commands;
 
-import net.pandadev.nextron.Main;
+import dev.rollczi.litecommands.annotations.argument.Arg;
+import dev.rollczi.litecommands.annotations.command.RootCommand;
+import dev.rollczi.litecommands.annotations.context.Context;
+import dev.rollczi.litecommands.annotations.execute.Execute;
+import dev.rollczi.litecommands.annotations.permission.Permission;
 import net.pandadev.nextron.utils.Configs;
-import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-public class NickCommand extends CommandBase {
+@RootCommand
+public class NickCommand extends HelpBase {
 
     public NickCommand() {
-        super("nick", "Set your nickname", "/nick\n/resetnick", "nextron.nick");
+        super("nick, Set your nickname, /nick <nickname>",
+                "resetnick, Reset your nickname, /resetnick");
     }
 
-    @Override
-    protected void execute(CommandSender sender, String label, String[] args) {
+    @Execute(name = "nick")
+    @Permission("nextron.nick")
+    public void nickCommand(@Context Player player, @Arg String nick) {
+        player.setDisplayName(nick);
+        Configs.settings.set(player.getUniqueId() + ".nick", nick);
+        Configs.saveSettingsConfig();
+    }
 
-        if (!(sender instanceof Player)) {
-            sender.sendMessage(Main.getCommandInstance());
-            return;
-        }
-        Player player = (Player) (sender);
-
-        if (args.length == 1) {
-            player.setDisplayName(args[0]);
-            Configs.settings.set(player.getUniqueId() + ".nick", args[0]);
-            Configs.saveSettingsConfig();
-        } else if (args.length == 0 && label.equalsIgnoreCase("resetnick")) {
-            player.setDisplayName(player.getName());
-            Configs.settings.set(player.getUniqueId() + ".nick", player.getName());
-            Configs.saveSettingsConfig();
-        } else {
-            player.sendMessage(Main.getPrefix() + "§c/nick <name>");
-        }
-
-        Main.getInstance().getTablistManager().setAllPlayerTeams();
-
+    @Execute(name = "resetnick")
+    @Permission("nextron.resetnick")
+    public void resetnickCommand(@Context Player player) {
+        player.setDisplayName(player.getName());
+        Configs.settings.set(player.getUniqueId() + ".nick", player.getName());
+        Configs.saveSettingsConfig();
     }
 }

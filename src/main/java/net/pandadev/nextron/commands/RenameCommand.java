@@ -1,47 +1,34 @@
 package net.pandadev.nextron.commands;
 
 import ch.hekates.languify.language.Text;
+import dev.rollczi.litecommands.annotations.command.Command;
+import dev.rollczi.litecommands.annotations.context.Context;
+import dev.rollczi.litecommands.annotations.execute.Execute;
+import dev.rollczi.litecommands.annotations.join.Join;
+import dev.rollczi.litecommands.annotations.permission.Permission;
 import net.pandadev.nextron.Main;
 import org.bukkit.ChatColor;
-import org.bukkit.command.CommandExecutor;
-import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.meta.ItemMeta;
 
-public class RenameCommand extends CommandBase implements CommandExecutor {
+@Command(name = "rename")
+@Permission("nextron.rename")
+public class RenameCommand extends HelpBase {
 
     public RenameCommand() {
-        super("rename", "Renames the item you are currently holding", "/rename <name>", "nextron.rename");
+        super("rename, Renames the item you are currently holding, /rename <name>");
     }
 
-    @Override
-    protected void execute(CommandSender sender, String label, String[] args) {
-        if (!(sender instanceof Player)) {
-            sender.sendMessage(Main.getCommandInstance());
+    @Execute
+    public void renameCommand(@Context Player player, @Join String name) {
+        ItemMeta itemMeta = player.getInventory().getItemInMainHand().getItemMeta();
+        if (itemMeta == null) {
+            player.sendMessage(Main.getPrefix() + Text.get("rename.error"));
             return;
         }
-        Player player = (Player) (sender);
 
-        if (args.length >= 1) {
-            ItemMeta itemMeta = player.getItemInHand().getItemMeta();
-            if (itemMeta == null) {
-                player.sendMessage(Main.getPrefix() + Text.get("rename.error"));
-                return;
-            }
-
-            StringBuilder sb = new StringBuilder();
-            for (int i = 0; i < args.length; i++) {
-                if (i > 0)
-                    sb.append(" ");
-                sb.append(args[i]);
-            }
-
-            itemMeta.setDisplayName(ChatColor.translateAlternateColorCodes('&', String.valueOf(sb)));
-            player.getItemInHand().setItemMeta(itemMeta);
-        } else {
-            player.sendMessage(Main.getPrefix() + "§c/rename <name>");
-        }
+        itemMeta.setDisplayName(ChatColor.translateAlternateColorCodes('&', String.valueOf(name)));
+        player.getInventory().getItemInMainHand().setItemMeta(itemMeta);
     }
-
 
 }

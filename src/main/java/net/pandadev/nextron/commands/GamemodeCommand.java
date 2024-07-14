@@ -1,252 +1,144 @@
 package net.pandadev.nextron.commands;
 
 import ch.hekates.languify.language.Text;
+import dev.rollczi.litecommands.annotations.argument.Arg;
+import dev.rollczi.litecommands.annotations.command.RootCommand;
+import dev.rollczi.litecommands.annotations.context.Context;
+import dev.rollczi.litecommands.annotations.execute.Execute;
+import dev.rollczi.litecommands.annotations.optional.OptionalArg;
+import dev.rollczi.litecommands.annotations.permission.Permission;
 import net.pandadev.nextron.Main;
-import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
-import org.bukkit.command.Command;
-import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
-import org.bukkit.command.TabCompleter;
 import org.bukkit.entity.Player;
 
-import java.util.ArrayList;
-import java.util.List;
-
-public class GamemodeCommand extends CommandBase implements CommandExecutor, TabCompleter {
+@RootCommand
+public class GamemodeCommand extends HelpBase {
 
     public GamemodeCommand() {
-        super("gamemode", "Changes the gamemode", "/gamemode <gamemode> [player]\n/gm <gamemode> [player]\n/gms\n/gmc\n/gma\n/gmsp", "nextron.gamemode");
+        super(
+                "gamemode, Changes the gamemode, /gamemode <gamemode> [player]\n/gm <gamemode> [player]",
+                "gms, Change the gamemode to survival, /gms [player]",
+                "gmc, Change the gamemode to creative, /gmc [player]",
+                "gma, Change the gamemode to adventure, /gma [player]",
+                "gmsp, Change the gamemode to spectator, /gmsp [player]",
+                "survival, Change the gamemode to survival, /survival [player]",
+                "creative, Change the gamemode to creative, /creative [player]",
+                "adventure, Change the gamemode to adventure, /adventure [player]",
+                "spectator, Change the gamemode to spectator, /spectator [player]",
+                "gm0, Change the gamemode to survival, /gm0 [player]",
+                "gm1, Change the gamemode to creative, /gm1 [player]",
+                "gm2, Change the gamemode to adventure, /gm2 [player]",
+                "gm3, Change the gamemode to spectator, /gm3 [player]"
+        );
     }
 
-    @Override
-    protected void execute(CommandSender sender, String label, String[] args) {
-        if (args.length == 0) {
+
+    @Execute(name = "gmc", aliases = {"creative", "gm1"})
+    @Permission("nextron.gamemode.creative")
+    void creative(@Context CommandSender sender, @OptionalArg Player target) {
+        if (target == null) {
             if (!(sender instanceof Player)) {
-                sender.sendMessage(Main.getCommandInstance());
+                sender.sendMessage("§6This command can only be run by a player!");
+                return;
+            }
+
+            Player player = (Player) (sender);
+            player.setGameMode(GameMode.CREATIVE);
+            player.sendMessage(Main.getPrefix() + Text.get("gamemode.success").replace("%g", GameMode.CREATIVE.toString().toLowerCase()));
+            return;
+        }
+
+        target.setGameMode(GameMode.CREATIVE);
+        sender.sendMessage(Main.getPrefix() + Text.get("gamemode.other.success").replace("%t", target.getName()).replace("%g", GameMode.CREATIVE.toString().toLowerCase()));
+    }
+
+    @Execute(name = "gms", aliases = {"survival", "gm0"})
+    @Permission("nextron.gamemode.survival")
+    void survival(@Context CommandSender sender, @OptionalArg Player target) {
+        if (target == null) {
+            if (!(sender instanceof Player)) {
+                sender.sendMessage("§6This command can only be run by a player!");
+                return;
+            }
+
+            Player player = (Player) (sender);
+            player.setGameMode(GameMode.SURVIVAL);
+            player.sendMessage(Main.getPrefix() + Text.get("gamemode.success").replace("%g", GameMode.SURVIVAL.toString().toLowerCase()));
+            return;
+        }
+
+        target.setGameMode(GameMode.SURVIVAL);
+        sender.sendMessage(Main.getPrefix() + Text.get("gamemode.other.success").replace("%t", target.getName()).replace("%g", GameMode.SURVIVAL.toString().toLowerCase()));
+    }
+
+    @Execute(name = "gmsp", aliases = {"spectator", "gm3"})
+    @Permission("nextron.gamemode.spectator")
+    void spectator(@Context CommandSender sender, @OptionalArg Player target) {
+        if (target == null) {
+            if (!(sender instanceof Player)) {
+                sender.sendMessage("§6This command can only be run by a player!");
+                return;
+            }
+
+            Player player = (Player) (sender);
+            player.setGameMode(GameMode.SPECTATOR);
+            player.sendMessage(Main.getPrefix() + Text.get("gamemode.success").replace("%g", GameMode.SPECTATOR.toString().toLowerCase()));
+            return;
+        }
+
+        target.setGameMode(GameMode.SPECTATOR);
+        sender.sendMessage(Main.getPrefix() + Text.get("gamemode.other.success").replace("%t", target.getName()).replace("%g", GameMode.SPECTATOR.toString().toLowerCase()));
+    }
+
+    @Execute(name = "gma", aliases = {"adventure", "gm2"})
+    @Permission("nextron.gamemode.adventure")
+    void adventure(@Context CommandSender sender, @OptionalArg Player target) {
+        if (target == null) {
+            if (!(sender instanceof Player)) {
+                sender.sendMessage("§6This command can only be run by a player!");
                 return;
             }
 
             Player player = (Player) (sender);
 
-            if (!player.hasPermission("nextron.gamemode")) {
-                player.sendMessage(Main.getNoPerm());
-                return;
-            }
+            player.setGameMode(GameMode.ADVENTURE);
+            player.sendMessage(Main.getPrefix() + Text.get("gamemode.success").replace("%g", GameMode.ADVENTURE.toString().toLowerCase()));
+            return;
+        }
 
-            GameMode gamemode = null;
-            if (label.equalsIgnoreCase("gms")) {
-                gamemode = GameMode.SURVIVAL;
-            } else if (label.equalsIgnoreCase("gmc")) {
-                gamemode = GameMode.CREATIVE;
-            } else if (label.equalsIgnoreCase("gma")) {
-                gamemode = GameMode.ADVENTURE;
-            } else if (label.equalsIgnoreCase("gmsp")) {
-                gamemode = GameMode.SPECTATOR;
-            } else if (label.equalsIgnoreCase("survival")) {
-                gamemode = GameMode.SURVIVAL;
-            } else if (label.equalsIgnoreCase("creative")) {
-                gamemode = GameMode.CREATIVE;
-            } else if (label.equalsIgnoreCase("adventure")) {
-                gamemode = GameMode.ADVENTURE;
-            } else if (label.equalsIgnoreCase("spectator")) {
-                gamemode = GameMode.SPECTATOR;
-            } else {
-                sender.sendMessage(Main.getPrefix() + Text.get("gamemode.invalid"));
-                return;
-            }
+        target.setGameMode(GameMode.ADVENTURE);
+        sender.sendMessage(Main.getPrefix() + Text.get("gamemode.other.success").replace("%t", target.getName()).replace("%g", GameMode.ADVENTURE.toString().toLowerCase()));
+    }
 
-            if (player.getGameMode().equals(gamemode)) {
-                player.sendMessage(Main.getPrefix() + Text.get("gamemode.error").replace("%g", gamemode.toString().toLowerCase()));
-                return;
-            }
-
-            player.setGameMode(gamemode);
-            player.sendMessage(Main.getPrefix() + Text.get("gamemode.success").replace("%g", gamemode.toString().toLowerCase()));
-        } else if (args.length == 1 && label.equalsIgnoreCase("gmc") || args.length == 1 && label.equalsIgnoreCase("gms") || args.length == 1 && label.equalsIgnoreCase("gma") || args.length == 1 && label.equalsIgnoreCase("gmsp") || args.length == 1 && label.equalsIgnoreCase("creative") || args.length == 1 && label.equalsIgnoreCase("survival") || args.length == 1 && label.equalsIgnoreCase("adventure") || args.length == 1 && label.equalsIgnoreCase("spectator")) {
-
-            if (!sender.hasPermission("nextron.gamemode.other")) {
-                sender.sendMessage(Main.getNoPerm());
-                return;
-            }
-
-            Player target = Bukkit.getPlayer(args[0]);
-
-            if (target == null) {
-                sender.sendMessage(Main.getInvalidPlayer());
-                return;
-            }
-
-            GameMode gamemode = null;
-            if (label.equalsIgnoreCase("gms")) {
-                gamemode = GameMode.SURVIVAL;
-            } else if (label.equalsIgnoreCase("gmc")) {
-                gamemode = GameMode.CREATIVE;
-            } else if (label.equalsIgnoreCase("gma")) {
-                gamemode = GameMode.ADVENTURE;
-            } else if (label.equalsIgnoreCase("gmsp")) {
-                gamemode = GameMode.SPECTATOR;
-            } else if (label.equalsIgnoreCase("survival")) {
-                gamemode = GameMode.SURVIVAL;
-            } else if (label.equalsIgnoreCase("creative")) {
-                gamemode = GameMode.CREATIVE;
-            } else if (label.equalsIgnoreCase("adventure")) {
-                gamemode = GameMode.ADVENTURE;
-            } else if (label.equalsIgnoreCase("spectator")) {
-                gamemode = GameMode.SPECTATOR;
-            } else {
-                sender.sendMessage(Main.getPrefix() + Text.get("gamemode.invalid"));
-                return;
-            }
-
-            if (target.getGameMode().equals(gamemode)) {
-                sender.sendMessage(Main.getPrefix() + Text.get("gamemode.other.error").replace("%t", target.getName()).replace("%g", gamemode.toString().toLowerCase()));
-                return;
-            }
-
-            target.setGameMode(gamemode);
-            sender.sendMessage(Main.getPrefix() + Text.get("gamemode.other.success").replace("%t", target.getName()).replace("%g", gamemode.toString().toLowerCase()));
-
-        } else if (args.length == 1) {
+    @Execute(name = "gamemode", aliases = {"gm"})
+    @Permission("nextron.gamemode")
+    void gamemodeCommand(@Context CommandSender sender, @Arg GameMode gamemode, @OptionalArg Player target) {
+        if (target == null) {
             if (!(sender instanceof Player)) {
-                sender.sendMessage(Main.getCommandInstance());
+                sender.sendMessage("§6This command can only be run by a player!");
                 return;
             }
 
             Player player = (Player) (sender);
 
-            if (!player.hasPermission("nextron.gamemode")) {
-                player.sendMessage(Main.getNoPerm());
-                return;
-            }
-
-            GameMode gamemode = null;
-            if (args[0].equalsIgnoreCase("0")) {
-                gamemode = GameMode.SURVIVAL;
-            } else if (args[0].equalsIgnoreCase("1")) {
-                gamemode = GameMode.CREATIVE;
-            } else if (args[0].equalsIgnoreCase("2")) {
-                gamemode = GameMode.ADVENTURE;
-            } else if (args[0].equalsIgnoreCase("3")) {
-                gamemode = GameMode.SPECTATOR;
-            } else if (args[0].equalsIgnoreCase("survival")) {
-                gamemode = GameMode.SURVIVAL;
-            } else if (args[0].equalsIgnoreCase("creative")) {
-                gamemode = GameMode.CREATIVE;
-            } else if (args[0].equalsIgnoreCase("adventure")) {
-                gamemode = GameMode.ADVENTURE;
-            } else if (args[0].equalsIgnoreCase("spectator")) {
-                gamemode = GameMode.SPECTATOR;
-            } else if (args[0].equalsIgnoreCase("s")) {
-                gamemode = GameMode.SURVIVAL;
-            } else if (args[0].equalsIgnoreCase("c")) {
-                gamemode = GameMode.CREATIVE;
-            } else if (args[0].equalsIgnoreCase("a")) {
-                gamemode = GameMode.ADVENTURE;
-            } else if (args[0].equalsIgnoreCase("sp")) {
-                gamemode = GameMode.SPECTATOR;
-            } else {
-                sender.sendMessage(Main.getPrefix() + Text.get("gamemode.invalid"));
-                return;
-            }
-
-            if (player.getGameMode().equals(gamemode)) {
-                player.sendMessage(Main.getPrefix() + Text.get("gamemode.error").replace("%g", gamemode.toString().toLowerCase()));
-                return;
-            }
-
-            player.setGameMode(gamemode);
+            setGamemode(player, gamemode);
             player.sendMessage(Main.getPrefix() + Text.get("gamemode.success").replace("%g", gamemode.toString().toLowerCase()));
-        } else if (args.length == 2) {
-            if (!sender.hasPermission("nextron.gamemode.other")) {
-                sender.sendMessage(Main.getNoPerm());
-                return;
-            }
 
-            Player target = Bukkit.getPlayer(args[1]);
-
-            if (target == null) {
-                sender.sendMessage(Main.getInvalidPlayer());
-                return;
-            }
-
-            GameMode gamemode = null;
-            if (args[0].equalsIgnoreCase("0")) {
-                gamemode = GameMode.SURVIVAL;
-            } else if (args[0].equalsIgnoreCase("1")) {
-                gamemode = GameMode.CREATIVE;
-            } else if (args[0].equalsIgnoreCase("2")) {
-                gamemode = GameMode.ADVENTURE;
-            } else if (args[0].equalsIgnoreCase("3")) {
-                gamemode = GameMode.SPECTATOR;
-            } else if (args[0].equalsIgnoreCase("survival")) {
-                gamemode = GameMode.SURVIVAL;
-            } else if (args[0].equalsIgnoreCase("creative")) {
-                gamemode = GameMode.CREATIVE;
-            } else if (args[0].equalsIgnoreCase("adventure")) {
-                gamemode = GameMode.ADVENTURE;
-            } else if (args[0].equalsIgnoreCase("spectator")) {
-                gamemode = GameMode.SPECTATOR;
-            } else if (args[0].equalsIgnoreCase("s")) {
-                gamemode = GameMode.SURVIVAL;
-            } else if (args[0].equalsIgnoreCase("c")) {
-                gamemode = GameMode.CREATIVE;
-            } else if (args[0].equalsIgnoreCase("a")) {
-                gamemode = GameMode.ADVENTURE;
-            } else if (args[0].equalsIgnoreCase("sp")) {
-                gamemode = GameMode.SPECTATOR;
-            } else {
-                sender.sendMessage(Main.getPrefix() + Text.get("gamemode.invalid"));
-                return;
-            }
-
-            if (target.getGameMode().equals(gamemode)) {
-                sender.sendMessage(Main.getPrefix() + Text.get("gamemode.other.error").replace("%t", target.getName()).replace("%g", gamemode.toString().toLowerCase()));
-                return;
-            }
-
-            target.setGameMode(gamemode);
-            sender.sendMessage(Main.getPrefix() + Text.get("gamemode.other.success").replace("%t", target.getName()).replace("%g", gamemode.toString().toLowerCase()));
         } else {
-            sender.sendMessage(Main.getPrefix() + "§c/gamemode <mode> [player]");
+            if (!sender.hasPermission("nextron.gamemode.other")) {
+                sender.sendMessage("§cYou do not have permission to change others' gamemode.");
+                return;
+            }
+            setGamemode(target, gamemode);
+            sender.sendMessage(Main.getPrefix() + Text.get("gamemode.other.success").replace("%t", target.getName()).replace("%g", gamemode.toString().toLowerCase()));
         }
     }
 
-    @Override
-    public List<String> onTabComplete(CommandSender sender, Command command, String label, String[] args) {
-        ArrayList<String> list = new ArrayList<String>();
-
-        if (args.length == 1 && label.equalsIgnoreCase("gmc") || args.length == 1 && label.equalsIgnoreCase("gms") || args.length == 1 && label.equalsIgnoreCase("gma") || args.length == 1 && label.equalsIgnoreCase("gmsp") || args.length == 1 && label.equalsIgnoreCase("creative") || args.length == 1 && label.equalsIgnoreCase("survival") || args.length == 1 && label.equalsIgnoreCase("adventure") || args.length == 1 && label.equalsIgnoreCase("spectator")) {
-            for (Player player : Bukkit.getOnlinePlayers()) {
-                list.add(player.getName());
-            }
-        } else if (args.length == 1 && sender.hasPermission("nextron.gamemode")) {
-            list.add("0");
-            list.add("1");
-            list.add("2");
-            list.add("3");
-            list.add("survival");
-            list.add("creative");
-            list.add("adventure");
-            list.add("spectator");
-            list.add("s");
-            list.add("c");
-            list.add("a");
-            list.add("sp");
-        } else if (args.length == 2 && sender.hasPermission("nextron.gamemode.other")) {
-            for (Player player : Bukkit.getOnlinePlayers()) {
-                list.add(player.getName());
-            }
+    private void setGamemode(Player player, GameMode gamemode) {
+        if (player.getGameMode().equals(gamemode)) {
+            return;
         }
-
-        ArrayList<String> completerList = new ArrayList<String>();
-        String currentarg = args[args.length - 1].toLowerCase();
-        for (String s : list) {
-            String s1 = s.toLowerCase();
-            if (!s1.startsWith(currentarg)) continue;
-            completerList.add(s);
-        }
-
-        return completerList;
+        player.setGameMode(gamemode);
     }
 }
