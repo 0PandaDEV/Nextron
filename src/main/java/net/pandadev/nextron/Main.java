@@ -10,6 +10,8 @@ import lombok.Getter;
 import net.pandadev.nextron.arguments.*;
 import net.pandadev.nextron.arguments.objects.*;
 import net.pandadev.nextron.commands.*;
+import net.pandadev.nextron.config.Config;
+import net.pandadev.nextron.config.Migrations;
 import net.pandadev.nextron.listeners.*;
 import net.pandadev.nextron.tablist.TablistManager;
 import net.pandadev.nextron.utils.*;
@@ -59,6 +61,7 @@ public final class Main extends JavaPlugin {
         instance = this;
         tablistManager = new TablistManager();
 
+        Migrations.checkAndApplyMigrations();
         RankAPI.migration();
 
         Languify.setup(this, this.getDataFolder().toString());
@@ -87,6 +90,7 @@ public final class Main extends JavaPlugin {
 
         for (Player player : Bukkit.getOnlinePlayers()) {
             SettingsConfig.checkSettings(player);
+            Config.initializeUser(player);
             RankAPI.checkRank(player);
         }
 
