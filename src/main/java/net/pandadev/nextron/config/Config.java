@@ -1,10 +1,6 @@
 package net.pandadev.nextron.config;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -38,7 +34,7 @@ public class Config {
 
     public static void executeUpdate(String sql) throws SQLException {
         try (Connection conn = getConnection();
-                Statement stmt = conn.createStatement()) {
+             Statement stmt = conn.createStatement()) {
             stmt.executeUpdate(sql);
         } finally {
             closeConnection();
@@ -47,8 +43,8 @@ public class Config {
 
     public static void executeQuery(String sql, ResultSetHandler handler) throws SQLException {
         try (Connection conn = getConnection();
-                Statement stmt = conn.createStatement();
-                ResultSet rs = stmt.executeQuery(sql)) {
+             Statement stmt = conn.createStatement();
+             ResultSet rs = stmt.executeQuery(sql)) {
             handler.handle(rs);
         } finally {
             closeConnection();

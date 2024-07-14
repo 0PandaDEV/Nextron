@@ -13,7 +13,6 @@ import net.pandadev.nextron.apis.VanishAPI;
 import net.pandadev.nextron.arguments.*;
 import net.pandadev.nextron.arguments.objects.*;
 import net.pandadev.nextron.commands.*;
-import net.pandadev.nextron.config.Config;
 import net.pandadev.nextron.config.Migrations;
 import net.pandadev.nextron.listeners.*;
 import net.pandadev.nextron.tablist.TablistManager;
@@ -130,8 +129,6 @@ public final class Main extends JavaPlugin {
         Configs.saveHomeConfig();
         Configs.saveWarpConfig();
         Configs.saveFeatureConfig();
-
-        Config.closeConnection();
 
         for (Team team : Objects.requireNonNull(Bukkit.getScoreboardManager()).getMainScoreboard().getTeams()) {
             team.unregister();

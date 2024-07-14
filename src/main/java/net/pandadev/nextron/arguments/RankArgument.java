@@ -8,9 +8,9 @@ import dev.rollczi.litecommands.invocation.Invocation;
 import dev.rollczi.litecommands.suggestion.SuggestionContext;
 import dev.rollczi.litecommands.suggestion.SuggestionResult;
 import net.pandadev.nextron.Main;
+import net.pandadev.nextron.apis.RankAPI;
 import net.pandadev.nextron.arguments.objects.Rank;
 import org.bukkit.command.CommandSender;
-import org.bukkit.configuration.ConfigurationSection;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -42,11 +42,6 @@ public class RankArgument extends ArgumentResolver<CommandSender, Rank> {
     }
 
     private List<String> getAvailableRanks() {
-        ConfigurationSection ranksSection = Main.getInstance().getConfig().getConfigurationSection("Ranks");
-        if (ranksSection == null) {
-            System.out.println("The 'Ranks' section is not found in the config.");
-            return new ArrayList<>();
-        }
-        return new ArrayList<>(ranksSection.getKeys(false));
+        return RankAPI.getRanks();
     }
 }

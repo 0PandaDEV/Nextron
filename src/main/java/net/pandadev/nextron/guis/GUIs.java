@@ -63,8 +63,7 @@ public class GUIs {
                     player.sendMessage(Main.getPrefix() + Text.get("maingui.disabled.ranks"));
                     return;
                 }
-                if (Main.getInstance().getConfig().getConfigurationSection("Ranks") == null || Main
-                        .getInstance().getConfig().getConfigurationSection("Ranks").getKeys(false).isEmpty()) {
+                if (RankAPI.getRanks().isEmpty()) {
                     player.sendMessage(Main.getPrefix() + Text.get("maingui.no.ranks"));
                     player.playSound(player.getLocation(), Sound.ENTITY_PILLAGER_AMBIENT, 100, 0.5f);
                 } else {

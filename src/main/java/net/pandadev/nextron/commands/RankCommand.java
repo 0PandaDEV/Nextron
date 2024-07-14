@@ -20,6 +20,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.Collections;
+import java.util.List;
 
 @RootCommand
 public class RankCommand extends HelpBase {
@@ -31,8 +32,8 @@ public class RankCommand extends HelpBase {
     @Execute(name = "rank")
     @Permission("nextron.rank")
     public void rankCommand(@Context Player player) {
-        if (Main.getInstance().getConfig().getConfigurationSection("Ranks") == null || Main
-                .getInstance().getConfig().getConfigurationSection("Ranks").getKeys(false).isEmpty()) {
+        List<String> ranks = RankAPI.getRanks();
+        if (ranks.isEmpty()) {
             player.sendMessage(Main.getPrefix() + Text.get("maingui.no.ranks"));
             player.playSound(player.getLocation(), Sound.ENTITY_PILLAGER_AMBIENT, 100, 0.5f);
             return;
@@ -79,7 +80,7 @@ public class RankCommand extends HelpBase {
                             ChatColor.translateAlternateColorCodes('&', " " + text.getText()));
                     return Collections.singletonList(AnvilGUI.ResponseAction.close());
                 })
-                .text(Main.getInstance().getConfig().getString("Ranks." + rank.getName().toLowerCase() + ".prefix").replace("§", "&"))
+                .text(RankAPI.getRankPrefix(rank.getName().toLowerCase()).replace("§", "&"))
                 .itemLeft(new ItemStack(Material.NAME_TAG))
                 .title("Enter the new prefix")
                 .plugin(Main.getInstance())

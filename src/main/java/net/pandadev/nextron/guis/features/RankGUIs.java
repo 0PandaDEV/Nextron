@@ -26,11 +26,11 @@ public class RankGUIs {
                 .disableAllInteractions()
                 .create();
 
-        for (String rank : Main.getInstance().getConfig().getConfigurationSection("Ranks").getKeys(false)) {
+        for (String rank : RankAPI.getRanks()) {
             gui.addItem(ItemBuilder.from(Material.NAME_TAG)
                     .name(Component.text("§f" + rank))
                     .setLore("",
-                            "§8Prefix: " + Main.getInstance().getConfig().get("Ranks." + rank + ".prefix") + "§8<player>")
+                            "§8Prefix: " + RankAPI.getRankPrefix(rank) + "§8<player>")
                     .asGuiItem(inventoryClickEvent -> {
                         settings(player, rank);
                     }));
@@ -60,7 +60,7 @@ public class RankGUIs {
                                         ChatColor.translateAlternateColorCodes('&', " " + text.getText()));
                                 return Collections.singletonList(AnvilGUI.ResponseAction.close());
                             })
-                            .text(Main.getInstance().getConfig().getString("Ranks." + rank.toLowerCase() + ".prefix").replace("§", "&"))
+                            .text(RankAPI.getRankPrefix(rank.toLowerCase()).replace("§", "&"))
                             .itemLeft(new ItemStack(Material.NAME_TAG))
                             .title("Enter the prefix")
                             .plugin(Main.getInstance())
@@ -92,7 +92,7 @@ public class RankGUIs {
                 .name(Component.text("§cDelete"))
                 .asGuiItem(inventoryClickEvent -> {
                     RankAPI.deleteRank(player, rank);
-                    if (Main.getInstance().getConfig().getConfigurationSection("Ranks").getKeys(false).isEmpty()) {
+                    if (RankAPI.getRanks().isEmpty()) {
                         player.closeInventory();
                     } else {
                         manager(player);
