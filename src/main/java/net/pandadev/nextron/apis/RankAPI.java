@@ -9,10 +9,15 @@ import net.pandadev.nextron.utils.Configs;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.configuration.ConfigurationSection;
+import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.scoreboard.Scoreboard;
 import org.bukkit.scoreboard.Team;
 
+import java.io.File;
+import java.io.IOException;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -59,7 +64,8 @@ public class RankAPI {
             ArrayList<String> uuids;
             if (rs.next()) {
                 String existingUuids = rs.getString("uuids");
-                uuids = existingUuids.isEmpty() ? new ArrayList<>() : new Gson().fromJson(existingUuids, new TypeToken<ArrayList<String>>() {
+                uuids = existingUuids.isEmpty() ? new ArrayList<>()
+                        : new Gson().fromJson(existingUuids, new TypeToken<ArrayList<String>>() {
                 }.getType());
             } else {
                 uuids = new ArrayList<>();
@@ -72,7 +78,8 @@ public class RankAPI {
             ps.executeUpdate();
 
             Main.getInstance().getTablistManager().setAllPlayerTeams();
-            sender.sendMessage(Main.getPrefix() + Text.get("rank.set.success").replace("%p", player.getName()).replace("%r", rank));
+            sender.sendMessage(Main.getPrefix()
+                    + Text.get("rank.set.success").replace("%p", player.getName()).replace("%r", rank));
         } catch (SQLException e) {
             LOGGER.log(Level.SEVERE, "Error setting rank for player: " + player.getName(), e);
         }
@@ -87,8 +94,9 @@ public class RankAPI {
                         String name = rs.getString("name");
                         String uuidsString = rs.getString("uuids");
                         if (!uuidsString.isEmpty()) {
-                            ArrayList<String> uuids = new Gson().fromJson(uuidsString, new TypeToken<ArrayList<String>>() {
-                            }.getType());
+                            ArrayList<String> uuids = new Gson().fromJson(uuidsString,
+                                    new TypeToken<ArrayList<String>>() {
+                                    }.getType());
                             if (uuids.remove(player.getUniqueId().toString())) {
                                 String updateSql = "UPDATE ranks SET uuids = ? WHERE name = ?";
                                 PreparedStatement ps = Config.getConnection().prepareStatement(updateSql);
@@ -177,7 +185,8 @@ public class RankAPI {
                 return;
             }
             Main.getInstance().getTablistManager().setAllPlayerTeams();
-            player.sendMessage(Main.getPrefix() + Text.get("rank.setprefix.success").replace("%r", rank.toLowerCase()).replace("%p", prefix.substring(1)));
+            player.sendMessage(Main.getPrefix() + Text.get("rank.setprefix.success").replace("%r", rank.toLowerCase())
+                    .replace("%p", prefix.substring(1)));
         } catch (SQLException e) {
             LOGGER.log(Level.SEVERE, "Error setting prefix for rank: " + rank, e);
         }
@@ -194,7 +203,8 @@ public class RankAPI {
                 player.sendMessage(Main.getPrefix() + Text.get("rank.dontexists"));
                 return;
             }
-            player.sendMessage(Main.getPrefix() + Text.get("rank.rename.success").replace("%r", oldRank.toLowerCase()).replace("%n", newRank.toLowerCase().substring(1)));
+            player.sendMessage(Main.getPrefix() + Text.get("rank.rename.success").replace("%r", oldRank.toLowerCase())
+                    .replace("%n", newRank.toLowerCase().substring(1)));
             Main.getInstance().getTablistManager().setAllPlayerTeams();
         } catch (SQLException e) {
             LOGGER.log(Level.SEVERE, "Error renaming rank: " + oldRank + " to " + newRank, e);
@@ -210,8 +220,9 @@ public class RankAPI {
                     while (rs.next()) {
                         String uuidsString = rs.getString("uuids");
                         if (!uuidsString.isEmpty()) {
-                            ArrayList<String> uuids = new Gson().fromJson(uuidsString, new TypeToken<ArrayList<String>>() {
-                            }.getType());
+                            ArrayList<String> uuids = new Gson().fromJson(uuidsString,
+                                    new TypeToken<ArrayList<String>>() {
+                                    }.getType());
                             if (uuids.contains(player.getUniqueId().toString())) {
                                 rank[0] = rs.getString("name");
                                 break;
@@ -238,8 +249,9 @@ public class RankAPI {
                     while (rs.next()) {
                         String uuidsString = rs.getString("uuids");
                         if (!uuidsString.isEmpty()) {
-                            ArrayList<String> uuids = new Gson().fromJson(uuidsString, new TypeToken<ArrayList<String>>() {
-                            }.getType());
+                            ArrayList<String> uuids = new Gson().fromJson(uuidsString,
+                                    new TypeToken<ArrayList<String>>() {
+                                    }.getType());
                             if (uuids.contains(player.getUniqueId().toString())) {
                                 hasRank[0] = true;
                                 break;
@@ -327,45 +339,73 @@ public class RankAPI {
     }
 
     public static void migration() {
-        String checkSql = "SELECT COUNT(*) FROM ranks WHERE SUBSTR(name, 1, 3) NOT GLOB '[0-9][0-9][0-9]'";
-        String selectSql = "SELECT name, prefix, uuids FROM ranks ORDER BY name";
-        String deleteSql = "DELETE FROM ranks";
+        String checkSql = "SELECT COUNT(*) FROM ranks";
         String insertSql = "INSERT INTO ranks (name, prefix, uuids) VALUES (?, ?, ?)";
+        String updateSql = "UPDATE ranks SET name = ? WHERE name = ?";
 
         try {
+            // Check if the database is empty
             Config.executeQuery(checkSql, (ResultSet rs) -> {
                 try {
+                    File configFile = new File("plugins/Nextron/config.yml");
+                    FileConfiguration config = YamlConfiguration.loadConfiguration(configFile);
+                    boolean configChanged = false;
+
                     if (rs.next() && rs.getInt(1) == 0) {
-                        return; // No migration needed
+                        // Database is empty, migrate from YAML
+                        ConfigurationSection ranksSection = config.getConfigurationSection("Ranks");
+
+                        if (ranksSection != null) {
+                            for (String rankName : ranksSection.getKeys(false)) {
+                                String prefix = ranksSection.getString(rankName + ".prefix", "");
+                                List<String> uuids = ranksSection.getStringList(rankName + ".players");
+
+                                PreparedStatement ps = Config.getConnection().prepareStatement(insertSql);
+                                ps.setString(1, rankName);
+                                ps.setString(2, prefix);
+                                ps.setString(3, new Gson().toJson(uuids));
+                                ps.executeUpdate();
+                            }
+                            configChanged = true;
+                        }
                     }
 
+                    // Perform numbering migration
+                    String selectSql = "SELECT name, prefix, uuids FROM ranks ORDER BY name";
                     List<String[]> ranks = new ArrayList<>();
                     Config.executeQuery(selectSql, (ResultSet rs2) -> {
-                        try {
-                            while (rs2.next()) {
-                                ranks.add(new String[]{rs2.getString("name"), rs2.getString("prefix"), rs2.getString("uuids")});
-                            }
-                        } catch (SQLException e) {
-                            LOGGER.log(Level.SEVERE, "Error during rank migration", e);
+                        while (rs2.next()) {
+                            ranks.add(new String[]{rs2.getString("name"), rs2.getString("prefix"), rs2.getString("uuids")});
                         }
                     });
 
-                    Config.executeUpdate(deleteSql);
-
                     int counter = 1;
                     for (String[] rank : ranks) {
-                        String newName = String.format("%03d%s", counter, rank[0]);
-                        try {
-                            PreparedStatement ps = Config.getConnection().prepareStatement(insertSql);
+                        if (!rank[0].matches("^\\d{3}.*")) {
+                            String newName = String.format("%03d%s", counter, rank[0]);
+                            PreparedStatement ps = Config.getConnection().prepareStatement(updateSql);
                             ps.setString(1, newName);
-                            ps.setString(2, rank[1]);
-                            ps.setString(3, rank[2]);
+                            ps.setString(2, rank[0]);
                             ps.executeUpdate();
-                        } catch (SQLException e) {
-                            LOGGER.log(Level.SEVERE, "Error inserting migrated rank: " + newName, e);
+                            counter++;
                         }
-                        counter++;
                     }
+
+                    // Remove Ranks key from config.yml
+                    if (config.contains("Ranks")) {
+                        config.set("Ranks", null);
+                        configChanged = true;
+                    }
+
+                    // Save config if changed
+                    if (configChanged) {
+                        try {
+                            config.save(configFile);
+                        } catch (IOException e) {
+                            LOGGER.log(Level.SEVERE, "Error saving config file after rank migration", e);
+                        }
+                    }
+
                 } catch (SQLException e) {
                     LOGGER.log(Level.SEVERE, "Error during rank migration", e);
                 }
