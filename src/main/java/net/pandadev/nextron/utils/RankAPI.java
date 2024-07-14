@@ -18,9 +18,9 @@ public class RankAPI {
 
     public static void createPlayerTeam(Player player) {
         Scoreboard scoreboard = player.getScoreboard();
-        Team finalrank = scoreboard.getTeam("010player");
+        Team finalrank = scoreboard.getTeam("999player");
         if (finalrank == null)
-            finalrank = scoreboard.registerNewTeam("010player");
+            finalrank = scoreboard.registerNewTeam("999player");
         if (Configs.feature.getBoolean("rank_system")) {
             finalrank.setPrefix("§9Player §8• §7");
         } else {
@@ -134,7 +134,7 @@ public class RankAPI {
         createPlayerTeam(player);
         if (Main.getInstance().getConfig().getConfigurationSection("Ranks") == null || !hasRank(player)) {
             Scoreboard scoreboard = player.getScoreboard();
-            Team finalrank = scoreboard.getTeam("010player");
+            Team finalrank = scoreboard.getTeam("999player");
             finalrank.addEntry(player.getName());
             if (Configs.feature.getBoolean("rank_system")) {
                 String displayName = "§9Player §8• §f" + Configs.settings.getString(player.getUniqueId() + ".nick");

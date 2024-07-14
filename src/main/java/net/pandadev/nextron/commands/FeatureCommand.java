@@ -26,7 +26,7 @@ public class FeatureCommand extends HelpBase {
         super("features, Opens a GUI where you can enable/disable all the systems in the plugin, /features [enable/disable] [feature]");
     }
 
-    @Execute(name = "features")
+    @Execute()
     void featuresCommand(@Context Player player) {
         if (!player.isOp()) {
             player.sendMessage(Main.getNoPerm());
@@ -36,7 +36,7 @@ public class FeatureCommand extends HelpBase {
         player.playSound(player.getLocation(), Sound.BLOCK_BARREL_OPEN, 100, 1);
     }
 
-    @Execute(name = "features enable")
+    @Execute(name = "enable")
     void enableCommand(@Context CommandSender sender, @Arg Feature feature) {
         Configs.feature.set(feature.getName(), true);
         Configs.saveFeatureConfig();
@@ -59,7 +59,7 @@ public class FeatureCommand extends HelpBase {
                 Main.getPrefix() + Text.get("feature.enable").replace("%n", feature.getName().replace("_system", "")));
     }
 
-    @Execute(name = "features disable")
+    @Execute(name = "disable")
     void disableCommand(@Context CommandSender sender, @Arg Feature feature) {
         Configs.feature.set(feature.getName(), false);
         Configs.saveFeatureConfig();

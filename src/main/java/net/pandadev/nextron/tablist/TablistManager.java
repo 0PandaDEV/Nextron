@@ -21,8 +21,8 @@ public class TablistManager {
         if (ranks == null) return;
 
         for (String rank : ranks.getKeys(false)) {
-            Team teamRank = scoreboard.getTeam("010" + rank);
-            if (teamRank == null) teamRank = scoreboard.registerNewTeam("010" + rank);
+            Team teamRank = scoreboard.getTeam(rank);
+            if (teamRank == null) teamRank = scoreboard.registerNewTeam(rank);
 
             if (Configs.feature.getBoolean("rank_system")) {
                 teamRank.setPrefix(ranks.getString(rank + ".prefix"));

@@ -170,13 +170,13 @@ public final class Main extends JavaPlugin {
                         team.removeEntry(entry);
                     }
                 }
-                player.getScoreboard().getTeam("010" + rank).removeEntry(player.getName());
+                player.getScoreboard().getTeam(rank).removeEntry(player.getName());
             }
-            player.getScoreboard().getTeam("010player").removeEntry(player.getName());
+            player.getScoreboard().getTeam("999player").removeEntry(player.getName());
             RankAPI.checkRank(player);
 
             for (String rank : Main.getInstance().getConfig().getConfigurationSection("Ranks").getKeys(false)) {
-                Team finalrank = player.getScoreboard().getTeam("010" + rank.toLowerCase());
+                Team finalrank = player.getScoreboard().getTeam(rank.toLowerCase());
                 finalrank.setPrefix("");
                 player.setDisplayName(player.getName());
             }
