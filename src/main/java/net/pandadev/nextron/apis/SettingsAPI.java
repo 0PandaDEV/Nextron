@@ -156,17 +156,17 @@ public class SettingsAPI {
     public static boolean allowsTPAs(Player player) {
         String sql = "SELECT allowtpas FROM user_settings WHERE uuid = '" + player.getUniqueId() + "'";
         try {
-            final boolean[] allowTPAs = {false};
+            final boolean[] allowTPAs = {true};
             Config.executeQuery(sql, rs -> {
                 if (rs.next()) {
-                    allowTPAs[0] = !rs.getBoolean("allowtpas");
+                    allowTPAs[0] = rs.getBoolean("allowtpas");
                 }
             });
             return allowTPAs[0];
         } catch (SQLException e) {
             LOGGER.log(Level.SEVERE, "Error checking allowTPAs: " + player.getName(), e);
         }
-        return false;
+        return true;
     }
 
     public static void setTPAs(Player player, boolean value) {
