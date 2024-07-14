@@ -30,13 +30,11 @@ public class FlyCommand extends HelpBase {
             Player player = (Player) (sender);
 
             if (player.getAllowFlight()) {
-                System.out.println("off");
                 player.setAllowFlight(false);
                 if (Configs.settings.getBoolean(player.getUniqueId() + ".feedback")) {
                     player.sendMessage(Main.getPrefix() + Text.get("fly.off"));
                 }
             } else {
-                System.out.println("on");
                 player.setAllowFlight(true);
                 if (Configs.settings.getBoolean(player.getUniqueId() + ".feedback")) {
                     player.sendMessage(Main.getPrefix() + Text.get("fly.on"));

@@ -68,7 +68,6 @@ public class WorldCommand extends HelpBase {
             wc.type(WorldType.NORMAL);
 
             if (seed != null) {
-                System.out.println(seed.getSeed());
                 wc.seed(seed.getSeed());
             }
 

@@ -40,8 +40,6 @@ public class NightVisionCommand extends HelpBase {
             return;
         }
 
-
-        System.out.println(target);
         if (!target.hasPotionEffect(PotionEffectType.NIGHT_VISION)) {
             target.addPotionEffect(
                     new PotionEffect(PotionEffectType.NIGHT_VISION, PotionEffect.INFINITE_DURATION, 255, false, false, false));
