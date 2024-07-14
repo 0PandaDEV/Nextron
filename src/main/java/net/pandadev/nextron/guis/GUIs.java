@@ -120,7 +120,7 @@ public class GUIs {
         if (SettingsAPI.allowsFeedback(player)) {
             gui.setItem(2, 3, ItemBuilder.from(feedback_active).asGuiItem(inventoryClickEvent -> {
                 if (inventoryClickEvent.getClick().isLeftClick()) {
-                    SettingsAPI.setVanishMessage(player, false);
+                    SettingsAPI.setFeedback(player, false);
                     playerSettings(player);
                     player.playSound(player.getLocation(), Sound.BLOCK_BEACON_DEACTIVATE, 100, 1);
                 }
@@ -128,7 +128,7 @@ public class GUIs {
         } else {
             gui.setItem(2, 3, ItemBuilder.from(feedback_inactive).asGuiItem(inventoryClickEvent -> {
                 if (inventoryClickEvent.getClick().isLeftClick()) {
-                    SettingsAPI.setVanishMessage(player, true);
+                    SettingsAPI.setFeedback(player, true);
                     playerSettings(player);
                     player.playSound(player.getLocation(), Sound.BLOCK_BEACON_ACTIVATE, 100, 1);
                 }
