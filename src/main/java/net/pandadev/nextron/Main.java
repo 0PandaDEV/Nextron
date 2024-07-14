@@ -68,6 +68,8 @@ public final class Main extends JavaPlugin {
         RankAPI.migration();
         HomeAPI.migration();
         WarpAPI.migration();
+        FeatureAPI.migration();
+        SettingsAPI.migration();
 
         Languify.setup(this, this.getDataFolder().toString());
         LangLoader.saveLanguages(getName(), "-" + getDescription().getVersion());

@@ -1,10 +1,16 @@
 package net.pandadev.nextron.apis;
 
+import net.pandadev.nextron.Main;
 import net.pandadev.nextron.config.Config;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
+import org.bukkit.configuration.ConfigurationSection;
+import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 
+import java.io.File;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Objects;
 import java.util.logging.Level;
@@ -229,5 +235,52 @@ public class SettingsAPI {
             LOGGER.log(Level.SEVERE, "Error getting vanished status: " + player.getName(), e);
         }
         return false;
+    }
+
+    public static void migration() {
+        String checkSql = "SELECT COUNT(*) FROM user_settings";
+        try (PreparedStatement checkPs = Config.getConnection().prepareStatement(checkSql);
+             ResultSet rs = checkPs.executeQuery()) {
+            if (rs.next() && rs.getInt(1) > 0) {
+                LOGGER.info("User settings table is not empty. Skipping migration.");
+                return;
+            }
+        } catch (SQLException e) {
+            LOGGER.log(Level.SEVERE, "Error checking user_settings table", e);
+            return;
+        }
+
+        File settingsConfig = new File(Main.getInstance().getDataFolder(), "user_settings.yml");
+        if (!settingsConfig.exists()) {
+            LOGGER.info("No user_settings.yml file found. Skipping migration.");
+            return;
+        }
+
+        YamlConfiguration yamlConfig = YamlConfiguration.loadConfiguration(settingsConfig);
+        String sql = "INSERT INTO user_settings (uuid, vanish_message, vanish_vanished, feedback, allowtpas, nick, lastback, isback) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+
+        try (PreparedStatement ps = Config.getConnection().prepareStatement(sql)) {
+            for (String uuid : yamlConfig.getKeys(false)) {
+                ConfigurationSection userSection = yamlConfig.getConfigurationSection(uuid);
+                if (userSection != null) {
+                    ps.setString(1, uuid);
+                    ps.setBoolean(2, userSection.getBoolean("vanish.message", true));
+                    ps.setBoolean(3, userSection.getBoolean("vanish.vanished", false));
+                    ps.setBoolean(4, userSection.getBoolean("feedback", true));
+                    ps.setBoolean(5, userSection.getBoolean("allowtpas", true));
+                    ps.setString(6, userSection.getString("nick", ""));
+
+                    Location lastback = userSection.getLocation("lastback");
+                    ps.setString(7, lastback != null ? lastback.serialize().toString() : "");
+
+                    ps.setBoolean(8, userSection.getBoolean("isback", false));
+                    ps.addBatch();
+                }
+            }
+            ps.executeBatch();
+            LOGGER.info("User settings data migration completed successfully.");
+        } catch (SQLException e) {
+            LOGGER.log(Level.SEVERE, "Error migrating user settings data to database", e);
+        }
     }
 }
