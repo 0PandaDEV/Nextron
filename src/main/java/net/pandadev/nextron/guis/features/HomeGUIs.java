@@ -5,8 +5,8 @@ import dev.triumphteam.gui.builder.item.ItemBuilder;
 import dev.triumphteam.gui.guis.Gui;
 import net.kyori.adventure.text.Component;
 import net.pandadev.nextron.Main;
+import net.pandadev.nextron.apis.HomeAPI;
 import net.pandadev.nextron.guis.GUIs;
-import net.pandadev.nextron.utils.Configs;
 import net.wesjd.anvilgui.AnvilGUI;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -14,7 +14,7 @@ import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 
 import java.util.Collections;
-import java.util.Objects;
+import java.util.List;
 
 public class HomeGUIs {
 
@@ -25,7 +25,8 @@ public class HomeGUIs {
                 .disableAllInteractions()
                 .create();
 
-        for (String home : Configs.home.getConfigurationSection("Homes." + player.getUniqueId()).getKeys(false)) {
+        List<String> homes = HomeAPI.getHomes(player);
+        for (String home : homes) {
             gui.addItem(ItemBuilder.skull().texture("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNjNkMDJjZGMwNzViYjFjYzVmNmZlM2M3NzExYWU0OTc3ZTM4YjkxMGQ1MGVkNjAyM2RmNzM5MTNlNWU3ZmNmZiJ9fX0=")
                     .name(Component.text("§f" + home))
                     .setLore("",
@@ -33,15 +34,16 @@ public class HomeGUIs {
                             Text.get("homegui.rightclick"))
                     .asGuiItem(inventoryClickEvent -> {
                         if (inventoryClickEvent.getClick().isRightClick()) {
-                            player.teleport((Location) Objects
-                                    .requireNonNull(Configs.home.get("Homes." + player.getUniqueId() + "." + home)));
-                            player.playSound(player.getLocation(), Sound.ENTITY_ENDERMAN_TELEPORT, 1.0f, 1.0f);
-                            player.closeInventory();
+                            Location location = HomeAPI.getHome(player, home);
+                            if (location != null) {
+                                player.teleport(location);
+                                player.playSound(player.getLocation(), Sound.ENTITY_ENDERMAN_TELEPORT, 1.0f, 1.0f);
+                                player.closeInventory();
+                            }
                         } else if (inventoryClickEvent.getClick().isLeftClick()) {
                             settings(player, home);
                         }
                     }));
-
         }
 
         gui.setItem(5, 1, ItemBuilder.skull().texture("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYmQ2OWUwNmU1ZGFkZmQ4NGU1ZjNkMWMyMTA2M2YyNTUzYjJmYTk0NWVlMWQ0ZDcxNTJmZGM1NDI1YmMxMmE5In19fQ==").name(Component.text("§fBack")).asGuiItem(inventoryClickEvent -> {
@@ -61,10 +63,12 @@ public class HomeGUIs {
         gui.setItem(2, 4, ItemBuilder.from(Material.ENDER_PEARL)
                 .name(Component.text("§3Teleport"))
                 .asGuiItem(inventoryClickEvent -> {
-                    player.teleport((Location) Objects
-                            .requireNonNull(Configs.home.get("Homes." + player.getUniqueId() + "." + home)));
-                    player.playSound(player.getLocation(), Sound.ENTITY_ENDERMAN_TELEPORT, 1.0f, 1.0f);
-                    player.closeInventory();
+                    Location location = HomeAPI.getHome(player, home);
+                    if (location != null) {
+                        player.teleport(location);
+                        player.playSound(player.getLocation(), Sound.ENTITY_ENDERMAN_TELEPORT, 1.0f, 1.0f);
+                        player.closeInventory();
+                    }
                 }));
 
         gui.setItem(2, 5, ItemBuilder.from(Material.YELLOW_DYE)
@@ -72,11 +76,7 @@ public class HomeGUIs {
                 .asGuiItem(inventoryClickEvent -> {
                     new AnvilGUI.Builder()
                             .onClick((state, text) -> {
-                                Location location = (Location) Configs.home
-                                        .get("Homes." + player.getUniqueId() + "." + home);
-                                Configs.home.set("Homes." + player.getUniqueId() + "." + text.getText(), location);
-                                Configs.home.set("Homes." + player.getUniqueId() + "." + home, null);
-                                Configs.saveHomeConfig();
+                                HomeAPI.renameHome(player, home, text.getText());
                                 player.sendMessage(Main.getPrefix() + Text.get("home.rename.success").replace("%h", home)
                                         .replace("%n", text.getText()));
                                 return Collections.singletonList(AnvilGUI.ResponseAction.close());
@@ -89,10 +89,8 @@ public class HomeGUIs {
                 }));
 
         gui.setItem(2, 6, ItemBuilder.from(Material.RED_DYE).name(Component.text("§cDelete")).asGuiItem(inventoryClickEvent -> {
-            Configs.home.set("Homes." + player.getUniqueId() + "." + home, null);
-            Main.getInstance().saveConfig();
-            if (Configs.home.getConfigurationSection("Homes." + player.getUniqueId()).getKeys(false)
-                    .isEmpty()) {
+            HomeAPI.deleteHome(player, home);
+            if (HomeAPI.getHomes(player).isEmpty()) {
                 player.closeInventory();
             } else {
                 manager(player);

@@ -5,6 +5,7 @@ import dev.triumphteam.gui.builder.item.ItemBuilder;
 import dev.triumphteam.gui.guis.Gui;
 import net.kyori.adventure.text.Component;
 import net.pandadev.nextron.Main;
+import net.pandadev.nextron.apis.HomeAPI;
 import net.pandadev.nextron.apis.RankAPI;
 import net.pandadev.nextron.apis.SettingsAPI;
 import net.pandadev.nextron.guis.features.HomeGUIs;
@@ -16,6 +17,8 @@ import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
+
+import java.util.List;
 
 public class GUIs {
 
@@ -35,8 +38,8 @@ public class GUIs {
                 player.sendMessage(Main.getPrefix() + Text.get("maingui.disabled.homes"));
                 return;
             }
-            if (Configs.home.getConfigurationSection("Homes." + player.getUniqueId()) == null || Configs.home
-                    .getConfigurationSection("Homes." + player.getUniqueId()).getKeys(false).isEmpty()) {
+            List<String> homes = HomeAPI.getHomes(player);
+            if (homes.isEmpty()) {
                 player.sendMessage(Main.getPrefix() + Text.get("maingui.no.homes"));
                 player.playSound(player.getLocation(), Sound.ENTITY_PILLAGER_AMBIENT, 100, 0.5f);
             } else {

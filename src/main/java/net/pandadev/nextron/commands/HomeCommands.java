@@ -14,7 +14,7 @@ import net.md_5.bungee.api.chat.HoverEvent;
 import net.md_5.bungee.api.chat.TextComponent;
 import net.pandadev.nextron.Main;
 import net.pandadev.nextron.arguments.objects.Home;
-import net.pandadev.nextron.utils.Configs;
+import net.pandadev.nextron.apis.HomeAPI;
 import net.pandadev.nextron.utils.Utils;
 import net.wesjd.anvilgui.AnvilGUI;
 import org.bukkit.Location;
@@ -24,7 +24,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.Collections;
-import java.util.Objects;
+import java.util.List;
 
 @RootCommand
 public class HomeCommands extends HelpBase {
@@ -41,9 +41,9 @@ public class HomeCommands extends HelpBase {
     @Permission("nextron.home")
     public void home(@Context Player player, @OptionalArg Home home) {
         if (home == null) {
-            if (Configs.home.getString("Homes." + player.getUniqueId() + ".default") != null) {
-                player.teleport((Location) Objects
-                        .requireNonNull(Configs.home.get("Homes." + player.getUniqueId() + ".default")));
+            Location defaultHome = HomeAPI.getHome(player, "default");
+            if (defaultHome != null) {
+                player.teleport(defaultHome);
                 player.playSound(player.getLocation(), Sound.ENTITY_ENDERMAN_TELEPORT, 100, 1);
                 player.sendMessage(Main.getPrefix() + Text.get("home.default.success"));
             } else {
@@ -52,10 +52,9 @@ public class HomeCommands extends HelpBase {
             return;
         }
 
-        if (Configs.home.getString("Homes." + player.getUniqueId() + "." + home.getName().toLowerCase()) != null) {
-            player.teleport(
-                    (Location) Objects.requireNonNull(
-                            Configs.home.get("Homes." + player.getUniqueId() + "." + home.getName().toLowerCase())));
+        Location homeLocation = HomeAPI.getHome(player, home.getName().toLowerCase());
+        if (homeLocation != null) {
+            player.teleport(homeLocation);
             player.playSound(player.getLocation(), Sound.ENTITY_ENDERMAN_TELEPORT, 100, 1);
             player.sendMessage(Main.getPrefix() + Text.get("home.success").replace("%h", home.getName().toLowerCase()));
         } else {
@@ -68,15 +67,14 @@ public class HomeCommands extends HelpBase {
     @Permission("nextron.sethome")
     public void setHome(@Context Player player, @OptionalArg String name) {
         if (name == null) {
-            Configs.home.set("Homes." + player.getUniqueId() + ".default", player.getLocation());
-            Configs.saveHomeConfig();
+            HomeAPI.setHome(player, "default", player.getLocation());
             player.sendMessage(Main.getPrefix() + Text.get("sethome.default.success"));
             return;
         }
 
-        if (Configs.home.getString("Homes." + player.getUniqueId() + "." + name.toLowerCase()) == null) {
-            Configs.home.set("Homes." + player.getUniqueId() + "." + name.toLowerCase(), player.getLocation());
-            Configs.saveHomeConfig();
+        List<String> homes = HomeAPI.getHomes(player);
+        if (!homes.contains(name.toLowerCase())) {
+            HomeAPI.setHome(player, name.toLowerCase(), player.getLocation());
             player.sendMessage(Main.getPrefix() + Text.get("sethome.success").replace("%h", name.toLowerCase()));
         } else {
             TextComponent yes = new TextComponent("§2[§aYes§2]");
@@ -92,9 +90,8 @@ public class HomeCommands extends HelpBase {
     @Execute(name = "delhome")
     @Permission("nextron.delhome")
     public void delHome(@Context Player player, @Arg Home home) {
-        if (Configs.home.getString("Homes." + player.getUniqueId() + "." + home.getName().toLowerCase()) != null) {
-            Configs.home.set("Homes." + player.getUniqueId() + "." + home.getName().toLowerCase(), null);
-            Configs.saveHomeConfig();
+        if (HomeAPI.getHome(player, home.getName().toLowerCase()) != null) {
+            HomeAPI.deleteHome(player, home.getName().toLowerCase());
             player.sendMessage(
                     Main.getPrefix() + Text.get("delhome.success").replace("%h", home.getName().toLowerCase()));
         } else {
@@ -106,7 +103,7 @@ public class HomeCommands extends HelpBase {
     @Execute(name = "renamehome")
     @Permission("nextron.renamehome")
     public void renameHome(@Context Player player, @Arg Home home) {
-        if (Configs.home.getString("Homes." + player.getUniqueId() + "." + home.getName().toLowerCase()) == null) {
+        if (HomeAPI.getHome(player, home.getName().toLowerCase()) == null) {
             player.sendMessage(
                     Main.getPrefix() + Text.get("home.notfound").replace("%h", home.getName().toLowerCase()));
             return;
@@ -119,10 +116,7 @@ public class HomeCommands extends HelpBase {
                         return Collections.singletonList(
                                 AnvilGUI.ResponseAction.replaceInputText(Text.get("anvil_gui_one_word")));
                     }
-                    Configs.home.set("Homes." + player.getUniqueId() + "." + text.getText(),
-                            Configs.home.get("Homes." + player.getUniqueId() + "." + home.getName()));
-                    Configs.home.set("Homes." + player.getUniqueId() + "." + home.getName(), null);
-                    Configs.saveHomeConfig();
+                    HomeAPI.renameHome(player, home.getName().toLowerCase(), text.getText());
                     player.sendMessage(Main.getPrefix() + Text.get("home.rename.success").replace("%h", home.getName())
                             .replace("%n", text.getText()));
                     return Collections.singletonList(AnvilGUI.ResponseAction.close());

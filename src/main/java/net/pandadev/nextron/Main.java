@@ -7,6 +7,7 @@ import dev.rollczi.litecommands.LiteCommands;
 import dev.rollczi.litecommands.bukkit.LiteBukkitFactory;
 import dev.rollczi.litecommands.bukkit.LiteBukkitMessages;
 import lombok.Getter;
+import net.pandadev.nextron.apis.HomeAPI;
 import net.pandadev.nextron.apis.RankAPI;
 import net.pandadev.nextron.apis.SettingsAPI;
 import net.pandadev.nextron.apis.VanishAPI;
@@ -66,7 +67,9 @@ public final class Main extends JavaPlugin {
         tablistManager = new TablistManager();
 
         Migrations.checkAndApplyMigrations();
+        
         RankAPI.migration();
+        HomeAPI.migration();
 
         Languify.setup(this, this.getDataFolder().toString());
         LangLoader.saveLanguages(getName(), "-" + getDescription().getVersion());

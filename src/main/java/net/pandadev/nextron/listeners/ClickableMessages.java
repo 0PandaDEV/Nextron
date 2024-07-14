@@ -2,8 +2,8 @@ package net.pandadev.nextron.listeners;
 
 import ch.hekates.languify.language.Text;
 import net.pandadev.nextron.Main;
+import net.pandadev.nextron.apis.HomeAPI;
 import net.pandadev.nextron.apis.SettingsAPI;
-import net.pandadev.nextron.utils.Configs;
 import org.bukkit.Bukkit;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
@@ -24,8 +24,7 @@ public class ClickableMessages implements Listener {
 
             String home = command.replace("/aisdvja4f89dfjvwe4p9r8jdfvjw34r8q0dvj34-", "");
 
-            Configs.home.set("Homes." + event.getPlayer().getUniqueId() + "." + home, event.getPlayer().getLocation());
-            Configs.saveHomeConfig();
+            HomeAPI.setHome(event.getPlayer(), home, event.getPlayer().getLocation());
 
             event.getPlayer().sendMessage(Main.getPrefix() + Text.get("home.reset.success").replace("%h", home));
         } else if (command.startsWith("/sädfgsklädfgosergopsmfgb09sej405t2poigms0fb89sew4t23ä2mfg908us-")) {
