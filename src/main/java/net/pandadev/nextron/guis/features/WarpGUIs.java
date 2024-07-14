@@ -5,8 +5,8 @@ import dev.triumphteam.gui.builder.item.ItemBuilder;
 import dev.triumphteam.gui.guis.Gui;
 import net.kyori.adventure.text.Component;
 import net.pandadev.nextron.Main;
+import net.pandadev.nextron.apis.WarpAPI;
 import net.pandadev.nextron.guis.GUIs;
-import net.pandadev.nextron.utils.Configs;
 import net.wesjd.anvilgui.AnvilGUI;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -14,7 +14,7 @@ import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 
 import java.util.Collections;
-import java.util.Objects;
+import java.util.List;
 
 public class WarpGUIs {
 
@@ -25,7 +25,8 @@ public class WarpGUIs {
                 .disableAllInteractions()
                 .create();
 
-        for (String warp : Configs.warp.getConfigurationSection("Warps").getKeys(false)) {
+        List<String> warps = WarpAPI.getWarps();
+        for (String warp : warps) {
             gui.addItem(ItemBuilder.from(Material.NETHER_STAR)
                     .name(Component.text("§f" + warp))
                     .setLore("",
@@ -33,9 +34,12 @@ public class WarpGUIs {
                             Text.get("warpgui.rightclick"))
                     .asGuiItem(inventoryClickEvent -> {
                         if (inventoryClickEvent.getClick().isRightClick()) {
-                            player.teleport((Location) Objects.requireNonNull(Configs.warp.get("Warps." + warp)));
-                            player.playSound(player.getLocation(), Sound.ENTITY_ENDERMAN_TELEPORT, 1.0f, 1.0f);
-                            player.closeInventory();
+                            Location location = WarpAPI.getWarp(warp);
+                            if (location != null) {
+                                player.teleport(location);
+                                player.playSound(player.getLocation(), Sound.ENTITY_ENDERMAN_TELEPORT, 1.0f, 1.0f);
+                                player.closeInventory();
+                            }
                         } else if (inventoryClickEvent.getClick().isLeftClick()) {
                             settings(player, warp);
                         }
@@ -59,9 +63,12 @@ public class WarpGUIs {
         gui.setItem(2, 4, ItemBuilder.from(Material.ENDER_PEARL)
                 .name(Component.text("§x§0§1§5§9§5§6Teleport"))
                 .asGuiItem(inventoryClickEvent -> {
-                    player.teleport((Location) Objects.requireNonNull(Configs.warp.get("Warps." + warp)));
-                    player.playSound(player.getLocation(), Sound.ENTITY_ENDERMAN_TELEPORT, 1.0f, 1.0f);
-                    player.closeInventory();
+                    Location location = WarpAPI.getWarp(warp);
+                    if (location != null) {
+                        player.teleport(location);
+                        player.playSound(player.getLocation(), Sound.ENTITY_ENDERMAN_TELEPORT, 1.0f, 1.0f);
+                        player.closeInventory();
+                    }
                 }));
 
         gui.setItem(2, 5, ItemBuilder.from(Material.YELLOW_DYE)
@@ -74,12 +81,13 @@ public class WarpGUIs {
 
                     new AnvilGUI.Builder()
                             .onClick((state, text) -> {
-                                Location location = (Location) Configs.warp.get("Warps." + warp);
-                                Configs.warp.set("Warps." + text.getText(), location);
-                                Configs.warp.set("Warps." + warp, null);
-                                Configs.saveWarpConfig();
-                                player.sendMessage(Main.getPrefix() + Text.get("warp.rename.success").replace("%w", warp)
-                                        .replace("%n", text.getText()));
+                                Location location = WarpAPI.getWarp(warp);
+                                if (location != null) {
+                                    WarpAPI.setWarp(text.getText(), location);
+                                    WarpAPI.deleteWarp(warp);
+                                    player.sendMessage(Main.getPrefix() + Text.get("warp.rename.success").replace("%w", warp)
+                                            .replace("%n", text.getText()));
+                                }
                                 return Collections.singletonList(AnvilGUI.ResponseAction.close());
                             })
                             .text(warp)
@@ -90,10 +98,8 @@ public class WarpGUIs {
                 }));
 
         gui.setItem(2, 6, ItemBuilder.from(Material.RED_DYE).name(Component.text("§cDelete")).asGuiItem(inventoryClickEvent -> {
-            Configs.warp.set("Warps." + warp, null);
-            Main.getInstance().saveConfig();
-            if (Configs.warp.getConfigurationSection("Warps").getKeys(false)
-                    .isEmpty()) {
+            WarpAPI.deleteWarp(warp);
+            if (WarpAPI.getWarps().isEmpty()) {
                 player.closeInventory();
             } else {
                 manager(player);

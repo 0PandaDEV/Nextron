@@ -8,8 +8,8 @@ import dev.rollczi.litecommands.annotations.execute.Execute;
 import dev.rollczi.litecommands.annotations.permission.Permission;
 import net.pandadev.nextron.Main;
 import net.pandadev.nextron.apis.SettingsAPI;
+import net.pandadev.nextron.apis.WarpAPI;
 import net.pandadev.nextron.arguments.objects.Warp;
-import net.pandadev.nextron.utils.Configs;
 import net.pandadev.nextron.utils.Utils;
 import net.wesjd.anvilgui.AnvilGUI;
 import org.bukkit.Location;
@@ -20,7 +20,6 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.Collections;
-import java.util.Objects;
 
 @RootCommand
 public class WarpCommands extends HelpBase {
@@ -36,11 +35,12 @@ public class WarpCommands extends HelpBase {
     @Execute(name = "warp", aliases = {"w"})
     @Permission("nextron.warp")
     public void warpCommand(@Context Player player, @Arg Warp warp) {
-        if (Configs.warp.get("Warps." + warp.getName().toLowerCase()) == null) {
+        Location location = WarpAPI.getWarp(warp.getName().toLowerCase());
+        if (location == null) {
             player.sendMessage(Main.getPrefix() + Text.get("warp.error").replace("%w", warp.getName().toLowerCase()));
             return;
         }
-        player.teleport((Location) Objects.requireNonNull(Configs.warp.get("Warps." + warp.getName().toLowerCase())));
+        player.teleport(location);
         if (SettingsAPI.allowsFeedback(player))
             player.sendMessage(Main.getPrefix() + Text.get("warp.success").replace("%w", warp.getName().toLowerCase()));
         player.playSound(player.getLocation(), Sound.ENTITY_ENDERMAN_TELEPORT, 1.0f, 1.0f);
@@ -49,31 +49,29 @@ public class WarpCommands extends HelpBase {
     @Execute(name = "setwarp")
     @Permission("nextron.setwarp")
     public void setWarpCommand(@Context Player player, @Arg String name) {
-        if (Configs.warp.get("Warps." + name.toLowerCase()) != null) {
+        if (WarpAPI.getWarp(name.toLowerCase()) != null) {
             player.sendMessage(Main.getPrefix() + Text.get("setwarp.error").replace("%w", name.toLowerCase()));
             return;
         }
-        Configs.warp.set("Warps." + name.toLowerCase(), player.getLocation());
-        Configs.saveWarpConfig();
+        WarpAPI.setWarp(name.toLowerCase(), player.getLocation());
         player.sendMessage(Main.getPrefix() + Text.get("setwarp.success").replace("%w", name.toLowerCase()));
     }
 
     @Execute(name = "delwarp")
     @Permission("nextron.delwarp")
     public void deleteWarpCommand(@Context CommandSender sender, @Arg Warp warp) {
-        if (Configs.warp.get("Warps." + warp.getName().toLowerCase()) == null) {
+        if (WarpAPI.getWarp(warp.getName().toLowerCase()) == null) {
             sender.sendMessage(Main.getPrefix() + Text.get("delwarp.error").replace("%w", warp.getName().toLowerCase()));
             return;
         }
-        Configs.warp.set("Warps." + warp.getName().toLowerCase(), null);
-        Configs.saveWarpConfig();
+        WarpAPI.deleteWarp(warp.getName().toLowerCase());
         sender.sendMessage(Main.getPrefix() + Text.get("delwarp.success").replace("%w", warp.getName().toLowerCase()));
     }
 
     @Execute(name = "renamewarp")
     @Permission("nextron.renamewarp")
     public void renameWarpCommand(@Context Player player, @Arg Warp warp) {
-        if (Configs.warp.get("Warps." + warp.getName().toLowerCase()) == null) {
+        if (WarpAPI.getWarp(warp.getName().toLowerCase()) == null) {
             player.sendMessage(Main.getPrefix() + Text.get("warp.error").replace("%w", warp.getName().toLowerCase()));
             return;
         }
@@ -85,9 +83,9 @@ public class WarpCommands extends HelpBase {
                         return Collections.singletonList(
                                 AnvilGUI.ResponseAction.replaceInputText(Text.get("anvil_gui_one_word")));
                     }
-                    Configs.warp.set("Warps." + text.getText(), Configs.warp.get("Warps." + warp.getName()));
-                    Configs.warp.set("Warps." + warp.getName(), null);
-                    Configs.saveHomeConfig();
+                    Location oldLocation = WarpAPI.getWarp(warp.getName().toLowerCase());
+                    WarpAPI.setWarp(text.getText().toLowerCase(), oldLocation);
+                    WarpAPI.deleteWarp(warp.getName().toLowerCase());
                     player.sendMessage(Main.getPrefix() + Text.get("warp.rename.success").replace("%w", warp.getName())
                             .replace("%n", text.getText()));
                     return Collections.singletonList(AnvilGUI.ResponseAction.close());

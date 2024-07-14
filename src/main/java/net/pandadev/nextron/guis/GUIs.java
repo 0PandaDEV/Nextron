@@ -8,6 +8,7 @@ import net.pandadev.nextron.Main;
 import net.pandadev.nextron.apis.HomeAPI;
 import net.pandadev.nextron.apis.RankAPI;
 import net.pandadev.nextron.apis.SettingsAPI;
+import net.pandadev.nextron.apis.WarpAPI;
 import net.pandadev.nextron.guis.features.HomeGUIs;
 import net.pandadev.nextron.guis.features.RankGUIs;
 import net.pandadev.nextron.guis.features.WarpGUIs;
@@ -52,7 +53,8 @@ public class GUIs {
                 player.sendMessage(Main.getPrefix() + Text.get("maingui.disabled.warps"));
                 return;
             }
-            if (Configs.warp.getConfigurationSection("Warps") == null || Configs.warp.getConfigurationSection("Warps").getKeys(false).isEmpty()) {
+            List<String> warps = WarpAPI.getWarps();
+            if (warps.isEmpty()) {
                 player.sendMessage(Main.getPrefix() + Text.get("maingui.no.warps"));
                 player.playSound(player.getLocation(), Sound.ENTITY_PILLAGER_AMBIENT, 100, 0.5f);
             } else {
