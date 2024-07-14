@@ -1,8 +1,8 @@
 package net.pandadev.nextron.listeners;
 
+import net.pandadev.nextron.apis.FeatureAPI;
 import net.pandadev.nextron.apis.RankAPI;
 import net.pandadev.nextron.apis.SettingsAPI;
-import net.pandadev.nextron.utils.Configs;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -16,7 +16,7 @@ public class ChatEditor implements Listener {
         Player player = event.getPlayer();
         String message = event.getMessage();
 
-        if (Configs.feature.getBoolean("rank_system")) {
+        if (FeatureAPI.getFeature("rank_system")) {
             if (RankAPI.getRanks().isEmpty()) {
                 player.setDisplayName("§9Player §8• §f" + ChatColor.WHITE + SettingsAPI.getNick(player));
                 event.setFormat(player.getDisplayName() + " §8» §f" + ChatColor.translateAlternateColorCodes('&', message));

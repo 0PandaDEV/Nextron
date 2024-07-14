@@ -5,7 +5,6 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import net.pandadev.nextron.Main;
 import net.pandadev.nextron.config.Config;
-import net.pandadev.nextron.utils.Configs;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
@@ -34,7 +33,7 @@ public class RankAPI {
         Team finalrank = scoreboard.getTeam("999player");
         if (finalrank == null)
             finalrank = scoreboard.registerNewTeam("999player");
-        if (Configs.feature.getBoolean("rank_system")) {
+        if (FeatureAPI.getFeature("rank_system")) {
             finalrank.setPrefix("§9Player §8• §7");
         } else {
             finalrank.setPrefix("");
@@ -275,7 +274,7 @@ public class RankAPI {
             Scoreboard scoreboard = player.getScoreboard();
             Team finalrank = scoreboard.getTeam("999player");
             finalrank.addEntry(player.getName());
-            if (Configs.feature.getBoolean("rank_system")) {
+            if (FeatureAPI.getFeature("rank_system")) {
                 String displayName = "§9Player §8• §f" + SettingsAPI.getNick(player);
                 player.setDisplayName(displayName);
                 player.setPlayerListName(displayName);

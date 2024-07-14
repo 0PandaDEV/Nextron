@@ -1,9 +1,9 @@
 package net.pandadev.nextron.listeners;
 
 import net.pandadev.nextron.Main;
+import net.pandadev.nextron.apis.FeatureAPI;
 import net.pandadev.nextron.apis.SettingsAPI;
 import net.pandadev.nextron.apis.VanishAPI;
-import net.pandadev.nextron.utils.Configs;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -20,7 +20,7 @@ public class QuitListener implements Listener {
 
         SettingsAPI.initializeUser(player);
 
-        if (Configs.feature.getBoolean("join_leave_system")) {
+        if (FeatureAPI.getFeature("join_leave_system")) {
             if (VanishAPI.isVanish(player)) {
                 event.setQuitMessage("");
             } else {

@@ -1,8 +1,8 @@
 package net.pandadev.nextron.tablist;
 
+import net.pandadev.nextron.apis.FeatureAPI;
 import net.pandadev.nextron.apis.RankAPI;
 import net.pandadev.nextron.apis.SettingsAPI;
-import net.pandadev.nextron.utils.Configs;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.scoreboard.Scoreboard;
@@ -16,13 +16,12 @@ public class TablistManager {
 
     public void setPlayerTeams(Player player) {
         Scoreboard scoreboard = player.getScoreboard();
-        System.out.println("setteams");
 
         for (String rank : RankAPI.getRanks()) {
             Team teamRank = scoreboard.getTeam(rank);
             if (teamRank == null) teamRank = scoreboard.registerNewTeam(rank);
 
-            if (Configs.feature.getBoolean("rank_system")) {
+            if (FeatureAPI.getFeature("rank_system")) {
                 teamRank.setPrefix(RankAPI.getRankPrefix(rank));
             } else {
                 teamRank.setPrefix("");

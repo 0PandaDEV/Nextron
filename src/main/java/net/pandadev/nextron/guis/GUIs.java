@@ -5,14 +5,10 @@ import dev.triumphteam.gui.builder.item.ItemBuilder;
 import dev.triumphteam.gui.guis.Gui;
 import net.kyori.adventure.text.Component;
 import net.pandadev.nextron.Main;
-import net.pandadev.nextron.apis.HomeAPI;
-import net.pandadev.nextron.apis.RankAPI;
-import net.pandadev.nextron.apis.SettingsAPI;
-import net.pandadev.nextron.apis.WarpAPI;
+import net.pandadev.nextron.apis.*;
 import net.pandadev.nextron.guis.features.HomeGUIs;
 import net.pandadev.nextron.guis.features.RankGUIs;
 import net.pandadev.nextron.guis.features.WarpGUIs;
-import net.pandadev.nextron.utils.Configs;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.Sound;
@@ -35,7 +31,7 @@ public class GUIs {
         }));
 
         gui.setItem(2, 5, ItemBuilder.from(Material.COMPASS).name(Component.text("§7Home Manager")).asGuiItem(inventoryClickEvent -> {
-            if (!Configs.feature.getBoolean("home_system")) {
+            if (!FeatureAPI.getFeature("home_system")) {
                 player.sendMessage(Main.getPrefix() + Text.get("maingui.disabled.homes"));
                 return;
             }
@@ -49,7 +45,7 @@ public class GUIs {
         }));
 
         gui.setItem(4, 5, ItemBuilder.from(Material.RECOVERY_COMPASS).name(Component.text("§x§2§9§d§f§e§bWarp Manager")).asGuiItem(inventoryClickEvent -> {
-            if (!Configs.feature.getBoolean("warp_system")) {
+            if (!FeatureAPI.getFeature("warp_system")) {
                 player.sendMessage(Main.getPrefix() + Text.get("maingui.disabled.warps"));
                 return;
             }
@@ -64,7 +60,7 @@ public class GUIs {
 
         if (player.hasPermission("nextron.rank")) {
             gui.setItem(3, 7, ItemBuilder.from(Material.NAME_TAG).name(Component.text("§x§2§9§d§f§e§bRank Manager")).asGuiItem(inventoryClickEvent -> {
-                if (!Configs.feature.getBoolean("rank_system")) {
+                if (!FeatureAPI.getFeature("rank_system")) {
                     player.sendMessage(Main.getPrefix() + Text.get("maingui.disabled.ranks"));
                     return;
                 }
@@ -245,15 +241,15 @@ public class GUIs {
                         Text.get("leftclick"))
                 .build();
 
-        gui.setItem(4, 3, ItemBuilder.from(Configs.feature.getBoolean("rank_system") ? on_rank : off_rank).asGuiItem(inventoryClickEvent -> {
-            Configs.feature.set("rank_system", !Configs.feature.getBoolean("rank_system"));
-            Configs.saveFeatureConfig();
+        gui.setItem(4, 3, ItemBuilder.from(FeatureAPI.getFeature("rank_system") ? on_rank : off_rank).asGuiItem(inventoryClickEvent -> {
+            FeatureAPI.setFeature("rank_system", !FeatureAPI.getFeature("rank_system"));
 
             // rank system activate and deactivate
             for (Player onlineplayer : Bukkit.getOnlinePlayers()) {
                 RankAPI.checkRank(onlineplayer);
+                Main.getInstance().getTablistManager().setAllPlayerTeams();
             }
-            player.playSound(player.getLocation(), Configs.feature.getBoolean("rank_system") ? Sound.BLOCK_BEACON_ACTIVATE : Sound.BLOCK_BEACON_DEACTIVATE, 100, 1);
+            player.playSound(player.getLocation(), FeatureAPI.getFeature("rank_system") ? Sound.BLOCK_BEACON_ACTIVATE : Sound.BLOCK_BEACON_DEACTIVATE, 100, 1);
             featureGui(player);
         }));
 
@@ -272,13 +268,12 @@ public class GUIs {
                         Text.get("leftclick"))
                 .build();
 
-        gui.setItem(4, 5, ItemBuilder.from(Configs.feature.getBoolean("warp_system") ? on_warp : off_warp).asGuiItem(inventoryClickEvent -> {
-            Configs.feature.set("warp_system", !Configs.feature.getBoolean("warp_system"));
-            Configs.saveFeatureConfig();
+        gui.setItem(4, 5, ItemBuilder.from(FeatureAPI.getFeature("warp_system") ? on_warp : off_warp).asGuiItem(inventoryClickEvent -> {
+            FeatureAPI.setFeature("warp_system", !FeatureAPI.getFeature("warp_system"));
             for (Player onlineplayer : Bukkit.getOnlinePlayers()) {
-                onlineplayer.addAttachment(Main.getInstance()).setPermission("nextron.warp", Configs.feature.getBoolean("warp_system"));
+                onlineplayer.addAttachment(Main.getInstance()).setPermission("nextron.warp", FeatureAPI.getFeature("warp_system"));
             }
-            player.playSound(player.getLocation(), Configs.feature.getBoolean("warp_system") ? Sound.BLOCK_BEACON_ACTIVATE : Sound.BLOCK_BEACON_DEACTIVATE, 100, 1);
+            player.playSound(player.getLocation(), FeatureAPI.getFeature("warp_system") ? Sound.BLOCK_BEACON_ACTIVATE : Sound.BLOCK_BEACON_DEACTIVATE, 100, 1);
             featureGui(player);
         }));
 
@@ -296,13 +291,12 @@ public class GUIs {
                         Text.get("leftclick"))
                 .build();
 
-        gui.setItem(4, 7, ItemBuilder.from(Configs.feature.getBoolean("home_system") ? on_home : off_home).asGuiItem(inventoryClickEvent -> {
-            Configs.feature.set("home_system", !Configs.feature.getBoolean("home_system"));
-            Configs.saveFeatureConfig();
+        gui.setItem(4, 7, ItemBuilder.from(FeatureAPI.getFeature("home_system") ? on_home : off_home).asGuiItem(inventoryClickEvent -> {
+            FeatureAPI.setFeature("home_system", !FeatureAPI.getFeature("home_system"));
             for (Player onlineplayer : Bukkit.getOnlinePlayers()) {
-                onlineplayer.addAttachment(Main.getInstance()).setPermission("nextron.home", Configs.feature.getBoolean("home_system"));
+                onlineplayer.addAttachment(Main.getInstance()).setPermission("nextron.home", FeatureAPI.getFeature("home_system"));
             }
-            player.playSound(player.getLocation(), Configs.feature.getBoolean("home_system") ? Sound.BLOCK_BEACON_ACTIVATE : Sound.BLOCK_BEACON_DEACTIVATE, 100, 1);
+            player.playSound(player.getLocation(), FeatureAPI.getFeature("home_system") ? Sound.BLOCK_BEACON_ACTIVATE : Sound.BLOCK_BEACON_DEACTIVATE, 100, 1);
             featureGui(player);
         }));
 
@@ -320,14 +314,13 @@ public class GUIs {
                         Text.get("leftclick"))
                 .build();
 
-        gui.setItem(2, 4, ItemBuilder.from(Configs.feature.getBoolean("tpa_system") ? on_tpa : off_tpa).asGuiItem(inventoryClickEvent -> {
-            Configs.feature.set("tpa_system", !Configs.feature.getBoolean("tpa_system"));
-            Configs.saveFeatureConfig();
+        gui.setItem(2, 4, ItemBuilder.from(FeatureAPI.getFeature("tpa_system") ? on_tpa : off_tpa).asGuiItem(inventoryClickEvent -> {
+            FeatureAPI.setFeature("tpa_system", !FeatureAPI.getFeature("tpa_system"));
             for (Player onlineplayer : Bukkit.getOnlinePlayers()) {
-                onlineplayer.addAttachment(Main.getInstance()).setPermission("nextron.tpa", Configs.feature.getBoolean("tpa_system"));
-                onlineplayer.addAttachment(Main.getInstance()).setPermission("nextron.tpaccept", Configs.feature.getBoolean("tpa_system"));
+                onlineplayer.addAttachment(Main.getInstance()).setPermission("nextron.tpa", FeatureAPI.getFeature("tpa_system"));
+                onlineplayer.addAttachment(Main.getInstance()).setPermission("nextron.tpaccept", FeatureAPI.getFeature("tpa_system"));
             }
-            player.playSound(player.getLocation(), Configs.feature.getBoolean("tpa_system") ? Sound.BLOCK_BEACON_ACTIVATE : Sound.BLOCK_BEACON_DEACTIVATE, 100, 1);
+            player.playSound(player.getLocation(), FeatureAPI.getFeature("tpa_system") ? Sound.BLOCK_BEACON_ACTIVATE : Sound.BLOCK_BEACON_DEACTIVATE, 100, 1);
             featureGui(player);
         }));
 
@@ -347,11 +340,10 @@ public class GUIs {
                         Text.get("leftclick"))
                 .build();
 
-        gui.setItem(2, 6, ItemBuilder.from(Configs.feature.getBoolean("join_leave_system") ? on_join_leave : off_join_leave).asGuiItem(inventoryClickEvent -> {
-            Configs.feature.set("join_leave_system", !Configs.feature.getBoolean("join_leave_system"));
-            Configs.saveFeatureConfig();
+        gui.setItem(2, 6, ItemBuilder.from(FeatureAPI.getFeature("join_leave_system") ? on_join_leave : off_join_leave).asGuiItem(inventoryClickEvent -> {
+            FeatureAPI.setFeature("join_leave_system", !FeatureAPI.getFeature("join_leave_system"));
             player.playSound(player.getLocation(),
-                    Configs.feature.getBoolean("join_leave_system")
+                    FeatureAPI.getFeature("join_leave_system")
                             ? Sound.BLOCK_BEACON_ACTIVATE
                             : Sound.BLOCK_BEACON_DEACTIVATE,
                     100, 1);

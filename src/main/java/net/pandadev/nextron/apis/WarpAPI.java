@@ -82,6 +82,18 @@ public class WarpAPI {
     }
 
     public static void migration() {
+        String checkSql = "SELECT COUNT(*) FROM warps";
+        try (PreparedStatement checkPs = Config.getConnection().prepareStatement(checkSql);
+             ResultSet rs = checkPs.executeQuery()) {
+            if (rs.next() && rs.getInt(1) > 0) {
+                LOGGER.info("Warps table is not empty. Skipping migration.");
+                return;
+            }
+        } catch (SQLException e) {
+            LOGGER.log(Level.SEVERE, "Error checking warps table", e);
+            return;
+        }
+
         File warpConfig = new File(Main.getInstance().getDataFolder(), "warps.yml");
         if (!warpConfig.exists()) {
             LOGGER.info("No warps.yml file found. Skipping migration.");
