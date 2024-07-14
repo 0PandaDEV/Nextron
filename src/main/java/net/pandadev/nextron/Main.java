@@ -43,11 +43,14 @@ public final class Main extends JavaPlugin {
     private LiteCommands<CommandSender> liteCommands;
 
     public static HashMap<Player, Player> tpa = new HashMap<>();
+    public static HashMap<Player, Player> tpahere = new HashMap<>();
 
     @Override
     public void onEnable() {
         instance = this;
         tablistManager = new TablistManager();
+
+        RankAPI.migration();
 
         Languify.setup(this, this.getDataFolder().toString());
         LangLoader.saveLanguages(getName(), "-" + getDescription().getVersion());
@@ -184,7 +187,7 @@ public final class Main extends JavaPlugin {
 
         instance = null;
     }
-
+  
     private void registerListeners() {
         PluginManager pluginManager = Bukkit.getPluginManager();
         pluginManager.registerEvents(new JoinListener(), this);

@@ -110,7 +110,7 @@
   "feature.enable": "§7The §a%n system §7has been enabled",
   "feature.disable": "§7The §a%n system §7has been disabled",
   "rename.error": "§cThere is no item in your main hand",
-  "anvil.gui.one.word": "Only one word",
+  "anvil.gui.one.word": "§cOnly one word",
   "rank.gui.not.ready": "§7Not ready to create the rank",
   "rank.gui.ready": "§aReady to create the rank",
   "god.on": "§7You're now in god mode",
@@ -159,4 +159,11 @@
   "repair.nodamage": "§cThis item cannot be repaired",
   "repair.success": "§7Successfully repaired item in your hand",
   "repair.success.other": "§7Successfully repaired item in §a%t's §7hand"
+  "tpahere.sender.success": "§7Tpahere request was sent to §a%t",
+  "tpahere.target.success.1": "§a%p §7has requested to teleport you to them",
+  "tpahere.target.success.2": "§7Type §a/tpaccept §7to accept their request or click here §c",
+  "tpahere.error": "§cYou cannot tpahere yourself",
+  "tpahere.allow": "§cYou cannot send a tpahere request to this player because he disabled them",
+  "tpdenyhere.player": "§7You denied the tpahere request from §a%p",
+  "tpdenyhere.target": "§a%p §7denied your tpahere request"
 }

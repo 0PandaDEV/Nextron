@@ -111,7 +111,7 @@
   "feature.enable": "§7Das §a%n System §7wurde deaktiviert",
   "feature.disable": "§7Das §a%n System §7wurde aktiviert",
   "rename.error": "§cDu hast kein Item in der Hand",
-  "anvil.gui.one.word": "Nur ein Wort",
+  "anvil.gui.one.word": "§cNur ein Wort",
   "rank.gui.not.ready": "§7Nicht bereit einen neuen Rank zu erstellen",
   "rank.gui.ready": "§aBereit einen neuen Rank zu erstellen",
   "god.on": "§7Du bist jetzt im God modus",
@@ -160,4 +160,11 @@
   "repair.nodamage": "§cDieses Item kann nicht repariert werden",
   "repair.success": "§7Das Item in deiner hand wurde erfolgreich repariert",
   "repair.success.other": "§7Das Item in der hand von §a%t §7wurde erfolgreich repariert"
+  "tpahere.sender.success": "§7Tpahere anfrage wurde and §a%t §7gesendet",
+  "tpahere.target.success.1": "§a%p §7will dich zu sich teleportieren",
+  "tpahere.target.success.2": "§7Führe §a/tpaccept §7aus um die Anfrage anzunehmen oder clicke auf §c",
+  "tpahere.error": "§cDu kannst nicht dir selbst eine Tpahere schicken",
+  "tpahere.allow": "§cDu kannst diesem spieler keine Tpahere anfrage schicken weil er diese deaktiviert hat",
+  "tpdenyhere.player": "§7Du hast die tpahere anfrage von §a%p §7abgelehnt",
+  "tpdenyhere.target": "§a%p §7hat deine tpahere anfrage abgelehnt"
 }

@@ -9,15 +9,14 @@ import dev.rollczi.litecommands.annotations.permission.Permission;
 import net.pandadev.nextron.Main;
 import net.pandadev.nextron.arguments.objects.Rank;
 import net.pandadev.nextron.guis.features.RankGUIs;
+import net.pandadev.nextron.listeners.InputListener;
 import net.pandadev.nextron.utils.RankAPI;
 import net.pandadev.nextron.utils.Utils;
 import net.wesjd.anvilgui.AnvilGUI;
 import org.bukkit.ChatColor;
-import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import org.bukkit.inventory.ItemStack;
 
 import java.util.Collections;
 

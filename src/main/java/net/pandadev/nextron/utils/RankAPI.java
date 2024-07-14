@@ -5,13 +5,16 @@ import net.pandadev.nextron.Main;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.scoreboard.Scoreboard;
 import org.bukkit.scoreboard.Team;
 
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 public class RankAPI {
     private static final FileConfiguration mainConfig = Main.getInstance().getConfig();
@@ -35,8 +38,7 @@ public class RankAPI {
             return;
         }
         if (mainConfig.getStringList("Ranks." + rank.toLowerCase() + ".players").contains(player)) {
-            sender.sendMessage(Main.getPrefix()
-                    + Text.get("rank.set.error").replace("%p", player.getName()).replace("%r", rank.toLowerCase()));
+            sender.sendMessage(Main.getPrefix() + Text.get("rank.set.error").replace("%p", player.getName()).replace("%r", rank.toLowerCase()));
             return;
         }
         removeRanks(player);
@@ -45,8 +47,7 @@ public class RankAPI {
         mainConfig.set("Ranks." + rank.toLowerCase() + ".players", list);
         Main.getInstance().saveConfig();
         Main.getInstance().getTablistManager().setAllPlayerTeams();
-        sender.sendMessage(Main.getPrefix()
-                + Text.get("rank.set.success").replace("%p", player.getName()).replace("%r", rank.toLowerCase()));
+        sender.sendMessage(Main.getPrefix() + Text.get("rank.set.success").replace("%p", player.getName()).replace("%r", rank.toLowerCase()));
     }
 
     public static void removeRanks(Player player) {
@@ -95,8 +96,7 @@ public class RankAPI {
         mainConfig.set("Ranks." + rank.toLowerCase() + ".prefix", prefix.substring(1));
         Main.getInstance().saveConfig();
         Main.getInstance().getTablistManager().setAllPlayerTeams();
-        player.sendMessage(Main.getPrefix() + Text.get("rank.setprefix.success").replace("%r", rank.toLowerCase())
-                .replace("%p", prefix.substring(1)));
+        player.sendMessage(Main.getPrefix() + Text.get("rank.setprefix.success").replace("%r", rank.toLowerCase()).replace("%p", prefix.substring(1)));
     }
 
     public static void rename(Player player, String rank, String name) {
@@ -104,14 +104,11 @@ public class RankAPI {
             player.sendMessage(Main.getPrefix() + Text.get("rank.dontexists"));
             return;
         }
-        mainConfig.set("Ranks." + name.substring(1).toLowerCase() + ".prefix",
-                mainConfig.get("Ranks." + rank.toLowerCase() + ".prefix"));
-        mainConfig.set("Ranks." + name.substring(1).toLowerCase() + ".players",
-                mainConfig.get("Ranks." + rank.toLowerCase() + ".players"));
+        mainConfig.set("Ranks." + name.substring(1).toLowerCase() + ".prefix", mainConfig.get("Ranks." + rank.toLowerCase() + ".prefix"));
+        mainConfig.set("Ranks." + name.substring(1).toLowerCase() + ".players", mainConfig.get("Ranks." + rank.toLowerCase() + ".players"));
         mainConfig.set("Ranks." + rank.toLowerCase(), null);
         Main.getInstance().saveConfig();
-        player.sendMessage(Main.getPrefix() + Text.get("rank.rename.success").replace("%r", rank.toLowerCase())
-                .replace("%n", name.toLowerCase().substring(1)));
+        player.sendMessage(Main.getPrefix() + Text.get("rank.rename.success").replace("%r", rank.toLowerCase()).replace("%n", name.toLowerCase().substring(1)));
     }
 
     public static String getRank(Player player) {
@@ -147,6 +144,50 @@ public class RankAPI {
             return;
         }
         Main.getInstance().getTablistManager().setAllPlayerTeams();
+    }
+
+    public static String getHighestNumber() {
+        int highestNumber = 0;
+        for (String rank : mainConfig.getConfigurationSection("Ranks").getKeys(false)) {
+            String numberPart = rank.substring(0, 3);
+            try {
+                int number = Integer.parseInt(numberPart);
+                if (number > highestNumber && number < 998) {
+                    highestNumber = number;
+                }
+            } catch (NumberFormatException ignored) {
+            }
+        }
+        return String.format("%03d", Math.min(highestNumber + 1, 998));
+    }
+
+
+    public static void migration() {
+        ConfigurationSection ranksSection = mainConfig.getConfigurationSection("Ranks");
+        if (ranksSection == null)
+            return;
+
+        Map<String, Object> oldRanks = new LinkedHashMap<>(ranksSection.getValues(false));
+        ranksSection.getKeys(false).forEach(key -> ranksSection.set(key, null));
+
+        boolean needsMigration = oldRanks.keySet().stream()
+                .anyMatch(key -> !key.matches("^\\d{3}.*"));
+
+        if (!needsMigration)
+            return;
+
+        int counter = 1;
+        for (Map.Entry<String, Object> entry : oldRanks.entrySet()) {
+            String oldName = entry.getKey();
+            String newName = String.format("%03d%s", counter, oldName);
+
+            ranksSection.set(newName, entry.getValue());
+            ranksSection.set(oldName, null);
+            counter++;
+        }
+
+        Main.getInstance().saveConfig();
+        Main.getInstance().reloadConfig();
     }
 
 }

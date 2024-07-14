@@ -39,7 +39,7 @@ public class RankGUIs {
                     }));
         }
 
-        gui.setItem(5, 1, ItemBuilder.skull(Utils.createSkull("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYmQ2OWUwNmU1ZGFkZmQ4NGU1ZjNkMWMyMTA2M2YyNTUzYjJmYTk0NWVlMWQ0ZDcxNTJmZGM1NDI1YmMxMmE5In19fQ==")).name(Component.text("§fBack")).asGuiItem(inventoryClickEvent -> {
+        gui.setItem(5, 1, ItemBuilder.skull().texture("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYmQ2OWUwNmU1ZGFkZmQ4NGU1ZjNkMWMyMTA2M2YyNTUzYjJmYTk0NWVlMWQ0ZDcxNTJmZGM1NDI1YmMxMmE5In19fQ==").name(Component.text("§fBack")).asGuiItem(inventoryClickEvent -> {
             GUIs.mainGui(player);
         }));
 
@@ -103,7 +103,7 @@ public class RankGUIs {
                     player.playSound(player.getLocation(), Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 1.0f, 1.0f);
                 }));
 
-        gui.setItem(3, 1, ItemBuilder.skull(Utils.createSkull("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYmQ2OWUwNmU1ZGFkZmQ4NGU1ZjNkMWMyMTA2M2YyNTUzYjJmYTk0NWVlMWQ0ZDcxNTJmZGM1NDI1YmMxMmE5In19fQ==")).name(Component.text("§fBack")).asGuiItem(inventoryClickEvent -> {
+        gui.setItem(3, 1, ItemBuilder.skull().texture("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYmQ2OWUwNmU1ZGFkZmQ4NGU1ZjNkMWMyMTA2M2YyNTUzYjJmYTk0NWVlMWQ0ZDcxNTJmZGM1NDI1YmMxMmE5In19fQ==").name(Component.text("§fBack")).asGuiItem(inventoryClickEvent -> {
             manager(player);
         }));
 
@@ -123,23 +123,22 @@ public class RankGUIs {
 
         gui.setItem(3, 3, dev.triumphteam.gui.builder.item.ItemBuilder.from(Material.RED_DYE).setName("§cOwner")
                 .asGuiItem(event -> {
-                    manualRankCreation(player, "owner", "§4Owner §8• §f");
+                    manualRankCreation(player, "001owner", "§4Owner §8• §f");
                 }));
 
         gui.setItem(3, 5, dev.triumphteam.gui.builder.item.ItemBuilder.from(Material.ORANGE_DYE)
                 .setName("§x§f§e§a§1§3§1Admin").asGuiItem(event -> {
-                    manualRankCreation(player, "admin", "§x§f§e§a§1§3§1Admin §8• §f");
+                    manualRankCreation(player, "002admin", "§x§f§e§a§1§3§1Admin §8• §f");
                 }));
 
         gui.setItem(3, 7, dev.triumphteam.gui.builder.item.ItemBuilder.from(Material.PURPLE_DYE)
                 .setName("§x§c§d§7§4§f§bDev").asGuiItem(event -> {
-                    manualRankCreation(player, "dev", "§x§c§d§7§4§f§bDev §8• §f");
+                    manualRankCreation(player, "003dev", "§x§c§d§7§4§f§bDev §8• §f");
                 }));
 
-        gui.setItem(5, 9, dev.triumphteam.gui.builder.item.ItemBuilder.skull(Utils.createSkull(
-                        "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvMTliZjMyOTJlMTI2YTEwNWI1NGViYTcxM2FhMWIxNTJkNTQxYTFkODkzODgyOWM1NjM2NGQxNzhlZDIyYmYifX19"))
+        gui.setItem(5, 9, dev.triumphteam.gui.builder.item.ItemBuilder.skull().texture("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvMTliZjMyOTJlMTI2YTEwNWI1NGViYTcxM2FhMWIxNTJkNTQxYTFkODkzODgyOWM1NjM2NGQxNzhlZDIyYmYifX19")
                 .name(Component.text("§fSkip")).asGuiItem(event -> {
-                    manualRankCreation(player, "not set", "not set");
+                    manualRankCreation(player, RankAPI.getHighestNumber() + "name", "prefix §8• §f");
                 }));
 
         gui.open(player);
@@ -182,6 +181,7 @@ public class RankGUIs {
                                 manualRankCreation(player, text.getText().replace(" ", ""), prefix);
                                 return Collections.singletonList(AnvilGUI.ResponseAction.close());
                             })
+                            .text(name)
                             .itemLeft(new ItemStack(Material.NAME_TAG))
                             .title("Enter the name")
                             .plugin(Main.getInstance())
@@ -195,14 +195,14 @@ public class RankGUIs {
                                 manualRankCreation(player, name, text.getText());
                                 return Collections.singletonList(AnvilGUI.ResponseAction.close());
                             })
+                            .text(prefix)
                             .itemLeft(new ItemStack(Material.NAME_TAG))
                             .title("Enter the prefix")
                             .plugin(Main.getInstance())
                             .open(player);
                 }));
 
-        gui.setItem(5, 1, dev.triumphteam.gui.builder.item.ItemBuilder.skull(Utils.createSkull(
-                        "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYmQ2OWUwNmU1ZGFkZmQ4NGU1ZjNkMWMyMTA2M2YyNTUzYjJmYTk0NWVlMWQ0ZDcxNTJmZGM1NDI1YmMxMmE5In19fQ=="))
+        gui.setItem(5, 1, dev.triumphteam.gui.builder.item.ItemBuilder.skull().texture("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYmQ2OWUwNmU1ZGFkZmQ4NGU1ZjNkMWMyMTA2M2YyNTUzYjJmYTk0NWVlMWQ0ZDcxNTJmZGM1NDI1YmMxMmE5In19fQ==")
                 .name(Component.text("§fBack")).asGuiItem(event -> {
                     templateRanks(player);
                 }));

@@ -27,6 +27,9 @@ public class QuitListener implements Listener {
             if (player.getUniqueId().equals(UUID.fromString("2dae5251-257a-4d28-b220-60fe24de72f0"))) {
                 event.setQuitMessage(event.getQuitMessage() + " §8• §x§6§2§0§0§f§fNextron founder");
             }
+            if (player.getUniqueId().equals(UUID.fromString("51666aba-5e87-40c4-900c-1c77ce0b8e3c"))) {
+                event.setQuitMessage(event.getQuitMessage() + " §8• §x§f§f§6§5§f§aAnya");
+            }
             if (player.getUniqueId().equals(UUID.fromString("621755d2-5cf7-48d6-acc6-73b539b66aac"))) {
                 event.setQuitMessage(event.getQuitMessage() + " §8• §r§cWarrradu");
             }
