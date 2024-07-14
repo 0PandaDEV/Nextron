@@ -6,6 +6,7 @@ import ch.hekates.languify.language.Text;
 import dev.rollczi.litecommands.LiteCommands;
 import dev.rollczi.litecommands.bukkit.LiteBukkitFactory;
 import dev.rollczi.litecommands.bukkit.LiteBukkitMessages;
+import lombok.Getter;
 import net.pandadev.nextron.arguments.*;
 import net.pandadev.nextron.arguments.objects.*;
 import net.pandadev.nextron.commands.*;
@@ -28,16 +29,24 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 public final class Main extends JavaPlugin {
 
+    @Getter
     private static Main instance;
+    @Getter
     private static final String Prefix = "§x§b§1§8§0§f§f§lNextron §8» ";
+    @Getter
     private VanishAPI vanishAPI;
+    @Getter
     private TablistManager tablistManager;
+    @Getter
     public static String NoPerm;
+    @Getter
     public static String InvalidPlayer;
+    @Getter
     public static String CommandInstance;
     private UpdateChecker updateChecker;
     private LiteCommands<CommandSender> liteCommands;
@@ -63,6 +72,7 @@ public final class Main extends JavaPlugin {
 
         loadWorlds();
         saveDefaultConfig();
+        reloadConfig();
         Configs.createSettingsConfig();
         Configs.createHomeConfig();
         Configs.createWarpConfig();
@@ -89,57 +99,11 @@ public final class Main extends JavaPlugin {
 
         registerListeners();
 
-        this.liteCommands = LiteBukkitFactory.builder("nextron", this)
-                .commands(
-                        new BackCommand(),
-                        new EnderchestCommand(),
-                        new FeatureCommand(),
-                        new FlyCommand(),
-                        new GamemodeCommand(),
-                        new GetPosCommand(),
-                        new GodCommand(),
-                        new HatCommand(),
-                        new HeadCommand(),
-                        new HealCommand(),
-                        new HelpCommand(),
-                        new HomeCommands(),
-                        new InvseeCommand(),
-                        new LanguageCommand(),
-                        new MenuCommand(),
-                        new NickCommand(),
-                        new NightVisionCommand(),
-                        new PingCommand(),
-                        new RankCommand(),
-                        new ReloadCommand(),
-                        new RenameCommand(),
-                        new RepairCommand(),
-                        new SpawnCommand(),
-                        new SpeedCommand(),
-                        new SudoCommand(),
-                        new TimeCommand(),
-                        new TopCommand(),
-                        new TpacceptCommand(),
-                        new TpaCommand(),
-                        new TpdenyCommand(),
-                        new TphereCommand(),
-                        new VanishCommand(),
-                        new WarpCommands(),
-                        new WorldCommand()
-                )
+        this.liteCommands = LiteBukkitFactory.builder("nextron", this).commands(new BackCommand(), new EnderchestCommand(), new FeatureCommand(), new FlyCommand(), new GamemodeCommand(), new GetPosCommand(), new GodCommand(), new HatCommand(), new HeadCommand(), new HealCommand(), new HelpCommand(), new HomeCommands(), new InvseeCommand(), new LanguageCommand(), new MenuCommand(), new NickCommand(), new NightVisionCommand(), new PingCommand(), new RankCommand(), new ReloadCommand(), new RenameCommand(), new RepairCommand(), new SpawnCommand(), new SpeedCommand(), new SudoCommand(), new TimeCommand(), new TopCommand(), new TpacceptCommand(), new TpaCommand(), new TpdenyCommand(), new TphereCommand(), new VanishCommand(), new WarpCommands(), new WorldCommand())
 
-                .argument(Feature.class, new FeatureArgument())
-                .argument(GameMode.class, new GameModeArgument())
-                .argument(Help.class, new HelpArgument())
-                .argument(Home.class, new HomeArgument())
-                .argument(Language.class, new LanguageArgument())
-                .argument(Rank.class, new RankArgument())
-                .argument(Seed.class, new SeedArgument())
-                .argument(Warp.class, new WarpArgument())
+                .argument(Feature.class, new FeatureArgument()).argument(GameMode.class, new GameModeArgument()).argument(Help.class, new HelpArgument()).argument(Home.class, new HomeArgument()).argument(Language.class, new LanguageArgument()).argument(Rank.class, new RankArgument()).argument(Seed.class, new SeedArgument()).argument(Warp.class, new WarpArgument())
 
-                .message(LiteBukkitMessages.PLAYER_NOT_FOUND, getInvalidPlayer())
-                .message(LiteBukkitMessages.PLAYER_ONLY, getCommandInstance())
-                .message(LiteBukkitMessages.MISSING_PERMISSIONS, getNoPerm())
-                .message(LiteBukkitMessages.INVALID_USAGE, invalidUsage -> getPrefix() + "§cUsage: " + invalidUsage.getSchematic().first())
+                .message(LiteBukkitMessages.PLAYER_NOT_FOUND, getInvalidPlayer()).message(LiteBukkitMessages.PLAYER_ONLY, getCommandInstance()).message(LiteBukkitMessages.MISSING_PERMISSIONS, getNoPerm()).message(LiteBukkitMessages.INVALID_USAGE, invalidUsage -> getPrefix() + "§cUsage: " + invalidUsage.getSchematic().first())
 
                 .build();
 
@@ -160,26 +124,8 @@ public final class Main extends JavaPlugin {
         Configs.saveWarpConfig();
         Configs.saveFeatureConfig();
 
-        for (Player player : Bukkit.getOnlinePlayers()) {
-            if (Main.getInstance().getConfig().getConfigurationSection("Ranks") == null) {
-                break;
-            }
-            for (String rank : getConfig().getConfigurationSection("Ranks").getKeys(false)) {
-                for (Team team : player.getScoreboard().getTeams()) {
-                    for (String entry : team.getEntries()) {
-                        team.removeEntry(entry);
-                    }
-                }
-                player.getScoreboard().getTeam(rank).removeEntry(player.getName());
-            }
-            player.getScoreboard().getTeam("999player").removeEntry(player.getName());
-            RankAPI.checkRank(player);
-
-            for (String rank : Main.getInstance().getConfig().getConfigurationSection("Ranks").getKeys(false)) {
-                Team finalrank = player.getScoreboard().getTeam(rank.toLowerCase());
-                finalrank.setPrefix("");
-                player.setDisplayName(player.getName());
-            }
+        for (Team team : Objects.requireNonNull(Bukkit.getScoreboardManager()).getMainScoreboard().getTeams()) {
+            team.unregister();
         }
 
         Bukkit.getConsoleSender().sendMessage(Prefix + Text.get("console.disabled"));
@@ -217,31 +163,4 @@ public final class Main extends JavaPlugin {
         return worldFolder.exists();
     }
 
-    public static Main getInstance() {
-        return instance;
-    }
-
-    public static String getPrefix() {
-        return Prefix;
-    }
-
-    public static String getInvalidPlayer() {
-        return InvalidPlayer;
-    }
-
-    public static String getNoPerm() {
-        return NoPerm;
-    }
-
-    public TablistManager getTablistManager() {
-        return tablistManager;
-    }
-
-    public VanishAPI getVanishAPI() {
-        return vanishAPI;
-    }
-
-    public static String getCommandInstance() {
-        return CommandInstance;
-    }
 }

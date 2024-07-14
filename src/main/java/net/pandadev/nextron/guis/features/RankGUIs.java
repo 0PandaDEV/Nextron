@@ -12,15 +12,12 @@ import net.wesjd.anvilgui.AnvilGUI;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.Sound;
-import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.Collections;
 
 public class RankGUIs {
-
-    private static final FileConfiguration mainConfig = Main.getInstance().getConfig();
 
     public static void manager(Player player) {
         Gui gui = Gui.gui()
@@ -29,11 +26,11 @@ public class RankGUIs {
                 .disableAllInteractions()
                 .create();
 
-        for (String rank : mainConfig.getConfigurationSection("Ranks").getKeys(false)) {
+        for (String rank : Main.getInstance().getConfig().getConfigurationSection("Ranks").getKeys(false)) {
             gui.addItem(ItemBuilder.from(Material.NAME_TAG)
                     .name(Component.text("§f" + rank))
                     .setLore("",
-                            "§8Prefix: " + mainConfig.get("Ranks." + rank + ".prefix") + "§8<player>")
+                            "§8Prefix: " + Main.getInstance().getConfig().get("Ranks." + rank + ".prefix") + "§8<player>")
                     .asGuiItem(inventoryClickEvent -> {
                         settings(player, rank);
                     }));
@@ -95,7 +92,7 @@ public class RankGUIs {
                 .name(Component.text("§cDelete"))
                 .asGuiItem(inventoryClickEvent -> {
                     RankAPI.deleteRank(player, rank);
-                    if (mainConfig.getConfigurationSection("Ranks").getKeys(false).isEmpty()) {
+                    if (Main.getInstance().getConfig().getConfigurationSection("Ranks").getKeys(false).isEmpty()) {
                         player.closeInventory();
                     } else {
                         manager(player);
