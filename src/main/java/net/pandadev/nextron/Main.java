@@ -90,6 +90,7 @@ public final class Main extends JavaPlugin {
         for (Player player : Bukkit.getOnlinePlayers()) {
             SettingsAPI.initializeUser(player);
             RankAPI.checkRank(player);
+            VanishAPI.executeVanish(player);
         }
 
         tablistManager.setAllPlayerTeams();
