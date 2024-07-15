@@ -9,24 +9,24 @@ public class FileConfig extends YamlConfiguration {
 
     private final String path;
 
-    public FileConfig(String folder, String filname){
+    public FileConfig(String folder, String filname) {
         this.path = "plugins/" + folder + "/" + filname;
 
         try {
             load(this.path);
-        } catch (InvalidConfigurationException | IOException ex){
+        } catch (InvalidConfigurationException | IOException ex) {
             ex.printStackTrace();
         }
     }
 
-    public FileConfig(String filname){
+    public FileConfig(String filname) {
         this("LobbySystem", filname);
     }
 
-    public void saveConfig(){
+    public void saveConfig() {
         try {
             save(this.path);
-        } catch (IOException ex){
+        } catch (IOException ex) {
             ex.printStackTrace();
         }
     }

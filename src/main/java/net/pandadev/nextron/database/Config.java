@@ -1,4 +1,4 @@
-package net.pandadev.nextron.config;
+package net.pandadev.nextron.database;
 
 import java.sql.*;
 import java.util.logging.Level;

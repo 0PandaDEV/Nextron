@@ -10,6 +10,7 @@ CREATE TABLE IF NOT EXISTS homes (
     yaw FLOAT NOT NULL,
     pitch FLOAT NOT NULL
 );
+CREATE INDEX idx_homes_name ON homes(name);
 
 -- Create user_settings table
 CREATE TABLE IF NOT EXISTS user_settings (
@@ -34,6 +35,7 @@ CREATE TABLE IF NOT EXISTS warps (
     yaw FLOAT NOT NULL,
     pitch FLOAT NOT NULL
 );
+CREATE INDEX idx_warps_name ON warps(name);
 
 -- Create ranks table
 CREATE TABLE IF NOT EXISTS ranks (
@@ -42,6 +44,7 @@ CREATE TABLE IF NOT EXISTS ranks (
     prefix VARCHAR(50),
     uuids TEXT
 );
+CREATE INDEX idx_ranks_name ON ranks(name);
 
 -- Create features table
 CREATE TABLE IF NOT EXISTS features (

@@ -1,7 +1,7 @@
 package net.pandadev.nextron.apis;
 
 import net.pandadev.nextron.Main;
-import net.pandadev.nextron.config.Config;
+import net.pandadev.nextron.database.Config;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.configuration.ConfigurationSection;
@@ -69,7 +69,7 @@ public class WarpAPI {
 
     public static List<String> getWarps() {
         List<String> warps = new ArrayList<>();
-        String sql = "SELECT name FROM warps";
+        String sql = "SELECT name FROM warps ORDER BY name";
         try (PreparedStatement ps = Config.getConnection().prepareStatement(sql);
              ResultSet rs = ps.executeQuery()) {
             while (rs.next()) {

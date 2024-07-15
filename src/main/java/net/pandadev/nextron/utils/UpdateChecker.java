@@ -77,15 +77,17 @@ public class UpdateChecker {
         }
     }
 
-    public static boolean isVersionNewer(String remoteVersion, String currentVersion){
+    public static boolean isVersionNewer(String remoteVersion, String currentVersion) {
         int remote = Integer.parseInt(remoteVersion.replaceAll("[^\\d]+", ""));
         int current = Integer.parseInt(currentVersion.replaceAll("[^\\d]+", ""));
 
         if (String.valueOf(current).length() == 4 && String.valueOf(remote).length() == 4) return remote > current;
 
-        else if (String.valueOf(remote).length() == 4) return !(Integer.parseInt(String.valueOf(remote).substring(0, String.valueOf(remote).length() - 1)) <= current);
+        else if (String.valueOf(remote).length() == 4)
+            return !(Integer.parseInt(String.valueOf(remote).substring(0, String.valueOf(remote).length() - 1)) <= current);
 
-        else if (String.valueOf(current).length() == 4) return remote >= Integer.parseInt(String.valueOf(current).substring(0, String.valueOf(current).length() - 1));
+        else if (String.valueOf(current).length() == 4)
+            return remote >= Integer.parseInt(String.valueOf(current).substring(0, String.valueOf(current).length() - 1));
 
         return remote > current;
     }

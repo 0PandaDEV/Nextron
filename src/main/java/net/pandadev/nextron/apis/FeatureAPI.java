@@ -1,7 +1,7 @@
 package net.pandadev.nextron.apis;
 
 import net.pandadev.nextron.Main;
-import net.pandadev.nextron.config.Config;
+import net.pandadev.nextron.database.Config;
 import org.bukkit.configuration.file.YamlConfiguration;
 
 import java.io.File;

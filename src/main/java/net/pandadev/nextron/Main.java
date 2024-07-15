@@ -11,10 +11,9 @@ import net.pandadev.nextron.apis.*;
 import net.pandadev.nextron.arguments.*;
 import net.pandadev.nextron.arguments.objects.*;
 import net.pandadev.nextron.commands.*;
-import net.pandadev.nextron.config.Migrations;
+import net.pandadev.nextron.database.Migrations;
 import net.pandadev.nextron.listeners.*;
 import net.pandadev.nextron.tablist.TablistManager;
-import net.pandadev.nextron.utils.Configs;
 import net.pandadev.nextron.utils.Metrics;
 import net.pandadev.nextron.utils.UpdateChecker;
 import org.bukkit.Bukkit;
@@ -83,13 +82,6 @@ public final class Main extends JavaPlugin {
         loadWorlds();
         saveDefaultConfig();
         reloadConfig();
-        Configs.createSettingsConfig();
-        Configs.createHomeConfig();
-        Configs.createWarpConfig();
-        Configs.createFeatureConfig();
-        Configs.saveHomeConfig();
-        Configs.saveWarpConfig();
-        Configs.saveFeatureConfig();
 
         for (Player player : Bukkit.getOnlinePlayers()) {
             player.setDisplayName(SettingsAPI.getNick(player));
@@ -128,10 +120,6 @@ public final class Main extends JavaPlugin {
 
         LangLoader.saveLanguages(getName(), "-" + getDescription().getVersion());
         LangLoader.loadLanguage(getConfig().getString("language"));
-
-        Configs.saveHomeConfig();
-        Configs.saveWarpConfig();
-        Configs.saveFeatureConfig();
 
         for (Team team : Objects.requireNonNull(Bukkit.getScoreboardManager()).getMainScoreboard().getTeams()) {
             team.unregister();

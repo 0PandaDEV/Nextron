@@ -4,7 +4,7 @@ import ch.hekates.languify.language.Text;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import net.pandadev.nextron.Main;
-import net.pandadev.nextron.config.Config;
+import net.pandadev.nextron.database.Config;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
@@ -49,13 +49,11 @@ public class RankAPI {
         }
 
         String updateSql = "UPDATE ranks SET uuids = ? WHERE name = ?";
+        String selectSql = "SELECT uuids FROM ranks WHERE name = ?";
 
         try {
             removeRanks(player);
 
-            PreparedStatement ps = Config.getConnection().prepareStatement(updateSql);
-
-            String selectSql = "SELECT uuids FROM ranks WHERE name = ?";
             PreparedStatement selectPs = Config.getConnection().prepareStatement(selectSql);
             selectPs.setString(1, rank.toLowerCase());
             ResultSet rs = selectPs.executeQuery();
@@ -72,6 +70,7 @@ public class RankAPI {
 
             uuids.add(player.getUniqueId().toString());
 
+            PreparedStatement ps = Config.getConnection().prepareStatement(updateSql);
             ps.setString(1, new Gson().toJson(uuids));
             ps.setString(2, rank.toLowerCase());
             ps.executeUpdate();

@@ -1,7 +1,7 @@
 package net.pandadev.nextron.apis;
 
 import net.pandadev.nextron.Main;
-import net.pandadev.nextron.config.Config;
+import net.pandadev.nextron.database.Config;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.configuration.ConfigurationSection;
@@ -85,7 +85,7 @@ public class HomeAPI {
 
     public static List<String> getHomes(Player player) {
         List<String> homes = new ArrayList<>();
-        String sql = "SELECT name FROM homes WHERE uuid = ?";
+        String sql = "SELECT name FROM homes WHERE uuid = ? ORDER BY name";
         try (PreparedStatement ps = Config.getConnection().prepareStatement(sql)) {
             ps.setString(1, player.getUniqueId().toString());
             try (ResultSet rs = ps.executeQuery()) {
@@ -103,6 +103,18 @@ public class HomeAPI {
         File homeConfig = new File(Main.getInstance().getDataFolder(), "homes.yml");
         if (!homeConfig.exists()) {
             LOGGER.info("No homes.yml file found. Skipping migration.");
+            return;
+        }
+
+        String checkSql = "SELECT COUNT(*) FROM homes";
+        try (PreparedStatement checkPs = Config.getConnection().prepareStatement(checkSql);
+             ResultSet rs = checkPs.executeQuery()) {
+            if (rs.next() && rs.getInt(1) > 0) {
+                LOGGER.info("Homes table is not empty. Skipping migration.");
+                return;
+            }
+        } catch (SQLException e) {
+            LOGGER.log(Level.SEVERE, "Error checking homes table", e);
             return;
         }
 
