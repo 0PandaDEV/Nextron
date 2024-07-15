@@ -102,7 +102,6 @@ public class HomeAPI {
     public static void migration() {
         File homeConfig = new File(Main.getInstance().getDataFolder(), "homes.yml");
         if (!homeConfig.exists()) {
-            LOGGER.info("No homes.yml file found. Skipping migration.");
             return;
         }
 
@@ -110,7 +109,6 @@ public class HomeAPI {
         try (PreparedStatement checkPs = Config.getConnection().prepareStatement(checkSql);
              ResultSet rs = checkPs.executeQuery()) {
             if (rs.next() && rs.getInt(1) > 0) {
-                LOGGER.info("Homes table is not empty. Skipping migration.");
                 return;
             }
         } catch (SQLException e) {
@@ -122,7 +120,6 @@ public class HomeAPI {
         ConfigurationSection homesSection = yamlConfig.getConfigurationSection("Homes");
 
         if (homesSection == null) {
-            LOGGER.info("No homes data found in homes.yml. Skipping migration.");
             return;
         }
 

@@ -86,7 +86,6 @@ public class WarpAPI {
         try (PreparedStatement checkPs = Config.getConnection().prepareStatement(checkSql);
              ResultSet rs = checkPs.executeQuery()) {
             if (rs.next() && rs.getInt(1) > 0) {
-                LOGGER.info("Warps table is not empty. Skipping migration.");
                 return;
             }
         } catch (SQLException e) {
@@ -96,7 +95,6 @@ public class WarpAPI {
 
         File warpConfig = new File(Main.getInstance().getDataFolder(), "warps.yml");
         if (!warpConfig.exists()) {
-            LOGGER.info("No warps.yml file found. Skipping migration.");
             return;
         }
 
@@ -104,7 +102,6 @@ public class WarpAPI {
         ConfigurationSection warpsSection = yamlConfig.getConfigurationSection("Warps");
 
         if (warpsSection == null) {
-            LOGGER.info("No warps data found in warps.yml. Skipping migration.");
             return;
         }
 

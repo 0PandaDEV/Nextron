@@ -55,7 +55,6 @@ public class FeatureAPI {
         try (PreparedStatement checkPs = Config.getConnection().prepareStatement(checkSql);
              ResultSet rs = checkPs.executeQuery()) {
             if (rs.next() && rs.getInt(1) > 0) {
-                LOGGER.info("Features table is not empty. Skipping migration.");
                 return;
             }
         } catch (SQLException e) {
@@ -65,7 +64,6 @@ public class FeatureAPI {
 
         File featureConfig = new File(Main.getInstance().getDataFolder(), "features.yml");
         if (!featureConfig.exists()) {
-            LOGGER.info("No features.yml file found. Skipping migration.");
             return;
         }
 

@@ -242,7 +242,6 @@ public class SettingsAPI {
         try (PreparedStatement checkPs = Config.getConnection().prepareStatement(checkSql);
              ResultSet rs = checkPs.executeQuery()) {
             if (rs.next() && rs.getInt(1) > 0) {
-                LOGGER.info("User settings table is not empty. Skipping migration.");
                 return;
             }
         } catch (SQLException e) {
@@ -252,7 +251,6 @@ public class SettingsAPI {
 
         File settingsConfig = new File(Main.getInstance().getDataFolder(), "user_settings.yml");
         if (!settingsConfig.exists()) {
-            LOGGER.info("No user_settings.yml file found. Skipping migration.");
             return;
         }
 
