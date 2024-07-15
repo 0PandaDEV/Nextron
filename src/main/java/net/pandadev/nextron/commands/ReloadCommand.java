@@ -6,19 +6,27 @@ import dev.rollczi.litecommands.annotations.permission.Permission;
 import net.pandadev.nextron.Main;
 import org.bukkit.Bukkit;
 
-@Command(name = "reload", aliases = {"rl"})
+@Command(name = "rl", aliases = {"reload"})
 @Permission("nextron.reload")
 public class ReloadCommand extends HelpBase {
 
     public ReloadCommand() {
-        super("reload, Reloads the server, /reload\n/rl");
+        super("rl, Reloads the server, /rl\n/reload");
     }
 
     @Execute
     public void reloadCommand() {
         Bukkit.broadcastMessage(Main.getPrefix() + "§cReloading server");
-        Bukkit.getServer().reload();
-        Bukkit.broadcastMessage(Main.getPrefix() + "§aReload complete");
+        
+        Bukkit.getScheduler().runTask(Main.getInstance(), () -> {
+            try {
+                Bukkit.getServer().reload();
+                Bukkit.broadcastMessage(Main.getPrefix() + "§aReload complete");
+            } catch (Exception e) {
+                Bukkit.broadcastMessage(Main.getPrefix() + "§cReload failed. Check console for details.");
+                e.printStackTrace();
+            }
+        });
     }
 
 }
