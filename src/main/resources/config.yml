@@ -2,8 +2,9 @@
 language: "en"
 
 # %p represents the players name
-# for a full color pallet open cmd and type 'color ?'
+# for a full color pallet take a look here https://htmlcolorcodes.com/minecraft-color-codes/
 join_message: "&2[&a+&2] &7%p"
 leave_message: "&4[&c-&4] &7%p"
 
-Ranks:
+# the prefix of the default player rank leave it empty for no prefix
+playerRankPrefix: "§9Player §8• §7"

@@ -1,5 +1,6 @@
 package net.pandadev.nextron.listeners;
 
+import net.pandadev.nextron.Main;
 import net.pandadev.nextron.apis.FeatureAPI;
 import net.pandadev.nextron.apis.RankAPI;
 import net.pandadev.nextron.apis.SettingsAPI;
@@ -18,7 +19,8 @@ public class ChatEditor implements Listener {
 
         if (FeatureAPI.getFeature("rank_system")) {
             if (RankAPI.getRanks().isEmpty()) {
-                player.setDisplayName("§9Player §8• §f" + ChatColor.WHITE + SettingsAPI.getNick(player));
+                String playerRankPrefix = Main.getInstance().getConfig().getString("playerRankPrefix");
+                player.setDisplayName(playerRankPrefix + ChatColor.WHITE + SettingsAPI.getNick(player));
                 event.setFormat(player.getDisplayName() + " §8» §f" + ChatColor.translateAlternateColorCodes('&', message));
                 return;
             }

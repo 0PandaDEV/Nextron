@@ -17,6 +17,7 @@ import org.bukkit.scoreboard.Team;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -31,10 +32,11 @@ public class RankAPI {
     public static void createPlayerTeam(Player player) {
         Scoreboard scoreboard = player.getScoreboard();
         Team finalrank = scoreboard.getTeam("999player");
-        if (finalrank == null)
-            finalrank = scoreboard.registerNewTeam("999player");
+        if (finalrank == null) finalrank = scoreboard.registerNewTeam("999player");
         if (FeatureAPI.getFeature("rank_system")) {
-            finalrank.setPrefix("§9Player §8• §7");
+            String playerRankPrefix = Main.getInstance().getConfig().getString("playerRankPrefix");
+            assert playerRankPrefix != null;
+            finalrank.setPrefix(playerRankPrefix);
         } else {
             finalrank.setPrefix("");
         }
@@ -61,8 +63,7 @@ public class RankAPI {
             ArrayList<String> uuids;
             if (rs.next()) {
                 String existingUuids = rs.getString("uuids");
-                uuids = existingUuids.isEmpty() ? new ArrayList<>()
-                        : new Gson().fromJson(existingUuids, new TypeToken<ArrayList<String>>() {
+                uuids = existingUuids.isEmpty() ? new ArrayList<>() : new Gson().fromJson(existingUuids, new TypeToken<ArrayList<String>>() {
                 }.getType());
             } else {
                 uuids = new ArrayList<>();
@@ -76,8 +77,7 @@ public class RankAPI {
             ps.executeUpdate();
 
             Main.getInstance().getTablistManager().setAllPlayerTeams();
-            sender.sendMessage(Main.getPrefix()
-                    + Text.get("rank.set.success").replace("%p", player.getName()).replace("%r", rank));
+            sender.sendMessage(Main.getPrefix() + Text.get("rank.set.success").replace("%p", player.getName()).replace("%r", rank));
         } catch (SQLException e) {
             LOGGER.log(Level.SEVERE, "Error setting rank for player: " + player.getName(), e);
         }
@@ -92,9 +92,8 @@ public class RankAPI {
                         String name = rs.getString("name");
                         String uuidsString = rs.getString("uuids");
                         if (!uuidsString.isEmpty()) {
-                            ArrayList<String> uuids = new Gson().fromJson(uuidsString,
-                                    new TypeToken<ArrayList<String>>() {
-                                    }.getType());
+                            ArrayList<String> uuids = new Gson().fromJson(uuidsString, new TypeToken<ArrayList<String>>() {
+                            }.getType());
                             if (uuids.remove(player.getUniqueId().toString())) {
                                 String updateSql = "UPDATE ranks SET uuids = ? WHERE name = ?";
                                 PreparedStatement ps = Config.getConnection().prepareStatement(updateSql);
@@ -183,8 +182,7 @@ public class RankAPI {
                 return;
             }
             Main.getInstance().getTablistManager().setAllPlayerTeams();
-            player.sendMessage(Main.getPrefix() + Text.get("rank.setprefix.success").replace("%r", rank.toLowerCase())
-                    .replace("%p", prefix.substring(1)));
+            player.sendMessage(Main.getPrefix() + Text.get("rank.setprefix.success").replace("%r", rank.toLowerCase()).replace("%p", prefix.substring(1)));
         } catch (SQLException e) {
             LOGGER.log(Level.SEVERE, "Error setting prefix for rank: " + rank, e);
         }
@@ -201,8 +199,7 @@ public class RankAPI {
                 player.sendMessage(Main.getPrefix() + Text.get("rank.dontexists"));
                 return;
             }
-            player.sendMessage(Main.getPrefix() + Text.get("rank.rename.success").replace("%r", oldRank.toLowerCase())
-                    .replace("%n", newRank.toLowerCase().substring(1)));
+            player.sendMessage(Main.getPrefix() + Text.get("rank.rename.success").replace("%r", oldRank.toLowerCase()).replace("%n", newRank.toLowerCase().substring(1)));
             Main.getInstance().getTablistManager().setAllPlayerTeams();
         } catch (SQLException e) {
             LOGGER.log(Level.SEVERE, "Error renaming rank: " + oldRank + " to " + newRank, e);
@@ -218,9 +215,8 @@ public class RankAPI {
                     while (rs.next()) {
                         String uuidsString = rs.getString("uuids");
                         if (!uuidsString.isEmpty()) {
-                            ArrayList<String> uuids = new Gson().fromJson(uuidsString,
-                                    new TypeToken<ArrayList<String>>() {
-                                    }.getType());
+                            ArrayList<String> uuids = new Gson().fromJson(uuidsString, new TypeToken<ArrayList<String>>() {
+                            }.getType());
                             if (uuids.contains(player.getUniqueId().toString())) {
                                 rank[0] = rs.getString("name");
                                 break;
@@ -247,9 +243,8 @@ public class RankAPI {
                     while (rs.next()) {
                         String uuidsString = rs.getString("uuids");
                         if (!uuidsString.isEmpty()) {
-                            ArrayList<String> uuids = new Gson().fromJson(uuidsString,
-                                    new TypeToken<ArrayList<String>>() {
-                                    }.getType());
+                            ArrayList<String> uuids = new Gson().fromJson(uuidsString, new TypeToken<ArrayList<String>>() {
+                            }.getType());
                             if (uuids.contains(player.getUniqueId().toString())) {
                                 hasRank[0] = true;
                                 break;
@@ -274,7 +269,8 @@ public class RankAPI {
             Team finalrank = scoreboard.getTeam("999player");
             finalrank.addEntry(player.getName());
             if (FeatureAPI.getFeature("rank_system")) {
-                String displayName = "§9Player §8• §f" + SettingsAPI.getNick(player);
+                String playerRankPrefix = Main.getInstance().getConfig().getString("playerRankPrefix", "");
+                String displayName = playerRankPrefix + SettingsAPI.getNick(player);
                 player.setDisplayName(displayName);
                 player.setPlayerListName(displayName);
             } else {
@@ -301,6 +297,9 @@ public class RankAPI {
     }
 
     public static String getRankPrefix(String rank) {
+        if (rank.equals("999player")) {
+            return Main.getInstance().getConfig().getString("playerRankPrefix");
+        }
         String sql = "SELECT prefix FROM ranks WHERE LOWER(name) = LOWER(?)";
         try (PreparedStatement ps = Config.getConnection().prepareStatement(sql)) {
             ps.setString(1, rank);
@@ -337,20 +336,23 @@ public class RankAPI {
     }
 
     public static void migration() {
+        File configFile = new File("plugins/Nextron/config.yml");
+        FileConfiguration config = YamlConfiguration.loadConfiguration(configFile);
+
+        if (!config.contains("Ranks")) {
+            return;
+        }
+
         String checkSql = "SELECT COUNT(*) FROM ranks";
         String insertSql = "INSERT INTO ranks (name, prefix, uuids) VALUES (?, ?, ?)";
         String updateSql = "UPDATE ranks SET name = ? WHERE name = ?";
 
         try {
-            // Check if the database is empty
             Config.executeQuery(checkSql, (ResultSet rs) -> {
                 try {
-                    File configFile = new File("plugins/Nextron/config.yml");
-                    FileConfiguration config = YamlConfiguration.loadConfiguration(configFile);
                     boolean configChanged = false;
 
                     if (rs.next() && rs.getInt(1) == 0) {
-                        // Database is empty, migrate from YAML
                         ConfigurationSection ranksSection = config.getConfigurationSection("Ranks");
 
                         if (ranksSection != null) {
@@ -368,7 +370,6 @@ public class RankAPI {
                         }
                     }
 
-                    // Perform numbering migration
                     String selectSql = "SELECT name, prefix, uuids FROM ranks ORDER BY name";
                     List<String[]> ranks = new ArrayList<>();
                     Config.executeQuery(selectSql, (ResultSet rs2) -> {
@@ -389,16 +390,28 @@ public class RankAPI {
                         }
                     }
 
-                    // Remove Ranks key from config.yml
                     if (config.contains("Ranks")) {
                         config.set("Ranks", null);
                         configChanged = true;
                     }
 
-                    // Save config if changed
                     if (configChanged) {
                         try {
-                            config.save(configFile);
+                            List<String> lines = Files.readAllLines(configFile.toPath());
+                            List<String> newLines = new ArrayList<>();
+                            boolean ranksRemoved = false;
+
+                            for (String line : lines) {
+                                if (line.trim().startsWith("Ranks:")) {
+                                    ranksRemoved = true;
+                                    newLines.add("# the prefix of the default player rank leave it empty for no prefix");
+                                    newLines.add("playerRankPrefix: \"§9Player §8• §7\"");
+                                } else if (!ranksRemoved || !line.trim().startsWith("-")) {
+                                    newLines.add(line);
+                                }
+                            }
+
+                            Files.write(configFile.toPath(), newLines);
                         } catch (IOException e) {
                             LOGGER.log(Level.SEVERE, "Error saving config file after rank migration", e);
                         }
