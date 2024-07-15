@@ -2,9 +2,13 @@ name: Nextron Nightly Builds
 
 on:
   push:
-    branches: [ "*" ]
+    branches: 
+      - '*'
+      - 'dev/**'
   pull_request:
-    branches: [ "*" ]
+    branches: 
+      - '*'
+      - 'dev/**'
   workflow_dispatch:
 
 jobs:
