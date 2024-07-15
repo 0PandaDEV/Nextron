@@ -2,9 +2,13 @@ name: Nextron Nightly Builds
 
 on:
   push:
-    branches: [ "*" ]
+    branches: 
+      - '*'
+      - 'dev/**'
   pull_request:
-    branches: [ "*" ]
+    branches: 
+      - '*'
+      - 'dev/**'
   workflow_dispatch:
 
 jobs:
@@ -12,32 +16,26 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v4
-    - name: Set up JDK 17
-      uses: actions/setup-java@v3
-      with:
-        java-version: '17'
-        distribution: 'temurin'
-        cache: maven
-    - name: Cache Maven packages
-      uses: actions/cache@v3
-      with:
-        path: ~/.m2
-        key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
-        restore-keys: ${{ runner.os }}-m2
+      - uses: actions/checkout@v4
+      - name: Set up JDK 17
+        uses: actions/setup-java@v3
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+          cache: maven
 
-    - name: Get the version from pom.xml
-      id: get_version
-      run: echo "M2_VERSION=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)" >> $GITHUB_ENV
+      - name: Get the version from pom.xml
+        id: get_version
+        run: echo "M2_VERSION=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)" >> $GITHUB_ENV
 
-    - name: Build with Maven
-      run: mvn -B clean package --file pom.xml
+      - name: Build with Maven
+        run: mvn -B clean package --file pom.xml
 
-    - name: Update dependency graph
-      uses: advanced-security/maven-dependency-submission-action@571e99aab1055c2e71a1e2309b9691de18d6b7d6
+      - name: Update dependency graph
+        uses: advanced-security/maven-dependency-submission-action@571e99aab1055c2e71a1e2309b9691de18d6b7d6
 
-    - name: Upload Artifacts
-      uses: actions/upload-artifact@v3
-      with:
-        name: Nextron-${{ env.M2_VERSION }}_NIGHTLY
-        path: server/plugins/*.jar
+      - name: Upload Artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: Nextron-${{ env.M2_VERSION }}_NIGHTLY
+          path: server/plugins/*.jar
