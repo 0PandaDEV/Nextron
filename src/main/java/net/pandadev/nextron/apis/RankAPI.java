@@ -23,6 +23,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -30,7 +31,7 @@ public class RankAPI {
     private static final Logger LOGGER = Logger.getLogger(RankAPI.class.getName());
 
     public static void createPlayerTeam(Player player) {
-        Scoreboard scoreboard = player.getScoreboard();
+        Scoreboard scoreboard = Objects.requireNonNull(Bukkit.getScoreboardManager()).getMainScoreboard();
         Team finalrank = scoreboard.getTeam("999player");
         if (finalrank == null) finalrank = scoreboard.registerNewTeam("999player");
         if (FeatureAPI.getFeature("rank_system")) {
@@ -265,7 +266,7 @@ public class RankAPI {
     public static void checkRank(Player player) {
         createPlayerTeam(player);
         if (!hasRank(player)) {
-            Scoreboard scoreboard = player.getScoreboard();
+            Scoreboard scoreboard = Objects.requireNonNull(Bukkit.getScoreboardManager()).getMainScoreboard();
             Team finalrank = scoreboard.getTeam("999player");
             finalrank.addEntry(player.getName());
             if (FeatureAPI.getFeature("rank_system")) {

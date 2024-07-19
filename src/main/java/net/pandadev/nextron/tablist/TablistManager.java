@@ -8,6 +8,8 @@ import org.bukkit.entity.Player;
 import org.bukkit.scoreboard.Scoreboard;
 import org.bukkit.scoreboard.Team;
 
+import java.util.Objects;
+
 public class TablistManager {
 
     public void setAllPlayerTeams() {
@@ -15,7 +17,7 @@ public class TablistManager {
     }
 
     public void setPlayerTeams(Player player) {
-        Scoreboard scoreboard = player.getScoreboard();
+        Scoreboard scoreboard = Objects.requireNonNull(Bukkit.getScoreboardManager()).getMainScoreboard();
 
         for (String rank : RankAPI.getRanks()) {
             Team teamRank = scoreboard.getTeam(rank);
