@@ -133,8 +133,6 @@ public final class Main extends JavaPlugin {
     public void onDisable() {
         this.liteCommands.unregister();
 
-        LanguageLoader.saveLanguages();
-
         for (Team team : Objects.requireNonNull(Bukkit.getScoreboardManager()).getMainScoreboard().getTeams()) {
             team.unregister();
         }
