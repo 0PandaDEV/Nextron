@@ -26,7 +26,12 @@ public class LanguageLoader {
     public static void saveLanguages() {
         JavaPlugin plugin = Main.getInstance();
         File langFolder = new File(plugin.getDataFolder(), "lang");
-        if (!langFolder.exists() && !langFolder.mkdirs()) {
+        
+        if (langFolder.exists()) {
+            deleteDirectory(langFolder);
+        }
+        
+        if (!langFolder.mkdirs()) {
             plugin.getLogger().severe("Failed to create language folder");
             return;
         }
@@ -54,5 +59,19 @@ public class LanguageLoader {
         } catch (Exception e) {
             plugin.getLogger().severe("Failed to load language files. Error: " + e.getMessage());
         }
+    }
+
+    private static void deleteDirectory(File directory) {
+        File[] files = directory.listFiles();
+        if (files != null) {
+            for (File file : files) {
+                if (file.isDirectory()) {
+                    deleteDirectory(file);
+                } else {
+                    file.delete();
+                }
+            }
+        }
+        directory.delete();
     }
 }
