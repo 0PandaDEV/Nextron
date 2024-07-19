@@ -1,18 +1,20 @@
 package net.pandadev.nextron;
 
-import ch.hekates.languify.Languify;
-import ch.hekates.languify.language.LangLoader;
-import ch.hekates.languify.language.Text;
 import dev.rollczi.litecommands.LiteCommands;
 import dev.rollczi.litecommands.bukkit.LiteBukkitFactory;
 import dev.rollczi.litecommands.bukkit.LiteBukkitMessages;
 import lombok.Getter;
+import net.pandadev.nextron.apis.*;
 import net.pandadev.nextron.arguments.*;
 import net.pandadev.nextron.arguments.objects.*;
 import net.pandadev.nextron.commands.*;
+import net.pandadev.nextron.database.Migrations;
+import net.pandadev.nextron.languages.LanguageLoader;
+import net.pandadev.nextron.languages.TextAPI;
 import net.pandadev.nextron.listeners.*;
 import net.pandadev.nextron.tablist.TablistManager;
-import net.pandadev.nextron.utils.*;
+import net.pandadev.nextron.utils.Metrics;
+import net.pandadev.nextron.utils.UpdateChecker;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.WorldCreator;
@@ -59,11 +61,40 @@ public final class Main extends JavaPlugin {
         instance = this;
         tablistManager = new TablistManager();
 
-        RankAPI.migration();
+        Migrations.checkAndApplyMigrations();
 
-        Languify.setup(this, this.getDataFolder().toString());
-        LangLoader.saveLanguages(getName(), "-" + getDescription().getVersion());
-        LangLoader.loadLanguage(getConfig().getString("language"));
+        RankAPI.migration();
+        HomeAPI.migration();
+        WarpAPI.migration();
+        FeatureAPI.migration();
+        SettingsAPI.migration();
+
+        this.liteCommands = LiteBukkitFactory.builder("nextron", this)
+                .commands(new BackCommand(), new EnderchestCommand(), new FeatureCommand(), new FlyCommand(),
+                        new GamemodeCommand(), new GetPosCommand(), new GodCommand(), new HatCommand(),
+                        new HeadCommand(), new HealCommand(), new HelpCommand(), new HomeCommands(),
+                        new InvseeCommand(), new LanguageCommand(), new MenuCommand(), new NickCommand(),
+                        new NightVisionCommand(), new PingCommand(), new RankCommand(), new ReloadCommand(),
+                        new RenameCommand(), new RepairCommand(), new SpawnCommand(), new SpeedCommand(),
+                        new SudoCommand(), new TimeCommand(), new TopCommand(), new TpacceptCommand(), new TpaCommand(),
+                        new TpdenyCommand(), new TphereCommand(), new VanishCommand(), new WarpCommands(),
+                        new WorldCommand())
+
+                .argument(Feature.class, new FeatureArgument()).argument(GameMode.class, new GameModeArgument())
+                .argument(Help.class, new HelpArgument()).argument(Home.class, new HomeArgument())
+                .argument(Language.class, new LanguageArgument()).argument(Rank.class, new RankArgument())
+                .argument(Seed.class, new SeedArgument()).argument(Warp.class, new WarpArgument())
+
+                .message(LiteBukkitMessages.PLAYER_NOT_FOUND, getInvalidPlayer())
+                .message(LiteBukkitMessages.PLAYER_ONLY, getCommandInstance())
+                .message(LiteBukkitMessages.MISSING_PERMISSIONS, getNoPerm())
+                .message(LiteBukkitMessages.INVALID_USAGE,
+                        invalidUsage -> getPrefix() + "§cUsage: " + invalidUsage.getSchematic().first())
+
+                .build();
+
+        LanguageLoader.saveLanguages();
+        LanguageLoader.setLanguage(getConfig().getString("language"));
 
         Bukkit.getScheduler().runTaskAsynchronously(this, () -> {
             updateChecker = new UpdateChecker(this, "0pandadev/nextron");
@@ -73,62 +104,40 @@ public final class Main extends JavaPlugin {
         loadWorlds();
         saveDefaultConfig();
         reloadConfig();
-        Configs.createSettingsConfig();
-        Configs.createHomeConfig();
-        Configs.createWarpConfig();
-        Configs.createFeatureConfig();
-        Configs.saveHomeConfig();
-        Configs.saveWarpConfig();
-        Configs.saveFeatureConfig();
 
         for (Player player : Bukkit.getOnlinePlayers()) {
-            player.setDisplayName(Configs.settings.getString(player.getUniqueId() + ".nick"));
+            player.setDisplayName(SettingsAPI.getNick(player));
         }
 
         for (Player player : Bukkit.getOnlinePlayers()) {
-            SettingsConfig.checkSettings(player);
+            SettingsAPI.initializeUser(player);
             RankAPI.checkRank(player);
+            VanishAPI.executeVanish(player);
         }
 
         tablistManager.setAllPlayerTeams();
-        vanishAPI = new VanishAPI(this);
 
-        NoPerm = Prefix + Text.get("no.perms");
-        InvalidPlayer = Prefix + Text.get("invalid.player");
-        CommandInstance = Prefix + Text.get("command.instance.error");
+        NoPerm = Prefix + TextAPI.get("no.perms");
+        InvalidPlayer = Prefix + TextAPI.get("invalid.player");
+        CommandInstance = Prefix + TextAPI.get("command.instance.error");
 
         registerListeners();
-
-        this.liteCommands = LiteBukkitFactory.builder("nextron", this).commands(new BackCommand(), new EnderchestCommand(), new FeatureCommand(), new FlyCommand(), new GamemodeCommand(), new GetPosCommand(), new GodCommand(), new HatCommand(), new HeadCommand(), new HealCommand(), new HelpCommand(), new HomeCommands(), new InvseeCommand(), new LanguageCommand(), new MenuCommand(), new NickCommand(), new NightVisionCommand(), new PingCommand(), new RankCommand(), new ReloadCommand(), new RenameCommand(), new RepairCommand(), new SpawnCommand(), new SpeedCommand(), new SudoCommand(), new TimeCommand(), new TopCommand(), new TpacceptCommand(), new TpaCommand(), new TpdenyCommand(), new TphereCommand(), new VanishCommand(), new WarpCommands(), new WorldCommand())
-
-                .argument(Feature.class, new FeatureArgument()).argument(GameMode.class, new GameModeArgument()).argument(Help.class, new HelpArgument()).argument(Home.class, new HomeArgument()).argument(Language.class, new LanguageArgument()).argument(Rank.class, new RankArgument()).argument(Seed.class, new SeedArgument()).argument(Warp.class, new WarpArgument())
-
-                .message(LiteBukkitMessages.PLAYER_NOT_FOUND, getInvalidPlayer()).message(LiteBukkitMessages.PLAYER_ONLY, getCommandInstance()).message(LiteBukkitMessages.MISSING_PERMISSIONS, getNoPerm()).message(LiteBukkitMessages.INVALID_USAGE, invalidUsage -> getPrefix() + "§cUsage: " + invalidUsage.getSchematic().first())
-
-                .build();
 
         int pluginId = 20704;
         new Metrics(this, pluginId);
 
-        Bukkit.getConsoleSender().sendMessage(Prefix + Text.get("console.activate"));
+        Bukkit.getConsoleSender().sendMessage(Prefix + TextAPI.get("console.activate"));
     }
 
     @Override
     public void onDisable() {
         this.liteCommands.unregister();
 
-        LangLoader.saveLanguages(getName(), "-" + getDescription().getVersion());
-        LangLoader.loadLanguage(getConfig().getString("language"));
-
-        Configs.saveHomeConfig();
-        Configs.saveWarpConfig();
-        Configs.saveFeatureConfig();
-
         for (Team team : Objects.requireNonNull(Bukkit.getScoreboardManager()).getMainScoreboard().getTeams()) {
             team.unregister();
         }
 
-        Bukkit.getConsoleSender().sendMessage(Prefix + Text.get("console.disabled"));
+        Bukkit.getConsoleSender().sendMessage(Prefix + TextAPI.get("console.disabled"));
         instance = null;
     }
 
@@ -147,7 +156,8 @@ public final class Main extends JavaPlugin {
         if (Files.exists(worldsFile)) {
             try {
                 List<String> worldNames = Files.readAllLines(worldsFile);
-                List<String> validWorldNames = worldNames.stream().filter(this::worldExists).collect(Collectors.toList());
+                List<String> validWorldNames = worldNames.stream().filter(this::worldExists)
+                        .collect(Collectors.toList());
                 for (String worldName : validWorldNames) {
                     Bukkit.createWorld(new WorldCreator(worldName));
                 }

@@ -1,11 +1,11 @@
 package net.pandadev.nextron.commands;
 
-import ch.hekates.languify.language.Text;
 import dev.rollczi.litecommands.annotations.command.Command;
 import dev.rollczi.litecommands.annotations.context.Context;
 import dev.rollczi.litecommands.annotations.execute.Execute;
 import dev.rollczi.litecommands.annotations.permission.Permission;
 import net.pandadev.nextron.Main;
+import net.pandadev.nextron.languages.TextAPI;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
@@ -23,7 +23,7 @@ public class HatCommand extends HelpBase {
 
         player.getInventory().setHelmet(itemStack);
 
-        player.sendMessage(Main.getPrefix() + Text.get("hat.success"));
+        player.sendMessage(Main.getPrefix() + TextAPI.get("hat.success"));
     }
 
 }

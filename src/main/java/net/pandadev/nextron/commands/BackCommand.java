@@ -1,18 +1,15 @@
 package net.pandadev.nextron.commands;
 
-import ch.hekates.languify.language.Text;
 import dev.rollczi.litecommands.annotations.command.Command;
 import dev.rollczi.litecommands.annotations.context.Context;
 import dev.rollczi.litecommands.annotations.execute.Execute;
 import dev.rollczi.litecommands.annotations.optional.OptionalArg;
 import dev.rollczi.litecommands.annotations.permission.Permission;
 import net.pandadev.nextron.Main;
-import net.pandadev.nextron.utils.Configs;
-import org.bukkit.Location;
+import net.pandadev.nextron.apis.SettingsAPI;
+import net.pandadev.nextron.languages.TextAPI;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-
-import java.util.Objects;
 
 @Command(name = "back")
 @Permission("nextron.back")
@@ -27,20 +24,14 @@ public class BackCommand extends HelpBase {
         Player player = (Player) (sender);
 
         if (target == null) {
-            Configs.settings.set(player.getUniqueId() + ".lastback", player.getLocation());
-            Configs.settings.set(player.getUniqueId() + ".isback", true);
-            Configs.saveSettingsConfig();
-            player.teleport((Location) Objects.requireNonNull(Configs.settings.get(player.getUniqueId() + ".lastpos")));
+            SettingsAPI.setBack(player, true);
+            player.teleport(SettingsAPI.getLastPosition(player));
             return;
         }
 
-
-        Configs.settings.set(target.getUniqueId() + ".lastback", player.getLocation());
-        Configs.settings.set(target.getUniqueId() + ".isback", true);
-        Configs.saveSettingsConfig();
-        target.teleport((Location) Objects.requireNonNull(Configs.settings.get(target.getUniqueId() + ".lastpos")));
-        player.sendMessage(Main.getPrefix() + Text.get("back.other.success").replace("%p", target.getName()));
-        return;
+        SettingsAPI.setBack(target, true);
+        target.teleport(SettingsAPI.getLastPosition(target));
+        player.sendMessage(Main.getPrefix() + TextAPI.get("back.other.success").replace("%p", target.getName()));
     }
 
 }

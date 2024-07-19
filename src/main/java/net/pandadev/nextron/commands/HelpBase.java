@@ -10,9 +10,9 @@ public abstract class HelpBase {
 
     protected HelpBase(String... commandData) {
         for (String data : commandData) {
-            String[] parts = data.split(",", 3); 
+            String[] parts = data.split(",", 3);
             if (parts.length < 3)
-                continue; 
+                continue;
 
             String command = parts[0].trim();
             String description = parts[1].trim();

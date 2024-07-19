@@ -1,15 +1,15 @@
 package net.pandadev.nextron.commands;
 
-import ch.hekates.languify.language.Text;
 import dev.rollczi.litecommands.annotations.argument.Arg;
 import dev.rollczi.litecommands.annotations.command.RootCommand;
 import dev.rollczi.litecommands.annotations.context.Context;
 import dev.rollczi.litecommands.annotations.execute.Execute;
 import dev.rollczi.litecommands.annotations.permission.Permission;
 import net.pandadev.nextron.Main;
+import net.pandadev.nextron.apis.RankAPI;
 import net.pandadev.nextron.arguments.objects.Rank;
 import net.pandadev.nextron.guis.features.RankGUIs;
-import net.pandadev.nextron.utils.RankAPI;
+import net.pandadev.nextron.languages.TextAPI;
 import net.pandadev.nextron.utils.Utils;
 import net.wesjd.anvilgui.AnvilGUI;
 import org.bukkit.ChatColor;
@@ -20,6 +20,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.Collections;
+import java.util.List;
 
 @RootCommand
 public class RankCommand extends HelpBase {
@@ -31,9 +32,9 @@ public class RankCommand extends HelpBase {
     @Execute(name = "rank")
     @Permission("nextron.rank")
     public void rankCommand(@Context Player player) {
-        if (Main.getInstance().getConfig().getConfigurationSection("Ranks") == null || Main
-                .getInstance().getConfig().getConfigurationSection("Ranks").getKeys(false).isEmpty()) {
-            player.sendMessage(Main.getPrefix() + Text.get("maingui.no.ranks"));
+        List<String> ranks = RankAPI.getRanks();
+        if (ranks.isEmpty()) {
+            player.sendMessage(Main.getPrefix() + TextAPI.get("maingui.no.ranks"));
             player.playSound(player.getLocation(), Sound.ENTITY_PILLAGER_AMBIENT, 100, 0.5f);
             return;
         }
@@ -55,7 +56,7 @@ public class RankCommand extends HelpBase {
         RankAPI.checkRank(target);
 
         sender.sendMessage(Main.getPrefix()
-                + Text.get("rank.remove.success").replace("%t", target.getName()));
+                + TextAPI.get("rank.remove.success").replace("%t", target.getName()));
     }
 
     @Execute(name = "rank delete")
@@ -79,7 +80,7 @@ public class RankCommand extends HelpBase {
                             ChatColor.translateAlternateColorCodes('&', " " + text.getText()));
                     return Collections.singletonList(AnvilGUI.ResponseAction.close());
                 })
-                .text(Main.getInstance().getConfig().getString("Ranks." + rank.getName().toLowerCase() + ".prefix").replace("§", "&"))
+                .text(RankAPI.getRankPrefix(rank.getName().toLowerCase()).replace("§", "&"))
                 .itemLeft(new ItemStack(Material.NAME_TAG))
                 .title("Enter the new prefix")
                 .plugin(Main.getInstance())
@@ -94,7 +95,7 @@ public class RankCommand extends HelpBase {
                     if (Utils.countWords(text.getText()) > 1) {
                         player.playSound(player.getLocation(), Sound.ENTITY_PILLAGER_AMBIENT, 100, 0.5f);
                         return Collections.singletonList(AnvilGUI.ResponseAction
-                                .replaceInputText(Text.get("anvil.gui.one.word")));
+                                .replaceInputText(TextAPI.get("anvil.gui.one.word")));
                     }
                     RankAPI.rename(player, rank.getName().toLowerCase(),
                             ChatColor.translateAlternateColorCodes('&', " " + text.getText()));

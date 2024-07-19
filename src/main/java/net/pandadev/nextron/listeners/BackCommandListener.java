@@ -1,6 +1,6 @@
 package net.pandadev.nextron.listeners;
 
-import net.pandadev.nextron.utils.Configs;
+import net.pandadev.nextron.apis.SettingsAPI;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -12,19 +12,17 @@ public class BackCommandListener implements Listener {
     @EventHandler
     public void onDeath(PlayerDeathEvent event) {
         Player player = event.getEntity();
-        Configs.settings.set(player.getUniqueId() + ".lastpos", player.getLocation());
-        Configs.saveSettingsConfig();
+        SettingsAPI.setLastPosition(player, player.getLocation());
     }
 
     @EventHandler
     public void onTeleport(PlayerTeleportEvent event) {
         Player player = event.getPlayer();
-        if (Configs.settings.getBoolean(player.getUniqueId() + ".isback")) {
-            Configs.settings.set(player.getUniqueId() + ".isback", false);
+        if (SettingsAPI.getBack(player)) {
+            SettingsAPI.setBack(player, false);
             return;
         }
-        Configs.settings.set(player.getUniqueId() + ".lastpos", player.getLocation());
-        Configs.saveSettingsConfig();
+        SettingsAPI.setLastPosition(player, player.getLocation());
     }
 
 }

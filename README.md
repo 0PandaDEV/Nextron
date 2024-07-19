@@ -12,13 +12,15 @@
 
 <img src="https://i.imgur.com/Dmsuye5.png" height="54px"/>
 
-Nextron is a powerful Minecraft plugin which is meant to replace any other plugins you use at the moment. It has beautiful GUI's that simplifies the process to many users because you don't have to use complicated commands. 
+Nextron is a powerful Minecraft plugin which is meant to replace any other plugins you use at the moment. It has
+beautiful GUI's that simplifies the process to many users because you don't have to use complicated commands.
 
 <br>
 
 <img src="https://i.imgur.com/Bpfp6b4.png" height="54px"/>
 
-- A permission plugin is highly recommended, for example [LuckPerms](https://luckperms.net/), as it can manage all permissions.
+- A permission plugin is highly recommended, for example [LuckPerms](https://luckperms.net/), as it can manage all
+  permissions.
 - Nextron runs on Bukkit, Spigot, Paper and [Purpur (recommended)](https://purpurmc.org/).
 - Nextron supports 1.13 and higher.
 
@@ -26,7 +28,8 @@ Nextron is a powerful Minecraft plugin which is meant to replace any other plugi
 
 <img src="https://i.imgur.com/0kxCPzO.png" height="54px"/>
 
-If you have any issues or find a bug, please remember to report it here [GitHub](https://github.com/0PandaDEV/Nextron/issues)
+If you have any issues or find a bug, please remember to report it
+here [GitHub](https://github.com/0PandaDEV/Nextron/issues)
 
 <br>
 

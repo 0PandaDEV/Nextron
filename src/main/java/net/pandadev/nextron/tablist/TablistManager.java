@@ -1,12 +1,14 @@
 package net.pandadev.nextron.tablist;
 
-import net.pandadev.nextron.Main;
-import net.pandadev.nextron.utils.Configs;
+import net.pandadev.nextron.apis.FeatureAPI;
+import net.pandadev.nextron.apis.RankAPI;
+import net.pandadev.nextron.apis.SettingsAPI;
 import org.bukkit.Bukkit;
-import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.Player;
 import org.bukkit.scoreboard.Scoreboard;
 import org.bukkit.scoreboard.Team;
+
+import java.util.Objects;
 
 public class TablistManager {
 
@@ -14,58 +16,27 @@ public class TablistManager {
         Bukkit.getOnlinePlayers().forEach(this::setPlayerTeams);
     }
 
-    public void setPlayerTeams(Player player){
-        Scoreboard scoreboard = player.getScoreboard();
-        ConfigurationSection ranks = Main.getInstance().getConfig().getConfigurationSection("Ranks");
+    public void setPlayerTeams(Player player) {
+        Scoreboard scoreboard = Objects.requireNonNull(Bukkit.getScoreboardManager()).getMainScoreboard();
 
-        if (ranks == null) return;
-
-        for (String rank : ranks.getKeys(false)) {
+        for (String rank : RankAPI.getRanks()) {
             Team teamRank = scoreboard.getTeam(rank);
             if (teamRank == null) teamRank = scoreboard.registerNewTeam(rank);
 
-            if (Configs.feature.getBoolean("rank_system")){
-                teamRank.setPrefix(ranks.getString(rank + ".prefix"));
+            if (FeatureAPI.getFeature("rank_system")) {
+                teamRank.setPrefix(RankAPI.getRankPrefix(rank));
             } else {
                 teamRank.setPrefix("");
-                player.setPlayerListName(Configs.settings.getString(player.getUniqueId() + ".nick"));
+                player.setPlayerListName(SettingsAPI.getNick(player));
                 return;
             }
 
-            for (Player player1 : Bukkit.getOnlinePlayers()) {
-                if (ranks.getStringList(rank + ".players").contains(String.valueOf(player1.getUniqueId()))) {
-                    String displayName = ranks.get(rank + ".prefix") + Configs.settings.getString(player1.getUniqueId() + ".nick");
+            if (RankAPI.getRank(player).equalsIgnoreCase(rank)) {
+                String displayName = RankAPI.getRankPrefix(rank) + SettingsAPI.getNick(player);
 
-                    teamRank.addEntry(player1.getName());
-                    player1.setPlayerListName(displayName);
-                }
+                teamRank.addEntry(player.getName());
+                player.setPlayerListName(displayName);
             }
         }
     }
-
-//    public void setPlayerTeams(Player player){
-//        Scoreboard scoreboard = player.getScoreboard();
-//
-//        ConfigurationSection ranks = Main.getInstance().getConfig().getConfigurationSection("Ranks");
-//
-//        for (String rank : ranks.getKeys(false)){
-//            Team finalrank = scoreboard.getTeam("010" + rank.toLowerCase());
-//            if (finalrank == null){
-//                finalrank = scoreboard.registerNewTeam("010" + rank.toLowerCase());
-//            }
-//            if (Configs.feature.getBoolean("rank_system")) {
-//                finalrank.setPrefix(ranks.getString(rank + ".prefix"));
-//            } else {
-//                finalrank.setPrefix("");
-//                player.setDisplayName(player.getName());
-//            }
-//            for (Player target : Bukkit.getOnlinePlayers()){
-//                if (ranks.getStringList(rank + ".players").contains(String.valueOf(target.getUniqueId()))) {
-//                    finalrank.addEntry(target.getName());
-//                }
-//            }
-//        }
-//
-//    }
-
 }

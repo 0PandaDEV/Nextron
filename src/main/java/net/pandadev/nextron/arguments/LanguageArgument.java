@@ -1,6 +1,5 @@
 package net.pandadev.nextron.arguments;
 
-import ch.hekates.languify.language.Text;
 import dev.rollczi.litecommands.argument.Argument;
 import dev.rollczi.litecommands.argument.parser.ParseResult;
 import dev.rollczi.litecommands.argument.resolver.ArgumentResolver;
@@ -9,6 +8,7 @@ import dev.rollczi.litecommands.suggestion.SuggestionContext;
 import dev.rollczi.litecommands.suggestion.SuggestionResult;
 import net.pandadev.nextron.Main;
 import net.pandadev.nextron.arguments.objects.Language;
+import net.pandadev.nextron.languages.TextAPI;
 import org.bukkit.command.CommandSender;
 
 import java.io.File;
@@ -24,7 +24,7 @@ public class LanguageArgument extends ArgumentResolver<CommandSender, Language> 
         if (languages.contains(s.toLowerCase())) {
             return ParseResult.success(new Language(s));
         }
-        return ParseResult.failure(Main.getPrefix() + Text.get("language.set.error").replace("%l", String.join(", ", languages)));
+        return ParseResult.failure(Main.getPrefix() + TextAPI.get("language.set.error").replace("%l", String.join(", ", languages)));
     }
 
     @Override

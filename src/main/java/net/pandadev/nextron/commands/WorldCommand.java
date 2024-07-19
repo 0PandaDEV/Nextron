@@ -1,6 +1,5 @@
 package net.pandadev.nextron.commands;
 
-import ch.hekates.languify.language.Text;
 import dev.rollczi.litecommands.annotations.argument.Arg;
 import dev.rollczi.litecommands.annotations.command.RootCommand;
 import dev.rollczi.litecommands.annotations.context.Context;
@@ -9,6 +8,7 @@ import dev.rollczi.litecommands.annotations.optional.OptionalArg;
 import dev.rollczi.litecommands.annotations.permission.Permission;
 import net.pandadev.nextron.Main;
 import net.pandadev.nextron.arguments.objects.Seed;
+import net.pandadev.nextron.languages.TextAPI;
 import org.bukkit.Bukkit;
 import org.bukkit.World;
 import org.bukkit.WorldCreator;
@@ -44,14 +44,14 @@ public class WorldCommand extends HelpBase {
         }
 
         if (!world_names.contains(world.getName())) {
-            player.sendMessage(Main.getPrefix() + Text.get("world.error"));
+            player.sendMessage(Main.getPrefix() + TextAPI.get("world.error"));
             return;
         }
 
         for (World worldl : worlds) {
             if (worldl.getName().equals(world.getName())) {
                 player.teleport(worldl.getSpawnLocation());
-                player.sendMessage(Main.getPrefix() + Text.get("world.success").replace("%w", worldl.getName()));
+                player.sendMessage(Main.getPrefix() + TextAPI.get("world.success").replace("%w", worldl.getName()));
             }
         }
     }
@@ -59,7 +59,7 @@ public class WorldCommand extends HelpBase {
     @Execute(name = "world create")
     @Permission("nextron.world.create")
     public void createWorldCommand(@Context CommandSender sender, @Arg String name, @OptionalArg Seed seed) {
-        sender.sendMessage(Main.getPrefix() + Text.get("world.create.start").replace("%w", name));
+        sender.sendMessage(Main.getPrefix() + TextAPI.get("world.create.start").replace("%w", name));
 
         Bukkit.getScheduler().runTask(Main.getInstance(), () -> {
             WorldCreator wc = new WorldCreator(name);
@@ -72,7 +72,7 @@ public class WorldCommand extends HelpBase {
             }
 
             wc.createWorld();
-            sender.sendMessage(Main.getPrefix() + Text.get("world.create.finished").replace("%w", name));
+            sender.sendMessage(Main.getPrefix() + TextAPI.get("world.create.finished").replace("%w", name));
         });
 
 
@@ -90,12 +90,12 @@ public class WorldCommand extends HelpBase {
     @Permission("nextron.world.delete")
     public void deleteWorldCommand(@Context CommandSender sender, @Arg World worldName) {
         if (worldName.getName().equals("world")) {
-            sender.sendMessage(Main.getPrefix() + Text.get("world.delete.default.error"));
+            sender.sendMessage(Main.getPrefix() + TextAPI.get("world.delete.default.error"));
             return;
         }
         World world = Bukkit.getWorld(worldName.getName());
         if (world == null) {
-            sender.sendMessage(Main.getPrefix() + Text.get("world.delete.error").replace("%w", worldName.getName()));
+            sender.sendMessage(Main.getPrefix() + TextAPI.get("world.delete.error").replace("%w", worldName.getName()));
             return;
         }
         List<World> worlds = Bukkit.getWorlds();
@@ -112,11 +112,11 @@ public class WorldCommand extends HelpBase {
 
         ///////////////
 
-        sender.sendMessage(Main.getPrefix() + Text.get("world.delete.start").replace("%w", worldName.getName()));
+        sender.sendMessage(Main.getPrefix() + TextAPI.get("world.delete.start").replace("%w", worldName.getName()));
         if (deleteWorld(worldName.getName())) {
-            sender.sendMessage(Main.getPrefix() + Text.get("world.delete.finished").replace("%w", worldName.getName()));
+            sender.sendMessage(Main.getPrefix() + TextAPI.get("world.delete.finished").replace("%w", worldName.getName()));
         } else {
-            sender.sendMessage(Main.getPrefix() + Text.get("world.delete.error").replace("%w", worldName.getName()));
+            sender.sendMessage(Main.getPrefix() + TextAPI.get("world.delete.error").replace("%w", worldName.getName()));
         }
     }
 
@@ -125,17 +125,17 @@ public class WorldCommand extends HelpBase {
     public void loadCommand(@Context CommandSender sender, @Arg String worldName) {
         File worldFolder = new File(Bukkit.getServer().getWorldContainer().getAbsolutePath(), worldName);
         if (!worldFolder.exists()) {
-            sender.sendMessage(Main.getPrefix() + Text.get("world.load.notexist").replace("%w", worldName));
+            sender.sendMessage(Main.getPrefix() + TextAPI.get("world.load.notexist").replace("%w", worldName));
             return;
         }
         World world = Bukkit.getWorld(worldName);
         if (world == null) {
-            sender.sendMessage(Main.getPrefix() + Text.get("world.load.start").replace("%w", worldName));
+            sender.sendMessage(Main.getPrefix() + TextAPI.get("world.load.start").replace("%w", worldName));
             WorldCreator wc = new WorldCreator(worldName);
             wc.createWorld();
-            sender.sendMessage(Main.getPrefix() + Text.get("world.load.success").replace("%w", worldName));
+            sender.sendMessage(Main.getPrefix() + TextAPI.get("world.load.success").replace("%w", worldName));
         } else {
-            sender.sendMessage(Main.getPrefix() + Text.get("world.load.error").replace("%w", worldName));
+            sender.sendMessage(Main.getPrefix() + TextAPI.get("world.load.error").replace("%w", worldName));
         }
 
         FileWriter writer = null;
@@ -152,7 +152,7 @@ public class WorldCommand extends HelpBase {
     @Permission("nextron.world.unload")
     public void unloadCommand(@Context CommandSender sender, @Arg World worldName) {
         if (worldName.getName().equals("world")) {
-            sender.sendMessage(Main.getPrefix() + Text.get("world.unload.default.error"));
+            sender.sendMessage(Main.getPrefix() + TextAPI.get("world.unload.default.error"));
             return;
         }
         World world = Bukkit.getWorld(worldName.getName());
@@ -170,14 +170,14 @@ public class WorldCommand extends HelpBase {
                 }
             }
 
-            sender.sendMessage(Main.getPrefix() + Text.get("world.unload.start").replace("%w", worldName.getName()));
+            sender.sendMessage(Main.getPrefix() + TextAPI.get("world.unload.start").replace("%w", worldName.getName()));
             if (Bukkit.unloadWorld(world, true)) {
-                sender.sendMessage(Main.getPrefix() + Text.get("world.unload.success").replace("%w", worldName.getName()));
+                sender.sendMessage(Main.getPrefix() + TextAPI.get("world.unload.success").replace("%w", worldName.getName()));
             } else {
-                sender.sendMessage(Main.getPrefix() + Text.get("world.unload.error").replace("%w", worldName.getName()));
+                sender.sendMessage(Main.getPrefix() + TextAPI.get("world.unload.error").replace("%w", worldName.getName()));
             }
         } else {
-            sender.sendMessage(Main.getPrefix() + Text.get("world.unload.error").replace("%w", worldName.getName()));
+            sender.sendMessage(Main.getPrefix() + TextAPI.get("world.unload.error").replace("%w", worldName.getName()));
         }
     }
 

@@ -1,13 +1,13 @@
 package net.pandadev.nextron.commands;
 
-import ch.hekates.languify.language.Text;
 import dev.rollczi.litecommands.annotations.argument.Arg;
 import dev.rollczi.litecommands.annotations.command.Command;
 import dev.rollczi.litecommands.annotations.context.Context;
 import dev.rollczi.litecommands.annotations.execute.Execute;
 import dev.rollczi.litecommands.annotations.permission.Permission;
 import net.pandadev.nextron.Main;
-import net.pandadev.nextron.utils.Configs;
+import net.pandadev.nextron.apis.SettingsAPI;
+import net.pandadev.nextron.languages.TextAPI;
 import org.bukkit.entity.Player;
 
 import java.util.Objects;
@@ -25,13 +25,13 @@ public class TphereCommand extends HelpBase {
         if (!Objects.equals(target.getName(), player.getName())) {
             target.teleport(player.getLocation());
 
-            if (Configs.settings.getBoolean(player.getUniqueId() + ".feedback")) {
+            if (SettingsAPI.allowsFeedback(player)) {
                 player.sendMessage(
-                        Main.getPrefix() + Text.get("tphere.success").replace("%t", target.getName()));
+                        Main.getPrefix() + TextAPI.get("tphere.success").replace("%t", target.getName()));
             }
 
         } else {
-            player.sendMessage(Main.getPrefix() + Text.get("tphere.error"));
+            player.sendMessage(Main.getPrefix() + TextAPI.get("tphere.error"));
         }
     }
 }

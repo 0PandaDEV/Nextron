@@ -1,9 +1,10 @@
 package net.pandadev.nextron.listeners;
 
 import net.pandadev.nextron.Main;
-import net.pandadev.nextron.utils.Configs;
+import net.pandadev.nextron.apis.FeatureAPI;
+import net.pandadev.nextron.apis.RankAPI;
+import net.pandadev.nextron.apis.SettingsAPI;
 import org.bukkit.ChatColor;
-import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -16,22 +17,22 @@ public class ChatEditor implements Listener {
         Player player = event.getPlayer();
         String message = event.getMessage();
 
-        ConfigurationSection ranks = Main.getInstance().getConfig().getConfigurationSection("Ranks");
-
-        if (Configs.feature.getBoolean("rank_system")) {
-            if (ranks == null) {
-                player.setDisplayName("§9Player §8• §f" + ChatColor.WHITE + Configs.settings.getString(player.getUniqueId() + ".nick"));
+        if (FeatureAPI.getFeature("rank_system")) {
+            if (RankAPI.getRanks().isEmpty()) {
+                String playerRankPrefix = Main.getInstance().getConfig().getString("playerRankPrefix");
+                player.setDisplayName(playerRankPrefix + ChatColor.WHITE + SettingsAPI.getNick(player));
                 event.setFormat(player.getDisplayName() + " §8» §f" + ChatColor.translateAlternateColorCodes('&', message));
                 return;
             }
-            for (String rank : ranks.getKeys(false)) {
-                if (ranks.getStringList(rank + ".players").contains(player.getUniqueId().toString()))
-                    player.setDisplayName(ranks.getString(rank + ".prefix") + ChatColor.WHITE + Configs.settings.getString(player.getUniqueId() + ".nick"));
-            }
+            String rank = RankAPI.getRank(player);
+            String prefix = RankAPI.getRankPrefix(rank);
+            player.setDisplayName(prefix + ChatColor.WHITE + SettingsAPI.getNick(player));
         } else {
-            player.setDisplayName(Configs.settings.getString(player.getUniqueId() + ".nick"));
+            player.setDisplayName(SettingsAPI.getNick(player));
         }
-        event.setFormat(player.getDisplayName() + " §8» §f" + ChatColor.translateAlternateColorCodes('&', message));
+        if (FeatureAPI.getFeature("chat_formatting_system")) {
+            event.setFormat(player.getDisplayName() + " §8» §f" + ChatColor.translateAlternateColorCodes('&', message));
+        }
     }
 
 }
