@@ -1,11 +1,11 @@
 package net.pandadev.nextron.commands;
 
-import ch.hekates.languify.language.Text;
 import dev.rollczi.litecommands.annotations.command.Command;
 import dev.rollczi.litecommands.annotations.context.Context;
 import dev.rollczi.litecommands.annotations.execute.Execute;
 import dev.rollczi.litecommands.annotations.permission.Permission;
 import net.pandadev.nextron.Main;
+import net.pandadev.nextron.languages.TextAPI;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 
@@ -25,13 +25,13 @@ public class TpdenyCommand extends HelpBase {
             Main.tpa.remove(player);
             Main.tpa.remove(target);
 
-            player.sendMessage(Main.getPrefix() + Text.get("tpdeny.player").replace("%p", target.getName()));
-            target.sendMessage(Main.getPrefix() + Text.get("tpdeny.target").replace("%p", player.getName()));
+            player.sendMessage(Main.getPrefix() + TextAPI.get("tpdeny.player").replace("%p", target.getName()));
+            target.sendMessage(Main.getPrefix() + TextAPI.get("tpdeny.target").replace("%p", player.getName()));
 
             target.playSound(target.getLocation(), Sound.ENTITY_PILLAGER_AMBIENT, 100, 0.5f);
 
         } else {
-            player.sendMessage(Main.getPrefix() + Text.get("tpaccept.error"));
+            player.sendMessage(Main.getPrefix() + TextAPI.get("tpaccept.error"));
         }
     }
 

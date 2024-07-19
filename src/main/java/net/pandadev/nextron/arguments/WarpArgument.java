@@ -1,6 +1,5 @@
 package net.pandadev.nextron.arguments;
 
-import ch.hekates.languify.language.Text;
 import dev.rollczi.litecommands.argument.Argument;
 import dev.rollczi.litecommands.argument.parser.ParseResult;
 import dev.rollczi.litecommands.argument.resolver.ArgumentResolver;
@@ -10,6 +9,7 @@ import dev.rollczi.litecommands.suggestion.SuggestionResult;
 import net.pandadev.nextron.Main;
 import net.pandadev.nextron.apis.WarpAPI;
 import net.pandadev.nextron.arguments.objects.Warp;
+import net.pandadev.nextron.languages.TextAPI;
 import org.bukkit.command.CommandSender;
 
 import java.util.List;
@@ -22,7 +22,7 @@ public class WarpArgument extends ArgumentResolver<CommandSender, Warp> {
         if (WarpAPI.getWarp(s.toLowerCase()) != null) {
             return ParseResult.success(new Warp(s));
         }
-        return ParseResult.failure(Main.getPrefix() + Text.get("warp.error").replace("%w", s));
+        return ParseResult.failure(Main.getPrefix() + TextAPI.get("warp.error").replace("%w", s));
     }
 
     @Override

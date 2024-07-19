@@ -1,12 +1,12 @@
 package net.pandadev.nextron.commands;
 
-import ch.hekates.languify.language.Text;
 import dev.rollczi.litecommands.annotations.command.Command;
 import dev.rollczi.litecommands.annotations.context.Context;
 import dev.rollczi.litecommands.annotations.execute.Execute;
 import dev.rollczi.litecommands.annotations.join.Join;
 import dev.rollczi.litecommands.annotations.permission.Permission;
 import net.pandadev.nextron.Main;
+import net.pandadev.nextron.languages.TextAPI;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.meta.ItemMeta;
@@ -23,7 +23,7 @@ public class RenameCommand extends HelpBase {
     public void renameCommand(@Context Player player, @Join String name) {
         ItemMeta itemMeta = player.getInventory().getItemInMainHand().getItemMeta();
         if (itemMeta == null) {
-            player.sendMessage(Main.getPrefix() + Text.get("rename.error"));
+            player.sendMessage(Main.getPrefix() + TextAPI.get("rename.error"));
             return;
         }
 

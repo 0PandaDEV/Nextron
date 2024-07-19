@@ -1,6 +1,5 @@
 package net.pandadev.nextron.commands;
 
-import ch.hekates.languify.language.Text;
 import dev.rollczi.litecommands.annotations.argument.Arg;
 import dev.rollczi.litecommands.annotations.context.Context;
 import dev.rollczi.litecommands.annotations.execute.Execute;
@@ -11,6 +10,7 @@ import net.md_5.bungee.api.chat.HoverEvent;
 import net.md_5.bungee.api.chat.TextComponent;
 import net.pandadev.nextron.Main;
 import net.pandadev.nextron.apis.SettingsAPI;
+import net.pandadev.nextron.languages.TextAPI;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 
@@ -23,21 +23,21 @@ public class TpahereCommand extends HelpBase {
     @Execute
     void tpahereCommand(@Context Player player, @Arg Player target) {
         if (target.equals(player)) {
-            player.sendMessage(Main.getPrefix() + Text.get("tpahere.error"));
+            player.sendMessage(Main.getPrefix() + TextAPI.get("tpahere.error"));
             return;
         }
         if (SettingsAPI.allowsTPAs(target)) {
-            player.sendMessage(Main.getPrefix() + Text.get("tpahere.allow"));
+            player.sendMessage(Main.getPrefix() + TextAPI.get("tpahere.allow"));
             return;
         }
 
         Main.tpahere.put(target, player);
 
-        target.sendMessage(Main.getPrefix() + Text.get("tpahere.target.success.1").replace("%p", player.getName()));
+        target.sendMessage(Main.getPrefix() + TextAPI.get("tpahere.target.success.1").replace("%p", player.getName()));
 
         /////////////////
 
-        TextComponent component = new TextComponent(Text.get("tpahere.target.success.2"));
+        TextComponent component = new TextComponent(TextAPI.get("tpahere.target.success.2"));
 
         TextComponent deny = new TextComponent("§cDeny");
         deny.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/487rt6vw9847tv6n293847tv6239487rtvb9we8r6s897rtv6bh9a87evb6-" + target.getName()));
@@ -55,6 +55,6 @@ public class TpahereCommand extends HelpBase {
 
         target.spigot().sendMessage(ChatMessageType.SYSTEM, component);
         target.playSound(target.getLocation(), Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 1.0f, 1.0f);
-        player.sendMessage(Main.getPrefix() + Text.get("tpahere.sender.success").replace("%t", target.getName()));
+        player.sendMessage(Main.getPrefix() + TextAPI.get("tpahere.sender.success").replace("%t", target.getName()));
     }
 }

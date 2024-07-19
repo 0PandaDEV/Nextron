@@ -1,12 +1,12 @@
 package net.pandadev.nextron.guis.features;
 
-import ch.hekates.languify.language.Text;
 import dev.triumphteam.gui.builder.item.ItemBuilder;
 import dev.triumphteam.gui.guis.Gui;
 import net.kyori.adventure.text.Component;
 import net.pandadev.nextron.Main;
 import net.pandadev.nextron.apis.WarpAPI;
 import net.pandadev.nextron.guis.GUIs;
+import net.pandadev.nextron.languages.TextAPI;
 import net.wesjd.anvilgui.AnvilGUI;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -30,8 +30,8 @@ public class WarpGUIs {
             gui.addItem(ItemBuilder.from(Material.NETHER_STAR)
                     .name(Component.text("§f" + warp))
                     .setLore("",
-                            Text.get("warpgui.leftclick"),
-                            Text.get("warpgui.rightclick"))
+                            TextAPI.get("warpgui.leftclick"),
+                            TextAPI.get("warpgui.rightclick"))
                     .asGuiItem(inventoryClickEvent -> {
                         if (inventoryClickEvent.getClick().isRightClick()) {
                             Location location = WarpAPI.getWarp(warp);
@@ -85,7 +85,7 @@ public class WarpGUIs {
                                 if (location != null) {
                                     WarpAPI.setWarp(text.getText(), location);
                                     WarpAPI.deleteWarp(warp);
-                                    player.sendMessage(Main.getPrefix() + Text.get("warp.rename.success").replace("%w", warp)
+                                    player.sendMessage(Main.getPrefix() + TextAPI.get("warp.rename.success").replace("%w", warp)
                                             .replace("%n", text.getText()));
                                 }
                                 return Collections.singletonList(AnvilGUI.ResponseAction.close());

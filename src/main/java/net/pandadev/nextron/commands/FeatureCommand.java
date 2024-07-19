@@ -1,6 +1,5 @@
 package net.pandadev.nextron.commands;
 
-import ch.hekates.languify.language.Text;
 import dev.rollczi.litecommands.annotations.argument.Arg;
 import dev.rollczi.litecommands.annotations.command.Command;
 import dev.rollczi.litecommands.annotations.context.Context;
@@ -11,6 +10,7 @@ import net.pandadev.nextron.apis.FeatureAPI;
 import net.pandadev.nextron.apis.RankAPI;
 import net.pandadev.nextron.arguments.objects.Feature;
 import net.pandadev.nextron.guis.GUIs;
+import net.pandadev.nextron.languages.TextAPI;
 import org.bukkit.Bukkit;
 import org.bukkit.Sound;
 import org.bukkit.command.CommandSender;
@@ -56,7 +56,7 @@ public class FeatureCommand extends HelpBase {
             player.playSound(player.getLocation(), Sound.BLOCK_BEACON_ACTIVATE, 100, 1);
         }
         sender.sendMessage(
-                Main.getPrefix() + Text.get("feature.enable").replace("%n", feature.getName().replace("_system", "")));
+                Main.getPrefix() + TextAPI.get("feature.enable").replace("%n", feature.getName().replace("_system", "")));
     }
 
     @Execute(name = "disable")
@@ -79,7 +79,7 @@ public class FeatureCommand extends HelpBase {
             player.playSound(player.getLocation(), Sound.BLOCK_BEACON_DEACTIVATE, 100, 1);
         }
         sender.sendMessage(
-                Main.getPrefix() + Text.get("feature.disable").replace("%n", feature.getName().replace("_system", "")));
+                Main.getPrefix() + TextAPI.get("feature.disable").replace("%n", feature.getName().replace("_system", "")));
     }
 
 }

@@ -1,6 +1,5 @@
 package net.pandadev.nextron.commands;
 
-import ch.hekates.languify.language.Text;
 import dev.rollczi.litecommands.annotations.command.Command;
 import dev.rollczi.litecommands.annotations.context.Context;
 import dev.rollczi.litecommands.annotations.execute.Execute;
@@ -8,6 +7,7 @@ import dev.rollczi.litecommands.annotations.optional.OptionalArg;
 import dev.rollczi.litecommands.annotations.permission.Permission;
 import net.pandadev.nextron.Main;
 import net.pandadev.nextron.apis.SettingsAPI;
+import net.pandadev.nextron.languages.TextAPI;
 import org.apache.commons.lang3.math.NumberUtils;
 import org.bukkit.entity.Player;
 
@@ -29,14 +29,14 @@ public class SpeedCommand extends HelpBase {
             player.setFlying(true);
             player.setFlySpeed((float) 0.1);
             player.setWalkSpeed((float) 0.2);
-            player.sendMessage(Main.getPrefix() + Text.get("speed.reset"));
+            player.sendMessage(Main.getPrefix() + TextAPI.get("speed.reset"));
             return;
         }
 
         if (NumberUtils.isNumber(String.valueOf(speed))) {
             float parsedSpeed = speed / 10f;
             if (parsedSpeed > 1) {
-                player.sendMessage(Main.getPrefix() + Text.get("speed.error"));
+                player.sendMessage(Main.getPrefix() + TextAPI.get("speed.error"));
             } else {
                 if (player.isFlying()) {
                     player.setAllowFlight(true);
@@ -44,18 +44,18 @@ public class SpeedCommand extends HelpBase {
                     player.setFlySpeed(parsedSpeed);
                     if (SettingsAPI.allowsFeedback(player)) {
                         player.sendMessage(
-                                Main.getPrefix() + Text.get("speed.fly.success").replace("%s", speed.toString()));
+                                Main.getPrefix() + TextAPI.get("speed.fly.success").replace("%s", speed.toString()));
                     }
                 } else if (player.isOnGround()) {
                     player.setWalkSpeed(parsedSpeed);
                     if (SettingsAPI.allowsFeedback(player)) {
                         player.sendMessage(
-                                Main.getPrefix() + Text.get("speed.walk.success").replace("%s", speed.toString()));
+                                Main.getPrefix() + TextAPI.get("speed.walk.success").replace("%s", speed.toString()));
                     }
                 }
             }
         } else {
-            player.sendMessage(Main.getPrefix() + Text.get("speed.error.digit"));
+            player.sendMessage(Main.getPrefix() + TextAPI.get("speed.error.digit"));
         }
     }
 }

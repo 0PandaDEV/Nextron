@@ -1,12 +1,12 @@
 package net.pandadev.nextron.guis.features;
 
-import ch.hekates.languify.language.Text;
 import dev.triumphteam.gui.builder.item.ItemBuilder;
 import dev.triumphteam.gui.guis.Gui;
 import net.kyori.adventure.text.Component;
 import net.pandadev.nextron.Main;
 import net.pandadev.nextron.apis.HomeAPI;
 import net.pandadev.nextron.guis.GUIs;
+import net.pandadev.nextron.languages.TextAPI;
 import net.wesjd.anvilgui.AnvilGUI;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -30,8 +30,8 @@ public class HomeGUIs {
             gui.addItem(ItemBuilder.skull().texture("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNjNkMDJjZGMwNzViYjFjYzVmNmZlM2M3NzExYWU0OTc3ZTM4YjkxMGQ1MGVkNjAyM2RmNzM5MTNlNWU3ZmNmZiJ9fX0=")
                     .name(Component.text("§f" + home))
                     .setLore("",
-                            Text.get("homegui.leftclick"),
-                            Text.get("homegui.rightclick"))
+                            TextAPI.get("homegui.leftclick"),
+                            TextAPI.get("homegui.rightclick"))
                     .asGuiItem(inventoryClickEvent -> {
                         if (inventoryClickEvent.getClick().isRightClick()) {
                             Location location = HomeAPI.getHome(player, home);
@@ -77,7 +77,7 @@ public class HomeGUIs {
                     new AnvilGUI.Builder()
                             .onClick((state, text) -> {
                                 HomeAPI.renameHome(player, home, text.getText());
-                                player.sendMessage(Main.getPrefix() + Text.get("home.rename.success").replace("%h", home)
+                                player.sendMessage(Main.getPrefix() + TextAPI.get("home.rename.success").replace("%h", home)
                                         .replace("%n", text.getText()));
                                 return Collections.singletonList(AnvilGUI.ResponseAction.close());
                             })

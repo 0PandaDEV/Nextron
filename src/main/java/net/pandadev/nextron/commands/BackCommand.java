@@ -1,6 +1,5 @@
 package net.pandadev.nextron.commands;
 
-import ch.hekates.languify.language.Text;
 import dev.rollczi.litecommands.annotations.command.Command;
 import dev.rollczi.litecommands.annotations.context.Context;
 import dev.rollczi.litecommands.annotations.execute.Execute;
@@ -8,6 +7,7 @@ import dev.rollczi.litecommands.annotations.optional.OptionalArg;
 import dev.rollczi.litecommands.annotations.permission.Permission;
 import net.pandadev.nextron.Main;
 import net.pandadev.nextron.apis.SettingsAPI;
+import net.pandadev.nextron.languages.TextAPI;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
@@ -31,7 +31,7 @@ public class BackCommand extends HelpBase {
 
         SettingsAPI.setBack(target, true);
         target.teleport(SettingsAPI.getLastPosition(target));
-        player.sendMessage(Main.getPrefix() + Text.get("back.other.success").replace("%p", target.getName()));
+        player.sendMessage(Main.getPrefix() + TextAPI.get("back.other.success").replace("%p", target.getName()));
     }
 
 }

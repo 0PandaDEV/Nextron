@@ -1,6 +1,5 @@
 package net.pandadev.nextron.commands;
 
-import ch.hekates.languify.language.Text;
 import dev.rollczi.litecommands.annotations.command.Command;
 import dev.rollczi.litecommands.annotations.context.Context;
 import dev.rollczi.litecommands.annotations.execute.Execute;
@@ -9,6 +8,7 @@ import dev.rollczi.litecommands.annotations.permission.Permission;
 import net.pandadev.nextron.Main;
 import net.pandadev.nextron.apis.SettingsAPI;
 import net.pandadev.nextron.apis.VanishAPI;
+import net.pandadev.nextron.languages.TextAPI;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
@@ -30,7 +30,7 @@ public class VanishCommand extends HelpBase {
             if (VanishAPI.isVanish(target)) {
                 VanishAPI.setVanish(target, false);
                 sender.sendMessage(
-                        Main.getPrefix() + Text.get("unvanish.other").replace("%t", target.getName()));
+                        Main.getPrefix() + TextAPI.get("unvanish.other").replace("%t", target.getName()));
                 if (SettingsAPI.allowsVanishMessage(target)) {
                     String joinMessage = ChatColor.translateAlternateColorCodes('&', Main.getInstance()
                             .getConfig().getString("join_message").replace("%p", target.getName()));
@@ -45,7 +45,7 @@ public class VanishCommand extends HelpBase {
                 }
             } else {
                 VanishAPI.setVanish(target, true);
-                sender.sendMessage(Main.getPrefix() + Text.get("vanish.other").replace("%t", target.getName()));
+                sender.sendMessage(Main.getPrefix() + TextAPI.get("vanish.other").replace("%t", target.getName()));
                 if (SettingsAPI.allowsVanishMessage(target)) {
                     String leaveMessage = ChatColor.translateAlternateColorCodes('&', Main.getInstance()
                             .getConfig().getString("leave_message").replace("%p", target.getName()));
@@ -71,7 +71,7 @@ public class VanishCommand extends HelpBase {
 
         if (VanishAPI.isVanish(player)) {
             VanishAPI.setVanish(player, false);
-            player.sendMessage(Main.getPrefix() + Text.get("unvanish"));
+            player.sendMessage(Main.getPrefix() + TextAPI.get("unvanish"));
             if (SettingsAPI.allowsVanishMessage(player)) {
                 String joinMessage = ChatColor.translateAlternateColorCodes('&', Main.getInstance()
                         .getConfig().getString("join_message").replace("%p", player.getName()));
@@ -86,7 +86,7 @@ public class VanishCommand extends HelpBase {
             }
         } else {
             VanishAPI.setVanish(player, true);
-            player.sendMessage(Main.getPrefix() + Text.get("vanish"));
+            player.sendMessage(Main.getPrefix() + TextAPI.get("vanish"));
             if (SettingsAPI.allowsVanishMessage(player)) {
                 String leaveMessage = ChatColor.translateAlternateColorCodes('&', Main.getInstance()
                         .getConfig().getString("leave_message").replace("%p", player.getName()));

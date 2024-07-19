@@ -1,6 +1,5 @@
 package net.pandadev.nextron.arguments;
 
-import ch.hekates.languify.language.Text;
 import dev.rollczi.litecommands.argument.Argument;
 import dev.rollczi.litecommands.argument.parser.ParseResult;
 import dev.rollczi.litecommands.argument.resolver.ArgumentResolver;
@@ -10,6 +9,7 @@ import dev.rollczi.litecommands.suggestion.SuggestionResult;
 import net.pandadev.nextron.Main;
 import net.pandadev.nextron.apis.RankAPI;
 import net.pandadev.nextron.arguments.objects.Rank;
+import net.pandadev.nextron.languages.TextAPI;
 import org.bukkit.command.CommandSender;
 
 import java.util.ArrayList;
@@ -27,7 +27,7 @@ public class RankArgument extends ArgumentResolver<CommandSender, Rank> {
         if (ranks.contains(s.toLowerCase())) {
             return ParseResult.success(new Rank(s));
         }
-        return ParseResult.failure(Main.getPrefix() + Text.get("rank.dontexists"));
+        return ParseResult.failure(Main.getPrefix() + TextAPI.get("rank.dontexists"));
     }
 
     @Override

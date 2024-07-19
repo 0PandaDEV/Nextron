@@ -1,11 +1,11 @@
 package net.pandadev.nextron.commands;
 
-import ch.hekates.languify.language.Text;
 import dev.rollczi.litecommands.annotations.command.RootCommand;
 import dev.rollczi.litecommands.annotations.context.Context;
 import dev.rollczi.litecommands.annotations.execute.Execute;
 import dev.rollczi.litecommands.annotations.permission.Permission;
 import net.pandadev.nextron.Main;
+import net.pandadev.nextron.languages.TextAPI;
 import org.bukkit.entity.Player;
 
 import java.util.Objects;
@@ -25,28 +25,28 @@ public class TimeCommand extends HelpBase {
     @Permission("nextron.day")
     public void dayCommand(@Context Player player) {
         Objects.requireNonNull(player.getLocation().getWorld()).setTime(1000);
-        player.sendMessage(Main.getPrefix() + Text.get("time.success").replace("%d", "day"));
+        player.sendMessage(Main.getPrefix() + TextAPI.get("time.success").replace("%d", "day"));
     }
 
     @Execute(name = "night")
     @Permission("nextron.night")
     public void nightCommand(@Context Player player) {
         Objects.requireNonNull(player.getLocation().getWorld()).setTime(13000);
-        player.sendMessage(Main.getPrefix() + Text.get("time.success").replace("%d", "night"));
+        player.sendMessage(Main.getPrefix() + TextAPI.get("time.success").replace("%d", "night"));
     }
 
     @Execute(name = "midnight")
     @Permission("nextron.midnight")
     public void midnightCommand(@Context Player player) {
         Objects.requireNonNull(player.getLocation().getWorld()).setTime(18000);
-        player.sendMessage(Main.getPrefix() + Text.get("time.success").replace("%d", "midnight"));
+        player.sendMessage(Main.getPrefix() + TextAPI.get("time.success").replace("%d", "midnight"));
     }
 
     @Execute(name = "noon")
     @Permission("nextron.noon")
     public void noonCommand(@Context Player player) {
         Objects.requireNonNull(player.getLocation().getWorld()).setTime(6000);
-        player.sendMessage(Main.getPrefix() + Text.get("time.success").replace("%d", "noon"));
+        player.sendMessage(Main.getPrefix() + TextAPI.get("time.success").replace("%d", "noon"));
     }
 
 }

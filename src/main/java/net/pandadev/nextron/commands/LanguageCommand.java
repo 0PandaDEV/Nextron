@@ -1,6 +1,5 @@
 package net.pandadev.nextron.commands;
 
-import ch.hekates.languify.language.Text;
 import dev.rollczi.litecommands.annotations.argument.Arg;
 import dev.rollczi.litecommands.annotations.command.Command;
 import dev.rollczi.litecommands.annotations.context.Context;
@@ -8,6 +7,7 @@ import dev.rollczi.litecommands.annotations.execute.Execute;
 import dev.rollczi.litecommands.annotations.permission.Permission;
 import net.pandadev.nextron.Main;
 import net.pandadev.nextron.arguments.objects.Language;
+import net.pandadev.nextron.languages.TextAPI;
 import org.bukkit.command.CommandSender;
 
 import java.io.File;
@@ -36,13 +36,13 @@ public class LanguageCommand extends HelpBase {
                 .collect(Collectors.toList());
 
         if (!languages.contains(language.getName().toLowerCase())) {
-            sender.sendMessage(Main.getPrefix() + Text.get("language.set.error").replace("%l", String.join(", ", languages)));
+            sender.sendMessage(Main.getPrefix() + TextAPI.get("language.set.error").replace("%l", String.join(", ", languages)));
             return;
         }
 
         Main.getInstance().getConfig().set("language", language.getName());
         Main.getInstance().saveConfig();
-        sender.sendMessage(Main.getPrefix() + Text.get("language.set.success").replace("%l", language.getName()));
+        sender.sendMessage(Main.getPrefix() + TextAPI.get("language.set.success").replace("%l", language.getName()));
     }
 
 }

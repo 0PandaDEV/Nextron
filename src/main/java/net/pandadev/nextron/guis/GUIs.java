@@ -1,6 +1,5 @@
 package net.pandadev.nextron.guis;
 
-import ch.hekates.languify.language.Text;
 import dev.triumphteam.gui.builder.item.ItemBuilder;
 import dev.triumphteam.gui.guis.Gui;
 import net.kyori.adventure.text.Component;
@@ -9,6 +8,7 @@ import net.pandadev.nextron.apis.*;
 import net.pandadev.nextron.guis.features.HomeGUIs;
 import net.pandadev.nextron.guis.features.RankGUIs;
 import net.pandadev.nextron.guis.features.WarpGUIs;
+import net.pandadev.nextron.languages.TextAPI;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.Sound;
@@ -32,12 +32,12 @@ public class GUIs {
 
         gui.setItem(2, 5, ItemBuilder.from(Material.COMPASS).name(Component.text("§7Home Manager")).asGuiItem(inventoryClickEvent -> {
             if (!FeatureAPI.getFeature("home_system")) {
-                player.sendMessage(Main.getPrefix() + Text.get("maingui.disabled.homes"));
+                player.sendMessage(Main.getPrefix() + TextAPI.get("maingui.disabled.homes"));
                 return;
             }
             List<String> homes = HomeAPI.getHomes(player);
             if (homes.isEmpty()) {
-                player.sendMessage(Main.getPrefix() + Text.get("maingui.no.homes"));
+                player.sendMessage(Main.getPrefix() + TextAPI.get("maingui.no.homes"));
                 player.playSound(player.getLocation(), Sound.ENTITY_PILLAGER_AMBIENT, 100, 0.5f);
             } else {
                 HomeGUIs.manager(player);
@@ -46,12 +46,12 @@ public class GUIs {
 
         gui.setItem(4, 5, ItemBuilder.from(Material.RECOVERY_COMPASS).name(Component.text("§x§2§9§d§f§e§bWarp Manager")).asGuiItem(inventoryClickEvent -> {
             if (!FeatureAPI.getFeature("warp_system")) {
-                player.sendMessage(Main.getPrefix() + Text.get("maingui.disabled.warps"));
+                player.sendMessage(Main.getPrefix() + TextAPI.get("maingui.disabled.warps"));
                 return;
             }
             List<String> warps = WarpAPI.getWarps();
             if (warps.isEmpty()) {
-                player.sendMessage(Main.getPrefix() + Text.get("maingui.no.warps"));
+                player.sendMessage(Main.getPrefix() + TextAPI.get("maingui.no.warps"));
                 player.playSound(player.getLocation(), Sound.ENTITY_PILLAGER_AMBIENT, 100, 0.5f);
             } else {
                 WarpGUIs.manager(player);
@@ -61,18 +61,18 @@ public class GUIs {
         if (player.hasPermission("nextron.rank")) {
             gui.setItem(3, 7, ItemBuilder.from(Material.NAME_TAG).name(Component.text("§x§2§9§d§f§e§bRank Manager")).asGuiItem(inventoryClickEvent -> {
                 if (!FeatureAPI.getFeature("rank_system")) {
-                    player.sendMessage(Main.getPrefix() + Text.get("maingui.disabled.ranks"));
+                    player.sendMessage(Main.getPrefix() + TextAPI.get("maingui.disabled.ranks"));
                     return;
                 }
                 if (RankAPI.getRanks().isEmpty()) {
-                    player.sendMessage(Main.getPrefix() + Text.get("maingui.no.ranks"));
+                    player.sendMessage(Main.getPrefix() + TextAPI.get("maingui.no.ranks"));
                     player.playSound(player.getLocation(), Sound.ENTITY_PILLAGER_AMBIENT, 100, 0.5f);
                 } else {
                     RankGUIs.manager(player);
                 }
             }));
         } else {
-            gui.setItem(3, 7, ItemBuilder.from(Material.BARRIER).name(Component.text(Text.get("no.perms"))).asGuiItem());
+            gui.setItem(3, 7, ItemBuilder.from(Material.BARRIER).name(Component.text(TextAPI.get("no.perms"))).asGuiItem());
         }
 
         if (player.hasPermission("nextron.features")) {
@@ -80,7 +80,7 @@ public class GUIs {
                 featureGui(player);
             }));
         } else {
-            gui.setItem(5, 1, ItemBuilder.from(Material.BARRIER).name(Component.text(Text.get("no.perms"))).asGuiItem());
+            gui.setItem(5, 1, ItemBuilder.from(Material.BARRIER).name(Component.text(TextAPI.get("no.perms"))).asGuiItem());
         }
 
         gui.open(player);
@@ -96,25 +96,25 @@ public class GUIs {
         ItemStack feedback_active = new net.pandadev.nextron.utils.ItemBuilder(Material.LIME_DYE)
                 .setName("§a✔ §8• §7Command feedback")
                 .setLore("",
-                        Text.get("maingui.feedback.lore.1"),
-                        Text.get("maingui.feedback.lore.2"),
-                        Text.get("maingui.feedback.lore.3"),
-                        Text.get("maingui.feedback.lore.4"),
-                        Text.get("maingui.feedback.lore.5"),
+                        TextAPI.get("maingui.feedback.lore.1"),
+                        TextAPI.get("maingui.feedback.lore.2"),
+                        TextAPI.get("maingui.feedback.lore.3"),
+                        TextAPI.get("maingui.feedback.lore.4"),
+                        TextAPI.get("maingui.feedback.lore.5"),
                         "",
-                        Text.get("maingui.feedback.lore.6"))
+                        TextAPI.get("maingui.feedback.lore.6"))
                 .build();
 
         ItemStack feedback_inactive = new net.pandadev.nextron.utils.ItemBuilder(Material.GRAY_DYE)
                 .setName("§c❌ §8• §7Command Feedback")
                 .setLore("",
-                        Text.get("maingui.feedback.lore.1"),
-                        Text.get("maingui.feedback.lore.2"),
-                        Text.get("maingui.feedback.lore.3"),
-                        Text.get("maingui.feedback.lore.4"),
-                        Text.get("maingui.feedback.lore.5"),
+                        TextAPI.get("maingui.feedback.lore.1"),
+                        TextAPI.get("maingui.feedback.lore.2"),
+                        TextAPI.get("maingui.feedback.lore.3"),
+                        TextAPI.get("maingui.feedback.lore.4"),
+                        TextAPI.get("maingui.feedback.lore.5"),
                         "",
-                        Text.get("maingui.feedback.lore.6"))
+                        TextAPI.get("maingui.feedback.lore.6"))
                 .build();
 
         if (SettingsAPI.allowsFeedback(player)) {
@@ -140,19 +140,19 @@ public class GUIs {
         ItemStack tpa_active = new net.pandadev.nextron.utils.ItemBuilder(Material.LIME_DYE)
                 .setName("§a✔ §8• §7Allow tpa requests")
                 .setLore("",
-                        Text.get("maingui.tpa.lore.1"),
-                        Text.get("maingui.tpa.lore.2"),
+                        TextAPI.get("maingui.tpa.lore.1"),
+                        TextAPI.get("maingui.tpa.lore.2"),
                         "",
-                        Text.get("maingui.tpa.lore.3"))
+                        TextAPI.get("maingui.tpa.lore.3"))
                 .build();
 
         ItemStack tpa_inactive = new net.pandadev.nextron.utils.ItemBuilder(Material.GRAY_DYE)
                 .setName("§c❌ §8• §7Allow tpa requests")
                 .setLore("",
-                        Text.get("maingui.tpa.lore.1"),
-                        Text.get("maingui.tpa.lore.2"),
+                        TextAPI.get("maingui.tpa.lore.1"),
+                        TextAPI.get("maingui.tpa.lore.2"),
                         "",
-                        Text.get("maingui.tpa.lore.3"))
+                        TextAPI.get("maingui.tpa.lore.3"))
                 .build();
 
         if (SettingsAPI.allowsTPAs(player)) {
@@ -178,21 +178,21 @@ public class GUIs {
         ItemStack vanish_active = new net.pandadev.nextron.utils.ItemBuilder(Material.LIME_DYE)
                 .setName("§a✔ §8• §7Fake Join/Quit Message")
                 .setLore("",
-                        Text.get("maingui.vanish.lore.1"),
-                        Text.get("maingui.vanish.lore.2"),
-                        Text.get("maingui.vanish.lore.3"),
+                        TextAPI.get("maingui.vanish.lore.1"),
+                        TextAPI.get("maingui.vanish.lore.2"),
+                        TextAPI.get("maingui.vanish.lore.3"),
                         "",
-                        Text.get("maingui.vanish.lore.4"))
+                        TextAPI.get("maingui.vanish.lore.4"))
                 .build();
 
         ItemStack vanish_inactive = new net.pandadev.nextron.utils.ItemBuilder(Material.GRAY_DYE)
                 .setName("§c❌ §8• §7Fake Join/Quit Message")
                 .setLore("",
-                        Text.get("maingui.vanish.lore.1"),
-                        Text.get("maingui.vanish.lore.2"),
-                        Text.get("maingui.vanish.lore.3"),
+                        TextAPI.get("maingui.vanish.lore.1"),
+                        TextAPI.get("maingui.vanish.lore.2"),
+                        TextAPI.get("maingui.vanish.lore.3"),
                         "",
-                        Text.get("maingui.vanish.lore.4"))
+                        TextAPI.get("maingui.vanish.lore.4"))
                 .build();
 
         if (SettingsAPI.allowsVanishMessage(player)) {
@@ -232,13 +232,13 @@ public class GUIs {
         ItemStack on_feature = new net.pandadev.nextron.utils.ItemBuilder(Material.STRING)
                 .setName("§a✔ §8• §7Chat formatting System")
                 .setLore("",
-                        Text.get("leftclick"))
+                        TextAPI.get("leftclick"))
                 .build();
 
         ItemStack off_feature = new net.pandadev.nextron.utils.ItemBuilder(Material.STRING)
                 .setName("§c❌ §8• §7Chat formatting System")
                 .setLore("",
-                        Text.get("leftclick"))
+                        TextAPI.get("leftclick"))
                 .build();
 
         gui.setItem(2, 3, ItemBuilder.from(FeatureAPI.getFeature("chat_formatting_system") ? on_feature : off_feature).asGuiItem(inventoryClickEvent -> {
@@ -258,13 +258,13 @@ public class GUIs {
         ItemStack on_rank = new net.pandadev.nextron.utils.ItemBuilder(Material.NAME_TAG)
                 .setName("§a✔ §8• §7Rank System")
                 .setLore("",
-                        Text.get("leftclick"))
+                        TextAPI.get("leftclick"))
                 .build();
 
         ItemStack off_rank = new net.pandadev.nextron.utils.ItemBuilder(Material.NAME_TAG)
                 .setName("§c❌ §8• §7Rank System")
                 .setLore("",
-                        Text.get("leftclick"))
+                        TextAPI.get("leftclick"))
                 .build();
 
         gui.setItem(4, 3, ItemBuilder.from(FeatureAPI.getFeature("rank_system") ? on_rank : off_rank).asGuiItem(inventoryClickEvent -> {
@@ -285,13 +285,13 @@ public class GUIs {
         ItemStack on_warp = new net.pandadev.nextron.utils.ItemBuilder(Material.RECOVERY_COMPASS)
                 .setName("§a✔ §8• §7Warp System")
                 .setLore("",
-                        Text.get("leftclick"))
+                        TextAPI.get("leftclick"))
                 .build();
 
         ItemStack off_warp = new net.pandadev.nextron.utils.ItemBuilder(Material.RECOVERY_COMPASS)
                 .setName("§c❌ §8• §7Warp System")
                 .setLore("",
-                        Text.get("leftclick"))
+                        TextAPI.get("leftclick"))
                 .build();
 
         gui.setItem(4, 5, ItemBuilder.from(FeatureAPI.getFeature("warp_system") ? on_warp : off_warp).asGuiItem(inventoryClickEvent -> {
@@ -308,13 +308,13 @@ public class GUIs {
         ItemStack on_home = new net.pandadev.nextron.utils.ItemBuilder(Material.COMPASS)
                 .setName("§a✔ §8• §7Home System")
                 .setLore("",
-                        Text.get("leftclick"))
+                        TextAPI.get("leftclick"))
                 .build();
 
         ItemStack off_home = new net.pandadev.nextron.utils.ItemBuilder(Material.COMPASS)
                 .setName("§c❌ §8• §7Home System")
                 .setLore("",
-                        Text.get("leftclick"))
+                        TextAPI.get("leftclick"))
                 .build();
 
         gui.setItem(4, 7, ItemBuilder.from(FeatureAPI.getFeature("home_system") ? on_home : off_home).asGuiItem(inventoryClickEvent -> {
@@ -331,13 +331,13 @@ public class GUIs {
         ItemStack on_tpa = new net.pandadev.nextron.utils.ItemBuilder(Material.BEACON)
                 .setName("§a✔ §8• §7Tpa System")
                 .setLore("",
-                        Text.get("leftclick"))
+                        TextAPI.get("leftclick"))
                 .build();
 
         ItemStack off_tpa = new net.pandadev.nextron.utils.ItemBuilder(Material.BEACON)
                 .setName("§c❌ §8• §7Tpa System")
                 .setLore("",
-                        Text.get("leftclick"))
+                        TextAPI.get("leftclick"))
                 .build();
 
         gui.setItem(2, 5, ItemBuilder.from(FeatureAPI.getFeature("tpa_system") ? on_tpa : off_tpa).asGuiItem(inventoryClickEvent -> {
@@ -357,13 +357,13 @@ public class GUIs {
         ItemStack on_join_leave = new net.pandadev.nextron.utils.ItemBuilder(Material.BELL)
                 .setName("§a✔ §8• §7Join/Leave Messages")
                 .setLore("",
-                        Text.get("leftclick"))
+                        TextAPI.get("leftclick"))
                 .build();
 
         ItemStack off_join_leave = new net.pandadev.nextron.utils.ItemBuilder(Material.BELL)
                 .setName("§c❌ §8• §7Join/Leave Messages")
                 .setLore("",
-                        Text.get("leftclick"))
+                        TextAPI.get("leftclick"))
                 .build();
 
         gui.setItem(2, 7, ItemBuilder.from(FeatureAPI.getFeature("join_leave_system") ? on_join_leave : off_join_leave).asGuiItem(inventoryClickEvent -> {

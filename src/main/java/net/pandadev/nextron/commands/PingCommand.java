@@ -1,12 +1,12 @@
 package net.pandadev.nextron.commands;
 
-import ch.hekates.languify.language.Text;
 import dev.rollczi.litecommands.annotations.command.Command;
 import dev.rollczi.litecommands.annotations.context.Context;
 import dev.rollczi.litecommands.annotations.execute.Execute;
 import dev.rollczi.litecommands.annotations.optional.OptionalArg;
 import dev.rollczi.litecommands.annotations.permission.Permission;
 import net.pandadev.nextron.Main;
+import net.pandadev.nextron.languages.TextAPI;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
@@ -21,7 +21,7 @@ public class PingCommand extends HelpBase {
     @Execute
     public void pingCommand(@Context CommandSender sender, @OptionalArg Player target) {
         if (target != null) {
-            sender.sendMessage(Main.getPrefix() + Text.get("ping.other").replace("%t", target.getName()).replace("%p", String.valueOf(target.getPing())));
+            sender.sendMessage(Main.getPrefix() + TextAPI.get("ping.other").replace("%t", target.getName()).replace("%p", String.valueOf(target.getPing())));
             return;
         }
 
@@ -30,6 +30,6 @@ public class PingCommand extends HelpBase {
             return;
         }
 
-        player.sendMessage(Main.getPrefix() + Text.get("ping").replace("%p", String.valueOf(player.getPing())));
+        player.sendMessage(Main.getPrefix() + TextAPI.get("ping").replace("%p", String.valueOf(player.getPing())));
     }
 }

@@ -1,6 +1,5 @@
 package net.pandadev.nextron.arguments;
 
-import ch.hekates.languify.language.Text;
 import dev.rollczi.litecommands.argument.Argument;
 import dev.rollczi.litecommands.argument.parser.ParseResult;
 import dev.rollczi.litecommands.argument.resolver.ArgumentResolver;
@@ -9,6 +8,7 @@ import dev.rollczi.litecommands.suggestion.SuggestionContext;
 import dev.rollczi.litecommands.suggestion.SuggestionResult;
 import net.pandadev.nextron.Main;
 import net.pandadev.nextron.arguments.objects.Feature;
+import net.pandadev.nextron.languages.TextAPI;
 import org.bukkit.command.CommandSender;
 
 import java.util.ArrayList;
@@ -34,7 +34,7 @@ public class FeatureArgument extends ArgumentResolver<CommandSender, Feature> {
             return ParseResult.success(new Feature(supplied));
         }
 
-        return ParseResult.failure(Main.getPrefix() + Text.get("feature.validvalues"));
+        return ParseResult.failure(Main.getPrefix() + TextAPI.get("feature.validvalues"));
     }
 
     @Override

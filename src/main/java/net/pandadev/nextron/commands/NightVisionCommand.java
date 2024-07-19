@@ -1,12 +1,12 @@
 package net.pandadev.nextron.commands;
 
-import ch.hekates.languify.language.Text;
 import dev.rollczi.litecommands.annotations.command.Command;
 import dev.rollczi.litecommands.annotations.context.Context;
 import dev.rollczi.litecommands.annotations.execute.Execute;
 import dev.rollczi.litecommands.annotations.optional.OptionalArg;
 import dev.rollczi.litecommands.annotations.permission.Permission;
 import net.pandadev.nextron.Main;
+import net.pandadev.nextron.languages.TextAPI;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.potion.PotionEffect;
@@ -43,10 +43,10 @@ public class NightVisionCommand extends HelpBase {
         if (!target.hasPotionEffect(PotionEffectType.NIGHT_VISION)) {
             target.addPotionEffect(
                     new PotionEffect(PotionEffectType.NIGHT_VISION, PotionEffect.INFINITE_DURATION, 255, false, false, false));
-            sender.sendMessage(Main.getPrefix() + Text.get("night.vision.add").replace("%p", target.getName()));
+            sender.sendMessage(Main.getPrefix() + TextAPI.get("night.vision.add").replace("%p", target.getName()));
         } else {
             target.removePotionEffect(PotionEffectType.NIGHT_VISION);
-            sender.sendMessage(Main.getPrefix() + Text.get("night.vision.remove").replace("%p", target.getName()));
+            sender.sendMessage(Main.getPrefix() + TextAPI.get("night.vision.remove").replace("%p", target.getName()));
         }
     }
 

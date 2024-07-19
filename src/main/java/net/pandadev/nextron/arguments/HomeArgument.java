@@ -1,6 +1,5 @@
 package net.pandadev.nextron.arguments;
 
-import ch.hekates.languify.language.Text;
 import dev.rollczi.litecommands.argument.Argument;
 import dev.rollczi.litecommands.argument.parser.ParseResult;
 import dev.rollczi.litecommands.argument.resolver.ArgumentResolver;
@@ -10,6 +9,7 @@ import dev.rollczi.litecommands.suggestion.SuggestionResult;
 import net.pandadev.nextron.Main;
 import net.pandadev.nextron.apis.HomeAPI;
 import net.pandadev.nextron.arguments.objects.Home;
+import net.pandadev.nextron.languages.TextAPI;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
@@ -26,7 +26,7 @@ public class HomeArgument extends ArgumentResolver<CommandSender, Home> {
                 return ParseResult.success(new Home(s.toLowerCase()));
             }
         }
-        return ParseResult.failure(Main.getPrefix() + Text.get("home.notfound").replace("%h", s));
+        return ParseResult.failure(Main.getPrefix() + TextAPI.get("home.notfound").replace("%h", s));
     }
 
     @Override

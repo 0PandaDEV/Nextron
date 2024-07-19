@@ -17,7 +17,7 @@ public class ReloadCommand extends HelpBase {
     @Execute
     public void reloadCommand() {
         Bukkit.broadcastMessage(Main.getPrefix() + "§cReloading server");
-        
+
         Bukkit.getScheduler().runTask(Main.getInstance(), () -> {
             try {
                 Bukkit.getServer().reload();

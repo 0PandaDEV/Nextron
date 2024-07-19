@@ -1,6 +1,5 @@
 package net.pandadev.nextron.commands;
 
-import ch.hekates.languify.language.Text;
 import dev.rollczi.litecommands.annotations.argument.Arg;
 import dev.rollczi.litecommands.annotations.command.Command;
 import dev.rollczi.litecommands.annotations.context.Context;
@@ -8,6 +7,7 @@ import dev.rollczi.litecommands.annotations.execute.Execute;
 import dev.rollczi.litecommands.annotations.permission.Permission;
 import net.pandadev.nextron.Main;
 import net.pandadev.nextron.apis.SettingsAPI;
+import net.pandadev.nextron.languages.TextAPI;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
@@ -32,6 +32,6 @@ public class HeadCommand extends HelpBase {
         Inventory inventory = player.getInventory();
         inventory.addItem(item);
         if (SettingsAPI.allowsFeedback(player))
-            player.sendMessage(Main.getPrefix() + Text.get("head.success").replace("%t", target.getName()));
+            player.sendMessage(Main.getPrefix() + TextAPI.get("head.success").replace("%t", target.getName()));
     }
 }

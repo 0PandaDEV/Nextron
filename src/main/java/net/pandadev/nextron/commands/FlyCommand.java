@@ -1,6 +1,5 @@
 package net.pandadev.nextron.commands;
 
-import ch.hekates.languify.language.Text;
 import dev.rollczi.litecommands.annotations.command.Command;
 import dev.rollczi.litecommands.annotations.context.Context;
 import dev.rollczi.litecommands.annotations.execute.Execute;
@@ -8,6 +7,7 @@ import dev.rollczi.litecommands.annotations.optional.OptionalArg;
 import dev.rollczi.litecommands.annotations.permission.Permission;
 import net.pandadev.nextron.Main;
 import net.pandadev.nextron.apis.SettingsAPI;
+import net.pandadev.nextron.languages.TextAPI;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
@@ -32,12 +32,12 @@ public class FlyCommand extends HelpBase {
             if (player.getAllowFlight()) {
                 player.setAllowFlight(false);
                 if (SettingsAPI.allowsFeedback(player)) {
-                    player.sendMessage(Main.getPrefix() + Text.get("fly.off"));
+                    player.sendMessage(Main.getPrefix() + TextAPI.get("fly.off"));
                 }
             } else {
                 player.setAllowFlight(true);
                 if (SettingsAPI.allowsFeedback(player)) {
-                    player.sendMessage(Main.getPrefix() + Text.get("fly.on"));
+                    player.sendMessage(Main.getPrefix() + TextAPI.get("fly.on"));
                 }
             }
 
@@ -48,10 +48,10 @@ public class FlyCommand extends HelpBase {
 
         if (target.getAllowFlight()) {
             target.setAllowFlight(false);
-            sender.sendMessage(Main.getPrefix() + Text.get("fly.other.off").replace("%t", target.getName()));
+            sender.sendMessage(Main.getPrefix() + TextAPI.get("fly.other.off").replace("%t", target.getName()));
         } else {
             target.setAllowFlight(true);
-            sender.sendMessage(Main.getPrefix() + Text.get("fly.other.on").replace("%t", target.getName()));
+            sender.sendMessage(Main.getPrefix() + TextAPI.get("fly.other.on").replace("%t", target.getName()));
         }
 
         target.setFallDistance(0.0f);

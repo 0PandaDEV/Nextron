@@ -1,6 +1,5 @@
 package net.pandadev.nextron.commands;
 
-import ch.hekates.languify.language.Text;
 import dev.rollczi.litecommands.annotations.argument.Arg;
 import dev.rollczi.litecommands.annotations.command.RootCommand;
 import dev.rollczi.litecommands.annotations.context.Context;
@@ -10,6 +9,7 @@ import net.pandadev.nextron.Main;
 import net.pandadev.nextron.apis.RankAPI;
 import net.pandadev.nextron.arguments.objects.Rank;
 import net.pandadev.nextron.guis.features.RankGUIs;
+import net.pandadev.nextron.languages.TextAPI;
 import net.pandadev.nextron.utils.Utils;
 import net.wesjd.anvilgui.AnvilGUI;
 import org.bukkit.ChatColor;
@@ -34,7 +34,7 @@ public class RankCommand extends HelpBase {
     public void rankCommand(@Context Player player) {
         List<String> ranks = RankAPI.getRanks();
         if (ranks.isEmpty()) {
-            player.sendMessage(Main.getPrefix() + Text.get("maingui.no.ranks"));
+            player.sendMessage(Main.getPrefix() + TextAPI.get("maingui.no.ranks"));
             player.playSound(player.getLocation(), Sound.ENTITY_PILLAGER_AMBIENT, 100, 0.5f);
             return;
         }
@@ -56,7 +56,7 @@ public class RankCommand extends HelpBase {
         RankAPI.checkRank(target);
 
         sender.sendMessage(Main.getPrefix()
-                + Text.get("rank.remove.success").replace("%t", target.getName()));
+                + TextAPI.get("rank.remove.success").replace("%t", target.getName()));
     }
 
     @Execute(name = "rank delete")
@@ -95,7 +95,7 @@ public class RankCommand extends HelpBase {
                     if (Utils.countWords(text.getText()) > 1) {
                         player.playSound(player.getLocation(), Sound.ENTITY_PILLAGER_AMBIENT, 100, 0.5f);
                         return Collections.singletonList(AnvilGUI.ResponseAction
-                                .replaceInputText(Text.get("anvil.gui.one.word")));
+                                .replaceInputText(TextAPI.get("anvil.gui.one.word")));
                     }
                     RankAPI.rename(player, rank.getName().toLowerCase(),
                             ChatColor.translateAlternateColorCodes('&', " " + text.getText()));

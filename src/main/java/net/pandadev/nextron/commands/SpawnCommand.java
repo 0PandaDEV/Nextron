@@ -1,12 +1,12 @@
 package net.pandadev.nextron.commands;
 
-import ch.hekates.languify.language.Text;
 import dev.rollczi.litecommands.annotations.command.RootCommand;
 import dev.rollczi.litecommands.annotations.context.Context;
 import dev.rollczi.litecommands.annotations.execute.Execute;
 import dev.rollczi.litecommands.annotations.optional.OptionalArg;
 import dev.rollczi.litecommands.annotations.permission.Permission;
 import net.pandadev.nextron.Main;
+import net.pandadev.nextron.languages.TextAPI;
 import org.bukkit.Location;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
@@ -29,24 +29,24 @@ public class SpawnCommand extends HelpBase {
             }
 
             if (Main.getInstance().getConfig().get("spawn") == null) {
-                player.sendMessage(Main.getPrefix() + Text.get("setspawn.error"));
+                player.sendMessage(Main.getPrefix() + TextAPI.get("setspawn.error"));
                 return;
             }
 
             target.teleport((Location) Main.getInstance().getConfig().get("spawn"));
             player.playSound(player.getLocation(), Sound.ENTITY_ENDERMAN_TELEPORT, 100, 1);
-            target.sendMessage(Main.getPrefix() + Text.get("spawn.teleport"));
-            player.sendMessage(Main.getPrefix() + Text.get("spawn.teleport.other").replace("%p", target.getName()));
+            target.sendMessage(Main.getPrefix() + TextAPI.get("spawn.teleport"));
+            player.sendMessage(Main.getPrefix() + TextAPI.get("spawn.teleport.other").replace("%p", target.getName()));
             return;
         }
 
         if (Main.getInstance().getConfig().get("spawn") == null) {
-            player.sendMessage(Main.getPrefix() + Text.get("setspawn.error"));
+            player.sendMessage(Main.getPrefix() + TextAPI.get("setspawn.error"));
             return;
         }
         player.teleport((Location) Main.getInstance().getConfig().get("spawn"));
         player.playSound(player.getLocation(), Sound.ENTITY_ENDERMAN_TELEPORT, 100, 1);
-        player.sendMessage(Main.getPrefix() + Text.get("spawn.teleport"));
+        player.sendMessage(Main.getPrefix() + TextAPI.get("spawn.teleport"));
     }
 
     @Execute(name = "setspawn")
@@ -54,7 +54,7 @@ public class SpawnCommand extends HelpBase {
     public void setSpawnCommand(@Context Player player) {
         Main.getInstance().getConfig().set("spawn", player.getLocation());
         Main.getInstance().saveConfig();
-        player.sendMessage(Main.getPrefix() + Text.get("setspawn.success"));
+        player.sendMessage(Main.getPrefix() + TextAPI.get("setspawn.success"));
     }
 
 

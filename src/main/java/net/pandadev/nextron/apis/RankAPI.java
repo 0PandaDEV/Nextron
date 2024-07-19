@@ -1,10 +1,10 @@
 package net.pandadev.nextron.apis;
 
-import ch.hekates.languify.language.Text;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import net.pandadev.nextron.Main;
 import net.pandadev.nextron.database.Config;
+import net.pandadev.nextron.languages.TextAPI;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
@@ -47,7 +47,7 @@ public class RankAPI {
     public static void setRank(CommandSender sender, Player player, String rank) {
         List<String> ranks = getRanks();
         if (!ranks.contains(rank.toLowerCase())) {
-            sender.sendMessage(Main.getPrefix() + Text.get("rank.dontexists"));
+            sender.sendMessage(Main.getPrefix() + TextAPI.get("rank.dontexists"));
             return;
         }
 
@@ -78,7 +78,7 @@ public class RankAPI {
             ps.executeUpdate();
 
             Main.getInstance().getTablistManager().setAllPlayerTeams();
-            sender.sendMessage(Main.getPrefix() + Text.get("rank.set.success").replace("%p", player.getName()).replace("%r", rank));
+            sender.sendMessage(Main.getPrefix() + TextAPI.get("rank.set.success").replace("%p", player.getName()).replace("%r", rank));
         } catch (SQLException e) {
             LOGGER.log(Level.SEVERE, "Error setting rank for player: " + player.getName(), e);
         }
@@ -123,7 +123,7 @@ public class RankAPI {
             Config.executeQuery(checkSql, (ResultSet rs) -> {
                 try {
                     if (rs.next() && rs.getInt(1) > 0) {
-                        player.sendMessage(Main.getPrefix() + Text.get("rank.exists"));
+                        player.sendMessage(Main.getPrefix() + TextAPI.get("rank.exists"));
                         return;
                     }
 
@@ -137,7 +137,7 @@ public class RankAPI {
                     }
 
                     Main.getInstance().getTablistManager().setAllPlayerTeams();
-                    player.sendMessage(Main.getPrefix() + Text.get("rank.create.success").replace("%r", rank));
+                    player.sendMessage(Main.getPrefix() + TextAPI.get("rank.create.success").replace("%r", rank));
                 } catch (SQLException e) {
                     LOGGER.log(Level.SEVERE, "Error creating rank: " + rank, e);
                 }
@@ -158,10 +158,10 @@ public class RankAPI {
             ps.setString(1, rank.toLowerCase());
             int affectedRows = ps.executeUpdate();
             if (affectedRows == 0) {
-                player.sendMessage(Main.getPrefix() + Text.get("rank.dontexists"));
+                player.sendMessage(Main.getPrefix() + TextAPI.get("rank.dontexists"));
                 return;
             }
-            player.sendMessage(Main.getPrefix() + Text.get("rank.delete.success").replace("%r", rank.toLowerCase()));
+            player.sendMessage(Main.getPrefix() + TextAPI.get("rank.delete.success").replace("%r", rank.toLowerCase()));
             for (Player onlineplayer : Bukkit.getOnlinePlayers()) {
                 checkRank(onlineplayer);
             }
@@ -179,11 +179,11 @@ public class RankAPI {
             ps.setString(2, rank.toLowerCase());
             int affectedRows = ps.executeUpdate();
             if (affectedRows == 0) {
-                player.sendMessage(Main.getPrefix() + Text.get("rank.dontexists"));
+                player.sendMessage(Main.getPrefix() + TextAPI.get("rank.dontexists"));
                 return;
             }
             Main.getInstance().getTablistManager().setAllPlayerTeams();
-            player.sendMessage(Main.getPrefix() + Text.get("rank.setprefix.success").replace("%r", rank.toLowerCase()).replace("%p", prefix.substring(1)));
+            player.sendMessage(Main.getPrefix() + TextAPI.get("rank.setprefix.success").replace("%r", rank.toLowerCase()).replace("%p", prefix.substring(1)));
         } catch (SQLException e) {
             LOGGER.log(Level.SEVERE, "Error setting prefix for rank: " + rank, e);
         }
@@ -197,10 +197,10 @@ public class RankAPI {
             ps.setString(2, oldRank.toLowerCase());
             int affectedRows = ps.executeUpdate();
             if (affectedRows == 0) {
-                player.sendMessage(Main.getPrefix() + Text.get("rank.dontexists"));
+                player.sendMessage(Main.getPrefix() + TextAPI.get("rank.dontexists"));
                 return;
             }
-            player.sendMessage(Main.getPrefix() + Text.get("rank.rename.success").replace("%r", oldRank.toLowerCase()).replace("%n", newRank.toLowerCase().substring(1)));
+            player.sendMessage(Main.getPrefix() + TextAPI.get("rank.rename.success").replace("%r", oldRank.toLowerCase()).replace("%n", newRank.toLowerCase().substring(1)));
             Main.getInstance().getTablistManager().setAllPlayerTeams();
         } catch (SQLException e) {
             LOGGER.log(Level.SEVERE, "Error renaming rank: " + oldRank + " to " + newRank, e);

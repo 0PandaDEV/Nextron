@@ -1,6 +1,5 @@
 package net.pandadev.nextron.commands;
 
-import ch.hekates.languify.language.Text;
 import dev.rollczi.litecommands.annotations.argument.Arg;
 import dev.rollczi.litecommands.annotations.command.Command;
 import dev.rollczi.litecommands.annotations.context.Context;
@@ -13,6 +12,7 @@ import net.md_5.bungee.api.chat.HoverEvent;
 import net.md_5.bungee.api.chat.TextComponent;
 import net.pandadev.nextron.Main;
 import net.pandadev.nextron.apis.SettingsAPI;
+import net.pandadev.nextron.languages.TextAPI;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 
@@ -27,21 +27,21 @@ public class TpaCommand extends HelpBase {
     @Execute
     public void tpaCommand(@Context Player player, @Arg Player target) {
         if (target.equals(player)) {
-            player.sendMessage(Main.getPrefix() + Text.get("tpa.error"));
+            player.sendMessage(Main.getPrefix() + TextAPI.get("tpa.error"));
             return;
         }
         if (SettingsAPI.allowsTPAs(target)) {
-            player.sendMessage(Main.getPrefix() + Text.get("tpa.allow"));
+            player.sendMessage(Main.getPrefix() + TextAPI.get("tpa.allow"));
             return;
         }
 
         Main.tpa.put(target, player);
 
-        target.sendMessage(Main.getPrefix() + Text.get("tpa.target.success.1").replace("%p", player.getName()));
+        target.sendMessage(Main.getPrefix() + TextAPI.get("tpa.target.success.1").replace("%p", player.getName()));
 
         ///////
 
-        TextComponent component = new TextComponent(Text.get("tpa.target.success.2"));
+        TextComponent component = new TextComponent(TextAPI.get("tpa.target.success.2"));
 
         TextComponent deny = new TextComponent("§cDeny");
         deny.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/sädfgsklädfgosergopsmfgb09sej405t2poigms0fb89sew4t23ä2mfg908us-" + target.getName()));
@@ -59,7 +59,7 @@ public class TpaCommand extends HelpBase {
 
         target.spigot().sendMessage(ChatMessageType.SYSTEM, component);
         target.playSound(target.getLocation(), Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 1.0f, 1.0f);
-        player.sendMessage(Main.getPrefix() + Text.get("tpa.sender.success").replace("%t", target.getName()));
+        player.sendMessage(Main.getPrefix() + TextAPI.get("tpa.sender.success").replace("%t", target.getName()));
     }
 
 

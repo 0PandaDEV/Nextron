@@ -1,12 +1,12 @@
 package net.pandadev.nextron.guis.features;
 
-import ch.hekates.languify.language.Text;
 import dev.triumphteam.gui.builder.item.ItemBuilder;
 import dev.triumphteam.gui.guis.Gui;
 import net.kyori.adventure.text.Component;
 import net.pandadev.nextron.Main;
 import net.pandadev.nextron.apis.RankAPI;
 import net.pandadev.nextron.guis.GUIs;
+import net.pandadev.nextron.languages.TextAPI;
 import net.pandadev.nextron.utils.Utils;
 import net.wesjd.anvilgui.AnvilGUI;
 import org.bukkit.ChatColor;
@@ -75,7 +75,7 @@ public class RankGUIs {
                                 if (Utils.countWords(text.getText()) > 1) {
                                     player.playSound(player.getLocation(), Sound.ENTITY_PILLAGER_AMBIENT, 100, 0.5f);
                                     return Collections.singletonList(AnvilGUI.ResponseAction
-                                            .replaceInputText(Text.get("anvil.gui.one.word")));
+                                            .replaceInputText(TextAPI.get("anvil.gui.one.word")));
                                 }
                                 RankAPI.rename(player, rank.toLowerCase(),
                                         ChatColor.translateAlternateColorCodes('&', " " + text.getText()));
@@ -148,9 +148,9 @@ public class RankGUIs {
                 .title(Component.text("Rank Creation"))
                 .create();
 
-        ItemStack create_off = new net.pandadev.nextron.utils.ItemBuilder(Material.GRAY_DYE).setName(Text.get("rank.gui.not.ready")).build();
+        ItemStack create_off = new net.pandadev.nextron.utils.ItemBuilder(Material.GRAY_DYE).setName(TextAPI.get("rank.gui.not.ready")).build();
 
-        ItemStack create_on = new net.pandadev.nextron.utils.ItemBuilder(Material.LIME_DYE).setName(Text.get("rank.gui.ready")).build();
+        ItemStack create_on = new net.pandadev.nextron.utils.ItemBuilder(Material.LIME_DYE).setName(TextAPI.get("rank.gui.ready")).build();
 
         ready = !name.equals("not set") && !prefix.equals("not set");
 
@@ -173,7 +173,7 @@ public class RankGUIs {
                                 if (Utils.countWords(text.getText()) > 1) {
                                     player.playSound(player.getLocation(), Sound.ENTITY_PILLAGER_AMBIENT, 100, 0.5f);
                                     return Collections.singletonList(
-                                            AnvilGUI.ResponseAction.replaceInputText(Text.get("anvil.gui.one.word")));
+                                            AnvilGUI.ResponseAction.replaceInputText(TextAPI.get("anvil.gui.one.word")));
                                 }
                                 manualRankCreation(player, text.getText().replace(" ", ""), prefix);
                                 return Collections.singletonList(AnvilGUI.ResponseAction.close());

@@ -1,6 +1,5 @@
 package net.pandadev.nextron.commands;
 
-import ch.hekates.languify.language.Text;
 import dev.rollczi.litecommands.annotations.argument.Arg;
 import dev.rollczi.litecommands.annotations.command.Command;
 import dev.rollczi.litecommands.annotations.context.Context;
@@ -8,6 +7,7 @@ import dev.rollczi.litecommands.annotations.execute.Execute;
 import dev.rollczi.litecommands.annotations.join.Join;
 import dev.rollczi.litecommands.annotations.permission.Permission;
 import net.pandadev.nextron.Main;
+import net.pandadev.nextron.languages.TextAPI;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
@@ -24,6 +24,6 @@ public class SudoCommand extends HelpBase {
         target.chat("/" + command);
 
         sender.sendMessage(Main.getPrefix()
-                + Text.get("sudo.success").replace("%t", target.getName()).replace("%b", command));
+                + TextAPI.get("sudo.success").replace("%t", target.getName()).replace("%b", command));
     }
 }

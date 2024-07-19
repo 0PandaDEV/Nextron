@@ -1,6 +1,5 @@
 package net.pandadev.nextron.commands;
 
-import ch.hekates.languify.language.Text;
 import dev.rollczi.litecommands.annotations.argument.Arg;
 import dev.rollczi.litecommands.annotations.command.RootCommand;
 import dev.rollczi.litecommands.annotations.context.Context;
@@ -8,6 +7,7 @@ import dev.rollczi.litecommands.annotations.execute.Execute;
 import dev.rollczi.litecommands.annotations.optional.OptionalArg;
 import dev.rollczi.litecommands.annotations.permission.Permission;
 import net.pandadev.nextron.Main;
+import net.pandadev.nextron.languages.TextAPI;
 import org.bukkit.GameMode;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -45,12 +45,12 @@ public class GamemodeCommand extends HelpBase {
 
             Player player = (Player) (sender);
             player.setGameMode(GameMode.CREATIVE);
-            player.sendMessage(Main.getPrefix() + Text.get("gamemode.success").replace("%g", GameMode.CREATIVE.toString().toLowerCase()));
+            player.sendMessage(Main.getPrefix() + TextAPI.get("gamemode.success").replace("%g", GameMode.CREATIVE.toString().toLowerCase()));
             return;
         }
 
         target.setGameMode(GameMode.CREATIVE);
-        sender.sendMessage(Main.getPrefix() + Text.get("gamemode.other.success").replace("%t", target.getName()).replace("%g", GameMode.CREATIVE.toString().toLowerCase()));
+        sender.sendMessage(Main.getPrefix() + TextAPI.get("gamemode.other.success").replace("%t", target.getName()).replace("%g", GameMode.CREATIVE.toString().toLowerCase()));
     }
 
     @Execute(name = "gms", aliases = {"survival", "gm0"})
@@ -64,12 +64,12 @@ public class GamemodeCommand extends HelpBase {
 
             Player player = (Player) (sender);
             player.setGameMode(GameMode.SURVIVAL);
-            player.sendMessage(Main.getPrefix() + Text.get("gamemode.success").replace("%g", GameMode.SURVIVAL.toString().toLowerCase()));
+            player.sendMessage(Main.getPrefix() + TextAPI.get("gamemode.success").replace("%g", GameMode.SURVIVAL.toString().toLowerCase()));
             return;
         }
 
         target.setGameMode(GameMode.SURVIVAL);
-        sender.sendMessage(Main.getPrefix() + Text.get("gamemode.other.success").replace("%t", target.getName()).replace("%g", GameMode.SURVIVAL.toString().toLowerCase()));
+        sender.sendMessage(Main.getPrefix() + TextAPI.get("gamemode.other.success").replace("%t", target.getName()).replace("%g", GameMode.SURVIVAL.toString().toLowerCase()));
     }
 
     @Execute(name = "gmsp", aliases = {"spectator", "gm3"})
@@ -83,12 +83,12 @@ public class GamemodeCommand extends HelpBase {
 
             Player player = (Player) (sender);
             player.setGameMode(GameMode.SPECTATOR);
-            player.sendMessage(Main.getPrefix() + Text.get("gamemode.success").replace("%g", GameMode.SPECTATOR.toString().toLowerCase()));
+            player.sendMessage(Main.getPrefix() + TextAPI.get("gamemode.success").replace("%g", GameMode.SPECTATOR.toString().toLowerCase()));
             return;
         }
 
         target.setGameMode(GameMode.SPECTATOR);
-        sender.sendMessage(Main.getPrefix() + Text.get("gamemode.other.success").replace("%t", target.getName()).replace("%g", GameMode.SPECTATOR.toString().toLowerCase()));
+        sender.sendMessage(Main.getPrefix() + TextAPI.get("gamemode.other.success").replace("%t", target.getName()).replace("%g", GameMode.SPECTATOR.toString().toLowerCase()));
     }
 
     @Execute(name = "gma", aliases = {"adventure", "gm2"})
@@ -103,12 +103,12 @@ public class GamemodeCommand extends HelpBase {
             Player player = (Player) (sender);
 
             player.setGameMode(GameMode.ADVENTURE);
-            player.sendMessage(Main.getPrefix() + Text.get("gamemode.success").replace("%g", GameMode.ADVENTURE.toString().toLowerCase()));
+            player.sendMessage(Main.getPrefix() + TextAPI.get("gamemode.success").replace("%g", GameMode.ADVENTURE.toString().toLowerCase()));
             return;
         }
 
         target.setGameMode(GameMode.ADVENTURE);
-        sender.sendMessage(Main.getPrefix() + Text.get("gamemode.other.success").replace("%t", target.getName()).replace("%g", GameMode.ADVENTURE.toString().toLowerCase()));
+        sender.sendMessage(Main.getPrefix() + TextAPI.get("gamemode.other.success").replace("%t", target.getName()).replace("%g", GameMode.ADVENTURE.toString().toLowerCase()));
     }
 
     @Execute(name = "gamemode", aliases = {"gm"})
@@ -123,7 +123,7 @@ public class GamemodeCommand extends HelpBase {
             Player player = (Player) (sender);
 
             setGamemode(player, gamemode);
-            player.sendMessage(Main.getPrefix() + Text.get("gamemode.success").replace("%g", gamemode.toString().toLowerCase()));
+            player.sendMessage(Main.getPrefix() + TextAPI.get("gamemode.success").replace("%g", gamemode.toString().toLowerCase()));
 
         } else {
             if (!sender.hasPermission("nextron.gamemode.other")) {
@@ -131,7 +131,7 @@ public class GamemodeCommand extends HelpBase {
                 return;
             }
             setGamemode(target, gamemode);
-            sender.sendMessage(Main.getPrefix() + Text.get("gamemode.other.success").replace("%t", target.getName()).replace("%g", gamemode.toString().toLowerCase()));
+            sender.sendMessage(Main.getPrefix() + TextAPI.get("gamemode.other.success").replace("%t", target.getName()).replace("%g", gamemode.toString().toLowerCase()));
         }
     }
 
