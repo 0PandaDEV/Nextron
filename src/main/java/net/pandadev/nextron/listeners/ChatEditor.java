@@ -30,7 +30,9 @@ public class ChatEditor implements Listener {
         } else {
             player.setDisplayName(SettingsAPI.getNick(player));
         }
-        event.setFormat(player.getDisplayName() + " §8» §f" + ChatColor.translateAlternateColorCodes('&', message));
+        if (FeatureAPI.getFeature("chat_formatting_system")) {
+            event.setFormat(player.getDisplayName() + " §8» §f" + ChatColor.translateAlternateColorCodes('&', message));
+        }
     }
 
 }

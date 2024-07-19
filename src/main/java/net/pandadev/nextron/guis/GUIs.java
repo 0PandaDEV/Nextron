@@ -227,6 +227,32 @@ public class GUIs {
                 .rows(5)
                 .create();
 
+        ///////////////////////// Chat Formatting System ////////////////////////////
+
+        ItemStack on_feature = new net.pandadev.nextron.utils.ItemBuilder(Material.STRING)
+                .setName("§a✔ §8• §7Chat formatting System")
+                .setLore("",
+                        Text.get("leftclick"))
+                .build();
+
+        ItemStack off_feature = new net.pandadev.nextron.utils.ItemBuilder(Material.STRING)
+                .setName("§c❌ §8• §7Chat formatting System")
+                .setLore("",
+                        Text.get("leftclick"))
+                .build();
+
+        gui.setItem(2, 3, ItemBuilder.from(FeatureAPI.getFeature("chat_formatting_system") ? on_feature : off_feature).asGuiItem(inventoryClickEvent -> {
+            FeatureAPI.setFeature("chat_formatting_system", !FeatureAPI.getFeature("chat_formatting_system"));
+
+            // rank system activate and deactivate
+            for (Player onlineplayer : Bukkit.getOnlinePlayers()) {
+                RankAPI.checkRank(onlineplayer);
+                Main.getInstance().getTablistManager().setAllPlayerTeams();
+            }
+            player.playSound(player.getLocation(), FeatureAPI.getFeature("chat_formatting_system") ? Sound.BLOCK_BEACON_ACTIVATE : Sound.BLOCK_BEACON_DEACTIVATE, 100, 1);
+            featureGui(player);
+        }));
+
         ///////////////////////// Rank System ////////////////////////////
 
         ItemStack on_rank = new net.pandadev.nextron.utils.ItemBuilder(Material.NAME_TAG)
@@ -314,7 +340,7 @@ public class GUIs {
                         Text.get("leftclick"))
                 .build();
 
-        gui.setItem(2, 4, ItemBuilder.from(FeatureAPI.getFeature("tpa_system") ? on_tpa : off_tpa).asGuiItem(inventoryClickEvent -> {
+        gui.setItem(2, 5, ItemBuilder.from(FeatureAPI.getFeature("tpa_system") ? on_tpa : off_tpa).asGuiItem(inventoryClickEvent -> {
             FeatureAPI.setFeature("tpa_system", !FeatureAPI.getFeature("tpa_system"));
             for (Player onlineplayer : Bukkit.getOnlinePlayers()) {
                 onlineplayer.addAttachment(Main.getInstance()).setPermission("nextron.tpa", FeatureAPI.getFeature("tpa_system"));
@@ -340,7 +366,7 @@ public class GUIs {
                         Text.get("leftclick"))
                 .build();
 
-        gui.setItem(2, 6, ItemBuilder.from(FeatureAPI.getFeature("join_leave_system") ? on_join_leave : off_join_leave).asGuiItem(inventoryClickEvent -> {
+        gui.setItem(2, 7, ItemBuilder.from(FeatureAPI.getFeature("join_leave_system") ? on_join_leave : off_join_leave).asGuiItem(inventoryClickEvent -> {
             FeatureAPI.setFeature("join_leave_system", !FeatureAPI.getFeature("join_leave_system"));
             player.playSound(player.getLocation(),
                     FeatureAPI.getFeature("join_leave_system")

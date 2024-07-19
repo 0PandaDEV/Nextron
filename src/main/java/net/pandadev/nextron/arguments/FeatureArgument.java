@@ -23,6 +23,7 @@ public class FeatureArgument extends ArgumentResolver<CommandSender, Feature> {
         list.add("rank_system");
         list.add("tpa_system");
         list.add("join_leave_system");
+        list.add("chat_formatting_system");
         return list;
     }
 
