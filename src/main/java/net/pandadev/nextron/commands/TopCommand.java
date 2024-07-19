@@ -10,7 +10,7 @@ import net.pandadev.nextron.languages.TextAPI;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 
-@Command(name = "top")
+@Command(name = "top", aliases = {"touchgrass"})
 @Permission("nextron.top")
 public class TopCommand extends HelpBase {
 
