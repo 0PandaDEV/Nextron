@@ -155,7 +155,7 @@ public class GUIs {
                         TextAPI.get("maingui.tpa.lore.3"))
                 .build();
 
-        if (SettingsAPI.allowsTPAs(player)) {
+        if (!SettingsAPI.allowsTPAs(player)) {
             gui.setItem(2, 5, ItemBuilder.from(tpa_active).asGuiItem(inventoryClickEvent -> {
                 if (inventoryClickEvent.getClick().isLeftClick()) {
                     SettingsAPI.setTPAs(player, false);
