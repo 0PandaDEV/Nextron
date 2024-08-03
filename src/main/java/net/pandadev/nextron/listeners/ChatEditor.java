@@ -21,17 +21,19 @@ public class ChatEditor implements Listener {
             if (RankAPI.getRanks().isEmpty()) {
                 String playerRankPrefix = Main.getInstance().getConfig().getString("playerRankPrefix");
                 player.setDisplayName(playerRankPrefix + ChatColor.WHITE + SettingsAPI.getNick(player));
-                event.setFormat(player.getDisplayName() + " §8» §f" + ChatColor.translateAlternateColorCodes('&', message));
-                return;
+            } else {
+                String rank = RankAPI.getRank(player);
+                String prefix = RankAPI.getRankPrefix(rank);
+                player.setDisplayName(prefix + ChatColor.WHITE + SettingsAPI.getNick(player));
             }
-            String rank = RankAPI.getRank(player);
-            String prefix = RankAPI.getRankPrefix(rank);
-            player.setDisplayName(prefix + ChatColor.WHITE + SettingsAPI.getNick(player));
         } else {
             player.setDisplayName(SettingsAPI.getNick(player));
         }
+
         if (FeatureAPI.getFeature("chat_formatting_system")) {
-            event.setFormat(player.getDisplayName() + " §8» §f" + ChatColor.translateAlternateColorCodes('&', message));
+            String formattedMessage = ChatColor.translateAlternateColorCodes('&', message);
+            event.setFormat("%1$s §8» §f%2$s");
+            event.setMessage(formattedMessage);
         }
     }
 
