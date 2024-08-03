@@ -12,10 +12,12 @@ import java.util.Objects;
 
 public class TablistManager {
 
+    // TODO: Packet ranks
+
     public void setAllPlayerTeams() {
         Bukkit.getOnlinePlayers().forEach(this::setPlayerTeams);
     }
-
+    
     public void setPlayerTeams(Player player) {
         Scoreboard scoreboard = Objects.requireNonNull(Bukkit.getScoreboardManager()).getMainScoreboard();
 

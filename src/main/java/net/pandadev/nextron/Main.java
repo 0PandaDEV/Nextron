@@ -14,6 +14,7 @@ import net.pandadev.nextron.languages.TextAPI;
 import net.pandadev.nextron.listeners.*;
 import net.pandadev.nextron.tablist.TablistManager;
 import net.pandadev.nextron.utils.Metrics;
+import net.pandadev.nextron.utils.Placeholders;
 import net.pandadev.nextron.utils.UpdateChecker;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
@@ -61,17 +62,26 @@ public final class Main extends JavaPlugin {
         instance = this;
         tablistManager = new TablistManager();
 
+        // database migration
         Migrations.checkAndApplyMigrations();
 
+        // register all the APIs for configs
         RankAPI.migration();
         HomeAPI.migration();
         WarpAPI.migration();
         FeatureAPI.migration();
         SettingsAPI.migration();
-        
+
+        // register placeholderAPI
+        if (Bukkit.getPluginManager().getPlugin("PlaceholderAPI") != null) {
+            new Placeholders(this).register();
+        }
+
+        // translation system init
         LanguageLoader.saveLanguages();
         LanguageLoader.setLanguage(getConfig().getString("language"));
-        
+
+        // command system init
         this.liteCommands = LiteBukkitFactory.builder("nextron", this)
                 .commands(new BackCommand(), new EnderchestCommand(), new FeatureCommand(), new FlyCommand(),
                         new GamemodeCommand(), new GetPosCommand(), new GodCommand(), new HatCommand(),
@@ -96,6 +106,7 @@ public final class Main extends JavaPlugin {
 
                 .build();
 
+        // check for updates from github
         Bukkit.getScheduler().runTaskAsynchronously(this, () -> {
             updateChecker = new UpdateChecker(this, "0pandadev/nextron");
             updateChecker.checkForUpdates();

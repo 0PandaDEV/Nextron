@@ -5,3 +5,4 @@ api-version: 1.13
 authors: [ PandaDEV ]
 description: '${project.description}'
 website: '${project.url}'
+softdepend: [ PlaceholderAPI ]
