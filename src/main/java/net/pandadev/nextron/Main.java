@@ -68,7 +68,10 @@ public final class Main extends JavaPlugin {
         WarpAPI.migration();
         FeatureAPI.migration();
         SettingsAPI.migration();
-
+        
+        LanguageLoader.saveLanguages();
+        LanguageLoader.setLanguage(getConfig().getString("language"));
+        
         this.liteCommands = LiteBukkitFactory.builder("nextron", this)
                 .commands(new BackCommand(), new EnderchestCommand(), new FeatureCommand(), new FlyCommand(),
                         new GamemodeCommand(), new GetPosCommand(), new GodCommand(), new HatCommand(),
@@ -92,9 +95,6 @@ public final class Main extends JavaPlugin {
                         invalidUsage -> getPrefix() + "§cUsage: " + invalidUsage.getSchematic().first())
 
                 .build();
-
-        LanguageLoader.saveLanguages();
-        LanguageLoader.setLanguage(getConfig().getString("language"));
 
         Bukkit.getScheduler().runTaskAsynchronously(this, () -> {
             updateChecker = new UpdateChecker(this, "0pandadev/nextron");
@@ -131,7 +131,9 @@ public final class Main extends JavaPlugin {
 
     @Override
     public void onDisable() {
-        this.liteCommands.unregister();
+        if (this.liteCommands != null) {
+            this.liteCommands.unregister();
+        }
 
         for (Team team : Objects.requireNonNull(Bukkit.getScoreboardManager()).getMainScoreboard().getTeams()) {
             team.unregister();
