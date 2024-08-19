@@ -91,7 +91,8 @@ public final class Main extends JavaPlugin {
                         new RenameCommand(), new RepairCommand(), new SpawnCommand(), new SpeedCommand(),
                         new SudoCommand(), new TimeCommand(), new TopCommand(), new TpacceptCommand(), new TpaCommand(),
                         new TpdenyCommand(), new TphereCommand(), new VanishCommand(), new WarpCommands(),
-                        new WorldCommand())
+                        new WorldCommand(),
+                        new TpahereCommand())
 
                 .argument(Feature.class, new FeatureArgument()).argument(GameMode.class, new GameModeArgument())
                 .argument(Help.class, new HelpArgument()).argument(Home.class, new HomeArgument())

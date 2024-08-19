@@ -1,8 +1,10 @@
 package net.pandadev.nextron.commands;
 
 import dev.rollczi.litecommands.annotations.argument.Arg;
+import dev.rollczi.litecommands.annotations.command.Command;
 import dev.rollczi.litecommands.annotations.context.Context;
 import dev.rollczi.litecommands.annotations.execute.Execute;
+import dev.rollczi.litecommands.annotations.permission.Permission;
 import net.md_5.bungee.api.ChatMessageType;
 import net.md_5.bungee.api.chat.ClickEvent;
 import net.md_5.bungee.api.chat.ComponentBuilder;
@@ -14,6 +16,8 @@ import net.pandadev.nextron.languages.TextAPI;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 
+@Command(name = "tpahere")
+@Permission("nextron.tpahere")
 public class TpahereCommand extends HelpBase {
 
     public TpahereCommand() {
