@@ -18,11 +18,11 @@ public class BackCommandListener implements Listener {
     @EventHandler
     public void onTeleport(PlayerTeleportEvent event) {
         Player player = event.getPlayer();
-        if (SettingsAPI.getBack(player)) {
-            SettingsAPI.setBack(player, false);
-            return;
+        if (event.getCause() != PlayerTeleportEvent.TeleportCause.EXIT_BED && event.getCause() != PlayerTeleportEvent.TeleportCause.DISMOUNT) {
+            if (!SettingsAPI.getBack(player)) {
+                SettingsAPI.setLastPosition(player, event.getFrom());
+            }
         }
-        SettingsAPI.setLastPosition(player, player.getLocation());
+        if (SettingsAPI.getBack(event.getPlayer())) SettingsAPI.setBack(event.getPlayer(), false);
     }
-
 }

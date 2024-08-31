@@ -78,7 +78,6 @@ public class SettingsAPI {
                                     Double.parseDouble(parts[3]),
                                     Float.parseFloat(parts[4]),
                                     Float.parseFloat(parts[5]));
-                            LOGGER.info("Last position for " + player.getName() + ": " + location[0]);
                         }
                     }
                 }

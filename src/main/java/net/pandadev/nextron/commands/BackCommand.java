@@ -8,6 +8,7 @@ import dev.rollczi.litecommands.annotations.permission.Permission;
 import net.pandadev.nextron.Main;
 import net.pandadev.nextron.apis.SettingsAPI;
 import net.pandadev.nextron.languages.TextAPI;
+import org.bukkit.Location;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
@@ -21,17 +22,23 @@ public class BackCommand extends HelpBase {
 
     @Execute
     void backCommand(@Context CommandSender sender, @OptionalArg Player target) {
-        Player player = (Player) (sender);
+        Player player = (Player) sender;
 
         if (target == null) {
-            SettingsAPI.setBack(player, true);
-            player.teleport(SettingsAPI.getLastPosition(player));
-            return;
+            teleportBack(player);
+        } else {
+            teleportBack(target);
+            player.sendMessage(Main.getPrefix() + TextAPI.get("back.other.success").replace("%p", target.getName()));
         }
-
-        SettingsAPI.setBack(target, true);
-        target.teleport(SettingsAPI.getLastPosition(target));
-        player.sendMessage(Main.getPrefix() + TextAPI.get("back.other.success").replace("%p", target.getName()));
     }
 
+    private void teleportBack(Player player) {
+        Location lastPosition = SettingsAPI.getLastPosition(player);
+        if (lastPosition != null) {
+            SettingsAPI.setBack(player, true);
+            player.teleport(lastPosition);
+        } else {
+            player.sendMessage(Main.getPrefix() + TextAPI.get("back.no_position"));
+        }
+    }
 }
