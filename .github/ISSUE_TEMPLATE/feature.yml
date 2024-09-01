@@ -1,0 +1,19 @@
+name: "\U0001F4A1 Feature request"
+description: Suggest an idea for Nextron
+labels: [Feature]
+assignees: 
+  - 0PandaDEV
+body:
+  #
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to fill out this feature request!
+  #
+  - type: textarea
+    id: description
+    attributes:
+      label: Describe your requested feature
+      description: Give as many details as possible about your feature idea.
+    validations:
+      required: true
