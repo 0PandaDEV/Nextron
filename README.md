@@ -8,6 +8,8 @@
 
 [Website >](https://nextron.pandadev.net?q=modrinth)
 
+<a href="https://buymeacoffee.com/pandadev_"><img src="https://img.shields.io/badge/Buy_Me_A_Coffee-FFDD00?style=for-the-badge&logo=buy-me-a-coffee&logoColor=black"/></a>
+
 <br>
 
 <img src="https://i.imgur.com/Dmsuye5.png" height="54px"/>
