@@ -127,7 +127,7 @@
         <dependency>
             <groupId>org.spigotmc</groupId>
             <artifactId>spigot-api</artifactId>
-            <version>1.21.1-R0.1-SNAPSHOT</version>
+            <version>1.21.3-R0.1-SNAPSHOT</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
@@ -139,7 +139,7 @@
         <dependency>
             <groupId>net.wesjd</groupId>
             <artifactId>anvilgui</artifactId>
-            <version>1.10.2-SNAPSHOT</version>
+            <version>1.10.3-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>dev.triumphteam</groupId>
@@ -155,7 +155,7 @@
         <dependency>
             <groupId>dev.rollczi</groupId>
             <artifactId>litecommands-bukkit</artifactId>
-            <version>3.5.0</version>
+            <version>3.9.1</version>
         </dependency>
         <dependency>
             <groupId>org.apache.logging.log4j</groupId>

@@ -1,0 +1,78 @@
+name: Nextron Release Build
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+          cache: maven
+
+      - name: Cache Maven packages
+        uses: actions/cache@v4
+        with:
+          path: ~/.m2
+          key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
+          restore-keys: ${{ runner.os }}-m2
+
+      - name: Get the version from pom.xml
+        id: get_version
+        run: echo "M2_VERSION=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)" >> $GITHUB_ENV
+
+      - name: Build with Maven
+        run: mvn -B clean package --file pom.xml
+
+      - name: Update dependency graph
+        uses: advanced-security/maven-dependency-submission-action@v4
+
+      - name: Generate changelog
+        id: changelog
+        run: |
+          PREVIOUS_TAG=$(git describe --tags --abbrev=0 HEAD^ 2>/dev/null || echo "")
+          if [ -z "$PREVIOUS_TAG" ]; then
+            CHANGELOG=$(git log --pretty=format:"* %s" ${{ github.ref_name }})
+          else
+            CHANGELOG=$(git log --pretty=format:"* %s" ${PREVIOUS_TAG}..${{ github.ref_name }})
+          fi
+          echo "CHANGELOG<<EOF" >> $GITHUB_ENV
+          echo "$CHANGELOG" >> $GITHUB_ENV
+          echo "EOF" >> $GITHUB_ENV
+          echo "PREVIOUS_TAG=$PREVIOUS_TAG" >> $GITHUB_ENV
+
+      - name: Create Release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ github.ref }}
+          release_name: Release ${{ github.ref }}
+          body: |
+            ### Changes
+            ${{ env.CHANGELOG }}
+            
+            ${{ env.PREVIOUS_TAG && format('[Full Changelog]({0}/compare/{1}...{2})', github.server_url, env.PREVIOUS_TAG, github.ref_name) || '' }}
+          draft: true
+          prerelease: false
+
+      - name: Upload Release Asset
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: server/plugins/Nextron-${{ env.M2_VERSION }}.jar
+          asset_name: Nextron-${{ env.M2_VERSION }}.jar
+          asset_content_type: application/java-archive
