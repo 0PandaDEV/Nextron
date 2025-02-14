@@ -24,10 +24,10 @@ public class HeadCommand extends HelpBase {
 
     @Execute
     public void headCommand(@Context Player player, @Arg Player target) {
-        ItemStack item = new ItemStack(Material.PLAYER_HEAD, 1, (short) 3);
+        ItemStack item = new ItemStack(Material.PLAYER_HEAD, 1);
         SkullMeta meta = (SkullMeta) item.getItemMeta();
         meta.setDisplayName(target.getName());
-        meta.setOwner(target.getName());
+        meta.setOwningPlayer(target);
         item.setItemMeta(meta);
         Inventory inventory = player.getInventory();
         inventory.addItem(item);

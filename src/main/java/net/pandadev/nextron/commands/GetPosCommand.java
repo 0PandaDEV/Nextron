@@ -7,9 +7,9 @@ import dev.rollczi.litecommands.annotations.execute.Execute;
 import dev.rollczi.litecommands.annotations.permission.Permission;
 import net.md_5.bungee.api.ChatMessageType;
 import net.md_5.bungee.api.chat.ClickEvent;
-import net.md_5.bungee.api.chat.ComponentBuilder;
 import net.md_5.bungee.api.chat.HoverEvent;
 import net.md_5.bungee.api.chat.TextComponent;
+import net.md_5.bungee.api.chat.hover.content.Text;
 import net.pandadev.nextron.Main;
 import net.pandadev.nextron.languages.TextAPI;
 import org.bukkit.command.CommandSender;
@@ -31,7 +31,7 @@ public class GetPosCommand extends HelpBase {
             if (player.isOp() && player.hasPermission("nextron.getposition.teleport")) {
                 TextComponent teleport = new TextComponent("§2[§aTeleport§2]");
                 teleport.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/tp " + player.getName() + " " + target.getName()));
-                teleport.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ComponentBuilder(TextAPI.get("getpos.hover") + "§a" + target.getName()).create()));
+                teleport.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new Text(TextAPI.get("getpos.hover") + "§a" + target.getName())));
 
                 player.sendMessage(Main.getPrefix() + TextAPI.get("getpos.success").replace("%p", target.getName()) + " X: §a" + Math.floor(target.getLocation().getX()) + "§7 Y: §a" + Math.floor(target.getLocation().getY()) + "§7 Z: §a" + Math.floor(target.getLocation().getZ()));
                 player.spigot().sendMessage(ChatMessageType.SYSTEM, teleport);

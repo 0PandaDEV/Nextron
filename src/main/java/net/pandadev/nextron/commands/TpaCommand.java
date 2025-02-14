@@ -7,9 +7,9 @@ import dev.rollczi.litecommands.annotations.execute.Execute;
 import dev.rollczi.litecommands.annotations.permission.Permission;
 import net.md_5.bungee.api.ChatMessageType;
 import net.md_5.bungee.api.chat.ClickEvent;
-import net.md_5.bungee.api.chat.ComponentBuilder;
 import net.md_5.bungee.api.chat.HoverEvent;
 import net.md_5.bungee.api.chat.TextComponent;
+import net.md_5.bungee.api.chat.hover.content.Text;
 import net.pandadev.nextron.Main;
 import net.pandadev.nextron.apis.SettingsAPI;
 import net.pandadev.nextron.languages.TextAPI;
@@ -45,11 +45,11 @@ public class TpaCommand extends HelpBase {
 
         TextComponent deny = new TextComponent("§cDeny");
         deny.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/sädfgsklädfgosergopsmfgb09sej405t2poigms0fb89sew4t23ä2mfg908us-" + target.getName()));
-        deny.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ComponentBuilder("§7Click to deny the tpa from §a" + player.getName()).create()));
+        deny.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new Text("§7Click to deny the tpa from §a" + player.getName())));
 
         TextComponent accept = new TextComponent("§aAccept");
         accept.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/sädfgsklädfgosergopsmfgb09sej405t2poigms0fb89sew4t23ä2mfg908u-" + target.getName()));
-        accept.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ComponentBuilder("§7Click to accept the tpa from §a" + player.getName()).create()));
+        accept.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new Text("§7Click to accept the tpa from §a" + player.getName())));
 
         component.addExtra(deny);
         component.addExtra("§8/");

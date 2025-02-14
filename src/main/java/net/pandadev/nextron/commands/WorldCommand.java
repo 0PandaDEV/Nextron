@@ -4,7 +4,6 @@ import dev.rollczi.litecommands.annotations.argument.Arg;
 import dev.rollczi.litecommands.annotations.command.RootCommand;
 import dev.rollczi.litecommands.annotations.context.Context;
 import dev.rollczi.litecommands.annotations.execute.Execute;
-import dev.rollczi.litecommands.annotations.optional.OptionalArg;
 import dev.rollczi.litecommands.annotations.permission.Permission;
 import net.pandadev.nextron.Main;
 import net.pandadev.nextron.arguments.objects.Seed;
@@ -25,13 +24,14 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @RootCommand
 @Permission("nextron.world.*")
 public class WorldCommand extends HelpBase {
 
     public WorldCommand() {
-        super("world, Allows you to manage your worlds on a server, /world tp <world>\n/world create <name>\n/world delete <world\n/world load <world>\n/world unload <world>");
+        super("world, Allows you to manage your worlds on a server, /world tp <world>\n/world create <name>\n/world delete <world>\n/world load <world>\n/world unload <world>");
     }
 
     @Execute(name = "world tp")
@@ -58,7 +58,7 @@ public class WorldCommand extends HelpBase {
 
     @Execute(name = "world create")
     @Permission("nextron.world.create")
-    public void createWorldCommand(@Context CommandSender sender, @Arg String name, @OptionalArg Seed seed) {
+    public void createWorldCommand(@Context CommandSender sender, @Arg String name, @Arg Optional<Seed> seed) {
         sender.sendMessage(Main.getPrefix() + TextAPI.get("world.create.start").replace("%w", name));
 
         Bukkit.getScheduler().runTask(Main.getInstance(), () -> {
@@ -67,20 +67,14 @@ public class WorldCommand extends HelpBase {
             wc.environment(World.Environment.NORMAL);
             wc.type(WorldType.NORMAL);
 
-            if (seed != null) {
-                wc.seed(seed.getSeed());
-            }
+            seed.ifPresent(value -> wc.seed(value.getSeed()));
 
             wc.createWorld();
             sender.sendMessage(Main.getPrefix() + TextAPI.get("world.create.finished").replace("%w", name));
         });
 
-
-        FileWriter writer = null;
-        try {
-            writer = new FileWriter("worlds.txt", true);
+        try (FileWriter writer = new FileWriter("worlds.txt", true)) {
             writer.write(name + "\n");
-            writer.close();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -110,8 +104,6 @@ public class WorldCommand extends HelpBase {
             }
         }
 
-        ///////////////
-
         sender.sendMessage(Main.getPrefix() + TextAPI.get("world.delete.start").replace("%w", worldName.getName()));
         if (deleteWorld(worldName.getName())) {
             sender.sendMessage(Main.getPrefix() + TextAPI.get("world.delete.finished").replace("%w", worldName.getName()));
@@ -138,11 +130,8 @@ public class WorldCommand extends HelpBase {
             sender.sendMessage(Main.getPrefix() + TextAPI.get("world.load.error").replace("%w", worldName));
         }
 
-        FileWriter writer = null;
-        try {
-            writer = new FileWriter("worlds.txt", true);
+        try (FileWriter writer = new FileWriter("worlds.txt", true)) {
             writer.write(worldName + "\n");
-            writer.close();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -159,7 +148,6 @@ public class WorldCommand extends HelpBase {
         if (world != null) {
             List<World> worlds = Bukkit.getWorlds();
             worlds.remove(world);
-            ;
             World newWorld = Bukkit.getWorld("world");
             if (newWorld == null && !worlds.isEmpty()) {
                 newWorld = worlds.get(new Random().nextInt(worlds.size()));
@@ -181,24 +169,22 @@ public class WorldCommand extends HelpBase {
         }
     }
 
-
     public boolean deleteWorld(String worldName) {
         World world = Bukkit.getWorld(worldName);
         if (world == null) {
-            // World doesn't exist
             return false;
         }
 
-        // Unload the world
         if (!Bukkit.unloadWorld(world, true)) {
-            // Failed to unload the world
             return false;
         }
 
-        // Delete the world folder
         Path worldFolder = Paths.get(Bukkit.getWorldContainer().getAbsolutePath(), worldName);
         try {
-            Files.walk(worldFolder).map(Path::toFile).sorted((o1, o2) -> -o1.compareTo(o2)).forEach(File::delete);
+            Files.walk(worldFolder)
+                    .map(Path::toFile)
+                    .sorted((o1, o2) -> -o1.compareTo(o2))
+                    .forEach(File::delete);
         } catch (IOException e) {
             e.printStackTrace();
             return false;
@@ -206,6 +192,4 @@ public class WorldCommand extends HelpBase {
 
         return true;
     }
-
-
 }

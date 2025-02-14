@@ -1,15 +1,17 @@
 package net.pandadev.nextron.commands;
 
+import dev.rollczi.litecommands.annotations.argument.Arg;
 import dev.rollczi.litecommands.annotations.command.Command;
 import dev.rollczi.litecommands.annotations.context.Context;
 import dev.rollczi.litecommands.annotations.execute.Execute;
-import dev.rollczi.litecommands.annotations.optional.OptionalArg;
 import dev.rollczi.litecommands.annotations.permission.Permission;
 import net.pandadev.nextron.Main;
 import net.pandadev.nextron.apis.SettingsAPI;
 import net.pandadev.nextron.languages.TextAPI;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+
+import java.util.Optional;
 
 @Command(name = "fly")
 @Permission("nextron.fly")
@@ -20,14 +22,12 @@ public class FlyCommand extends HelpBase {
     }
 
     @Execute
-    void flyCommand(@Context CommandSender sender, @OptionalArg Player target) {
-        if (target == null) {
-            if (!(sender instanceof Player)) {
+    void flyCommand(@Context CommandSender sender, @Arg Optional<Player> target) {
+        if (target.isEmpty()) {
+            if (!(sender instanceof Player player)) {
                 sender.sendMessage(Main.getCommandInstance());
                 return;
             }
-
-            Player player = (Player) (sender);
 
             if (player.getAllowFlight()) {
                 player.setAllowFlight(false);
@@ -40,20 +40,17 @@ public class FlyCommand extends HelpBase {
                     player.sendMessage(Main.getPrefix() + TextAPI.get("fly.on"));
                 }
             }
-
             player.setFallDistance(0.0f);
-
-            return;
-        }
-
-        if (target.getAllowFlight()) {
-            target.setAllowFlight(false);
-            sender.sendMessage(Main.getPrefix() + TextAPI.get("fly.other.off").replace("%t", target.getName()));
         } else {
-            target.setAllowFlight(true);
-            sender.sendMessage(Main.getPrefix() + TextAPI.get("fly.other.on").replace("%t", target.getName()));
+            Player targetPlayer = target.get();
+            if (targetPlayer.getAllowFlight()) {
+                targetPlayer.setAllowFlight(false);
+                sender.sendMessage(Main.getPrefix() + TextAPI.get("fly.other.off").replace("%t", targetPlayer.getName()));
+            } else {
+                targetPlayer.setAllowFlight(true);
+                sender.sendMessage(Main.getPrefix() + TextAPI.get("fly.other.on").replace("%t", targetPlayer.getName()));
+            }
+            targetPlayer.setFallDistance(0.0f);
         }
-
-        target.setFallDistance(0.0f);
     }
 }

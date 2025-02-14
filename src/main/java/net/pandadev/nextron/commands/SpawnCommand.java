@@ -3,13 +3,15 @@ package net.pandadev.nextron.commands;
 import dev.rollczi.litecommands.annotations.command.RootCommand;
 import dev.rollczi.litecommands.annotations.context.Context;
 import dev.rollczi.litecommands.annotations.execute.Execute;
-import dev.rollczi.litecommands.annotations.optional.OptionalArg;
+import dev.rollczi.litecommands.annotations.argument.Arg;
 import dev.rollczi.litecommands.annotations.permission.Permission;
 import net.pandadev.nextron.Main;
 import net.pandadev.nextron.languages.TextAPI;
 import org.bukkit.Location;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
+
+import java.util.Optional;
 
 @RootCommand
 public class SpawnCommand extends HelpBase {
@@ -21,8 +23,8 @@ public class SpawnCommand extends HelpBase {
 
     @Execute(name = "spawn", aliases = {"sp"})
     @Permission("nextron.spawn")
-    public void spawnCommand(@Context Player player, @OptionalArg Player target) {
-        if (target != null) {
+    public void spawnCommand(@Context Player player, @Arg Optional<Player> target) {
+        if (target.isPresent()) {
             if (!player.hasPermission("nextron.spawn.other")) {
                 player.sendMessage(Main.getNoPerm());
                 return;
@@ -33,20 +35,19 @@ public class SpawnCommand extends HelpBase {
                 return;
             }
 
-            target.teleport((Location) Main.getInstance().getConfig().get("spawn"));
+            target.get().teleport((Location) Main.getInstance().getConfig().get("spawn"));
             player.playSound(player.getLocation(), Sound.ENTITY_ENDERMAN_TELEPORT, 100, 1);
-            target.sendMessage(Main.getPrefix() + TextAPI.get("spawn.teleport"));
-            player.sendMessage(Main.getPrefix() + TextAPI.get("spawn.teleport.other").replace("%p", target.getName()));
-            return;
+            target.get().sendMessage(Main.getPrefix() + TextAPI.get("spawn.teleport"));
+            player.sendMessage(Main.getPrefix() + TextAPI.get("spawn.teleport.other").replace("%p", target.get().getName()));
+        } else {
+            if (Main.getInstance().getConfig().get("spawn") == null) {
+                player.sendMessage(Main.getPrefix() + TextAPI.get("setspawn.error"));
+                return;
+            }
+            player.teleport((Location) Main.getInstance().getConfig().get("spawn"));
+            player.playSound(player.getLocation(), Sound.ENTITY_ENDERMAN_TELEPORT, 100, 1);
+            player.sendMessage(Main.getPrefix() + TextAPI.get("spawn.teleport"));
         }
-
-        if (Main.getInstance().getConfig().get("spawn") == null) {
-            player.sendMessage(Main.getPrefix() + TextAPI.get("setspawn.error"));
-            return;
-        }
-        player.teleport((Location) Main.getInstance().getConfig().get("spawn"));
-        player.playSound(player.getLocation(), Sound.ENTITY_ENDERMAN_TELEPORT, 100, 1);
-        player.sendMessage(Main.getPrefix() + TextAPI.get("spawn.teleport"));
     }
 
     @Execute(name = "setspawn")
@@ -56,6 +57,4 @@ public class SpawnCommand extends HelpBase {
         Main.getInstance().saveConfig();
         player.sendMessage(Main.getPrefix() + TextAPI.get("setspawn.success"));
     }
-
-
 }

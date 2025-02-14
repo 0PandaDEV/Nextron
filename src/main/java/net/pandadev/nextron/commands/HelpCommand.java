@@ -1,15 +1,16 @@
 package net.pandadev.nextron.commands;
 
+import dev.rollczi.litecommands.annotations.argument.Arg;
 import dev.rollczi.litecommands.annotations.command.Command;
 import dev.rollczi.litecommands.annotations.context.Context;
 import dev.rollczi.litecommands.annotations.execute.Execute;
-import dev.rollczi.litecommands.annotations.optional.OptionalArg;
 import dev.rollczi.litecommands.annotations.permission.Permission;
 import net.pandadev.nextron.arguments.objects.Help;
 import org.bukkit.command.CommandSender;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Optional;
 
 @Command(name = "nextron", aliases = {"nhelp"})
 @Permission("nextron.help")
@@ -20,11 +21,11 @@ public class HelpCommand extends HelpBase {
     }
 
     @Execute
-    public void helpCommand(@Context CommandSender sender, @OptionalArg Help commandName) {
-        if (commandName == null) {
+    public void helpCommand(@Context CommandSender sender, @Arg Optional<Help> commandName) {
+        if (commandName.isEmpty()) {
             displayAllCommands(sender);
         } else {
-            displayCommandDetails(sender, commandName);
+            displayCommandDetails(sender, commandName.get());
         }
     }
 
@@ -60,6 +61,7 @@ public class HelpCommand extends HelpBase {
                 "§7Description: §a" + commandInfo.getDescription(),
                 usage,
                 "",
-                "§8§l-------------" + commandInfo.getCommand().replaceAll("[a-z]", "-") + "----------");
+                "§8§l-------------" + commandInfo.getCommand().replaceAll("[a-z]", "-") + "----------"
+        );
     }
 }
