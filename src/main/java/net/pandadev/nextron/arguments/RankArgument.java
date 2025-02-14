@@ -22,7 +22,7 @@ public class RankArgument extends ArgumentResolver<CommandSender, Rank> {
     protected ParseResult<Rank> parse(Invocation<CommandSender> invocation, Argument<Rank> argument, String s) {
         List<String> ranks = getAvailableRanks();
         if (ranks.isEmpty()) {
-            return ParseResult.failure();
+            return ParseResult.failure(Main.getPrefix() + TextAPI.get("rank.dontexists"));
         }
         if (ranks.contains(s.toLowerCase())) {
             return ParseResult.success(new Rank(s));

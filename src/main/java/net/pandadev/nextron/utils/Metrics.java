@@ -48,7 +48,7 @@ public class Metrics {
      *
      * @param plugin    Your plugin instance.
      * @param serviceId The id of the service. It can be found at <a
-     *                  href="https://bstats.org/what-is-my-plugin-id">What is my plugin id?</a>
+     *                  href="https://bStats.org/what-is-my-plugin-id">What is my plugin id?</a>
      */
     public Metrics(JavaPlugin plugin, int serviceId) {
         this.plugin = plugin;
@@ -62,15 +62,14 @@ public class Metrics {
             config.addDefault("logFailedRequests", false);
             config.addDefault("logSentData", false);
             config.addDefault("logResponseStatusText", false);
-            // Inform the server owners about bStats
-            config
-                    .options()
-                    .header(
-                            "bStats (https://bStats.org) collects some basic information for plugin authors, like how\n"
-                                    + "many people use their plugin and their total player count. It's recommended to keep bStats\n"
-                                    + "enabled, but if you're not comfortable with this, you can turn this setting off. There is no\n"
-                                    + "performance penalty associated with having metrics enabled, and data sent to bStats is fully\n"
-                                    + "anonymous.")
+            config.options()
+                    .setHeader(List.of(
+                            "bStats (https://bStats.org) collects some basic information for plugin authors, like how",
+                            "many people use their plugin and their total player count. It's recommended to keep bStats",
+                            "enabled, but if you're not comfortable with this, you can turn this setting off. There is no",
+                            "performance penalty associated with having metrics enabled, and data sent to bStats is fully",
+                            "anonymous."
+                    ))
                     .copyDefaults(true);
             try {
                 config.save(configFile);
@@ -407,7 +406,7 @@ public class Metrics {
         @Override
         protected JsonObjectBuilder.JsonObject getChartData() throws Exception {
             String value = callable.call();
-            if (value == null || value.isEmpty()) {
+            if (value.isEmpty()) {
                 // Null = skip the chart
                 return null;
             }
@@ -434,7 +433,7 @@ public class Metrics {
         protected JsonObjectBuilder.JsonObject getChartData() throws Exception {
             JsonObjectBuilder valuesBuilder = new JsonObjectBuilder();
             Map<String, Integer> map = callable.call();
-            if (map == null || map.isEmpty()) {
+            if (map.isEmpty()) {
                 // Null = skip the chart
                 return null;
             }

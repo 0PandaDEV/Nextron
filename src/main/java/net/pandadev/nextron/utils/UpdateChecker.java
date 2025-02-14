@@ -52,22 +52,19 @@ public class UpdateChecker {
             String responseBody = scanner.useDelimiter("\\A").next();
             scanner.close();
             // Find the first release that's not a draft
-            JsonParser parser = new JsonParser();
-            JsonArray releases = parser.parse(responseBody).getAsJsonArray();
+            JsonArray releases = JsonParser.parseString(responseBody).getAsJsonArray();
             for (JsonElement releaseElement : releases) {
                 JsonObject release = releaseElement.getAsJsonObject();
                 boolean isDraft = release.get("draft").getAsBoolean();
                 if (!isDraft) {
-                    String tagName = release.get("tag_name").getAsString();
-                    return tagName;
+                    return release.get("tag_name").getAsString();
                 }
             }
 
             // If no non-draft releases were found, return the latest tag
-            if (!releases.isJsonNull() && releases.size() > 0) {
+            if (!releases.isJsonNull() && !releases.isEmpty()) {
                 JsonObject latestRelease = releases.get(0).getAsJsonObject();
-                String latestTagName = latestRelease.get("tag_name").getAsString();
-                return latestTagName;
+                return latestRelease.get("tag_name").getAsString();
             }
 
             // If no releases were found at all, throw an exception
@@ -78,8 +75,8 @@ public class UpdateChecker {
     }
 
     public static boolean isVersionNewer(String remoteVersion, String currentVersion) {
-        int remote = Integer.parseInt(remoteVersion.replaceAll("[^\\d]+", ""));
-        int current = Integer.parseInt(currentVersion.replaceAll("[^\\d]+", ""));
+        int remote = Integer.parseInt(remoteVersion.replaceAll("\\D+", ""));
+        int current = Integer.parseInt(currentVersion.replaceAll("\\D+", ""));
 
         if (String.valueOf(current).length() == 4 && String.valueOf(remote).length() == 4) return remote > current;
 

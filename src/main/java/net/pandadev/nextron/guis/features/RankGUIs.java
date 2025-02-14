@@ -29,8 +29,7 @@ public class RankGUIs {
         for (String rank : RankAPI.getRanks()) {
             gui.addItem(ItemBuilder.from(Material.NAME_TAG)
                     .name(Component.text("§f" + rank))
-                    .setLore("",
-                            "§8Prefix: " + RankAPI.getRankPrefix(rank) + "§8<player>")
+                    .lore(Component.text(""), Component.text("§8Prefix: " + RankAPI.getRankPrefix(rank) + "§8<player>"))
                     .asGuiItem(inventoryClickEvent -> {
                         settings(player, rank);
                     }));
@@ -107,7 +106,7 @@ public class RankGUIs {
         gui.open(player);
     }
 
-    ////////////////////////////////////////////
+    /// /////////////////////////////////////////
 
     public static boolean ready;
 
@@ -118,18 +117,18 @@ public class RankGUIs {
                 .title(Component.text("Template"))
                 .create();
 
-        gui.setItem(3, 3, dev.triumphteam.gui.builder.item.ItemBuilder.from(Material.RED_DYE).setName("§cOwner")
+        gui.setItem(3, 3, dev.triumphteam.gui.builder.item.ItemBuilder.from(Material.RED_DYE).name(Component.text("§cOwner"))
                 .asGuiItem(event -> {
                     manualRankCreation(player, "001owner", "§4Owner §8• §f");
                 }));
 
         gui.setItem(3, 5, dev.triumphteam.gui.builder.item.ItemBuilder.from(Material.ORANGE_DYE)
-                .setName("§x§f§e§a§1§3§1Admin").asGuiItem(event -> {
+                .name(Component.text("§x§f§e§a§1§3§1Admin")).asGuiItem(event -> {
                     manualRankCreation(player, "002admin", "§x§f§e§a§1§3§1Admin §8• §f");
                 }));
 
         gui.setItem(3, 7, dev.triumphteam.gui.builder.item.ItemBuilder.from(Material.PURPLE_DYE)
-                .setName("§x§c§d§7§4§f§bDev").asGuiItem(event -> {
+                .name(Component.text("§x§c§d§7§4§f§bDev")).asGuiItem(event -> {
                     manualRankCreation(player, "003dev", "§x§c§d§7§4§f§bDev §8• §f");
                 }));
 

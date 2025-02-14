@@ -10,10 +10,7 @@ import org.jetbrains.annotations.NotNull;
 
 public class Placeholders extends PlaceholderExpansion {
 
-    private final Main plugin;
-
     public Placeholders(Main plugin) {
-        this.plugin = plugin;
     }
 
     @Override
@@ -38,22 +35,10 @@ public class Placeholders extends PlaceholderExpansion {
 
     @Override
     public String onPlaceholderRequest(Player player, @NotNull String params) {
-        if (player == null) {
-            return "";
-        }
-
-        if (params.equalsIgnoreCase("rank")) {
-            return RankAPI.getRank(player);
-        }
-
-        if (params.equalsIgnoreCase("homes_count")) {
-            return String.valueOf(HomeAPI.getHomes(player).size());
-        }
-
-        if (params.equalsIgnoreCase("warps_count")) {
-            return String.valueOf(WarpAPI.getWarps().size());
-        }
-
+        if (player == null) return "";
+        if (params.equalsIgnoreCase("rank")) return RankAPI.getRank(player);
+        if (params.equalsIgnoreCase("homes_count")) return String.valueOf(HomeAPI.getHomes(player).size());
+        if (params.equalsIgnoreCase("warps_count")) return String.valueOf(WarpAPI.getWarps().size());
         return null;
     }
 }

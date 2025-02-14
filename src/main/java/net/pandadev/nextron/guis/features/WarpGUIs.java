@@ -29,9 +29,7 @@ public class WarpGUIs {
         for (String warp : warps) {
             gui.addItem(ItemBuilder.from(Material.NETHER_STAR)
                     .name(Component.text("§f" + warp))
-                    .setLore("",
-                            TextAPI.get("warpgui.leftclick"),
-                            TextAPI.get("warpgui.rightclick"))
+                    .lore(Component.empty(), Component.text(TextAPI.get("warpgui.leftclick")), Component.text(TextAPI.get("warpgui.rightclick")))
                     .asGuiItem(inventoryClickEvent -> {
                         if (inventoryClickEvent.getClick().isRightClick()) {
                             Location location = WarpAPI.getWarp(warp);

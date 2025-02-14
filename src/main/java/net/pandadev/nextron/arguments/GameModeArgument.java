@@ -20,7 +20,7 @@ public class GameModeArgument extends ArgumentResolver<CommandSender, GameMode> 
     static {
         for (GameMode value : GameMode.values()) {
             GAME_MODE_ARGUMENTS.put(value.name().toLowerCase(), value);
-            GAME_MODE_ARGUMENTS.put(String.valueOf(value.getValue()), value);
+            GAME_MODE_ARGUMENTS.put(String.valueOf(value.ordinal()), value);
             GAME_MODE_ARGUMENTS.put(value.name().substring(0, 1).toLowerCase(), value);
         }
     }

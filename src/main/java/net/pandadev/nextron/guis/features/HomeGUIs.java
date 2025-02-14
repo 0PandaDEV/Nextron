@@ -27,11 +27,14 @@ public class HomeGUIs {
 
         List<String> homes = HomeAPI.getHomes(player);
         for (String home : homes) {
-            gui.addItem(ItemBuilder.skull().texture("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNjNkMDJjZGMwNzViYjFjYzVmNmZlM2M3NzExYWU0OTc3ZTM4YjkxMGQ1MGVkNjAyM2RmNzM5MTNlNWU3ZmNmZiJ9fX0=")
+            gui.addItem(ItemBuilder.skull()
+                    .texture("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNjNkMDJjZGMwNzViYjFjYzVmNmZlM2M3NzExYWU0OTc3ZTM4YjkxMGQ1MGVkNjAyM2RmNzM5MTNlNWU3ZmNmZiJ9fX0=")
                     .name(Component.text("§f" + home))
-                    .setLore("",
-                            TextAPI.get("homegui.leftclick"),
-                            TextAPI.get("homegui.rightclick"))
+                    .lore(List.of(
+                            Component.empty(),
+                            Component.text(TextAPI.get("homegui.leftclick")),
+                            Component.text(TextAPI.get("homegui.rightclick"))
+                    ))
                     .asGuiItem(inventoryClickEvent -> {
                         if (inventoryClickEvent.getClick().isRightClick()) {
                             Location location = HomeAPI.getHome(player, home);
