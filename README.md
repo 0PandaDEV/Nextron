@@ -1,3 +1,6 @@
+<img width="960" height="1358" alt="image" src="https://github.com/user-attachments/assets/30a10334-bfc7-450b-b3a5-31eac53a32a6" />
+
+
 <img src="https://i.imgur.com/yUhptaN.png" />
 
 [![Available on SpigotMC](https://raw.githubusercontent.com/vLuckyyy/badges/main/available-on-spigotmc.svg)](https://www.spigotmc.org/resources/nextron.106476/)
